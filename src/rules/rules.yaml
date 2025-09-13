@@ -1,0 +1,525 @@
+# QME Gold Standard Rules Configuration
+# Based on AI Example QME Report Template analysis
+# Priority levels: MUST (critical/legal), SHOULD (best practice), MAY (suggestions)
+
+version: "1.0"
+description: "Comprehensive QME report validation rules based on gold standard template"
+last_updated: "2025-09-13"
+
+rules:
+# HEADER AND IDENTIFICATION RULES
+- id: R080_require_header
+  priority: MUST
+  description: "Ensure header contains all required identification fields"
+  section: "header"
+  when:
+    - template.assembling: true
+  then:
+    - require_fields:
+        - claimant_name
+        - claim_number
+        - employer_name
+        - wcab_number
+        - applicant_dob
+        - dates_of_injury
+        - claim_file_number
+        - date_of_evaluation
+        - place_of_evaluation
+        - examiner_name
+        - examiner_license
+        - exam_date
+        - dictation_date
+    - validate_format:
+        - claimant_name: "^[A-Z][a-z]+(\\s+[A-Z][a-z]+)*$"
+        - claim_number: "^[A-Z0-9\\-]{5,20}$"
+        - wcab_number: "^[A-Z0-9\\-]{5,20}$"
+        - dates_of_injury: "^\\d{1,2}/\\d{1,2}/\\d{4}$"
+    - add_audit: "Header identification fields validated"
+
+# §4062.3 LEGAL DECLARATION RULES
+- id: R001_require_4062_3
+  priority: MUST
+  description: "Enforce exact §4062.3 declaration and page count attestation"
+  section: "legal_declarations"
+  when:
+    - template.assembling: true
+  then:
+    - require_exact_text: |
+        "Any documents sent to the physician for record review must be accompanied by a declaration under penalty of perjury that the provider of the documents has complied with the provisions of Labor Code section 4062.3 before providing the documents to the physician. The declaration must also contain an attestation as to the total page count of the documents provided."
+    - require_checkbox: "section_4062_3_declaration_received"
+    - require_checkbox: "section_9795_verification"
+    - validate_page_count_attestation: true
+    - add_audit: "§4062.3 declaration validated"
+
+# MLPRR BILLING AND PAGE COUNT RULES
+- id: R002_page_count_billable
+  priority: MUST
+  description: "Validate MLPRR billing calculations and page count attestation"
+  section: "billing"
+  when:
+    - template.assembling: true
+  then:
+    - require_table: "record_review_table"
+    - require_fields:
+        - record_sender_name
+        - record_sender_company
+        - declaration_page_count_attestation
+        - physician_record_receipt_date
+        - pages_reviewed_by_physician
+    - validate_calculation:
+        formula: "pages_reviewed - 200 = billable_units"
+        rate: "$3.00 per unit"
+    - require_checkbox: "mlprr_record_review"
+    - require_under_penalty_perjury: "total_pages_reviewed_verification"
+    - add_audit: "MLPRR billing calculations validated"
+
+# INTERPRETER REQUIREMENTS
+- id: R081_interpreter_checkbox
+  priority: MUST
+  description: "Ensure interpreter section and -93 modifier when interpreter needed"
+  section: "interpreter"
+  when:
+    - document.metadata.interpreter_needed: true
+  then:
+    - require_checkbox: "interpreter_circumstances_93_modifier"
+    - require_text: "An interpreter was needed because the injured worker spoke a language different from the language spoken by the evaluator"
+    - require_text: "The need for an interpreter increased the time necessary for the evaluation"
+    - require_field: "interpreter_name_and_number"
+    - add_audit: "Interpreter requirements validated"
+
+# NO RECORDS CONDITIONAL BLOCK
+- id: R082_no_records_block
+  priority: MUST
+  description: "Insert standard no-records declaration when no declaration received"
+  section: "records_review"
+  when:
+    - document.declaration_present: false
+  then:
+    - require_exact_text: |
+        "Medical records were not available to this physician. This may be because they were not sent or because they were sent but were not accompanied by a required declaration."
+    - require_exact_text: |
+        "Accordingly, if no declaration was received from a submitting party then the accompanying documents or records were not considered available and therefore were not reviewed."
+    - set_field: 
+        template_status: "records_missing"
+    - add_audit: "No-records declaration inserted"
+
+# ADL FUNCTIONAL CAPACITY GRID
+- id: R083_require_adl_grid
+  priority: MUST
+  description: "Ensure ADL grid with required functional categories and choices"
+  section: "activities_daily_living"
+  when:
+    - template.assembling: true
+  then:
+    - require_table: "ADL_grid"
+    - validate_table_structure:
+        columns: ["Without Difficulty", "With Some Difficulty", "With Moderate Difficulty", "Unable To Do"]
+        categories:
+          - "Personal Hygiene"
+          - "Communication"
+          - "Physical Activity"
+          - "Sensory Function"
+          - "Hand Function"
+          - "Travel"
+          - "Sexual Function"
+          - "Sleep Restfully"
+        subcategories:
+          personal_hygiene: ["Take a bath", "Brush your teeth", "Dress yourself", "Comb your hair", "Eat and drink", "Have a bowel movement", "Urinate"]
+          communication: ["Write comfortably", "Type on a computer", "See clearly", "Hear clearly", "Speak clearly"]
+          physical_activity: ["Stand", "Sit", "Walk", "Climb stairs"]
+          sensory_function: ["Feel what you touch", "Smell the food you eat", "Taste the food you eat"]
+          hand_function: ["Hold something without pain", "Open windows at home", "Lift a child"]
+          travel: ["Ride in a car for 30 minutes", "Fly in a plane"]
+    - add_audit: "ADL functional capacity grid validated"
+
+# ROM MEASUREMENT TABLES
+- id: R020_require_3rom_measures
+  priority: MUST
+  description: "Enforce ROM tables with 3 measurements plus average for each motion"
+  section: "physical_examination"
+  when:
+    - template.assembling: true
+  then:
+    - require_tables:
+        - "cervical_spine_flexion"
+        - "cervical_spine_extension"
+        - "cervical_right_lateral_bending"
+        - "cervical_left_lateral_bending"
+        - "cervical_rotation"
+        - "thoracic_spine_flexion"
+        - "thoracic_spine_extension"
+        - "thoracic_right_lateral_rotation"
+        - "thoracic_left_lateral_rotation"
+        - "lumbar_spine_flexion"
+        - "lumbar_spine_extension"
+        - "lumbar_right_lateral_bending"
+        - "lumbar_left_lateral_bending"
+    - validate_table_structure:
+        columns: ["1st Measure", "2nd Measure", "3rd Measure", "Average"]
+        numeric_validation: true
+        average_calculation: true
+    - require_text: "Spine range of motion values obtained after appropriate warm-up and with adequate motivational instruction"
+    - require_text: "Two inclinometers were utilized for measurements"
+    - add_audit: "ROM measurement tables validated"
+
+# STRENGTH AND SENSORY TESTING
+- id: R084_neurological_testing
+  priority: MUST
+  description: "Ensure comprehensive neurological testing tables"
+  section: "neurological_examination"
+  when:
+    - template.assembling: true
+  then:
+    - require_tables:
+        - "cervical_spine_sensory_motor"
+        - "cervical_spine_reflexes"
+        - "lumbar_spine_sensory_motor"
+        - "lumbar_spine_reflexes"
+    - validate_table_structure:
+        sensory_columns: ["RIGHT", "LEFT"]
+        motor_columns: ["RIGHT", "LEFT"]
+        motor_scale: "0-5"
+        reflex_scale: "0, 1+, 2+, 3+, 4+"
+    - require_bilateral_testing: true
+    - add_audit: "Neurological testing tables validated"
+
+# CIRCUMFERENTIAL MEASUREMENTS
+- id: R085_girth_measurements
+  priority: SHOULD
+  description: "Document circumferential measurements for comparison"
+  section: "physical_examination"
+  when:
+    - template.assembling: true
+  then:
+    - require_table: "circumferential_measurements"
+    - validate_measurements:
+        units: "centimeters"
+        bilateral: true
+        categories: ["Mid Upper arm", "Mid Forearm", "Thigh", "Calf"]
+    - add_audit: "Circumferential measurements documented"
+
+# DIAGNOSTIC IMPRESSION
+- id: R086_diagnostic_impression
+  priority: MUST
+  description: "Require diagnostic impression with ICD codes"
+  section: "diagnosis"
+  when:
+    - template.assembling: true
+  then:
+    - require_section: "diagnostic_impression"
+    - require_numbered_list: true
+    - validate_icd_codes:
+        format: "^[A-Z]\\d{2}(\\.\\d{1,3})?$"
+        version: "ICD-10-CM"
+    - add_audit: "Diagnostic impression validated"
+
+# CAUSATION ANALYSIS
+- id: R087_causation_analysis
+  priority: MUST
+  description: "Enforce causation analysis with medical probability statements"
+  section: "causation"
+  when:
+    - template.assembling: true
+  then:
+    - require_section: "opinion_on_causation"
+    - require_text: "reasonable medical probability"
+    - validate_causation_type:
+        specific_injury: "sustained a specific injury to [body part(s)] on [date]"
+        continuous_trauma: "sustained a continuous trauma to [body part(s)] which spans"
+    - require_conditional_blocks:
+        if_no_causation: |
+          "Since I am unable to find industrial causation for the applicant's claim of injury arising out of and occurring in the course of his / her employment"
+    - add_audit: "Causation analysis validated"
+
+# IMPAIRMENT RATING CALCULATION
+- id: R070_impairment_calc_check
+  priority: MUST
+  description: "Validate impairment rating calculations and AMA references"
+  section: "impairment_rating"
+  when:
+    - template.assembling: true
+  then:
+    - require_section: "whole_person_impairment"
+    - require_text: "American Medical Association Guides to the Evaluation of Permanent Impairment (5th Edition)"
+    - validate_ama_references:
+        format: "Chapter \\d+|Table \\d+-\\d+"
+        combined_values_chart: true
+    - validate_calculations:
+        percentage_range: [0, 100]
+        methodology_documented: true
+        step_by_step: true
+    - require_text: "accurate reflection of the permanent disability in accordance with Almaraz/Guzman"
+    - add_audit: "Impairment rating calculations validated"
+
+# APPORTIONMENT ANALYSIS
+- id: R088_apportionment_analysis
+  priority: MUST
+  description: "Enforce apportionment analysis per SB 899/LC 4663"
+  section: "apportionment"
+  when:
+    - template.assembling: true
+  then:
+    - require_section: "apportionment_according_to_sb899_lc4663"
+    - require_text: "Having taken effect on April 19, 2004, SB 899 mandated"
+    - require_legal_references: ["Labor Code 4663", "Labor Code 4664"]
+    - require_case_law_references: ["Escobedo", "Gatten", "Benson"]
+    - validate_percentage_allocation:
+        industrial_percentage: "required"
+        nonindustrial_percentage: "required"
+        total_must_equal: 100
+    - require_medical_evidence_substantiation: true
+    - add_audit: "Apportionment analysis validated"
+
+# WORK RESTRICTIONS
+- id: R089_work_restrictions
+  priority: MUST
+  description: "Document specific work restrictions and return-to-work status"
+  section: "work_restrictions"
+  when:
+    - template.assembling: true
+  then:
+    - require_section: "ability_to_return_to_work"
+    - validate_restriction_categories:
+        - "lifting_restrictions"
+        - "carrying_restrictions"
+        - "postural_restrictions"
+        - "environmental_restrictions"
+    - require_specific_limitations: true
+    - require_rtw_determination: true
+    - add_audit: "Work restrictions documented"
+
+# FUTURE MEDICAL CARE
+- id: R090_future_care
+  priority: MUST
+  description: "Document future medical care recommendations"
+  section: "future_care"
+  when:
+    - template.assembling: true
+  then:
+    - require_section: "future_medical_care"
+    - validate_care_categories:
+        - "home_exercise_program"
+        - "medical_reevaluation"
+        - "physical_therapy"
+        - "medications"
+        - "injections"
+        - "surgical_treatment"
+    - require_medical_necessity_justification: true
+    - add_audit: "Future medical care documented"
+
+# SIGNATURE AND ATTESTATION
+- id: R091_signature_block
+  priority: MUST
+  description: "Enforce signature block and examiner attestation"
+  section: "signature"
+  when:
+    - template.assembling: true
+  then:
+    - require_section: "signature_block"
+    - require_fields:
+        - examiner_name
+        - examiner_title
+        - examiner_license_number
+        - signature_date
+        - signature_location
+    - require_attestation_text: |
+        "Pursuant to AB 1300, LC Sec. 5703, I have not violated Labor Code section 139.3"
+    - require_penalty_of_perjury: true
+    - add_audit: "Signature block and attestation validated"
+
+# APPENDIX B DECLARATION
+- id: R092_appendix_declaration
+  priority: MUST
+  description: "Require Appendix B declaration with penalty of perjury"
+  section: "appendix"
+  when:
+    - template.assembling: true
+  then:
+    - require_section: "appendix_b_declaration"
+    - require_exact_text: |
+        "I declare under penalty of perjury that I did not discriminate in any way against the parties to the action or the injured worker in the evaluation process or in the content of this report"
+    - require_exact_text: |
+        "I declare under penalty of perjury that the information contained in this report and its attachments, if any, is true and correct to the best of my knowledge and belief"
+    - require_signature_and_date: true
+    - add_audit: "Appendix B declaration validated"
+
+# DOCX LAYOUT VALIDATION
+- id: R093_docx_layout_validation
+  priority: MUST
+  description: "Validate DOCX output contains all required placeholders and formatting"
+  section: "formatting"
+  when:
+    - template.generated: true
+  then:
+    - validate_docx_placeholders:
+        - "{CLAIMANT_NAME}"
+        - "{CLAIM_NUMBER}"
+        - "{EMPLOYER_NAME}"
+        - "{WCAB_NUMBER}"
+        - "{DATE_OF_INJURY}"
+        - "{EXAMINER_NAME}"
+        - "{EXAM_DATE}"
+        - "{ROM_TABLE_CERVICAL}"
+        - "{ROM_TABLE_THORACIC}"
+        - "{ROM_TABLE_LUMBAR}"
+        - "{ADL_GRID}"
+        - "{IMPAIRMENT_CALC_BOX}"
+        - "{SIGNATURE_BLOCK}"
+    - validate_formatting:
+        font_family: "Times New Roman"
+        font_size: 12
+        line_spacing: 1.5
+        margins: [1.0, 1.0, 1.0, 1.0]
+    - validate_table_formatting:
+        borders: true
+        alignment: "left"
+        header_bold: true
+    - add_audit: "DOCX layout and formatting validated"
+
+# PROVENANCE REQUIREMENTS
+- id: R040_attach_provenance
+  priority: MUST
+  description: "Attach provenance to all substantive medical statements"
+  section: "provenance"
+  when:
+    - template.assembling: true
+  then:
+    - require_provenance_for:
+        - causation_statements
+        - impairment_percentages
+        - apportionment_percentages
+        - diagnostic_conclusions
+        - work_restrictions
+        - future_care_recommendations
+    - validate_provenance_format:
+        required_fields: ["doc_id", "page_number", "offset", "snippet"]
+        snippet_min_length: 20
+        snippet_max_length: 200
+    - add_audit: "Provenance requirements validated"
+
+# MERGE AND DEDUPE WITH SOURCE PRESERVATION
+- id: R050_merge_duplicate_entities
+  priority: SHOULD
+  description: "Merge duplicate entities while preserving all source references"
+  section: "data_processing"
+  when:
+    - entities.duplicates_detected: true
+  then:
+    - execute_merge_logic: true
+    - preserve_source_references: true
+    - validate_merged_entities:
+        source_count_preserved: true
+        no_data_loss: true
+    - add_audit: "Entity deduplication completed with source preservation"
+
+# CREDIBILITY ASSESSMENT
+- id: R094_credibility_assessment
+  priority: SHOULD
+  description: "Document credibility assessment of applicant"
+  section: "credibility"
+  when:
+    - template.assembling: true
+  then:
+    - require_section: "discussion_of_credibility_of_applicant"
+    - require_credibility_determination: ["high", "moderate", "low"]
+    - require_justification: true
+    - document_inconsistencies: true
+    - add_audit: "Credibility assessment documented"
+
+# DISABILITY STATUS DETERMINATION
+- id: R095_disability_status
+  priority: MUST
+  description: "Document disability status and MMI determination"
+  section: "disability"
+  when:
+    - template.assembling: true
+  then:
+    - require_section: "disability_status"
+    - validate_mmi_status: ["MMI", "not_MMI", "deferred"]
+    - require_temporary_disability_opinion: true
+    - conditional_permanent_disability: 
+        if_mmi: "required"
+        if_not_mmi: "deferred"
+    - add_audit: "Disability status determination documented"
+
+# SPECIAL TESTS DOCUMENTATION
+- id: R096_special_tests
+  priority: SHOULD
+  description: "Document specialized orthopedic tests performed"
+  section: "special_tests"
+  when:
+    - template.assembling: true
+  then:
+    - document_special_tests:
+        cervical: ["Spurling's Test", "Wartenberg's Sign", "Hoffman's Sign"]
+        lumbar: ["Straight Leg Raise", "Seated Sciatic Tension"]
+        shoulder: ["Neer's Sign", "Hawkins Sign", "O'Brien's Test"]
+        knee: ["McMurray's Test", "Lachman Test", "Pivot Shift"]
+    - require_bilateral_testing: true
+    - document_test_results: ["positive", "negative"]
+    - add_audit: "Special orthopedic tests documented"
+
+# VITAL SIGNS AND GENERAL EXAMINATION
+- id: R097_vital_signs
+  priority: SHOULD
+  description: "Document vital signs and general examination findings"
+  section: "general_examination"
+  when:
+    - template.assembling: true
+  then:
+    - require_table: "vital_signs"
+    - validate_vital_signs:
+        temperature: "numeric"
+        heart_rate: "numeric"
+        respiratory_rate: "numeric"
+        blood_pressure: "systolic/diastolic"
+    - require_general_appearance: true
+    - add_audit: "Vital signs and general examination documented"
+
+# MEDICATION AND ALLERGY DOCUMENTATION
+- id: R098_medications_allergies
+  priority: SHOULD
+  description: "Document current medications and known allergies"
+  section: "medications"
+  when:
+    - template.assembling: true
+  then:
+    - require_section: "current_medications"
+    - require_section: "allergies"
+    - validate_medication_format: true
+    - document_last_medication_taken: true
+    - validate_allergy_documentation: ["NKDA", "specific_allergies"]
+    - add_audit: "Medications and allergies documented"
+
+# OCCUPATIONAL HISTORY REQUIREMENTS
+- id: R099_occupational_history
+  priority: MUST
+  description: "Document comprehensive occupational history (minimum 10 years)"
+  section: "occupational_history"
+  when:
+    - template.assembling: true
+  then:
+    - require_section: "occupational_history"
+    - validate_history_span: 
+        minimum_years: 10
+    - require_job_description: true
+    - document_physical_demands: true
+    - document_current_employment_status: true
+    - add_audit: "Occupational history documented (10+ years)"
+
+# FINAL VALIDATION GATE
+- id: R100_final_validation
+  priority: MUST
+  description: "Final comprehensive validation before report completion"
+  section: "final_validation"
+  when:
+    - template.ready_for_completion: true
+  then:
+    - execute_comprehensive_validation: true
+    - validate_all_required_sections: true
+    - validate_all_calculations: true
+    - validate_all_legal_requirements: true
+    - validate_provenance_completeness: true
+    - generate_validation_report: true
+    - determine_pass_fail_status: true
+    - add_audit: "Final comprehensive validation completed"

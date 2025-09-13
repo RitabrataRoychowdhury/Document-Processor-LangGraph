@@ -44,3 +44,54 @@ Traceback (most recent call last):
     pipeline = self.container.get_ingestion_pipeline()
                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 AttributeError: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
+2025-09-13 21:20:23,967 - src.workflow.state.document_state - ERROR - validate_state:68 - Invalid processing_stage: text_extraction_complete
+2025-09-13 21:20:23,967 - src.workflow.state.document_state - ERROR - validate_state:68 - Invalid processing_stage: text_extraction_complete
+2025-09-13 21:44:59,544 - src.workflow.workflow_manager - ERROR - execute_document_processing_graph:162 - Error executing document processing graph: Missing required keys: ['workflow_id', 'status', 'created_at', 'updated_at', 'progress_percentage', 'current_step'] [correlation_id: 68878a6a-0cc9-4031-a5ae-eef2cc38adf1]
+2025-09-13 21:49:37,252 - src.workflow.nodes.kg_population_node - ERROR - execute:138 - KG population failed: 'SQLiteKnowledgeGraphRepository' object has no attribute 'create_node' [correlation_id: 380acc78-6573-435c-a74f-3c0ce309a303]
+2025-09-13 21:49:38,256 - src.workflow.nodes.kg_population_node - ERROR - execute:138 - KG population failed: 'SQLiteKnowledgeGraphRepository' object has no attribute 'create_node' [correlation_id: 380acc78-6573-435c-a74f-3c0ce309a303]
+2025-09-13 21:49:40,260 - src.workflow.nodes.kg_population_node - ERROR - execute:138 - KG population failed: 'SQLiteKnowledgeGraphRepository' object has no attribute 'create_node' [correlation_id: 380acc78-6573-435c-a74f-3c0ce309a303]
+2025-09-13 21:49:40,260 - src.workflow.base.workflow_graph - ERROR - execute:224 - Graph 14d48662-9840-4596-880e-d20a82300cae failed: Node kg_population failed: KG population failed: 'SQLiteKnowledgeGraphRepository' object has no attribute 'create_node' [correlation_id: 380acc78-6573-435c-a74f-3c0ce309a303]
+2025-09-13 21:49:40,260 - src.workflow.base.workflow_graph - ERROR - on_graph_event:363 - Graph 14d48662-9840-4596-880e-d20a82300cae failed: Node kg_population failed: KG population failed: 'SQLiteKnowledgeGraphRepository' object has no attribute 'create_node' [correlation_id: 380acc78-6573-435c-a74f-3c0ce309a303]
+2025-09-13 21:49:40,261 - src.workflow.state.document_state - ERROR - validate_state:52 - Missing document_id in document state
+2025-09-13 21:49:40,262 - src.workflow.state.workflow_state - ERROR - fail_workflow:137 - Failed workflow 33e40b1d-f86d-4164-abd2-b836bb6a2490: Node kg_population failed: KG population failed: 'SQLiteKnowledgeGraphRepository' object has no attribute 'create_node'
+2025-09-13 21:49:40,262 - src.workflow.workflow_manager - ERROR - execute_document_processing_graph:163 - Document processing graph failed: Node kg_population failed: KG population failed: 'SQLiteKnowledgeGraphRepository' object has no attribute 'create_node' [correlation_id: 380acc78-6573-435c-a74f-3c0ce309a303]
+2025-09-13 21:50:03,092 - src.workflow.nodes.kg_population_node - ERROR - execute:138 - KG population failed: 'SQLiteKnowledgeGraphRepository' object has no attribute 'create_node' [correlation_id: 504b7f5b-fd1f-4313-bb12-226fc75b90eb]
+2025-09-13 21:50:04,097 - src.workflow.nodes.kg_population_node - ERROR - execute:138 - KG population failed: 'SQLiteKnowledgeGraphRepository' object has no attribute 'create_node' [correlation_id: 504b7f5b-fd1f-4313-bb12-226fc75b90eb]
+2025-09-13 21:50:06,103 - src.workflow.nodes.kg_population_node - ERROR - execute:138 - KG population failed: 'SQLiteKnowledgeGraphRepository' object has no attribute 'create_node' [correlation_id: 504b7f5b-fd1f-4313-bb12-226fc75b90eb]
+2025-09-13 21:50:06,104 - src.workflow.base.workflow_graph - ERROR - execute:224 - Graph fd1e47e7-1975-4c2a-893c-120db293ed33 failed: Node kg_population failed: KG population failed: 'SQLiteKnowledgeGraphRepository' object has no attribute 'create_node' [correlation_id: 504b7f5b-fd1f-4313-bb12-226fc75b90eb]
+2025-09-13 21:50:06,104 - src.workflow.base.workflow_graph - ERROR - on_graph_event:363 - Graph fd1e47e7-1975-4c2a-893c-120db293ed33 failed: Node kg_population failed: KG population failed: 'SQLiteKnowledgeGraphRepository' object has no attribute 'create_node' [correlation_id: 504b7f5b-fd1f-4313-bb12-226fc75b90eb]
+2025-09-13 21:50:06,106 - src.workflow.state.document_state - ERROR - validate_state:52 - Missing document_id in document state
+2025-09-13 21:50:06,107 - src.workflow.state.workflow_state - ERROR - fail_workflow:137 - Failed workflow 7c5dfe33-715d-4bdb-b479-adf36ad9501f: Node kg_population failed: KG population failed: 'SQLiteKnowledgeGraphRepository' object has no attribute 'create_node'
+2025-09-13 21:50:06,107 - src.workflow.workflow_manager - ERROR - execute_document_processing_graph:163 - Document processing graph failed: Node kg_population failed: KG population failed: 'SQLiteKnowledgeGraphRepository' object has no attribute 'create_node' [correlation_id: 504b7f5b-fd1f-4313-bb12-226fc75b90eb]
+2025-09-13 21:51:15,018 - src.workflow.state.document_state - ERROR - validate_state:68 - Invalid processing_stage: text_extraction_complete
+2025-09-13 21:51:15,018 - src.workflow.state.document_state - ERROR - validate_state:68 - Invalid processing_stage: text_extraction_complete
+2025-09-13 21:53:21,868 - src.startup - ERROR - _initialize_knowledge_base:154 - Knowledge base initialization failed: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
+Traceback (most recent call last):
+  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/startup.py", line 135, in _initialize_knowledge_base
+    pipeline = self.container.get_ingestion_pipeline()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
+2025-09-13 22:41:41,544 - __main__ - ERROR - main:389 - Demo error: Finding.__init__() missing 1 required positional argument: 'page_reference'
+2025-09-13 22:42:44,894 - __main__ - ERROR - main:394 - Demo error: ImpairmentRating.__init__() got an unexpected keyword argument 'ama_table_reference'
+2025-09-13 22:47:53,598 - src.startup - ERROR - _initialize_knowledge_base:154 - Knowledge base initialization failed: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
+Traceback (most recent call last):
+  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/startup.py", line 135, in _initialize_knowledge_base
+    pipeline = self.container.get_ingestion_pipeline()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
+2025-09-13 23:11:00,934 - src.services.advanced_qme_rules_engine - ERROR - _load_rules:577 - Error loading rules file src/rules/rules.yaml: while parsing a block mapping
+  in "src/rules/rules.yaml", line 5, column 1
+expected <block end>, but found '-'
+  in "src/rules/rules.yaml", line 10, column 1
+2025-09-13 23:11:00,935 - src.services.advanced_qme_rules_engine - ERROR - _load_rules:577 - Error loading rules file src/rules/rules.yaml: while parsing a block mapping
+  in "src/rules/rules.yaml", line 5, column 1
+expected <block end>, but found '-'
+  in "src/rules/rules.yaml", line 10, column 1
+2025-09-13 23:12:56,497 - src.services.advanced_qme_rules_engine - ERROR - _execute_single_action:255 - Error executing action {'validate_format': [{'claimant_name': '^[A-Z][a-z]+(\\s+[A-Z][a-z]+)*$'}, {'claim_number': '^[A-Z0-9\\-]{5,20}$'}, {'wcab_number': '^[A-Z0-9\\-]{5,20}$'}, {'dates_of_injury': '^\\d{1,2}/\\d{1,2}/\\d{4}$'}]}: 'list' object has no attribute 'items'
+2025-09-13 23:12:56,498 - src.services.advanced_qme_rules_engine - ERROR - _execute_single_action:255 - Error executing action {'validate_format': [{'claimant_name': '^[A-Z][a-z]+(\\s+[A-Z][a-z]+)*$'}, {'claim_number': '^[A-Z0-9\\-]{5,20}$'}, {'wcab_number': '^[A-Z0-9\\-]{5,20}$'}, {'dates_of_injury': '^\\d{1,2}/\\d{1,2}/\\d{4}$'}]}: 'list' object has no attribute 'items'
+2025-09-13 23:23:07,224 - src.startup - ERROR - _initialize_knowledge_base:154 - Knowledge base initialization failed: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
+Traceback (most recent call last):
+  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/startup.py", line 135, in _initialize_knowledge_base
+    pipeline = self.container.get_ingestion_pipeline()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'

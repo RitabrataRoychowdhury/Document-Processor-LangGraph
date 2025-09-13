@@ -17,6 +17,7 @@ from src.startup import SystemStartup
 from src.ui.upload_interface import UploadInterface
 from src.ui.qa_interface import render_qa_page
 from src.ui.document_manager import render_document_management_page
+from src.ui.qme_template_interface import render_qme_template_page
 from src.utils.logging_config import get_logger
 from src.utils.error_handling import DocumentQAError, format_error_for_ui
 from src.config.app_config import app_config
@@ -174,7 +175,7 @@ def main():
             if st.button("Run Migration"):
                 st.session_state.switch_to_migration = True
         
-        page_options = ["Upload Documents", "Document Management", "Q&A Interface", "Upload History", "System Status", "Performance Monitor", "Knowledge Base Setup", "About"]
+        page_options = ["Upload Documents", "Document Management", "Q&A Interface", "QME Template Generator", "Upload History", "System Status", "Performance Monitor", "Knowledge Base Setup", "About"]
         
         # Add migration page if needed
         if st.session_state.get('migration_needed') or st.session_state.get('show_migration'):
@@ -192,6 +193,9 @@ def main():
     elif st.session_state.get('switch_to_migration', False):
         st.session_state.switch_to_migration = False
         page = "Data Migration"
+    elif st.session_state.get('switch_to_qme_template', False):
+        st.session_state.switch_to_qme_template = False
+        page = "QME Template Generator"
     
     # Main content area with error handling
     try:
@@ -216,6 +220,8 @@ def main():
                 render_qa_page_with_document(document_id)
             else:
                 render_qa_page()
+        elif page == "QME Template Generator":
+            render_qme_template_page()
         elif page == "Upload History":
             if upload_interface:
                 render_history_page(upload_interface)

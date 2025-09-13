@@ -332,3 +332,984 @@ AttributeError: 'DependencyContainer' object has no attribute 'get_ingestion_pip
 2025-09-13 19:49:13,184 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
 2025-09-13 19:49:13,184 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
 2025-09-13 19:49:13,184 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 21:09:02,068 - src.factories.processor_factory - WARNING - _register_default_processors:332 - PyPDF2 not available - PDF processing disabled
+2025-09-13 21:09:02,068 - src.factories.processor_factory - WARNING - _register_default_processors:337 - python-docx not available - DOCX processing disabled
+2025-09-13 21:09:02,068 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:09:02,069 - src.factories.processor_factory - WARNING - _register_default_processors:332 - PyPDF2 not available - PDF processing disabled
+2025-09-13 21:09:02,069 - src.factories.processor_factory - WARNING - _register_default_processors:337 - python-docx not available - DOCX processing disabled
+2025-09-13 21:09:02,069 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:09:02,069 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.txt']
+2025-09-13 21:20:23,966 - src.workflow.state.workflow_state - INFO - initialize_state:51 - Initialized workflow state b81c6811-1fc5-4328-8bc1-e441e091b95b [correlation_id: 5774ca56-a95b-4e6f-8b95-70906ebcb1b6]
+2025-09-13 21:20:23,967 - src.workflow.state.document_state - INFO - initialize_state:42 - Initialized document processing state for /test/path.pdf
+2025-09-13 21:20:23,967 - src.workflow.state.document_state - ERROR - validate_state:68 - Invalid processing_stage: text_extraction_complete
+2025-09-13 21:20:23,967 - src.workflow.base.state_manager - WARNING - update_state:130 - State validation failed after update for b81c6811-1fc5-4328-8bc1-e441e091b95b
+2025-09-13 21:20:23,967 - src.workflow.state.document_state - ERROR - validate_state:68 - Invalid processing_stage: text_extraction_complete
+2025-09-13 21:20:23,967 - src.workflow.base.state_manager - WARNING - update_state:130 - State validation failed after update for b81c6811-1fc5-4328-8bc1-e441e091b95b
+2025-09-13 21:20:23,967 - src.workflow.state.document_state - INFO - complete_text_extraction:122 - Completed text extraction for document test_doc_123 (22 characters)
+2025-09-13 21:21:05,892 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:21:05,892 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:21:05,892 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:21:05,981 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 21:21:05,981 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 21:21:06,009 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:21:06,009 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:21:06,009 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:21:06,009 - src.strategies.embedding_strategy - INFO - __init__:81 - Initialized LocalEmbeddingStrategy with model: all-MiniLM-L6-v2
+2025-09-13 21:21:06,009 - src.strategies.embedding_strategy - WARNING - __init__:82 - LocalEmbeddingStrategy is using mock implementation. Install sentence-transformers for real embeddings.
+2025-09-13 21:21:19,831 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 21:21:19,832 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 21:21:19,874 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:21:19,874 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:21:19,874 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:36:25,879 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 21:36:25,879 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 21:36:25,956 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:36:25,956 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:36:25,956 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:42:26,782 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 21:42:26,782 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 21:42:26,823 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:42:26,823 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:42:26,823 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:42:26,886 - src.strategies.embedding_strategy - INFO - __init__:81 - Initialized LocalEmbeddingStrategy with model: all-MiniLM-L6-v2
+2025-09-13 21:42:26,886 - src.strategies.embedding_strategy - WARNING - __init__:82 - LocalEmbeddingStrategy is using mock implementation. Install sentence-transformers for real embeddings.
+2025-09-13 21:42:26,887 - src.strategies.embedding_strategy - INFO - __init__:81 - Initialized LocalEmbeddingStrategy with model: all-MiniLM-L6-v2
+2025-09-13 21:42:26,887 - src.strategies.embedding_strategy - WARNING - __init__:82 - LocalEmbeddingStrategy is using mock implementation. Install sentence-transformers for real embeddings.
+2025-09-13 21:43:38,074 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 21:43:38,075 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 21:43:38,147 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:43:38,147 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:43:38,147 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:43:38,226 - src.strategies.embedding_strategy - INFO - __init__:81 - Initialized LocalEmbeddingStrategy with model: all-MiniLM-L6-v2
+2025-09-13 21:43:38,226 - src.strategies.embedding_strategy - WARNING - __init__:82 - LocalEmbeddingStrategy is using mock implementation. Install sentence-transformers for real embeddings.
+2025-09-13 21:43:38,226 - src.strategies.embedding_strategy - INFO - __init__:81 - Initialized LocalEmbeddingStrategy with model: all-MiniLM-L6-v2
+2025-09-13 21:43:38,226 - src.strategies.embedding_strategy - WARNING - __init__:82 - LocalEmbeddingStrategy is using mock implementation. Install sentence-transformers for real embeddings.
+2025-09-13 21:43:38,227 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 21:43:38,227 - src.workflow.workflow_manager - INFO - __init__:881 - Initialized WorkflowManager with backward compatibility wrapper
+2025-09-13 21:44:59,388 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 21:44:59,389 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 21:44:59,462 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:44:59,462 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:44:59,462 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:44:59,542 - src.strategies.embedding_strategy - INFO - __init__:81 - Initialized LocalEmbeddingStrategy with model: all-MiniLM-L6-v2
+2025-09-13 21:44:59,542 - src.strategies.embedding_strategy - WARNING - __init__:82 - LocalEmbeddingStrategy is using mock implementation. Install sentence-transformers for real embeddings.
+2025-09-13 21:44:59,542 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 21:44:59,543 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:44:59,543 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:44:59,543 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:44:59,543 - src.strategies.embedding_strategy - INFO - __init__:81 - Initialized LocalEmbeddingStrategy with model: all-MiniLM-L6-v2
+2025-09-13 21:44:59,544 - src.strategies.embedding_strategy - WARNING - __init__:82 - LocalEmbeddingStrategy is using mock implementation. Install sentence-transformers for real embeddings.
+2025-09-13 21:44:59,544 - src.workflow.workflow_manager - ERROR - execute_document_processing_graph:162 - Error executing document processing graph: Missing required keys: ['workflow_id', 'status', 'created_at', 'updated_at', 'progress_percentage', 'current_step'] [correlation_id: 68878a6a-0cc9-4031-a5ae-eef2cc38adf1]
+2025-09-13 21:49:37,102 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 21:49:37,103 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 21:49:37,172 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:49:37,172 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:49:37,172 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:49:37,249 - src.strategies.embedding_strategy - INFO - __init__:81 - Initialized LocalEmbeddingStrategy with model: all-MiniLM-L6-v2
+2025-09-13 21:49:37,249 - src.strategies.embedding_strategy - WARNING - __init__:82 - LocalEmbeddingStrategy is using mock implementation. Install sentence-transformers for real embeddings.
+2025-09-13 21:49:37,249 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 21:49:37,249 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:49:37,249 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:49:37,249 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:49:37,250 - src.strategies.embedding_strategy - INFO - __init__:81 - Initialized LocalEmbeddingStrategy with model: all-MiniLM-L6-v2
+2025-09-13 21:49:37,250 - src.strategies.embedding_strategy - WARNING - __init__:82 - LocalEmbeddingStrategy is using mock implementation. Install sentence-transformers for real embeddings.
+2025-09-13 21:49:37,250 - src.workflow.state.workflow_state - INFO - initialize_state:51 - Initialized workflow state 33e40b1d-f86d-4164-abd2-b836bb6a2490 [correlation_id: 380acc78-6573-435c-a74f-3c0ce309a303]
+2025-09-13 21:49:37,250 - src.workflow.state.document_state - INFO - initialize_state:42 - Initialized document processing state for /var/folders/tf/v4z6mt_s343b3c611hlfc_jh0000gn/T/tmpyhdyzpep.txt
+2025-09-13 21:49:37,250 - src.workflow.workflow_manager - INFO - execute_document_processing_graph:147 - Starting document processing graph execution for /var/folders/tf/v4z6mt_s343b3c611hlfc_jh0000gn/T/tmpyhdyzpep.txt [correlation_id: 380acc78-6573-435c-a74f-3c0ce309a303]
+2025-09-13 21:49:37,250 - src.workflow.base.workflow_graph - INFO - execute:193 - Starting graph execution: 14d48662-9840-4596-880e-d20a82300cae [correlation_id: 380acc78-6573-435c-a74f-3c0ce309a303]
+2025-09-13 21:49:37,250 - src.workflow.graphs.document_processing_graph - INFO - build_graph:57 - Building document processing graph 14d48662-9840-4596-880e-d20a82300cae
+2025-09-13 21:49:37,250 - src.workflow.graphs.document_processing_graph - INFO - build_graph:118 - Document processing graph built with 4 nodes
+2025-09-13 21:49:37,250 - src.workflow.graphs.document_processing_graph - INFO - validate_graph:175 - Document processing graph validation successful
+2025-09-13 21:49:37,250 - src.workflow.base.workflow_graph - INFO - on_graph_event:358 - Graph 14d48662-9840-4596-880e-d20a82300cae started [correlation_id: 380acc78-6573-435c-a74f-3c0ce309a303]
+2025-09-13 21:49:37,250 - src.workflow.base.workflow_node - INFO - execute_with_retry:164 - Starting node execution: extraction (EnhancedExtractionNode) [correlation_id: 380acc78-6573-435c-a74f-3c0ce309a303]
+2025-09-13 21:49:37,250 - src.workflow.nodes.extraction_node - INFO - execute:33 - Starting text extraction for /var/folders/tf/v4z6mt_s343b3c611hlfc_jh0000gn/T/tmpyhdyzpep.txt [correlation_id: 380acc78-6573-435c-a74f-3c0ce309a303]
+2025-09-13 21:49:37,250 - src.workflow.nodes.extraction_node - INFO - execute:81 - Successfully extracted 68 characters from /var/folders/tf/v4z6mt_s343b3c611hlfc_jh0000gn/T/tmpyhdyzpep.txt [correlation_id: 380acc78-6573-435c-a74f-3c0ce309a303]
+2025-09-13 21:49:37,250 - src.workflow.base.workflow_node - INFO - execute_with_retry:198 - Node extraction completed successfully in 0.00s [correlation_id: 380acc78-6573-435c-a74f-3c0ce309a303]
+2025-09-13 21:49:37,250 - src.workflow.base.workflow_node - INFO - execute_with_retry:164 - Starting node execution: ner (NERNode) [correlation_id: 380acc78-6573-435c-a74f-3c0ce309a303]
+2025-09-13 21:49:37,250 - src.workflow.nodes.ner_node - INFO - execute:75 - Starting NER on 68 characters [correlation_id: 380acc78-6573-435c-a74f-3c0ce309a303]
+2025-09-13 21:49:37,252 - src.workflow.nodes.ner_node - INFO - execute:117 - NER completed: extracted 2 entities [correlation_id: 380acc78-6573-435c-a74f-3c0ce309a303]
+2025-09-13 21:49:37,252 - src.workflow.base.workflow_node - INFO - execute_with_retry:198 - Node ner completed successfully in 0.00s [correlation_id: 380acc78-6573-435c-a74f-3c0ce309a303]
+2025-09-13 21:49:37,252 - src.workflow.base.workflow_node - INFO - execute_with_retry:164 - Starting node execution: embedding (CachedEmbeddingNode) [correlation_id: 380acc78-6573-435c-a74f-3c0ce309a303]
+2025-09-13 21:49:37,252 - src.workflow.nodes.embedding_node - INFO - execute:37 - Starting embedding generation for 68 characters [correlation_id: 380acc78-6573-435c-a74f-3c0ce309a303]
+2025-09-13 21:49:37,252 - src.workflow.nodes.embedding_node - INFO - execute:99 - Embedding generation completed: 1 chunk embeddings, 2 entity embeddings [correlation_id: 380acc78-6573-435c-a74f-3c0ce309a303]
+2025-09-13 21:49:37,252 - src.workflow.base.workflow_node - INFO - execute_with_retry:198 - Node embedding completed successfully in 0.00s [correlation_id: 380acc78-6573-435c-a74f-3c0ce309a303]
+2025-09-13 21:49:37,252 - src.workflow.base.workflow_node - INFO - execute_with_retry:164 - Starting node execution: kg_population (KGPopulationNode) [correlation_id: 380acc78-6573-435c-a74f-3c0ce309a303]
+2025-09-13 21:49:37,252 - src.workflow.nodes.kg_population_node - INFO - execute:36 - Starting KG population for document None with 2 entities [correlation_id: 380acc78-6573-435c-a74f-3c0ce309a303]
+2025-09-13 21:49:37,252 - src.workflow.nodes.kg_population_node - ERROR - execute:138 - KG population failed: 'SQLiteKnowledgeGraphRepository' object has no attribute 'create_node' [correlation_id: 380acc78-6573-435c-a74f-3c0ce309a303]
+2025-09-13 21:49:37,253 - src.workflow.base.workflow_node - WARNING - execute_with_retry:203 - Node kg_population failed: KG population failed: 'SQLiteKnowledgeGraphRepository' object has no attribute 'create_node' [correlation_id: 380acc78-6573-435c-a74f-3c0ce309a303]
+2025-09-13 21:49:37,253 - src.workflow.base.workflow_node - INFO - execute_with_retry:230 - Retrying node kg_population in 1.0s [correlation_id: 380acc78-6573-435c-a74f-3c0ce309a303]
+2025-09-13 21:49:38,256 - src.workflow.nodes.kg_population_node - INFO - execute:36 - Starting KG population for document None with 2 entities [correlation_id: 380acc78-6573-435c-a74f-3c0ce309a303]
+2025-09-13 21:49:38,256 - src.workflow.nodes.kg_population_node - ERROR - execute:138 - KG population failed: 'SQLiteKnowledgeGraphRepository' object has no attribute 'create_node' [correlation_id: 380acc78-6573-435c-a74f-3c0ce309a303]
+2025-09-13 21:49:38,256 - src.workflow.base.workflow_node - WARNING - execute_with_retry:203 - Node kg_population failed: KG population failed: 'SQLiteKnowledgeGraphRepository' object has no attribute 'create_node' [correlation_id: 380acc78-6573-435c-a74f-3c0ce309a303]
+2025-09-13 21:49:38,256 - src.workflow.base.workflow_node - INFO - execute_with_retry:230 - Retrying node kg_population in 2.0s [correlation_id: 380acc78-6573-435c-a74f-3c0ce309a303]
+2025-09-13 21:49:40,260 - src.workflow.nodes.kg_population_node - INFO - execute:36 - Starting KG population for document None with 2 entities [correlation_id: 380acc78-6573-435c-a74f-3c0ce309a303]
+2025-09-13 21:49:40,260 - src.workflow.nodes.kg_population_node - ERROR - execute:138 - KG population failed: 'SQLiteKnowledgeGraphRepository' object has no attribute 'create_node' [correlation_id: 380acc78-6573-435c-a74f-3c0ce309a303]
+2025-09-13 21:49:40,260 - src.workflow.base.workflow_node - WARNING - execute_with_retry:203 - Node kg_population failed: KG population failed: 'SQLiteKnowledgeGraphRepository' object has no attribute 'create_node' [correlation_id: 380acc78-6573-435c-a74f-3c0ce309a303]
+2025-09-13 21:49:40,260 - src.workflow.base.workflow_graph - ERROR - execute:224 - Graph 14d48662-9840-4596-880e-d20a82300cae failed: Node kg_population failed: KG population failed: 'SQLiteKnowledgeGraphRepository' object has no attribute 'create_node' [correlation_id: 380acc78-6573-435c-a74f-3c0ce309a303]
+2025-09-13 21:49:40,260 - src.workflow.base.workflow_graph - ERROR - on_graph_event:363 - Graph 14d48662-9840-4596-880e-d20a82300cae failed: Node kg_population failed: KG population failed: 'SQLiteKnowledgeGraphRepository' object has no attribute 'create_node' [correlation_id: 380acc78-6573-435c-a74f-3c0ce309a303]
+2025-09-13 21:49:40,261 - src.workflow.state.document_state - ERROR - validate_state:52 - Missing document_id in document state
+2025-09-13 21:49:40,261 - src.workflow.base.state_manager - WARNING - update_state:130 - State validation failed after update for 33e40b1d-f86d-4164-abd2-b836bb6a2490
+2025-09-13 21:49:40,262 - src.workflow.state.workflow_state - ERROR - fail_workflow:137 - Failed workflow 33e40b1d-f86d-4164-abd2-b836bb6a2490: Node kg_population failed: KG population failed: 'SQLiteKnowledgeGraphRepository' object has no attribute 'create_node'
+2025-09-13 21:49:40,262 - src.workflow.workflow_manager - ERROR - execute_document_processing_graph:163 - Document processing graph failed: Node kg_population failed: KG population failed: 'SQLiteKnowledgeGraphRepository' object has no attribute 'create_node' [correlation_id: 380acc78-6573-435c-a74f-3c0ce309a303]
+2025-09-13 21:50:02,951 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 21:50:02,951 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 21:50:03,012 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:50:03,012 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:50:03,012 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:50:03,088 - src.strategies.embedding_strategy - INFO - __init__:81 - Initialized LocalEmbeddingStrategy with model: all-MiniLM-L6-v2
+2025-09-13 21:50:03,088 - src.strategies.embedding_strategy - WARNING - __init__:82 - LocalEmbeddingStrategy is using mock implementation. Install sentence-transformers for real embeddings.
+2025-09-13 21:50:03,088 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 21:50:03,089 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:50:03,089 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:50:03,089 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:50:03,089 - src.strategies.embedding_strategy - INFO - __init__:81 - Initialized LocalEmbeddingStrategy with model: all-MiniLM-L6-v2
+2025-09-13 21:50:03,089 - src.strategies.embedding_strategy - WARNING - __init__:82 - LocalEmbeddingStrategy is using mock implementation. Install sentence-transformers for real embeddings.
+2025-09-13 21:50:03,089 - src.workflow.state.workflow_state - INFO - initialize_state:51 - Initialized workflow state 7c5dfe33-715d-4bdb-b479-adf36ad9501f [correlation_id: 504b7f5b-fd1f-4313-bb12-226fc75b90eb]
+2025-09-13 21:50:03,089 - src.workflow.state.document_state - INFO - initialize_state:42 - Initialized document processing state for /var/folders/tf/v4z6mt_s343b3c611hlfc_jh0000gn/T/tmp2gm5hu5t.txt
+2025-09-13 21:50:03,089 - src.workflow.workflow_manager - INFO - execute_document_processing_graph:147 - Starting document processing graph execution for /var/folders/tf/v4z6mt_s343b3c611hlfc_jh0000gn/T/tmp2gm5hu5t.txt [correlation_id: 504b7f5b-fd1f-4313-bb12-226fc75b90eb]
+2025-09-13 21:50:03,089 - src.workflow.base.workflow_graph - INFO - execute:193 - Starting graph execution: fd1e47e7-1975-4c2a-893c-120db293ed33 [correlation_id: 504b7f5b-fd1f-4313-bb12-226fc75b90eb]
+2025-09-13 21:50:03,089 - src.workflow.graphs.document_processing_graph - INFO - build_graph:57 - Building document processing graph fd1e47e7-1975-4c2a-893c-120db293ed33
+2025-09-13 21:50:03,089 - src.workflow.graphs.document_processing_graph - INFO - build_graph:118 - Document processing graph built with 4 nodes
+2025-09-13 21:50:03,089 - src.workflow.graphs.document_processing_graph - INFO - validate_graph:175 - Document processing graph validation successful
+2025-09-13 21:50:03,089 - src.workflow.base.workflow_graph - INFO - on_graph_event:358 - Graph fd1e47e7-1975-4c2a-893c-120db293ed33 started [correlation_id: 504b7f5b-fd1f-4313-bb12-226fc75b90eb]
+2025-09-13 21:50:03,089 - src.workflow.base.workflow_node - INFO - execute_with_retry:164 - Starting node execution: extraction (EnhancedExtractionNode) [correlation_id: 504b7f5b-fd1f-4313-bb12-226fc75b90eb]
+2025-09-13 21:50:03,089 - src.workflow.nodes.extraction_node - INFO - execute:33 - Starting text extraction for /var/folders/tf/v4z6mt_s343b3c611hlfc_jh0000gn/T/tmp2gm5hu5t.txt [correlation_id: 504b7f5b-fd1f-4313-bb12-226fc75b90eb]
+2025-09-13 21:50:03,090 - src.workflow.nodes.extraction_node - INFO - execute:81 - Successfully extracted 68 characters from /var/folders/tf/v4z6mt_s343b3c611hlfc_jh0000gn/T/tmp2gm5hu5t.txt [correlation_id: 504b7f5b-fd1f-4313-bb12-226fc75b90eb]
+2025-09-13 21:50:03,090 - src.workflow.base.workflow_node - INFO - execute_with_retry:198 - Node extraction completed successfully in 0.00s [correlation_id: 504b7f5b-fd1f-4313-bb12-226fc75b90eb]
+2025-09-13 21:50:03,090 - src.workflow.base.workflow_node - INFO - execute_with_retry:164 - Starting node execution: ner (NERNode) [correlation_id: 504b7f5b-fd1f-4313-bb12-226fc75b90eb]
+2025-09-13 21:50:03,090 - src.workflow.nodes.ner_node - INFO - execute:75 - Starting NER on 68 characters [correlation_id: 504b7f5b-fd1f-4313-bb12-226fc75b90eb]
+2025-09-13 21:50:03,091 - src.workflow.nodes.ner_node - INFO - execute:117 - NER completed: extracted 2 entities [correlation_id: 504b7f5b-fd1f-4313-bb12-226fc75b90eb]
+2025-09-13 21:50:03,091 - src.workflow.base.workflow_node - INFO - execute_with_retry:198 - Node ner completed successfully in 0.00s [correlation_id: 504b7f5b-fd1f-4313-bb12-226fc75b90eb]
+2025-09-13 21:50:03,091 - src.workflow.base.workflow_node - INFO - execute_with_retry:164 - Starting node execution: embedding (CachedEmbeddingNode) [correlation_id: 504b7f5b-fd1f-4313-bb12-226fc75b90eb]
+2025-09-13 21:50:03,091 - src.workflow.nodes.embedding_node - INFO - execute:37 - Starting embedding generation for 68 characters [correlation_id: 504b7f5b-fd1f-4313-bb12-226fc75b90eb]
+2025-09-13 21:50:03,092 - src.workflow.nodes.embedding_node - INFO - execute:99 - Embedding generation completed: 1 chunk embeddings, 2 entity embeddings [correlation_id: 504b7f5b-fd1f-4313-bb12-226fc75b90eb]
+2025-09-13 21:50:03,092 - src.workflow.base.workflow_node - INFO - execute_with_retry:198 - Node embedding completed successfully in 0.00s [correlation_id: 504b7f5b-fd1f-4313-bb12-226fc75b90eb]
+2025-09-13 21:50:03,092 - src.workflow.base.workflow_node - INFO - execute_with_retry:164 - Starting node execution: kg_population (KGPopulationNode) [correlation_id: 504b7f5b-fd1f-4313-bb12-226fc75b90eb]
+2025-09-13 21:50:03,092 - src.workflow.nodes.kg_population_node - INFO - execute:36 - Starting KG population for document None with 2 entities [correlation_id: 504b7f5b-fd1f-4313-bb12-226fc75b90eb]
+2025-09-13 21:50:03,092 - src.workflow.nodes.kg_population_node - ERROR - execute:138 - KG population failed: 'SQLiteKnowledgeGraphRepository' object has no attribute 'create_node' [correlation_id: 504b7f5b-fd1f-4313-bb12-226fc75b90eb]
+2025-09-13 21:50:03,092 - src.workflow.base.workflow_node - WARNING - execute_with_retry:203 - Node kg_population failed: KG population failed: 'SQLiteKnowledgeGraphRepository' object has no attribute 'create_node' [correlation_id: 504b7f5b-fd1f-4313-bb12-226fc75b90eb]
+2025-09-13 21:50:03,092 - src.workflow.base.workflow_node - INFO - execute_with_retry:230 - Retrying node kg_population in 1.0s [correlation_id: 504b7f5b-fd1f-4313-bb12-226fc75b90eb]
+2025-09-13 21:50:04,097 - src.workflow.nodes.kg_population_node - INFO - execute:36 - Starting KG population for document None with 2 entities [correlation_id: 504b7f5b-fd1f-4313-bb12-226fc75b90eb]
+2025-09-13 21:50:04,097 - src.workflow.nodes.kg_population_node - ERROR - execute:138 - KG population failed: 'SQLiteKnowledgeGraphRepository' object has no attribute 'create_node' [correlation_id: 504b7f5b-fd1f-4313-bb12-226fc75b90eb]
+2025-09-13 21:50:04,097 - src.workflow.base.workflow_node - WARNING - execute_with_retry:203 - Node kg_population failed: KG population failed: 'SQLiteKnowledgeGraphRepository' object has no attribute 'create_node' [correlation_id: 504b7f5b-fd1f-4313-bb12-226fc75b90eb]
+2025-09-13 21:50:04,097 - src.workflow.base.workflow_node - INFO - execute_with_retry:230 - Retrying node kg_population in 2.0s [correlation_id: 504b7f5b-fd1f-4313-bb12-226fc75b90eb]
+2025-09-13 21:50:06,103 - src.workflow.nodes.kg_population_node - INFO - execute:36 - Starting KG population for document None with 2 entities [correlation_id: 504b7f5b-fd1f-4313-bb12-226fc75b90eb]
+2025-09-13 21:50:06,103 - src.workflow.nodes.kg_population_node - ERROR - execute:138 - KG population failed: 'SQLiteKnowledgeGraphRepository' object has no attribute 'create_node' [correlation_id: 504b7f5b-fd1f-4313-bb12-226fc75b90eb]
+2025-09-13 21:50:06,104 - src.workflow.base.workflow_node - WARNING - execute_with_retry:203 - Node kg_population failed: KG population failed: 'SQLiteKnowledgeGraphRepository' object has no attribute 'create_node' [correlation_id: 504b7f5b-fd1f-4313-bb12-226fc75b90eb]
+2025-09-13 21:50:06,104 - src.workflow.base.workflow_graph - ERROR - execute:224 - Graph fd1e47e7-1975-4c2a-893c-120db293ed33 failed: Node kg_population failed: KG population failed: 'SQLiteKnowledgeGraphRepository' object has no attribute 'create_node' [correlation_id: 504b7f5b-fd1f-4313-bb12-226fc75b90eb]
+2025-09-13 21:50:06,104 - src.workflow.base.workflow_graph - ERROR - on_graph_event:363 - Graph fd1e47e7-1975-4c2a-893c-120db293ed33 failed: Node kg_population failed: KG population failed: 'SQLiteKnowledgeGraphRepository' object has no attribute 'create_node' [correlation_id: 504b7f5b-fd1f-4313-bb12-226fc75b90eb]
+2025-09-13 21:50:06,106 - src.workflow.state.document_state - ERROR - validate_state:52 - Missing document_id in document state
+2025-09-13 21:50:06,106 - src.workflow.base.state_manager - WARNING - update_state:130 - State validation failed after update for 7c5dfe33-715d-4bdb-b479-adf36ad9501f
+2025-09-13 21:50:06,107 - src.workflow.state.workflow_state - ERROR - fail_workflow:137 - Failed workflow 7c5dfe33-715d-4bdb-b479-adf36ad9501f: Node kg_population failed: KG population failed: 'SQLiteKnowledgeGraphRepository' object has no attribute 'create_node'
+2025-09-13 21:50:06,107 - src.workflow.workflow_manager - ERROR - execute_document_processing_graph:163 - Document processing graph failed: Node kg_population failed: KG population failed: 'SQLiteKnowledgeGraphRepository' object has no attribute 'create_node' [correlation_id: 504b7f5b-fd1f-4313-bb12-226fc75b90eb]
+2025-09-13 21:50:38,018 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 21:50:38,018 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 21:50:38,060 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:50:38,060 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:50:38,060 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:50:38,113 - src.strategies.embedding_strategy - INFO - __init__:81 - Initialized LocalEmbeddingStrategy with model: all-MiniLM-L6-v2
+2025-09-13 21:50:38,113 - src.strategies.embedding_strategy - WARNING - __init__:82 - LocalEmbeddingStrategy is using mock implementation. Install sentence-transformers for real embeddings.
+2025-09-13 21:50:38,113 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 21:51:15,017 - src.workflow.state.workflow_state - INFO - initialize_state:51 - Initialized workflow state 57586abe-edd2-4f34-80ab-37995c68bbb6 [correlation_id: 84e03cc9-6ec4-4a01-afc6-5158bfae1998]
+2025-09-13 21:51:15,017 - src.workflow.state.document_state - INFO - initialize_state:42 - Initialized document processing state for /test/path.pdf
+2025-09-13 21:51:15,018 - src.workflow.state.document_state - ERROR - validate_state:68 - Invalid processing_stage: text_extraction_complete
+2025-09-13 21:51:15,018 - src.workflow.base.state_manager - WARNING - update_state:130 - State validation failed after update for 57586abe-edd2-4f34-80ab-37995c68bbb6
+2025-09-13 21:51:15,018 - src.workflow.state.document_state - ERROR - validate_state:68 - Invalid processing_stage: text_extraction_complete
+2025-09-13 21:51:15,018 - src.workflow.base.state_manager - WARNING - update_state:130 - State validation failed after update for 57586abe-edd2-4f34-80ab-37995c68bbb6
+2025-09-13 21:51:15,018 - src.workflow.state.document_state - INFO - complete_text_extraction:122 - Completed text extraction for document test_doc (9 characters)
+2025-09-13 21:51:15,059 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:51:15,059 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:51:15,059 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:51:15,059 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:51:15,059 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:51:15,059 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:51:15,098 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 21:51:15,098 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 21:51:15,101 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:51:15,101 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:51:15,101 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:51:15,101 - src.strategies.embedding_strategy - INFO - __init__:81 - Initialized LocalEmbeddingStrategy with model: all-MiniLM-L6-v2
+2025-09-13 21:51:15,101 - src.strategies.embedding_strategy - WARNING - __init__:82 - LocalEmbeddingStrategy is using mock implementation. Install sentence-transformers for real embeddings.
+2025-09-13 21:51:15,101 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 21:51:15,117 - src.strategies.embedding_strategy - INFO - __init__:81 - Initialized LocalEmbeddingStrategy with model: all-MiniLM-L6-v2
+2025-09-13 21:51:15,117 - src.strategies.embedding_strategy - WARNING - __init__:82 - LocalEmbeddingStrategy is using mock implementation. Install sentence-transformers for real embeddings.
+2025-09-13 21:51:15,117 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 21:51:15,117 - src.strategies.embedding_strategy - INFO - __init__:81 - Initialized LocalEmbeddingStrategy with model: all-MiniLM-L6-v2
+2025-09-13 21:51:15,117 - src.strategies.embedding_strategy - WARNING - __init__:82 - LocalEmbeddingStrategy is using mock implementation. Install sentence-transformers for real embeddings.
+2025-09-13 21:51:15,117 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 21:51:15,117 - src.workflow.workflow_manager - INFO - __init__:902 - Initialized WorkflowManager with backward compatibility wrapper
+2025-09-13 21:53:06,755 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 21:53:06,755 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 21:53:06,766 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 21:53:06,766 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 21:53:19,938 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 21:53:19,938 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 21:53:19,973 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:53:19,973 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:53:19,973 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:53:21,714 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 21:53:21,714 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 21:53:21,758 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:53:21,760 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:53:21,760 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:53:21,866 - src.startup - INFO - startup:42 - 🚀 Starting Document Q&A System...
+2025-09-13 21:53:21,866 - src.startup - INFO - startup:46 - ✅ Logging configured
+2025-09-13 21:53:21,866 - src.startup - INFO - startup:50 - ✅ Configuration loaded
+2025-09-13 21:53:21,866 - src.startup - INFO - startup:56 - ✅ Environment validation passed
+2025-09-13 21:53:21,866 - src.config.dependency_injection - INFO - __init__:83 - Initialized DependencyContainer with config: embedding_provider=local, qa_provider=gemini
+2025-09-13 21:53:21,866 - src.startup - INFO - startup:60 - ✅ Dependency container initialized
+2025-09-13 21:53:21,867 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 21:53:21,867 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 21:53:21,867 - src.startup - INFO - startup:64 - ✅ Health checker initialized
+2025-09-13 21:53:21,867 - src.startup - INFO - startup:68 - ✅ Performance monitor initialized
+2025-09-13 21:53:21,867 - src.startup - INFO - _run_initial_health_checks:103 - Running initial health checks...
+2025-09-13 21:53:21,868 - src.startup - INFO - startup:74 - ✅ Initial health checks passed
+2025-09-13 21:53:21,868 - src.startup - INFO - _initialize_knowledge_base:132 - Initializing knowledge base...
+2025-09-13 21:53:21,868 - src.startup - ERROR - _initialize_knowledge_base:154 - Knowledge base initialization failed: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
+Traceback (most recent call last):
+  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/startup.py", line 135, in _initialize_knowledge_base
+    pipeline = self.container.get_ingestion_pipeline()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
+2025-09-13 21:53:21,868 - src.startup - WARNING - startup:78 - ⚠️  Knowledge base initialization had issues
+2025-09-13 21:53:21,868 - src.startup - INFO - _run_final_health_checks:160 - Running final health checks...
+2025-09-13 21:53:21,870 - src.startup - INFO - _run_final_health_checks:165 - Overall system health: UNHEALTHY
+2025-09-13 21:53:21,870 - src.startup - INFO - _run_final_health_checks:166 - Healthy components: 3/4
+2025-09-13 21:53:21,870 - src.startup - INFO - _run_final_health_checks:171 -   database: PASS - Database is healthy
+2025-09-13 21:53:21,870 - src.startup - INFO - _run_final_health_checks:171 -   knowledge_graph: FAIL - Knowledge graph is empty - no nodes found
+2025-09-13 21:53:21,870 - src.startup - INFO - _run_final_health_checks:175 -     node_count: 0
+2025-09-13 21:53:21,870 - src.startup - INFO - _run_final_health_checks:171 -   file_system: PASS - File system is healthy
+2025-09-13 21:53:21,870 - src.startup - INFO - _run_final_health_checks:171 -   configuration: PASS - Configuration is valid
+2025-09-13 21:53:21,870 - src.startup - WARNING - startup:85 - ⚠️  Final health checks had issues
+2025-09-13 21:53:21,870 - src.startup - INFO - startup:91 - 🎉 System startup completed successfully!
+2025-09-13 21:53:21,871 - __main__ - INFO - main:50 - Application initialized successfully with startup system
+2025-09-13 21:53:21,872 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:53:21,873 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:53:21,873 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:53:21,873 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 21:53:32,093 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:53:32,093 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:53:32,093 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:53:32,093 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 21:53:32,096 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 21:53:32,097 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 21:53:39,723 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:53:39,723 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:53:39,723 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:53:39,723 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 21:53:39,724 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 21:53:39,724 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:53:39,724 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:53:39,724 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:53:39,724 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 21:53:48,126 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:53:48,127 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:53:48,127 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:53:48,127 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 21:53:48,128 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 21:53:48,128 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:53:48,128 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:53:48,129 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:53:48,129 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 21:53:55,171 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:53:55,172 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:53:55,172 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:53:55,172 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 21:53:55,173 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 21:53:55,173 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:53:55,173 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:53:55,174 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:53:55,174 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 21:53:58,127 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:53:58,128 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:53:58,128 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:53:58,128 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 21:53:58,129 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 21:53:58,129 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:53:58,129 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:53:58,130 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:53:58,130 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 21:53:58,167 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:53:58,167 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:53:58,168 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:53:58,168 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 21:53:58,169 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 21:53:58,169 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:53:58,169 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:53:58,169 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:53:58,169 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 21:54:06,387 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:54:06,388 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:54:06,389 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:54:06,389 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 21:54:06,390 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 21:54:06,391 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:54:06,391 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:54:06,391 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:54:06,391 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 21:54:06,421 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:54:06,422 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:54:06,422 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:54:06,422 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 21:54:06,423 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 21:54:06,423 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:54:06,423 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:54:06,423 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:54:06,423 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 21:54:12,427 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:54:12,427 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:54:12,427 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:54:12,427 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 21:54:12,429 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 21:54:12,429 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:54:12,430 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:54:12,430 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:54:12,430 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 21:54:25,535 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:54:25,536 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:54:25,536 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:54:25,537 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 21:54:25,538 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 21:54:25,539 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:54:25,539 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:54:25,539 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:54:25,540 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 21:54:25,572 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:54:25,572 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:54:25,572 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:54:25,573 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 21:54:25,573 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 21:54:25,573 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:54:25,573 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:54:25,574 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:54:25,574 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 21:54:44,244 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:54:44,245 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:54:44,245 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:54:44,245 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 21:54:44,249 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 21:54:44,250 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:54:44,250 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:54:44,250 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:54:44,250 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 21:54:52,999 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:54:52,999 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:54:52,999 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:54:52,999 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 21:54:53,000 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 21:54:53,000 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:54:53,000 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:54:53,001 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:54:53,001 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 21:54:54,439 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:54:54,439 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:54:54,439 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:54:54,439 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 21:54:54,440 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 21:54:54,440 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:54:54,441 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:54:54,441 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:54:54,441 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 21:54:56,989 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:54:56,989 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:54:56,990 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:54:56,990 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 21:54:56,990 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 21:54:56,991 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:54:56,991 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:54:56,991 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:54:56,991 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 21:55:00,437 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:55:00,437 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:55:00,437 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:55:00,438 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 21:55:00,438 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 21:55:00,438 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:55:00,439 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:55:00,439 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:55:00,439 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 21:55:03,669 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:55:03,670 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:55:03,670 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:55:03,671 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 21:55:03,672 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 21:55:03,672 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:55:03,672 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:55:03,672 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:55:03,672 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 21:55:03,706 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:55:03,706 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:55:03,706 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:55:03,707 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 21:55:03,707 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 21:55:03,707 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:55:03,707 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:55:03,707 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:55:03,707 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 21:55:10,427 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:55:10,427 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:55:10,427 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:55:10,427 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 21:55:10,428 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 21:55:10,428 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:55:10,428 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:55:10,428 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:55:10,428 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 21:55:21,535 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:55:21,536 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:55:21,536 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:55:21,537 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 21:55:21,538 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 21:55:21,538 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 21:55:21,538 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 21:55:21,538 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 21:55:21,538 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 22:25:30,941 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 22:25:30,941 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 22:25:30,970 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 22:25:30,970 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 22:25:30,970 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 22:41:41,461 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 22:41:41,461 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 22:41:41,488 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 22:41:41,489 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 22:41:41,489 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 22:41:41,544 - src.services.qme_rules_engine - INFO - __init__:519 - Initialized QME Rules Engine
+2025-09-13 22:41:41,544 - __main__ - ERROR - main:389 - Demo error: Finding.__init__() missing 1 required positional argument: 'page_reference'
+2025-09-13 22:42:44,840 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 22:42:44,840 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 22:42:44,858 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 22:42:44,859 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 22:42:44,859 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 22:42:44,894 - src.services.qme_rules_engine - INFO - __init__:519 - Initialized QME Rules Engine
+2025-09-13 22:42:44,894 - __main__ - ERROR - main:394 - Demo error: ImpairmentRating.__init__() got an unexpected keyword argument 'ama_table_reference'
+2025-09-13 22:43:46,304 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 22:43:46,304 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 22:43:46,323 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 22:43:46,323 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 22:43:46,323 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 22:43:46,362 - src.services.qme_rules_engine - INFO - __init__:519 - Initialized QME Rules Engine
+2025-09-13 22:43:46,362 - src.services.qme_rules_engine - INFO - validate_qme_report:532 - Starting comprehensive QME report validation
+2025-09-13 22:43:46,363 - src.services.qme_rules_engine - INFO - validate_impairment_rating:295 - Validated impairment rating: 0 issues found
+2025-09-13 22:43:46,363 - src.services.qme_rules_engine - INFO - validate_legal_compliance:392 - Legal compliance validation: 0 issues found
+2025-09-13 22:43:46,363 - src.services.qme_rules_engine - INFO - validate_qme_report:555 - Validation complete: 0 issues found, quality score: 100.0
+2025-09-13 22:43:46,363 - src.services.qme_rules_engine - INFO - validate_qme_report:532 - Starting comprehensive QME report validation
+2025-09-13 22:43:46,363 - src.services.qme_rules_engine - INFO - validate_legal_compliance:392 - Legal compliance validation: 1 issues found
+2025-09-13 22:43:46,363 - src.services.qme_rules_engine - INFO - validate_qme_report:555 - Validation complete: 2 issues found, quality score: 57.7
+2025-09-13 22:43:46,363 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 22:43:46,363 - src.services.qme_rules_engine - INFO - __init__:519 - Initialized QME Rules Engine
+2025-09-13 22:43:46,363 - src.services.enhanced_qme_generator - INFO - __init__:53 - Initialized Enhanced QME Template Generator with Rules Engine
+2025-09-13 22:43:46,363 - src.services.qme_rules_engine - INFO - __init__:519 - Initialized QME Rules Engine
+2025-09-13 22:43:46,363 - src.services.qme_rules_engine - INFO - validate_qme_report:532 - Starting comprehensive QME report validation
+2025-09-13 22:43:46,363 - src.services.qme_rules_engine - INFO - validate_impairment_rating:295 - Validated impairment rating: 0 issues found
+2025-09-13 22:43:46,363 - src.services.qme_rules_engine - INFO - validate_legal_compliance:392 - Legal compliance validation: 0 issues found
+2025-09-13 22:43:46,363 - src.services.qme_rules_engine - INFO - validate_qme_report:555 - Validation complete: 0 issues found, quality score: 100.0
+2025-09-13 22:46:06,785 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 22:46:06,785 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 22:46:06,796 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 22:46:06,796 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 22:47:52,623 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 22:47:52,624 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 22:47:52,656 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 22:47:52,657 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 22:47:52,657 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 22:47:53,464 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 22:47:53,464 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 22:47:53,500 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 22:47:53,500 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 22:47:53,500 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 22:47:53,596 - src.startup - INFO - startup:42 - 🚀 Starting Document Q&A System...
+2025-09-13 22:47:53,596 - src.startup - INFO - startup:46 - ✅ Logging configured
+2025-09-13 22:47:53,596 - src.startup - INFO - startup:50 - ✅ Configuration loaded
+2025-09-13 22:47:53,597 - src.startup - INFO - startup:56 - ✅ Environment validation passed
+2025-09-13 22:47:53,597 - src.config.dependency_injection - INFO - __init__:83 - Initialized DependencyContainer with config: embedding_provider=local, qa_provider=gemini
+2025-09-13 22:47:53,597 - src.startup - INFO - startup:60 - ✅ Dependency container initialized
+2025-09-13 22:47:53,597 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 22:47:53,597 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 22:47:53,597 - src.startup - INFO - startup:64 - ✅ Health checker initialized
+2025-09-13 22:47:53,597 - src.startup - INFO - startup:68 - ✅ Performance monitor initialized
+2025-09-13 22:47:53,597 - src.startup - INFO - _run_initial_health_checks:103 - Running initial health checks...
+2025-09-13 22:47:53,598 - src.startup - INFO - startup:74 - ✅ Initial health checks passed
+2025-09-13 22:47:53,598 - src.startup - INFO - _initialize_knowledge_base:132 - Initializing knowledge base...
+2025-09-13 22:47:53,598 - src.startup - ERROR - _initialize_knowledge_base:154 - Knowledge base initialization failed: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
+Traceback (most recent call last):
+  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/startup.py", line 135, in _initialize_knowledge_base
+    pipeline = self.container.get_ingestion_pipeline()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
+2025-09-13 22:47:53,598 - src.startup - WARNING - startup:78 - ⚠️  Knowledge base initialization had issues
+2025-09-13 22:47:53,598 - src.startup - INFO - _run_final_health_checks:160 - Running final health checks...
+2025-09-13 22:47:53,600 - src.startup - INFO - _run_final_health_checks:165 - Overall system health: UNHEALTHY
+2025-09-13 22:47:53,600 - src.startup - INFO - _run_final_health_checks:166 - Healthy components: 3/4
+2025-09-13 22:47:53,600 - src.startup - INFO - _run_final_health_checks:171 -   database: PASS - Database is healthy
+2025-09-13 22:47:53,600 - src.startup - INFO - _run_final_health_checks:171 -   knowledge_graph: FAIL - Knowledge graph is empty - no nodes found
+2025-09-13 22:47:53,600 - src.startup - INFO - _run_final_health_checks:175 -     node_count: 0
+2025-09-13 22:47:53,600 - src.startup - INFO - _run_final_health_checks:171 -   file_system: PASS - File system is healthy
+2025-09-13 22:47:53,600 - src.startup - INFO - _run_final_health_checks:171 -   configuration: PASS - Configuration is valid
+2025-09-13 22:47:53,600 - src.startup - WARNING - startup:85 - ⚠️  Final health checks had issues
+2025-09-13 22:47:53,600 - src.startup - INFO - startup:91 - 🎉 System startup completed successfully!
+2025-09-13 22:47:53,601 - __main__ - INFO - main:50 - Application initialized successfully with startup system
+2025-09-13 22:47:53,602 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 22:47:53,602 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 22:47:53,602 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 22:47:53,602 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 22:49:34,866 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 22:49:34,866 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 22:49:34,866 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 22:49:34,867 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 22:49:34,867 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 22:49:34,867 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 22:49:34,867 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 22:49:34,867 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 22:49:34,867 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 22:49:40,610 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 22:49:40,611 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 22:49:40,612 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 22:49:40,612 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 22:49:40,613 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 22:49:40,613 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 22:49:40,613 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 22:49:40,613 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 22:49:40,613 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 22:49:57,085 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 22:49:57,086 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 22:49:57,086 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 22:49:57,087 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 22:49:57,087 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 22:49:57,088 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 22:49:57,088 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 22:49:57,088 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 22:49:57,088 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 22:50:03,441 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 22:50:03,442 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 22:50:03,442 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 22:50:03,442 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 22:50:03,443 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 22:50:03,444 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 22:50:03,444 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 22:50:03,444 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 22:50:03,445 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 22:50:03,479 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 22:50:03,480 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 22:50:03,480 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 22:50:03,480 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 22:50:03,480 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 22:50:03,481 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 22:50:03,481 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 22:50:03,481 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 22:50:03,481 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 22:50:10,671 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 22:50:10,672 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 22:50:10,673 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 22:50:10,673 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 22:50:10,675 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 22:50:10,675 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 22:50:10,676 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 22:50:10,676 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 22:50:10,676 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 22:50:10,712 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 22:50:10,712 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 22:50:10,713 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 22:50:10,713 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 22:50:10,713 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 22:50:10,713 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 22:50:10,714 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 22:50:10,714 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 22:50:10,714 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 22:50:13,433 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 22:50:13,433 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 22:50:13,434 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 22:50:13,434 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 22:50:13,435 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 22:50:13,435 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 22:50:13,435 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 22:50:13,435 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 22:50:13,436 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 22:50:14,542 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 22:50:14,542 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 22:50:14,543 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 22:50:14,543 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 22:50:14,545 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 22:50:14,545 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 22:50:14,546 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 22:50:14,546 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 22:50:14,547 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 22:50:14,582 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 22:50:14,582 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 22:50:14,583 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 22:50:14,583 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 22:50:14,584 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 22:50:14,584 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 22:50:14,584 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 22:50:14,584 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 22:50:14,584 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 22:50:18,180 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 22:50:18,180 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 22:50:18,180 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 22:50:18,180 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 22:50:18,180 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 22:50:18,180 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 22:50:18,181 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 22:50:18,181 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 22:50:18,181 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 22:50:26,377 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 22:50:26,378 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 22:50:26,378 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 22:50:26,378 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 22:50:26,380 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 22:50:26,381 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 22:50:26,381 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 22:50:26,382 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 22:50:26,383 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 22:50:26,418 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 22:50:26,419 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 22:50:26,419 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 22:50:26,419 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 22:50:26,420 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 22:50:26,420 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 22:50:26,420 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 22:50:26,420 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 22:50:26,420 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 22:50:29,605 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 22:50:29,606 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 22:50:29,607 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 22:50:29,607 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 22:50:29,608 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 22:50:29,608 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 22:50:29,608 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 22:50:29,609 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 22:50:29,609 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 23:11:00,857 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 23:11:00,858 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 23:11:00,884 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 23:11:00,884 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 23:11:00,884 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 23:11:00,934 - src.services.advanced_qme_rules_engine - ERROR - _load_rules:577 - Error loading rules file src/rules/rules.yaml: while parsing a block mapping
+  in "src/rules/rules.yaml", line 5, column 1
+expected <block end>, but found '-'
+  in "src/rules/rules.yaml", line 10, column 1
+2025-09-13 23:11:00,934 - src.services.advanced_qme_rules_engine - INFO - __init__:542 - Initialized Advanced QME Rules Engine with 0 rules
+2025-09-13 23:11:00,934 - src.services.advanced_qme_rules_engine - INFO - validate_qme_report_comprehensive:593 - Starting comprehensive QME validation with YAML rules
+2025-09-13 23:11:00,934 - src.services.advanced_qme_rules_engine - INFO - validate_qme_report_comprehensive:643 - Comprehensive validation complete: 0 issues, score: 97.3
+2025-09-13 23:11:00,935 - src.services.advanced_qme_rules_engine - INFO - validate_qme_report_comprehensive:593 - Starting comprehensive QME validation with YAML rules
+2025-09-13 23:11:00,935 - src.services.advanced_qme_rules_engine - INFO - validate_qme_report_comprehensive:643 - Comprehensive validation complete: 0 issues, score: 70.0
+2025-09-13 23:11:00,935 - src.services.advanced_qme_rules_engine - ERROR - _load_rules:577 - Error loading rules file src/rules/rules.yaml: while parsing a block mapping
+  in "src/rules/rules.yaml", line 5, column 1
+expected <block end>, but found '-'
+  in "src/rules/rules.yaml", line 10, column 1
+2025-09-13 23:11:00,935 - src.services.advanced_qme_rules_engine - INFO - __init__:542 - Initialized Advanced QME Rules Engine with 0 rules
+2025-09-13 23:12:56,425 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 23:12:56,425 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 23:12:56,443 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 23:12:56,443 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 23:12:56,443 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 23:12:56,496 - src.services.advanced_qme_rules_engine - INFO - _load_rules:578 - Loaded 27 rules from src/rules/rules.yaml
+2025-09-13 23:12:56,497 - src.services.advanced_qme_rules_engine - INFO - __init__:542 - Initialized Advanced QME Rules Engine with 27 rules
+2025-09-13 23:12:56,497 - src.services.advanced_qme_rules_engine - INFO - validate_qme_report_comprehensive:597 - Starting comprehensive QME validation with YAML rules
+2025-09-13 23:12:56,497 - src.services.advanced_qme_rules_engine - ERROR - _execute_single_action:255 - Error executing action {'validate_format': [{'claimant_name': '^[A-Z][a-z]+(\\s+[A-Z][a-z]+)*$'}, {'claim_number': '^[A-Z0-9\\-]{5,20}$'}, {'wcab_number': '^[A-Z0-9\\-]{5,20}$'}, {'dates_of_injury': '^\\d{1,2}/\\d{1,2}/\\d{4}$'}]}: 'list' object has no attribute 'items'
+2025-09-13 23:12:56,497 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: validate_page_count_attestation
+2025-09-13 23:12:56,497 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_under_penalty_perjury
+2025-09-13 23:12:56,497 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: validate_table_structure
+2025-09-13 23:12:56,497 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_tables
+2025-09-13 23:12:56,497 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: validate_table_structure
+2025-09-13 23:12:56,497 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_text
+2025-09-13 23:12:56,497 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_text
+2025-09-13 23:12:56,497 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_tables
+2025-09-13 23:12:56,497 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: validate_table_structure
+2025-09-13 23:12:56,497 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_bilateral_testing
+2025-09-13 23:12:56,497 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_numbered_list
+2025-09-13 23:12:56,497 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: validate_icd_codes
+2025-09-13 23:12:56,497 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_text
+2025-09-13 23:12:56,497 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: validate_causation_type
+2025-09-13 23:12:56,497 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_conditional_blocks
+2025-09-13 23:12:56,497 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_text
+2025-09-13 23:12:56,497 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: validate_ama_references
+2025-09-13 23:12:56,497 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: validate_calculations
+2025-09-13 23:12:56,497 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_text
+2025-09-13 23:12:56,497 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_text
+2025-09-13 23:12:56,497 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_legal_references
+2025-09-13 23:12:56,497 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_case_law_references
+2025-09-13 23:12:56,497 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: validate_percentage_allocation
+2025-09-13 23:12:56,497 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_medical_evidence_substantiation
+2025-09-13 23:12:56,497 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: validate_restriction_categories
+2025-09-13 23:12:56,497 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_specific_limitations
+2025-09-13 23:12:56,498 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_rtw_determination
+2025-09-13 23:12:56,498 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: validate_care_categories
+2025-09-13 23:12:56,498 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_medical_necessity_justification
+2025-09-13 23:12:56,498 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_attestation_text
+2025-09-13 23:12:56,498 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_penalty_of_perjury
+2025-09-13 23:12:56,498 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_signature_and_date
+2025-09-13 23:12:56,498 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: validate_provenance_format
+2025-09-13 23:12:56,498 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: validate_mmi_status
+2025-09-13 23:12:56,498 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_temporary_disability_opinion
+2025-09-13 23:12:56,498 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: conditional_permanent_disability
+2025-09-13 23:12:56,498 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: validate_history_span
+2025-09-13 23:12:56,498 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_job_description
+2025-09-13 23:12:56,498 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: document_physical_demands
+2025-09-13 23:12:56,498 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: document_current_employment_status
+2025-09-13 23:12:56,498 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: validate_measurements
+2025-09-13 23:12:56,498 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_credibility_determination
+2025-09-13 23:12:56,498 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_justification
+2025-09-13 23:12:56,498 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: document_inconsistencies
+2025-09-13 23:12:56,498 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: document_special_tests
+2025-09-13 23:12:56,498 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_bilateral_testing
+2025-09-13 23:12:56,498 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: document_test_results
+2025-09-13 23:12:56,498 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: validate_vital_signs
+2025-09-13 23:12:56,498 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_general_appearance
+2025-09-13 23:12:56,498 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: validate_medication_format
+2025-09-13 23:12:56,498 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: document_last_medication_taken
+2025-09-13 23:12:56,498 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: validate_allergy_documentation
+2025-09-13 23:12:56,498 - src.services.advanced_qme_rules_engine - INFO - validate_qme_report_comprehensive:647 - Comprehensive validation complete: 23 issues, score: 27.3
+2025-09-13 23:12:56,498 - src.services.advanced_qme_rules_engine - INFO - validate_qme_report_comprehensive:597 - Starting comprehensive QME validation with YAML rules
+2025-09-13 23:12:56,498 - src.services.advanced_qme_rules_engine - ERROR - _execute_single_action:255 - Error executing action {'validate_format': [{'claimant_name': '^[A-Z][a-z]+(\\s+[A-Z][a-z]+)*$'}, {'claim_number': '^[A-Z0-9\\-]{5,20}$'}, {'wcab_number': '^[A-Z0-9\\-]{5,20}$'}, {'dates_of_injury': '^\\d{1,2}/\\d{1,2}/\\d{4}$'}]}: 'list' object has no attribute 'items'
+2025-09-13 23:12:56,498 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: validate_page_count_attestation
+2025-09-13 23:12:56,498 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_under_penalty_perjury
+2025-09-13 23:12:56,498 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_text
+2025-09-13 23:12:56,499 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_text
+2025-09-13 23:12:56,499 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_field
+2025-09-13 23:12:56,499 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: validate_table_structure
+2025-09-13 23:12:56,499 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_tables
+2025-09-13 23:12:56,499 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: validate_table_structure
+2025-09-13 23:12:56,499 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_text
+2025-09-13 23:12:56,499 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_text
+2025-09-13 23:12:56,499 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_tables
+2025-09-13 23:12:56,499 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: validate_table_structure
+2025-09-13 23:12:56,499 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_bilateral_testing
+2025-09-13 23:12:56,499 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_numbered_list
+2025-09-13 23:12:56,499 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: validate_icd_codes
+2025-09-13 23:12:56,499 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_text
+2025-09-13 23:12:56,499 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: validate_causation_type
+2025-09-13 23:12:56,499 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_conditional_blocks
+2025-09-13 23:12:56,499 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_text
+2025-09-13 23:12:56,499 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: validate_ama_references
+2025-09-13 23:12:56,499 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: validate_calculations
+2025-09-13 23:12:56,499 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_text
+2025-09-13 23:12:56,499 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_text
+2025-09-13 23:12:56,499 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_legal_references
+2025-09-13 23:12:56,499 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_case_law_references
+2025-09-13 23:12:56,499 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: validate_percentage_allocation
+2025-09-13 23:12:56,499 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_medical_evidence_substantiation
+2025-09-13 23:12:56,499 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: validate_restriction_categories
+2025-09-13 23:12:56,499 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_specific_limitations
+2025-09-13 23:12:56,499 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_rtw_determination
+2025-09-13 23:12:56,499 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: validate_care_categories
+2025-09-13 23:12:56,499 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_medical_necessity_justification
+2025-09-13 23:12:56,499 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_attestation_text
+2025-09-13 23:12:56,499 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_penalty_of_perjury
+2025-09-13 23:12:56,499 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_signature_and_date
+2025-09-13 23:12:56,499 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: validate_provenance_format
+2025-09-13 23:12:56,499 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: validate_mmi_status
+2025-09-13 23:12:56,499 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_temporary_disability_opinion
+2025-09-13 23:12:56,499 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: conditional_permanent_disability
+2025-09-13 23:12:56,499 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: validate_history_span
+2025-09-13 23:12:56,499 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_job_description
+2025-09-13 23:12:56,499 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: document_physical_demands
+2025-09-13 23:12:56,499 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: document_current_employment_status
+2025-09-13 23:12:56,499 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: validate_measurements
+2025-09-13 23:12:56,499 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_credibility_determination
+2025-09-13 23:12:56,499 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_justification
+2025-09-13 23:12:56,499 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: document_inconsistencies
+2025-09-13 23:12:56,500 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: document_special_tests
+2025-09-13 23:12:56,500 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_bilateral_testing
+2025-09-13 23:12:56,500 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: document_test_results
+2025-09-13 23:12:56,500 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: validate_vital_signs
+2025-09-13 23:12:56,500 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: require_general_appearance
+2025-09-13 23:12:56,500 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: validate_medication_format
+2025-09-13 23:12:56,500 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: document_last_medication_taken
+2025-09-13 23:12:56,500 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:250 - Unknown action type: validate_allergy_documentation
+2025-09-13 23:12:56,500 - src.services.advanced_qme_rules_engine - INFO - validate_qme_report_comprehensive:647 - Comprehensive validation complete: 34 issues, score: 0.0
+2025-09-13 23:12:56,519 - src.services.advanced_qme_rules_engine - INFO - _load_rules:578 - Loaded 27 rules from src/rules/rules.yaml
+2025-09-13 23:12:56,519 - src.services.advanced_qme_rules_engine - INFO - __init__:542 - Initialized Advanced QME Rules Engine with 27 rules
+2025-09-13 23:23:01,955 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 23:23:01,956 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 23:23:01,967 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 23:23:01,967 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 23:23:06,192 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 23:23:06,192 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 23:23:06,248 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 23:23:06,248 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 23:23:06,248 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 23:23:07,089 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 23:23:07,090 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 23:23:07,128 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 23:23:07,128 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 23:23:07,128 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 23:23:07,223 - src.startup - INFO - startup:42 - 🚀 Starting Document Q&A System...
+2025-09-13 23:23:07,223 - src.startup - INFO - startup:46 - ✅ Logging configured
+2025-09-13 23:23:07,223 - src.startup - INFO - startup:50 - ✅ Configuration loaded
+2025-09-13 23:23:07,223 - src.startup - INFO - startup:56 - ✅ Environment validation passed
+2025-09-13 23:23:07,223 - src.config.dependency_injection - INFO - __init__:83 - Initialized DependencyContainer with config: embedding_provider=local, qa_provider=gemini
+2025-09-13 23:23:07,223 - src.startup - INFO - startup:60 - ✅ Dependency container initialized
+2025-09-13 23:23:07,224 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 23:23:07,224 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 23:23:07,224 - src.startup - INFO - startup:64 - ✅ Health checker initialized
+2025-09-13 23:23:07,224 - src.startup - INFO - startup:68 - ✅ Performance monitor initialized
+2025-09-13 23:23:07,224 - src.startup - INFO - _run_initial_health_checks:103 - Running initial health checks...
+2025-09-13 23:23:07,224 - src.startup - INFO - startup:74 - ✅ Initial health checks passed
+2025-09-13 23:23:07,224 - src.startup - INFO - _initialize_knowledge_base:132 - Initializing knowledge base...
+2025-09-13 23:23:07,224 - src.startup - ERROR - _initialize_knowledge_base:154 - Knowledge base initialization failed: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
+Traceback (most recent call last):
+  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/startup.py", line 135, in _initialize_knowledge_base
+    pipeline = self.container.get_ingestion_pipeline()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
+2025-09-13 23:23:07,225 - src.startup - WARNING - startup:78 - ⚠️  Knowledge base initialization had issues
+2025-09-13 23:23:07,225 - src.startup - INFO - _run_final_health_checks:160 - Running final health checks...
+2025-09-13 23:23:07,225 - src.startup - INFO - _run_final_health_checks:165 - Overall system health: UNHEALTHY
+2025-09-13 23:23:07,225 - src.startup - INFO - _run_final_health_checks:166 - Healthy components: 3/4
+2025-09-13 23:23:07,225 - src.startup - INFO - _run_final_health_checks:171 -   database: PASS - Database is healthy
+2025-09-13 23:23:07,226 - src.startup - INFO - _run_final_health_checks:171 -   knowledge_graph: FAIL - Knowledge graph is empty - no nodes found
+2025-09-13 23:23:07,226 - src.startup - INFO - _run_final_health_checks:175 -     node_count: 0
+2025-09-13 23:23:07,226 - src.startup - INFO - _run_final_health_checks:171 -   file_system: PASS - File system is healthy
+2025-09-13 23:23:07,226 - src.startup - INFO - _run_final_health_checks:171 -   configuration: PASS - Configuration is valid
+2025-09-13 23:23:07,226 - src.startup - WARNING - startup:85 - ⚠️  Final health checks had issues
+2025-09-13 23:23:07,226 - src.startup - INFO - startup:91 - 🎉 System startup completed successfully!
+2025-09-13 23:23:07,226 - __main__ - INFO - main:50 - Application initialized successfully with startup system
+2025-09-13 23:23:07,228 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 23:23:07,228 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 23:23:07,228 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 23:23:07,228 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 23:23:12,956 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 23:23:12,956 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 23:23:12,956 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 23:23:12,956 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 23:23:20,568 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 23:23:20,569 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 23:23:20,569 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 23:23:20,569 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 23:23:20,574 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 23:23:20,574 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 23:23:26,195 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 23:23:26,197 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 23:23:26,197 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 23:23:26,197 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 23:23:29,947 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 23:23:29,948 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 23:23:29,948 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 23:23:29,948 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 23:23:33,768 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 23:23:33,769 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 23:23:33,769 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 23:23:33,769 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 23:23:33,770 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 23:23:33,770 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 23:23:33,770 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 23:23:33,770 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 23:23:33,771 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 23:23:41,102 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 23:23:41,103 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 23:23:41,103 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 23:23:41,103 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 23:23:41,104 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 23:23:41,105 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 23:23:41,105 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 23:23:41,105 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 23:23:41,105 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 23:23:46,322 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 23:23:46,323 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 23:23:46,323 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 23:23:46,324 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 23:23:46,324 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 23:23:46,325 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 23:23:46,325 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 23:23:46,325 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 23:23:46,325 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 23:23:49,164 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 23:23:49,164 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 23:23:49,165 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 23:23:49,165 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 23:23:49,166 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 23:23:49,166 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 23:23:49,166 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 23:23:49,166 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 23:23:49,167 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 23:23:49,198 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 23:23:49,199 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 23:23:49,199 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 23:23:49,199 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 23:23:49,200 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 23:23:49,200 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 23:23:49,200 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 23:23:49,200 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 23:23:49,200 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 23:23:55,724 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 23:23:55,725 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 23:23:55,725 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 23:23:55,726 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 23:23:55,727 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 23:23:55,728 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 23:23:55,728 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 23:23:55,728 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 23:23:55,728 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 23:23:55,768 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 23:23:55,768 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 23:23:55,769 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 23:23:55,769 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 23:23:55,770 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 23:23:55,770 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 23:23:55,770 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 23:23:55,771 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 23:23:55,771 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 23:23:59,042 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 23:23:59,042 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 23:23:59,042 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 23:23:59,043 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 23:23:59,043 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 23:23:59,044 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 23:23:59,044 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 23:23:59,045 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 23:23:59,045 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 23:24:00,027 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 23:24:00,028 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 23:24:00,028 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 23:24:00,028 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 23:24:00,030 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 23:24:00,030 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 23:24:00,030 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 23:24:00,031 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 23:24:00,031 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 23:24:00,068 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 23:24:00,068 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 23:24:00,069 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 23:24:00,069 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 23:24:00,069 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 23:24:00,070 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 23:24:00,070 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 23:24:00,070 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 23:24:00,070 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 23:24:04,379 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 23:24:04,381 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 23:24:04,381 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 23:24:04,382 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 23:24:04,383 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 23:24:04,384 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 23:24:04,384 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 23:24:04,384 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 23:24:04,384 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 23:24:04,417 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 23:24:04,418 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 23:24:04,418 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 23:24:04,418 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 23:24:04,419 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 23:24:04,419 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 23:24:04,419 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 23:24:04,419 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 23:24:04,419 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 23:24:06,825 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 23:24:06,825 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 23:24:06,825 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 23:24:06,826 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 23:24:06,827 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 23:24:06,827 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 23:24:06,828 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 23:24:06,828 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 23:24:06,828 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 23:24:09,080 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 23:24:09,080 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 23:24:09,081 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 23:24:09,082 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 23:24:09,083 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-13 23:24:09,083 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 23:24:09,083 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 23:24:09,083 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 23:24:09,083 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']

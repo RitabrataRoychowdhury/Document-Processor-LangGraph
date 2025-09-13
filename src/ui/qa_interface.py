@@ -2,6 +2,8 @@
 
 import streamlit as st
 import uuid
+import os
+import tempfile
 from datetime import datetime
 from typing import Optional, List, Dict, Any
 
@@ -9,6 +11,9 @@ from src.services.qa_engine import QAEngine, create_qa_engine
 from src.storage.document_storage import DocumentStorage
 from src.models.document import Document, QASession
 from src.config.app_config import app_config
+from src.utils.logging_config import get_logger
+
+logger = get_logger(__name__)
 
 
 class QAInterface:
@@ -211,6 +216,11 @@ class QAInterface:
     
     def _process_question(self, question: str, document: Document, session_id: str) -> None:
         """Process a user question and display the answer."""
+        # Check if this is a QME template generation request
+        if self._is_qme_template_request(question):
+            self._handle_qme_template_request(question, document)
+            return
+        
         with st.spinner("🤔 Thinking about your question..."):
             try:
                 # Get answer from QA engine
@@ -244,6 +254,10 @@ class QAInterface:
                                 st.warning(f"Confidence: {confidence:.1%}")
                             else:
                                 st.error(f"Low confidence: {confidence:.1%}")
+                        
+                        # Check if answer suggests QME template generation
+                        if self._should_suggest_qme_template(result['answer']):
+                            self._show_qme_template_suggestion(document)
                 
                 # Refresh to show updated conversation
                 st.rerun()
@@ -345,6 +359,285 @@ def render_qa_page():
     """Render the Q&A page."""
     qa_interface = QAInterface()
     qa_interface.render_qa_interface()
+
+
+    def _is_qme_template_request(self, question: str) -> bool:
+        """Check if the question is requesting QME template generation."""
+        qme_keywords = [
+            'generate qme template', 'create qme report', 'qme template',
+            'medical evaluation report', 'generate template', 'create report',
+            'qme report', 'medical report template', 'evaluation template'
+        ]
+        
+        question_lower = question.lower()
+        return any(keyword in question_lower for keyword in qme_keywords)
+    
+    def _should_suggest_qme_template(self, answer: str) -> bool:
+        """Check if the answer suggests QME template generation would be helpful."""
+        suggestion_indicators = [
+            'medical evaluation', 'impairment rating', 'disability assessment',
+            'medical report', 'evaluation report', 'diagnosis', 'treatment plan'
+        ]
+        
+        answer_lower = answer.lower()
+        return any(indicator in answer_lower for indicator in suggestion_indicators)
+    
+    def _handle_qme_template_request(self, question: str, document: Document) -> None:
+        """Handle QME template generation request."""
+        with st.chat_message("user"):
+            st.write(question)
+        
+        with st.chat_message("assistant"):
+            st.write("🏥 I can help you generate a QME template based on this document!")
+            
+            # Check if document is suitable for QME template
+            if self._is_suitable_for_qme(document):
+                st.success("✅ This document appears suitable for QME template generation.")
+                
+                # Offer immediate template generation
+                col1, col2 = st.columns(2)
+                
+                with col1:
+                    if st.button("🚀 Generate QME Template Now", type="primary", key="qme_now"):
+                        self._generate_inline_qme_template(document)
+                
+                with col2:
+                    if st.button("🎨 Advanced Template Options", key="qme_advanced"):
+                        st.info("Redirecting to QME Template Generator for advanced options...")
+                        st.session_state.switch_to_qme_template = True
+                        st.session_state.qme_source_document = document.id
+                        st.rerun()
+            else:
+                st.warning("⚠️ This document may not contain sufficient medical information for QME template generation.")
+                st.info("QME templates work best with patient medical records, examination reports, and diagnostic studies.")
+    
+    def _show_qme_template_suggestion(self, document: Document) -> None:
+        """Show QME template generation suggestion."""
+        st.info("💡 **Suggestion:** This document contains medical information that could be used to generate a QME template.")
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            if st.button("🏥 Generate QME Template", key="suggest_qme"):
+                self._generate_inline_qme_template(document)
+        
+        with col2:
+            if st.button("ℹ️ Learn More", key="learn_qme"):
+                st.info("""
+                **QME Template Generation:**
+                - Creates professional medical evaluation reports
+                - Extracts patient information and diagnoses
+                - Follows standard QME report format
+                - Includes impairment ratings and recommendations
+                """)
+    
+    def _is_suitable_for_qme(self, document: Document) -> bool:
+        """Check if document is suitable for QME template generation."""
+        if not document.original_text:
+            return False
+        
+        text_lower = document.original_text.lower()
+        
+        # Check for medical keywords
+        medical_keywords = [
+            'patient', 'diagnosis', 'examination', 'medical', 'injury',
+            'treatment', 'pain', 'condition', 'symptoms', 'doctor',
+            'physician', 'clinic', 'hospital', 'medication', 'therapy'
+        ]
+        
+        keyword_count = sum(1 for keyword in medical_keywords if keyword in text_lower)
+        
+        # Check for QME-specific keywords
+        qme_keywords = ['qme', 'impairment', 'disability', 'evaluation', 'rating']
+        qme_count = sum(1 for keyword in qme_keywords if keyword in text_lower)
+        
+        return keyword_count >= 5 or qme_count >= 2
+    
+    def _generate_inline_qme_template(self, document: Document) -> None:
+        """Generate QME template inline in the chat."""
+        with st.spinner("🔄 Generating QME template..."):
+            try:
+                # Import QME template generator
+                from src.services.qme_template_generator import QMETemplateGenerator
+                
+                generator = QMETemplateGenerator()
+                
+                # For demo purposes, create a simplified template
+                template_data = self._extract_qme_data_from_document(document)
+                
+                # Show extracted information
+                st.subheader("📋 Extracted Information")
+                
+                col1, col2 = st.columns(2)
+                
+                with col1:
+                    st.write("**Patient Information:**")
+                    patient_info = template_data.get('patient_info', {})
+                    for key, value in patient_info.items():
+                        if value:
+                            st.write(f"• {key.title()}: {value}")
+                
+                with col2:
+                    st.write("**Medical Findings:**")
+                    findings = template_data.get('medical_findings', {})
+                    for key, value in findings.items():
+                        if value:
+                            if isinstance(value, list):
+                                st.write(f"• {key.title()}: {len(value)} items")
+                            else:
+                                st.write(f"• {key.title()}: {value}")
+                
+                # Generate download link
+                template_path = self._create_simple_qme_template(template_data, document.title)
+                
+                if os.path.exists(template_path):
+                    with open(template_path, 'rb') as file:
+                        st.download_button(
+                            label="📥 Download QME Template",
+                            data=file.read(),
+                            file_name=f"QME_Template_{document.title}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.docx",
+                            mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                            type="primary"
+                        )
+                
+                st.success("✅ QME template generated successfully!")
+                
+            except Exception as e:
+                st.error(f"❌ Error generating QME template: {str(e)}")
+                logger.error(f"QME template generation error: {e}", exc_info=True)
+    
+    def _extract_qme_data_from_document(self, document: Document) -> Dict[str, Any]:
+        """Extract QME-relevant data from document."""
+        import re
+        
+        text = document.original_text or ""
+        
+        # Extract patient information
+        patient_info = {}
+        
+        # Extract name
+        name_patterns = [
+            r"Patient:?\s*([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)",
+            r"Name:?\s*([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)"
+        ]
+        
+        for pattern in name_patterns:
+            match = re.search(pattern, text, re.IGNORECASE)
+            if match:
+                patient_info['name'] = match.group(1).strip()
+                break
+        
+        # Extract age
+        age_match = re.search(r"Age:?\s*(\d{1,3})", text, re.IGNORECASE)
+        if age_match:
+            patient_info['age'] = int(age_match.group(1))
+        
+        # Extract case number
+        case_patterns = [
+            r"Case\s*(?:Number|No\.?|#):?\s*([A-Z0-9\-]+)",
+            r"Claim\s*(?:Number|No\.?|#):?\s*([A-Z0-9\-]+)"
+        ]
+        
+        for pattern in case_patterns:
+            match = re.search(pattern, text, re.IGNORECASE)
+            if match:
+                patient_info['case_number'] = match.group(1).strip()
+                break
+        
+        # Extract medical findings
+        medical_findings = {
+            'diagnoses': [],
+            'findings': [],
+            'treatments': []
+        }
+        
+        # Simple diagnosis extraction
+        diagnosis_keywords = ['diagnosis', 'condition', 'disorder']
+        for keyword in diagnosis_keywords:
+            pattern = rf"{keyword}:?\s*([^.\n]+)"
+            matches = re.findall(pattern, text, re.IGNORECASE)
+            for match in matches:
+                if len(match.strip()) > 5:
+                    medical_findings['diagnoses'].append(match.strip())
+        
+        return {
+            'patient_info': patient_info,
+            'medical_findings': medical_findings
+        }
+    
+    def _create_simple_qme_template(self, template_data: Dict[str, Any], document_title: str) -> str:
+        """Create a simple QME template DOCX file."""
+        import tempfile
+        from docx import Document
+        
+        # Create temporary file
+        temp_dir = tempfile.gettempdir()
+        template_path = os.path.join(temp_dir, f"qme_template_{uuid.uuid4().hex}.docx")
+        
+        try:
+            # Create document
+            doc = Document()
+            
+            # Add title
+            title = doc.add_heading('QUALIFIED MEDICAL EVALUATOR\'S REPORT', 0)
+            
+            # Add patient information
+            doc.add_heading('PATIENT INFORMATION', level=1)
+            patient_info = template_data.get('patient_info', {})
+            
+            p = doc.add_paragraph()
+            p.add_run('Name: ').bold = True
+            p.add_run(patient_info.get('name', '[MISSING - Patient name not found]'))
+            
+            p = doc.add_paragraph()
+            p.add_run('Age: ').bold = True
+            p.add_run(str(patient_info.get('age', '[MISSING - Age not found]')))
+            
+            p = doc.add_paragraph()
+            p.add_run('Case Number: ').bold = True
+            p.add_run(patient_info.get('case_number', '[MISSING - Case number not found]'))
+            
+            # Add source document reference
+            p = doc.add_paragraph()
+            p.add_run('Source Document: ').bold = True
+            p.add_run(document_title)
+            
+            # Add diagnoses
+            doc.add_heading('DIAGNOSIS', level=1)
+            diagnoses = template_data.get('medical_findings', {}).get('diagnoses', [])
+            if diagnoses:
+                for i, diagnosis in enumerate(diagnoses, 1):
+                    doc.add_paragraph(f"{i}. {diagnosis}")
+            else:
+                doc.add_paragraph('[MISSING - No diagnoses found in source document]')
+            
+            # Add placeholder sections
+            doc.add_heading('HISTORY OF PRESENT ILLNESS', level=1)
+            doc.add_paragraph('[To be completed based on patient interview and medical records]')
+            
+            doc.add_heading('PHYSICAL EXAMINATION', level=1)
+            doc.add_paragraph('[To be completed during medical examination]')
+            
+            doc.add_heading('IMPAIRMENT RATING', level=1)
+            doc.add_paragraph('[To be calculated using AMA Guides to the Evaluation of Permanent Impairment]')
+            
+            doc.add_heading('RECOMMENDATIONS', level=1)
+            doc.add_paragraph('[Treatment recommendations and work restrictions to be determined]')
+            
+            # Add generation timestamp
+            doc.add_paragraph()
+            p = doc.add_paragraph()
+            p.add_run('Generated: ').italic = True
+            p.add_run(datetime.now().strftime('%Y-%m-%d %H:%M:%S')).italic = True
+            
+            # Save document
+            doc.save(template_path)
+            
+            return template_path
+            
+        except Exception as e:
+            logger.error(f"Error creating QME template: {e}")
+            raise
 
 
 def render_qa_for_document(document_id: str):
