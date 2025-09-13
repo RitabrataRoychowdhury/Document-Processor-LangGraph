@@ -1,0 +1,334 @@
+2025-09-13 19:14:02,368 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 19:14:02,378 - src.storage.knowledge_graph_schema - INFO - _create_kg_tables:159 - Created knowledge graph tables
+2025-09-13 19:14:02,379 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:208 - Database migration completed successfully
+2025-09-13 19:14:02,398 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 19:14:02,398 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 19:19:03,869 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 19:19:03,869 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 19:19:03,882 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 19:19:03,882 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 19:23:44,315 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 19:23:44,316 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 19:23:44,329 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 19:23:44,329 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 19:25:07,642 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 19:25:07,643 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 19:25:07,655 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 19:25:07,655 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 19:26:47,786 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 19:26:47,787 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 19:26:47,798 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 19:26:47,799 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 19:26:49,100 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 19:26:49,101 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 19:26:49,286 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 19:26:49,286 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 19:26:49,286 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 19:26:49,486 - __main__ - ERROR - main:55 - Streamlit initialization error: name 'asyncio' is not defined
+Traceback (most recent call last):
+  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/ui/main_app.py", line 42, in main
+    success = asyncio.run(startup.startup())
+              ^^^^^^^
+NameError: name 'asyncio' is not defined. Did you forget to import 'asyncio'?
+2025-09-13 19:31:30,937 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 19:31:30,937 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 19:31:30,949 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 19:31:30,949 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 19:31:31,260 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 19:31:31,260 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 19:31:31,310 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 19:31:31,311 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 19:31:31,311 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 19:31:32,088 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 19:31:32,089 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 19:31:32,132 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 19:31:32,132 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 19:31:32,132 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 19:31:32,224 - src.startup - INFO - startup:42 - 🚀 Starting Document Q&A System...
+2025-09-13 19:31:32,225 - src.startup - INFO - startup:46 - ✅ Logging configured
+2025-09-13 19:31:32,225 - src.startup - INFO - startup:50 - ✅ Configuration loaded
+2025-09-13 19:31:32,225 - src.startup - INFO - startup:56 - ✅ Environment validation passed
+2025-09-13 19:31:32,225 - src.config.dependency_injection - INFO - __init__:83 - Initialized DependencyContainer with config: embedding_provider=local, qa_provider=gemini
+2025-09-13 19:31:32,225 - src.startup - INFO - startup:60 - ✅ Dependency container initialized
+2025-09-13 19:31:32,226 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 19:31:32,226 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 19:31:32,226 - src.startup - INFO - startup:64 - ✅ Health checker initialized
+2025-09-13 19:31:32,226 - src.startup - INFO - startup:68 - ✅ Performance monitor initialized
+2025-09-13 19:31:32,226 - src.startup - INFO - _run_initial_health_checks:103 - Running initial health checks...
+2025-09-13 19:31:32,226 - src.startup - INFO - startup:74 - ✅ Initial health checks passed
+2025-09-13 19:31:32,226 - src.startup - INFO - _initialize_knowledge_base:132 - Initializing knowledge base...
+2025-09-13 19:31:32,226 - src.startup - ERROR - _initialize_knowledge_base:154 - Knowledge base initialization failed: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
+Traceback (most recent call last):
+  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/startup.py", line 135, in _initialize_knowledge_base
+    pipeline = self.container.get_ingestion_pipeline()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
+2025-09-13 19:31:32,227 - src.startup - WARNING - startup:78 - ⚠️  Knowledge base initialization had issues
+2025-09-13 19:31:32,227 - src.startup - INFO - _run_final_health_checks:160 - Running final health checks...
+2025-09-13 19:31:32,228 - src.startup - INFO - _run_final_health_checks:165 - Overall system health: UNHEALTHY
+2025-09-13 19:31:32,228 - src.startup - INFO - _run_final_health_checks:166 - Healthy components: 3/4
+2025-09-13 19:31:32,228 - src.startup - INFO - _run_final_health_checks:171 -   database: PASS - Database is healthy
+2025-09-13 19:31:32,228 - src.startup - INFO - _run_final_health_checks:171 -   knowledge_graph: FAIL - Knowledge graph is empty - no nodes found
+2025-09-13 19:31:32,228 - src.startup - INFO - _run_final_health_checks:175 -     node_count: 0
+2025-09-13 19:31:32,228 - src.startup - INFO - _run_final_health_checks:171 -   file_system: PASS - File system is healthy
+2025-09-13 19:31:32,228 - src.startup - INFO - _run_final_health_checks:171 -   configuration: PASS - Configuration is valid
+2025-09-13 19:31:32,228 - src.startup - WARNING - startup:85 - ⚠️  Final health checks had issues
+2025-09-13 19:31:32,228 - src.startup - INFO - startup:91 - 🎉 System startup completed successfully!
+2025-09-13 19:31:32,228 - __main__ - INFO - main:49 - Application initialized successfully with startup system
+2025-09-13 19:31:32,230 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 19:31:32,230 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 19:31:32,230 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 19:31:32,230 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 19:31:40,780 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 19:31:40,780 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 19:31:40,780 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 19:31:40,780 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 19:31:44,901 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 19:31:44,901 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 19:31:44,901 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 19:31:44,901 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 19:31:51,026 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 19:31:51,027 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 19:31:51,027 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 19:31:51,027 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 19:31:56,165 - src.services.simple_processor - INFO - process_document_immediately:41 - Starting immediate processing for AMAGuides 5th Edition.pdf
+2025-09-13 19:31:56,166 - src.services.simple_processor - INFO - process_document_immediately:59 - Processing document with comprehensive AI analysis...
+2025-09-13 19:32:11,688 - src.services.simple_processor - INFO - process_document_immediately:66 - Comprehensive AI processing successful. Result keys: ['document_type', 'extracted_info', 'analysis', 'summary']
+2025-09-13 19:32:11,690 - src.services.simple_processor - INFO - process_document_immediately:84 - Document fully processed successfully
+2025-09-13 19:32:11,703 - src.storage.document_storage - INFO - create_document:48 - Created document record: c19fb9c6-600b-4798-b970-e1f7a973bd6f
+2025-09-13 19:32:11,704 - src.services.simple_processor - INFO - process_document_immediately:91 - Document c19fb9c6-600b-4798-b970-e1f7a973bd6f stored with status: completed
+2025-09-13 19:32:44,890 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 19:32:44,891 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 19:32:44,891 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 19:32:44,892 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 19:32:50,006 - src.services.simple_processor - INFO - process_document_immediately:41 - Starting immediate processing for AMAGuides 5th Edition.pdf
+2025-09-13 19:32:50,007 - src.services.simple_processor - INFO - process_document_immediately:59 - Processing document with comprehensive AI analysis...
+2025-09-13 19:32:53,751 - src.services.simple_processor - WARNING - _call_gemini:155 - Gemini API attempt 1 failed: 429 Client Error: Too Many Requests for url: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyAUCQtoOYpvM5rZG8uPaODGb0SOFe9gVK0
+2025-09-13 19:32:53,752 - src.services.simple_processor - INFO - _call_gemini:164 - Rate limited. Retrying in 10 seconds...
+2025-09-13 19:33:20,808 - src.services.simple_processor - INFO - process_document_immediately:66 - Comprehensive AI processing successful. Result keys: ['document_type', 'extracted_info', 'analysis', 'summary']
+2025-09-13 19:33:20,809 - src.services.simple_processor - INFO - process_document_immediately:84 - Document fully processed successfully
+2025-09-13 19:33:20,822 - src.storage.document_storage - INFO - create_document:48 - Created document record: 0a8ae04a-eb52-44f9-b753-a4102ef3f858
+2025-09-13 19:33:20,823 - src.services.simple_processor - INFO - process_document_immediately:91 - Document 0a8ae04a-eb52-44f9-b753-a4102ef3f858 stored with status: completed
+2025-09-13 19:36:35,336 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 19:36:35,337 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 19:36:35,337 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 19:36:35,338 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 19:36:39,717 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 19:36:39,717 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 19:36:39,717 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 19:36:39,717 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 19:36:43,511 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 19:36:43,512 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 19:36:43,512 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 19:36:43,512 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 19:36:43,513 - src.strategies.embedding_strategy - INFO - __init__:81 - Initialized LocalEmbeddingStrategy with model: all-MiniLM-L6-v2
+2025-09-13 19:36:43,513 - src.strategies.embedding_strategy - WARNING - __init__:82 - LocalEmbeddingStrategy is using mock implementation. Install sentence-transformers for real embeddings.
+2025-09-13 19:36:43,513 - src.services.vector_store - INFO - create_store:257 - Created vector store: main
+2025-09-13 19:36:43,513 - src.services.qa_engine - INFO - __init__:68 - Initialized QAEngine with DocumentStorage
+2025-09-13 19:36:43,535 - __main__ - ERROR - main:235 - Page rendering error on Q&A Interface: 'str' object has no attribute 'create_qa_session'
+Traceback (most recent call last):
+  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/ui/main_app.py", line 218, in main
+    render_qa_page()
+    ~~~~~~~~~~~~~~^^
+  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/ui/qa_interface.py", line 341, in render_qa_page
+    qa_interface.render_qa_interface()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/ui/qa_interface.py", line 55, in render_qa_interface
+    self._render_qa_session(selected_doc)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/ui/qa_interface.py", line 127, in _render_qa_session
+    session_id = self._get_or_create_session(document.id)
+  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/ui/qa_interface.py", line 145, in _get_or_create_session
+    session_id = self.qa_engine.create_qa_session(document_id)
+  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/services/qa_engine.py", line 363, in create_qa_session
+    self.storage.create_qa_session(session)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'str' object has no attribute 'create_qa_session'
+2025-09-13 19:37:57,899 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 19:37:57,899 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 19:37:57,912 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 19:37:57,912 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 19:37:58,256 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 19:37:58,257 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 19:37:58,305 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 19:37:58,305 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 19:37:58,305 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 19:39:04,441 - src.startup - INFO - startup:42 - 🚀 Starting Document Q&A System...
+2025-09-13 19:39:04,441 - src.startup - INFO - startup:46 - ✅ Logging configured
+2025-09-13 19:39:04,441 - src.startup - INFO - startup:50 - ✅ Configuration loaded
+2025-09-13 19:39:04,441 - src.startup - INFO - startup:56 - ✅ Environment validation passed
+2025-09-13 19:39:04,441 - src.config.dependency_injection - INFO - __init__:83 - Initialized DependencyContainer with config: embedding_provider=local, qa_provider=gemini
+2025-09-13 19:39:04,441 - src.startup - INFO - startup:60 - ✅ Dependency container initialized
+2025-09-13 19:39:04,442 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 19:39:04,442 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 19:39:04,442 - src.startup - INFO - startup:64 - ✅ Health checker initialized
+2025-09-13 19:39:04,442 - src.startup - INFO - startup:68 - ✅ Performance monitor initialized
+2025-09-13 19:39:04,442 - src.startup - INFO - _run_initial_health_checks:103 - Running initial health checks...
+2025-09-13 19:39:04,442 - src.startup - INFO - startup:74 - ✅ Initial health checks passed
+2025-09-13 19:39:04,442 - src.startup - INFO - _initialize_knowledge_base:132 - Initializing knowledge base...
+2025-09-13 19:39:04,442 - src.startup - ERROR - _initialize_knowledge_base:154 - Knowledge base initialization failed: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
+Traceback (most recent call last):
+  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/startup.py", line 135, in _initialize_knowledge_base
+    pipeline = self.container.get_ingestion_pipeline()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
+2025-09-13 19:39:04,443 - src.startup - WARNING - startup:78 - ⚠️  Knowledge base initialization had issues
+2025-09-13 19:39:04,443 - src.startup - INFO - _run_final_health_checks:160 - Running final health checks...
+2025-09-13 19:39:04,443 - src.startup - INFO - _run_final_health_checks:165 - Overall system health: UNHEALTHY
+2025-09-13 19:39:04,443 - src.startup - INFO - _run_final_health_checks:166 - Healthy components: 3/4
+2025-09-13 19:39:04,443 - src.startup - INFO - _run_final_health_checks:171 -   database: PASS - Database is healthy
+2025-09-13 19:39:04,443 - src.startup - INFO - _run_final_health_checks:171 -   knowledge_graph: FAIL - Knowledge graph is empty - no nodes found
+2025-09-13 19:39:04,443 - src.startup - INFO - _run_final_health_checks:175 -     node_count: 0
+2025-09-13 19:39:04,443 - src.startup - INFO - _run_final_health_checks:171 -   file_system: PASS - File system is healthy
+2025-09-13 19:39:04,443 - src.startup - INFO - _run_final_health_checks:171 -   configuration: PASS - Configuration is valid
+2025-09-13 19:39:04,443 - src.startup - WARNING - startup:85 - ⚠️  Final health checks had issues
+2025-09-13 19:39:04,443 - src.startup - INFO - startup:91 - 🎉 System startup completed successfully!
+2025-09-13 19:39:04,446 - __main__ - INFO - main:49 - Application initialized successfully with startup system
+2025-09-13 19:39:04,449 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 19:39:04,450 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 19:39:04,450 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 19:39:04,450 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 19:43:27,107 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 19:43:27,108 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 19:43:27,119 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 19:43:27,119 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 19:43:27,212 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 19:43:27,213 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 19:43:27,223 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 19:43:27,223 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 19:43:27,223 - src.services.document_processor - ERROR - process_document_simple:86 - Error processing document AMAGuides 5th Edition.pdf: no such column: file_path
+2025-09-13 19:43:27,258 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 19:43:27,258 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 19:43:27,269 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 19:43:27,269 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 19:43:27,269 - src.services.document_processor - ERROR - process_document_simple:86 - Error processing document QME-Study-Guide.pdf: no such column: file_path
+2025-09-13 19:43:27,305 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 19:43:27,305 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 19:43:27,316 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 19:43:27,316 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 19:43:27,316 - src.services.document_processor - ERROR - process_document_simple:86 - Error processing document Sample3.pdf: no such column: file_path
+2025-09-13 19:45:44,801 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 19:45:44,802 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 19:45:44,813 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 19:45:44,813 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 19:45:44,940 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 19:45:44,940 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 19:45:44,950 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 19:45:44,950 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 19:45:44,951 - src.services.document_processor - INFO - process_document_simple:60 - Document already exists: AMAGuides 5th Edition.pdf
+2025-09-13 19:45:44,986 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 19:45:44,987 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 19:45:44,998 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 19:45:44,998 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 19:45:45,002 - src.services.document_processor - INFO - process_document_simple:86 - Successfully added document: QME-Study-Guide.pdf (ID: a7089a31-fa87-4a56-ae95-f3a10e501523)
+2025-09-13 19:45:45,038 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 19:45:45,038 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 19:45:45,049 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 19:45:45,050 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 19:45:45,053 - src.services.document_processor - INFO - process_document_simple:86 - Successfully added document: Sample3.pdf (ID: 5903b493-517a-4d38-9b2e-f51012ef69ab)
+2025-09-13 19:47:38,814 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 19:47:38,814 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 19:47:38,825 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 19:47:38,825 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 19:47:39,121 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 19:47:39,121 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 19:47:39,155 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 19:47:39,155 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 19:47:39,156 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 19:47:40,455 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 19:47:40,456 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 19:47:40,493 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 19:47:40,493 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 19:47:40,493 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 19:47:40,591 - src.startup - INFO - startup:42 - 🚀 Starting Document Q&A System...
+2025-09-13 19:47:40,591 - src.startup - INFO - startup:46 - ✅ Logging configured
+2025-09-13 19:47:40,591 - src.startup - INFO - startup:50 - ✅ Configuration loaded
+2025-09-13 19:47:40,591 - src.startup - INFO - startup:56 - ✅ Environment validation passed
+2025-09-13 19:47:40,591 - src.config.dependency_injection - INFO - __init__:83 - Initialized DependencyContainer with config: embedding_provider=local, qa_provider=gemini
+2025-09-13 19:47:40,591 - src.startup - INFO - startup:60 - ✅ Dependency container initialized
+2025-09-13 19:47:40,592 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 19:47:40,592 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 19:47:40,592 - src.startup - INFO - startup:64 - ✅ Health checker initialized
+2025-09-13 19:47:40,592 - src.startup - INFO - startup:68 - ✅ Performance monitor initialized
+2025-09-13 19:47:40,592 - src.startup - INFO - _run_initial_health_checks:103 - Running initial health checks...
+2025-09-13 19:47:40,593 - src.startup - INFO - startup:74 - ✅ Initial health checks passed
+2025-09-13 19:47:40,593 - src.startup - INFO - _initialize_knowledge_base:132 - Initializing knowledge base...
+2025-09-13 19:47:40,593 - src.startup - ERROR - _initialize_knowledge_base:154 - Knowledge base initialization failed: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
+Traceback (most recent call last):
+  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/startup.py", line 135, in _initialize_knowledge_base
+    pipeline = self.container.get_ingestion_pipeline()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
+2025-09-13 19:47:40,593 - src.startup - WARNING - startup:78 - ⚠️  Knowledge base initialization had issues
+2025-09-13 19:47:40,593 - src.startup - INFO - _run_final_health_checks:160 - Running final health checks...
+2025-09-13 19:47:40,594 - src.startup - INFO - _run_final_health_checks:165 - Overall system health: UNHEALTHY
+2025-09-13 19:47:40,594 - src.startup - INFO - _run_final_health_checks:166 - Healthy components: 3/4
+2025-09-13 19:47:40,594 - src.startup - INFO - _run_final_health_checks:171 -   database: PASS - Database is healthy
+2025-09-13 19:47:40,594 - src.startup - INFO - _run_final_health_checks:171 -   knowledge_graph: FAIL - Knowledge graph is empty - no nodes found
+2025-09-13 19:47:40,594 - src.startup - INFO - _run_final_health_checks:175 -     node_count: 0
+2025-09-13 19:47:40,594 - src.startup - INFO - _run_final_health_checks:171 -   file_system: PASS - File system is healthy
+2025-09-13 19:47:40,594 - src.startup - INFO - _run_final_health_checks:171 -   configuration: PASS - Configuration is valid
+2025-09-13 19:47:40,594 - src.startup - WARNING - startup:85 - ⚠️  Final health checks had issues
+2025-09-13 19:47:40,594 - src.startup - INFO - startup:91 - 🎉 System startup completed successfully!
+2025-09-13 19:47:40,595 - __main__ - INFO - main:49 - Application initialized successfully with startup system
+2025-09-13 19:47:40,596 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 19:47:40,596 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 19:47:40,596 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 19:47:40,596 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 19:47:50,248 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 19:47:50,248 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 19:47:50,249 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 19:47:50,249 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 19:47:50,251 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-13 19:47:50,251 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-13 19:48:04,691 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 19:48:04,691 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 19:48:04,691 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 19:48:04,691 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 19:48:20,018 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 19:48:20,019 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 19:48:20,019 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 19:48:20,020 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 19:48:21,043 - src.services.simple_processor - INFO - process_document_immediately:41 - Starting immediate processing for Injured worker-PQME-(09.05.2025)-AA CL-09.09.2025.p5.pdf
+2025-09-13 19:48:21,043 - src.services.simple_processor - INFO - process_document_immediately:59 - Processing document with comprehensive AI analysis...
+2025-09-13 19:48:27,275 - src.services.simple_processor - INFO - process_document_immediately:66 - Comprehensive AI processing successful. Result keys: ['document_type', 'extracted_info', 'analysis', 'summary']
+2025-09-13 19:48:27,276 - src.services.simple_processor - INFO - process_document_immediately:84 - Document fully processed successfully
+2025-09-13 19:48:27,280 - src.storage.document_storage - INFO - create_document:48 - Created document record: b30a9d2e-364c-4e2b-86d4-af444c8cc1f0
+2025-09-13 19:48:27,280 - src.services.simple_processor - INFO - process_document_immediately:91 - Document b30a9d2e-364c-4e2b-86d4-af444c8cc1f0 stored with status: completed
+2025-09-13 19:48:39,639 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 19:48:39,640 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 19:48:39,640 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 19:48:39,640 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 19:48:39,641 - src.strategies.embedding_strategy - INFO - __init__:81 - Initialized LocalEmbeddingStrategy with model: all-MiniLM-L6-v2
+2025-09-13 19:48:39,641 - src.strategies.embedding_strategy - WARNING - __init__:82 - LocalEmbeddingStrategy is using mock implementation. Install sentence-transformers for real embeddings.
+2025-09-13 19:48:39,641 - src.services.vector_store - INFO - create_store:257 - Created vector store: main
+2025-09-13 19:48:39,641 - src.strategies.qa_strategy - INFO - __init__:110 - Initialized VectorGraphRetrievalStrategy
+2025-09-13 19:48:39,641 - src.strategies.qa_strategy - INFO - __init__:536 - Initialized GeminiLLMStrategy
+2025-09-13 19:48:39,641 - src.strategies.qa_strategy - INFO - __init__:713 - Initialized HybridQAStrategy with VectorGraphRetrievalStrategy and GeminiLLMStrategy
+2025-09-13 19:48:39,641 - src.services.qa_engine - INFO - __init__:68 - Initialized QAEngine with HybridQAStrategy
+2025-09-13 19:48:39,662 - src.storage.document_storage - INFO - create_qa_session:346 - Created Q&A session: e3158a74-8255-4118-a97d-4b88d2563d90
+2025-09-13 19:48:58,569 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 19:48:58,570 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 19:48:58,570 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 19:48:58,571 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 19:48:58,572 - src.strategies.embedding_strategy - INFO - __init__:81 - Initialized LocalEmbeddingStrategy with model: all-MiniLM-L6-v2
+2025-09-13 19:48:58,572 - src.strategies.embedding_strategy - WARNING - __init__:82 - LocalEmbeddingStrategy is using mock implementation. Install sentence-transformers for real embeddings.
+2025-09-13 19:48:58,572 - src.strategies.qa_strategy - INFO - __init__:110 - Initialized VectorGraphRetrievalStrategy
+2025-09-13 19:48:58,573 - src.strategies.qa_strategy - INFO - __init__:536 - Initialized GeminiLLMStrategy
+2025-09-13 19:48:58,573 - src.strategies.qa_strategy - INFO - __init__:713 - Initialized HybridQAStrategy with VectorGraphRetrievalStrategy and GeminiLLMStrategy
+2025-09-13 19:48:58,573 - src.services.qa_engine - INFO - __init__:68 - Initialized QAEngine with HybridQAStrategy
+2025-09-13 19:48:58,596 - src.storage.document_storage - INFO - add_qa_interaction:411 - Added Q&A interaction to session e3158a74-8255-4118-a97d-4b88d2563d90
+2025-09-13 19:48:58,612 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 19:48:58,612 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 19:48:58,612 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 19:48:58,612 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-13 19:48:58,613 - src.strategies.embedding_strategy - INFO - __init__:81 - Initialized LocalEmbeddingStrategy with model: all-MiniLM-L6-v2
+2025-09-13 19:48:58,613 - src.strategies.embedding_strategy - WARNING - __init__:82 - LocalEmbeddingStrategy is using mock implementation. Install sentence-transformers for real embeddings.
+2025-09-13 19:48:58,613 - src.strategies.qa_strategy - INFO - __init__:110 - Initialized VectorGraphRetrievalStrategy
+2025-09-13 19:48:58,613 - src.strategies.qa_strategy - INFO - __init__:536 - Initialized GeminiLLMStrategy
+2025-09-13 19:48:58,613 - src.strategies.qa_strategy - INFO - __init__:713 - Initialized HybridQAStrategy with VectorGraphRetrievalStrategy and GeminiLLMStrategy
+2025-09-13 19:48:58,613 - src.services.qa_engine - INFO - __init__:68 - Initialized QAEngine with HybridQAStrategy
+2025-09-13 19:49:13,183 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-13 19:49:13,184 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-13 19:49:13,184 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-13 19:49:13,184 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']

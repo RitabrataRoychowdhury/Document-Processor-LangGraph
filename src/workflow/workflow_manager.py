@@ -1,4 +1,4 @@
-"""Workflow manager for coordinating document processing workflows."""
+"""Workflow manager for coordinating document processing workflows using command pattern."""
 
 import uuid
 from datetime import datetime
@@ -6,25 +6,37 @@ from typing import Dict, Any, Optional, List
 import threading
 import queue
 import time
+import logging
 
 from src.models.document import Document, ProcessingJob
 from src.storage.document_storage import DocumentStorage
-from src.workflow.enhanced_workflow import EnhancedDocumentWorkflow
-from src.config import config
-from src.utils.logging_config import get_logger
+from src.commands import Command, CommandResult, CommandStatus
+from src.commands.ingest_command import IngestCommand
+from src.commands.ner_command import NERCommand
+from src.commands.kg_populate_command import KGPopulateCommand
+from src.factories.processor_factory import ProcessorFactory
+from src.strategies.embedding_strategy import LocalEmbeddingStrategy
+from src.repositories.knowledge_graph_repository import KnowledgeGraphRepository
 from src.utils.error_handling import WorkflowError, handle_errors
 
-logger = get_logger(__name__)
+logger = logging.getLogger(__name__)
 
 
 class WorkflowManager:
-    """Manages document processing workflows and job queues."""
+    """Manages document processing workflows using command pattern."""
     
-    def __init__(self, storage: Optional[DocumentStorage] = None):
+    def __init__(self, storage: Optional[DocumentStorage] = None,
+                 processor_factory: Optional[ProcessorFactory] = None,
+                 kg_repository: Optional[KnowledgeGraphRepository] = None):
         self.storage = storage or DocumentStorage()
-        self.workflow = EnhancedDocumentWorkflow(self.storage)
+        self.processor_factory = processor_factory or ProcessorFactory()
+        from src.repositories.knowledge_graph_repository import SQLiteKnowledgeGraphRepository
+        self.kg_repository = kg_repository or SQLiteKnowledgeGraphRepository()
+        self.embedding_strategy = LocalEmbeddingStrategy()
+        
         self.job_queue = queue.Queue()
         self.active_jobs = {}
+        self.command_history = {}
         self.worker_thread = None
         self.running = False
         
@@ -47,34 +59,29 @@ class WorkflowManager:
         """Alias for stop() method for compatibility."""
         self.stop()
     
-    def submit_document_for_processing(self, document: Document, api_key: str) -> str:
-        """Submit a document for processing and return job ID."""
+    def submit_document_for_processing(self, file_path: str, api_key: str = None) -> str:
+        """Submit a document for processing using command pattern and return job ID."""
         try:
-            # Create the document record
-            self.storage.create_document(document)
-            
             # Create processing job
             job_id = str(uuid.uuid4())
             processing_job = ProcessingJob(
                 job_id=job_id,
-                document_id=document.id,
+                document_id=None,  # Will be set after ingestion
                 status="queued",
                 current_step="queued"
             )
             
-            self.storage.create_processing_job(processing_job)
-            
-            # Add to job queue
+            # Add to job queue with commands to execute
             job_data = {
                 'job_id': job_id,
-                'document_id': document.id,
-                'document_text': document.original_text,
+                'file_path': file_path,
                 'api_key': api_key,
-                'submitted_at': datetime.now()
+                'submitted_at': datetime.now(),
+                'commands': ['ingest', 'ner', 'kg_populate']
             }
             
             self.job_queue.put(job_data)
-            logger.info(f"Submitted document {document.id} for processing with job {job_id}")
+            logger.info(f"Submitted file {file_path} for processing with job {job_id}")
             
             return job_id
             
@@ -139,29 +146,74 @@ class WorkflowManager:
         logger.info("Workflow worker thread stopped")
     
     def _process_job(self, job_data: Dict[str, Any]):
-        """Process a single job."""
+        """Process a single job using command pattern."""
         job_id = job_data['job_id']
-        document_id = job_data['document_id']
+        file_path = job_data.get('file_path')
+        commands_to_execute = job_data.get('commands', [])
         
         try:
-            logger.info(f"Starting processing for job {job_id}")
+            logger.info(f"Starting command-based processing for job {job_id}")
             self.active_jobs[job_id] = job_data
             
-            # Update job status to processing
-            self.storage.update_processing_job(
-                job_id,
+            # Create processing job record
+            processing_job = ProcessingJob(
+                job_id=job_id,
+                document_id=None,  # Will be set after ingestion
                 status="processing",
                 current_step="starting"
             )
+            self.storage.create_processing_job(processing_job)
             
-            # Run the workflow
-            result_job_id = self.workflow.process_document(
-                document_id=document_id,
-                document_text=job_data['document_text'],
-                api_key=job_data['api_key']
+            document_id = None
+            
+            # Execute commands in sequence
+            for i, command_name in enumerate(commands_to_execute):
+                try:
+                    logger.info(f"Executing command {command_name} for job {job_id} ({i+1}/{len(commands_to_execute)})")
+                    
+                    # Update job status
+                    self.storage.update_processing_job(
+                        job_id,
+                        current_step=command_name
+                    )
+                    
+                    # Create and execute command
+                    command = self._create_command(command_name, file_path, document_id)
+                    result = self._execute_command_with_logging(command)
+                    
+                    # Store command result
+                    self.command_history[f"{job_id}_{command_name}"] = result
+                    
+                    if not result.success:
+                        raise Exception(f"Command {command_name} failed: {result.message}")
+                    
+                    # Extract document_id from ingest command result
+                    if command_name == 'ingest' and 'document_id' in result.data:
+                        document_id = result.data['document_id']
+                        # Update processing job with document_id
+                        self.storage.update_processing_job(job_id, document_id=document_id)
+                    
+                    logger.info(f"Successfully completed command {command_name} for job {job_id}")
+                    
+                except Exception as cmd_error:
+                    logger.error(f"Command {command_name} failed for job {job_id}: {cmd_error}")
+                    raise cmd_error
+            
+            # Mark job as completed
+            self.storage.update_processing_job(
+                job_id,
+                status="completed",
+                current_step="completed",
+                completed_at=datetime.now()
             )
             
-            logger.info(f"Completed processing for job {job_id}")
+            if document_id:
+                self.storage.update_document(document_id, {
+                    'processing_status': 'completed',
+                    'updated_at': datetime.now()
+                })
+            
+            logger.info(f"Successfully completed all commands for job {job_id}")
             
         except Exception as e:
             logger.error(f"Error processing job {job_id}: {e}")
@@ -175,11 +227,11 @@ class WorkflowManager:
                     completed_at=datetime.now()
                 )
                 
-                # Update document status
-                self.storage.update_document(document_id, {
-                    'processing_status': 'failed',
-                    'updated_at': datetime.now()
-                })
+                if document_id:
+                    self.storage.update_document(document_id, {
+                        'processing_status': 'failed',
+                        'updated_at': datetime.now()
+                    })
                 
             except Exception as update_error:
                 logger.error(f"Error updating job status: {update_error}")
@@ -200,6 +252,78 @@ class WorkflowManager:
     def get_recent_jobs(self, limit: int = 10) -> List[ProcessingJob]:
         """Get recent processing jobs."""
         return self.storage.list_processing_jobs()[:limit]
+    
+    def _create_command(self, command_name: str, file_path: str = None, document_id: str = None) -> Command:
+        """Create a command instance based on command name."""
+        if command_name == 'ingest':
+            if not file_path:
+                raise ValueError("file_path is required for ingest command")
+            return IngestCommand(
+                file_path=file_path,
+                document_id=document_id,
+                processor_factory=self.processor_factory,
+                storage=self.storage
+            )
+        elif command_name == 'ner':
+            if not document_id:
+                raise ValueError("document_id is required for NER command")
+            return NERCommand(
+                document_id=document_id,
+                embedding_strategy=self.embedding_strategy,
+                storage=self.storage
+            )
+        elif command_name == 'kg_populate':
+            if not document_id:
+                raise ValueError("document_id is required for KG populate command")
+            return KGPopulateCommand(
+                document_id=document_id,
+                kg_repository=self.kg_repository,
+                storage=self.storage
+            )
+        else:
+            raise ValueError(f"Unknown command: {command_name}")
+    
+    def _execute_command_with_logging(self, command: Command) -> CommandResult:
+        """Execute a command with comprehensive logging."""
+        command_info = command.get_command_info()
+        logger.info(f"Executing command: {command_info['command_type']} (ID: {command_info['command_id']})")
+        
+        try:
+            # Execute command with retry logic
+            result = command.execute_with_retry(max_attempts=3, backoff_factor=2.0)
+            
+            if result.success:
+                logger.info(f"Command {command_info['command_id']} completed successfully: {result.message}")
+            else:
+                logger.error(f"Command {command_info['command_id']} failed: {result.message}")
+                if result.error:
+                    logger.error(f"Command error details: {result.error}")
+            
+            # Log execution metrics
+            if result.execution_time:
+                logger.info(f"Command {command_info['command_id']} execution time: {result.execution_time:.2f}s")
+            
+            if result.retry_count > 0:
+                logger.info(f"Command {command_info['command_id']} required {result.retry_count} retries")
+            
+            return result
+            
+        except Exception as e:
+            logger.error(f"Unexpected error executing command {command_info['command_id']}: {e}")
+            return CommandResult.failure_result(
+                message=f"Unexpected command execution error: {str(e)}",
+                error=e
+            )
+    
+    def execute_single_command(self, command: Command) -> CommandResult:
+        """Execute a single command (useful for testing and manual operations)."""
+        return self._execute_command_with_logging(command)
+    
+    def get_command_history(self, job_id: str = None) -> Dict[str, CommandResult]:
+        """Get command execution history, optionally filtered by job ID."""
+        if job_id:
+            return {k: v for k, v in self.command_history.items() if k.startswith(job_id)}
+        return self.command_history.copy()
 
 
 # Global workflow manager instance

@@ -1,18 +1,29 @@
 """
 File upload and text extraction service for the document Q&A system.
 Handles file validation, text extraction from various formats, and error handling.
+Refactored to use Factory Pattern for document processing.
 """
 
 import os
 import io
 from typing import Dict, Any, Optional, Tuple
 from dataclasses import dataclass
-import streamlit as st
-import PyPDF2
-from docx import Document
 
-from src.utils.logging_config import get_logger
-from src.utils.error_handling import FileUploadError, FileProcessingError, handle_errors
+# Conditional import for streamlit
+try:
+    import streamlit as st
+    STREAMLIT_AVAILABLE = True
+except ImportError:
+    STREAMLIT_AVAILABLE = False
+
+try:
+    from src.factories.processor_factory import ProcessorFactory
+    from src.utils.logging_config import get_logger
+    from src.utils.error_handling import FileUploadError, FileProcessingError, handle_errors
+except ImportError:
+    from factories.processor_factory import ProcessorFactory
+    from utils.logging_config import get_logger
+    from utils.error_handling import FileUploadError, FileProcessingError, handle_errors
 
 logger = get_logger(__name__)
 
@@ -26,7 +37,7 @@ class FileMetadata:
     error_message: Optional[str] = None
 
 class FileUploadHandler:
-    """Handles file uploads, validation, and text extraction"""
+    """Handles file uploads, validation, and text extraction using Factory Pattern"""
     
     # Supported file formats and their MIME types
     SUPPORTED_FORMATS = {
@@ -38,9 +49,17 @@ class FileUploadHandler:
     # Maximum file size (10MB)
     MAX_FILE_SIZE = 10 * 1024 * 1024  # 10MB in bytes
     
-    def __init__(self):
-        """Initialize the file upload handler"""
-        self.supported_extensions = ['.pdf', '.txt', '.docx']
+    def __init__(self, processor_factory: Optional[ProcessorFactory] = None):
+        """
+        Initialize the file upload handler with processor factory.
+        
+        Args:
+            processor_factory: Factory for creating document processors. 
+                             If None, uses the global factory instance.
+        """
+        self.processor_factory = processor_factory or ProcessorFactory()
+        self.supported_extensions = self.processor_factory.get_supported_types()
+        logger.info(f"Initialized FileUploadHandler with supported types: {self.supported_extensions}")
     
     def validate_file(self, uploaded_file) -> FileMetadata:
         """
@@ -105,7 +124,7 @@ class FileUploadHandler:
     
     def extract_text(self, uploaded_file) -> Tuple[str, Optional[str]]:
         """
-        Extract text content from uploaded file
+        Extract text content from uploaded file using processor factory.
         
         Args:
             uploaded_file: Streamlit UploadedFile object
@@ -121,97 +140,66 @@ class FileUploadHandler:
             
             file_extension = metadata.file_type
             
-            # Extract text based on file type
-            if file_extension == '.pdf':
-                return self._extract_pdf_text(uploaded_file)
-            elif file_extension == '.txt':
-                return self._extract_txt_text(uploaded_file)
-            elif file_extension == '.docx':
-                return self._extract_docx_text(uploaded_file)
-            else:
+            # Use processor factory to get appropriate processor
+            try:
+                processor = self.processor_factory.create_processor(file_extension)
+                extracted_text = processor.extract_text(uploaded_file)
+                return extracted_text, None
+            except ValueError as e:
+                logger.error(f"No processor available for file type {file_extension}: {e}")
                 return "", f"Unsupported file format: {file_extension}"
+            except Exception as e:
+                logger.error(f"Processor failed to extract text: {e}")
+                return "", f"Text extraction failed: {str(e)}"
                 
         except Exception as e:
             logger.error(f"Error extracting text from file: {str(e)}")
             return "", f"Text extraction failed: {str(e)}"
     
-    def _extract_pdf_text(self, uploaded_file) -> Tuple[str, Optional[str]]:
-        """Extract text from PDF file"""
+    def extract_metadata(self, uploaded_file) -> Dict[str, Any]:
+        """
+        Extract metadata from uploaded file using processor factory.
+        
+        Args:
+            uploaded_file: Streamlit UploadedFile object
+            
+        Returns:
+            Dict[str, Any]: File metadata including processor-specific metadata
+        """
         try:
-            # Reset file pointer
-            uploaded_file.seek(0)
+            # Get basic file metadata
+            basic_metadata = self.get_file_metadata(uploaded_file)
             
-            pdf_reader = PyPDF2.PdfReader(uploaded_file)
-            text_content = []
+            if not basic_metadata['is_valid']:
+                return basic_metadata
             
-            for page_num, page in enumerate(pdf_reader.pages):
-                try:
-                    page_text = page.extract_text()
-                    if page_text.strip():
-                        text_content.append(page_text)
-                except Exception as e:
-                    logger.warning(f"Could not extract text from page {page_num + 1}: {str(e)}")
-                    continue
+            file_extension = basic_metadata['file_type']
             
-            if not text_content:
-                return "", "No readable text found in PDF file"
-            
-            return "\n\n".join(text_content), None
-            
+            # Use processor factory to get detailed metadata
+            try:
+                processor = self.processor_factory.create_processor(file_extension)
+                processor_metadata = processor.extract_metadata(uploaded_file)
+                
+                # Combine basic and processor metadata
+                combined_metadata = {**basic_metadata, **processor_metadata}
+                return combined_metadata
+                
+            except ValueError as e:
+                logger.error(f"No processor available for metadata extraction: {e}")
+                basic_metadata['metadata_error'] = str(e)
+                return basic_metadata
+            except Exception as e:
+                logger.error(f"Processor failed to extract metadata: {e}")
+                basic_metadata['metadata_error'] = str(e)
+                return basic_metadata
+                
         except Exception as e:
-            logger.error(f"PDF extraction error: {str(e)}")
-            return "", f"Failed to extract text from PDF: {str(e)}"
-    
-    def _extract_txt_text(self, uploaded_file) -> Tuple[str, Optional[str]]:
-        """Extract text from TXT file"""
-        try:
-            # Reset file pointer
-            uploaded_file.seek(0)
-            
-            # Try different encodings
-            encodings = ['utf-8', 'utf-16', 'latin-1', 'cp1252']
-            
-            for encoding in encodings:
-                try:
-                    uploaded_file.seek(0)
-                    content = uploaded_file.read()
-                    if isinstance(content, bytes):
-                        text = content.decode(encoding)
-                    else:
-                        text = str(content)
-                    
-                    if text.strip():
-                        return text, None
-                except UnicodeDecodeError:
-                    continue
-            
-            return "", "Could not decode text file with any supported encoding"
-            
-        except Exception as e:
-            logger.error(f"TXT extraction error: {str(e)}")
-            return "", f"Failed to extract text from TXT file: {str(e)}"
-    
-    def _extract_docx_text(self, uploaded_file) -> Tuple[str, Optional[str]]:
-        """Extract text from DOCX file"""
-        try:
-            # Reset file pointer
-            uploaded_file.seek(0)
-            
-            doc = Document(uploaded_file)
-            text_content = []
-            
-            for paragraph in doc.paragraphs:
-                if paragraph.text.strip():
-                    text_content.append(paragraph.text)
-            
-            if not text_content:
-                return "", "No readable text found in DOCX file"
-            
-            return "\n\n".join(text_content), None
-            
-        except Exception as e:
-            logger.error(f"DOCX extraction error: {str(e)}")
-            return "", f"Failed to extract text from DOCX file: {str(e)}"
+            logger.error(f"Error extracting metadata: {e}")
+            return {
+                'filename': getattr(uploaded_file, 'name', 'unknown'),
+                'error': str(e),
+                'is_valid': False
+            }
     
     def get_file_metadata(self, uploaded_file) -> Dict[str, Any]:
         """

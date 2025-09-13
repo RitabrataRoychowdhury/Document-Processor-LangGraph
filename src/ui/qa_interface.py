@@ -8,7 +8,7 @@ from typing import Optional, List, Dict, Any
 from src.services.qa_engine import QAEngine, create_qa_engine
 from src.storage.document_storage import DocumentStorage
 from src.models.document import Document, QASession
-from src.config import config
+from src.config.app_config import app_config
 
 
 class QAInterface:
@@ -34,7 +34,7 @@ class QAInterface:
             document_id: Optional document ID to start Q&A with
         """
         # Get API key
-        api_key = config.get_gemini_api_key()
+        api_key = app_config.get_api_key_for_provider(app_config.qa_provider)
         if not api_key:
             st.error("⚠️ Gemini API key not configured. Please set GEMINI_API_KEY in your environment.")
             st.info("You can get an API key from: https://makersuite.google.com/app/apikey")
@@ -42,7 +42,13 @@ class QAInterface:
         
         # Initialize QA engine
         if not self.qa_engine:
-            self.qa_engine = create_qa_engine(api_key, self.storage)
+            try:
+                # Use the hybrid QA engine factory with API key
+                from src.services.qa_engine import create_hybrid_qa_engine
+                self.qa_engine = create_hybrid_qa_engine(api_key, self.storage)
+            except Exception as e:
+                st.error(f"Failed to initialize QA engine: {str(e)}")
+                return
         
         # Document selection section
         selected_doc = self._render_document_selector(document_id)

@@ -6,7 +6,27 @@ import os
 from datetime import datetime
 from typing import Optional
 
-from src.config import config
+import sys
+import os
+
+# Add the src directory to path to import config.py
+src_dir = os.path.dirname(os.path.dirname(__file__))
+if src_dir not in sys.path:
+    sys.path.insert(0, src_dir)
+
+# Import from the config.py file (not the config directory)
+try:
+    from config import config
+except ImportError:
+    # Fallback: create a minimal config for testing
+    class MinimalConfig:
+        DEBUG_MODE = False
+        MAX_FILE_SIZE_MB = 10
+        ALLOWED_FILE_TYPES = ['pdf', 'txt', 'docx']
+        DATABASE_PATH = 'data/database/documents.db'
+        PROCESSING_TIMEOUT_SECONDS = 300
+    
+    config = MinimalConfig()
 
 
 class LoggingManager:

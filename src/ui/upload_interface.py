@@ -131,8 +131,8 @@ class UploadInterface:
             progress_bar.progress(80)
             status_text.text("🤖 Processing with AI...")
             
-            from src.config import config
-            api_key = config.get_gemini_api_key()
+            from src.config.app_config import app_config
+            api_key = app_config.get_api_key_for_provider(app_config.qa_provider)
             
             if api_key:
                 try:

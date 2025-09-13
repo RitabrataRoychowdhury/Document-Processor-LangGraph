@@ -4,7 +4,28 @@ import sqlite3
 import os
 from datetime import datetime
 from typing import Optional, Dict, Any, List
-from src.config import config
+import sys
+import os as os_module
+
+# Add the src directory to path to import config.py
+src_dir = os_module.path.dirname(os_module.path.dirname(__file__))
+if src_dir not in sys.path:
+    sys.path.insert(0, src_dir)
+
+# Import from the config.py file (not the config directory)
+try:
+    from config import config
+except ImportError:
+    # Fallback: create a minimal config for testing
+    class MinimalConfig:
+        DATABASE_PATH = 'data/database/documents.db'
+    
+    config = MinimalConfig()
+
+try:
+    from src.storage.knowledge_graph_schema import KnowledgeGraphSchemaManager
+except ImportError:
+    from storage.knowledge_graph_schema import KnowledgeGraphSchemaManager
 
 
 class DatabaseManager:
@@ -15,6 +36,7 @@ class DatabaseManager:
         self.db_path = db_path or config.DATABASE_PATH
         self._ensure_database_directory()
         self._initialize_database()
+        self._initialize_knowledge_graph_schema()
     
     def _ensure_database_directory(self):
         """Ensure database directory exists."""
@@ -101,6 +123,15 @@ class DatabaseManager:
         conn.execute("CREATE INDEX IF NOT EXISTS idx_qa_interactions_session ON qa_interactions (session_id)")
         
         conn.commit()
+    
+    def _initialize_knowledge_graph_schema(self):
+        """Initialize knowledge graph schema if needed."""
+        try:
+            kg_schema_manager = KnowledgeGraphSchemaManager(self.db_path)
+            kg_schema_manager.migrate_existing_database()
+        except Exception as e:
+            # Log error but don't fail initialization
+            print(f"Warning: Could not initialize knowledge graph schema: {e}")
     
     def reset_database(self):
         """Reset database by dropping and recreating all tables."""

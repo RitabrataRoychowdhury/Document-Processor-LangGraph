@@ -1,0 +1,1 @@
+"""Strategy pattern implementations for embedding generation and Q&A."""

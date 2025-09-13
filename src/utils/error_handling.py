@@ -5,7 +5,10 @@ import traceback
 from typing import Any, Callable, Dict, Optional, Tuple, Union
 from enum import Enum
 
-from src.utils.logging_config import get_logger
+try:
+    from src.utils.logging_config import get_logger
+except ImportError:
+    from utils.logging_config import get_logger
 
 logger = get_logger(__name__)
 
@@ -117,6 +120,22 @@ class QAError(DocumentQAError):
     def __init__(self, message: str, details: Optional[Dict[str, Any]] = None, 
                  original_error: Optional[Exception] = None):
         super().__init__(message, ErrorType.QA_ERROR, details, original_error)
+
+
+class RetryableException(DocumentQAError):
+    """Exception that indicates the operation can be retried."""
+    
+    def __init__(self, message: str, details: Optional[Dict[str, Any]] = None, 
+                 original_error: Optional[Exception] = None):
+        super().__init__(message, ErrorType.SYSTEM_ERROR, details, original_error)
+
+
+class NonRetryableException(DocumentQAError):
+    """Exception that indicates the operation should not be retried."""
+    
+    def __init__(self, message: str, details: Optional[Dict[str, Any]] = None, 
+                 original_error: Optional[Exception] = None):
+        super().__init__(message, ErrorType.SYSTEM_ERROR, details, original_error)
 
 
 def handle_errors(error_type: ErrorType = ErrorType.SYSTEM_ERROR, 

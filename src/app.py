@@ -13,13 +13,25 @@ from contextlib import contextmanager
 # Add src directory to path for imports
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
-from src.config import config
+from src.config.app_config import app_config
+# Import legacy config for backward compatibility
+try:
+    from config import config
+except ImportError:
+    # Create a minimal config for backward compatibility
+    class LegacyConfig:
+        def validate(self):
+            return []
+    config = LegacyConfig()
+from src.config.app_config import app_config
 from src.utils.logging_config import logging_manager, get_logger
 from src.utils.error_handling import (
     DocumentQAError, ErrorType, handle_errors, format_error_for_ui
 )
 from src.storage.database import db_manager
 from src.storage.document_storage import DocumentStorage
+from src.repositories.document_repository import SQLiteDocumentRepository
+from src.repositories.patient_repository import SQLitePatientRepository
 from src.services.file_handler import FileUploadHandler
 from src.services.qa_engine import QAEngine
 from src.workflow.workflow_manager import WorkflowManager
@@ -33,9 +45,12 @@ class DocumentQAApplication:
     def __init__(self):
         self.initialized = False
         self.storage: Optional[DocumentStorage] = None
+        self.document_repository: Optional[SQLiteDocumentRepository] = None
+        self.patient_repository: Optional[SQLitePatientRepository] = None
         self.file_handler: Optional[FileUploadHandler] = None
         self.qa_engine: Optional[QAEngine] = None
         self.workflow_manager: Optional[WorkflowManager] = None
+        self.app_config = app_config
         self._setup_signal_handlers()
     
     def _setup_signal_handlers(self):
@@ -67,10 +82,13 @@ class DocumentQAApplication:
         # Log system information
         logging_manager.log_system_info()
         
-        # Validate configuration
+        # Validate configuration (both legacy and new)
         config_errors = config.validate()
-        if config_errors:
-            error_msg = f"Configuration validation failed: {', '.join(config_errors)}"
+        app_config_errors = self.app_config.validate()
+        
+        all_errors = config_errors + app_config_errors
+        if all_errors:
+            error_msg = f"Configuration validation failed: {', '.join(all_errors)}"
             logger.error(error_msg)
             raise DocumentQAError(error_msg, ErrorType.VALIDATION_ERROR)
         
@@ -93,8 +111,8 @@ class DocumentQAApplication:
     def _create_directories(self):
         """Create required directories."""
         directories = [
-            config.DOCUMENTS_DIR,
-            config.DATABASE_DIR,
+            self.app_config.documents_dir,
+            self.app_config.database_dir,
             "logs"
         ]
         
@@ -117,25 +135,30 @@ class DocumentQAApplication:
             raise DocumentQAError(
                 "Failed to initialize database",
                 ErrorType.DATABASE_ERROR,
-                {"database_path": config.DATABASE_PATH},
+                {"database_path": self.app_config.database_path},
                 e
             )
     
     def _initialize_components(self):
         """Initialize all application components."""
         try:
-            # Initialize storage
+            # Initialize storage (backward compatibility)
             self.storage = DocumentStorage()
             logger.debug("Document storage initialized")
+            
+            # Initialize repositories (new pattern)
+            self.document_repository = SQLiteDocumentRepository()
+            self.patient_repository = SQLitePatientRepository()
+            logger.debug("Repositories initialized")
             
             # Initialize file handler
             self.file_handler = FileUploadHandler()
             logger.debug("File upload handler initialized")
             
-            # Initialize Q&A engine
-            api_key = config.get_gemini_api_key()
-            if not api_key:
-                logger.warning("Gemini API key not configured - Q&A functionality will be limited")
+            # Initialize Q&A engine with new configuration
+            api_key = self.app_config.get_api_key_for_provider(self.app_config.qa_provider)
+            if not api_key and self.app_config.qa_provider != "local":
+                logger.warning(f"{self.app_config.qa_provider} API key not configured - Q&A functionality will be limited")
             
             self.qa_engine = QAEngine(self.storage, api_key)
             logger.debug("Q&A engine initialized")
@@ -264,10 +287,13 @@ class DocumentQAApplication:
                     "tables": db_info["tables"]
                 },
                 "config": {
-                    "max_file_size_mb": config.MAX_FILE_SIZE_MB,
-                    "allowed_file_types": config.ALLOWED_FILE_TYPES,
-                    "debug_mode": config.DEBUG_MODE,
-                    "api_key_configured": bool(config.get_gemini_api_key())
+                    "max_file_size_mb": self.app_config.max_file_size_mb,
+                    "allowed_file_types": self.app_config.allowed_file_types,
+                    "debug_mode": self.app_config.debug_mode,
+                    "api_key_configured": self.app_config.is_api_configured(),
+                    "embedding_provider": self.app_config.embedding_provider,
+                    "qa_provider": self.app_config.qa_provider,
+                    "knowledge_graph_enabled": self.app_config.enable_knowledge_graph
                 }
             }
         except Exception as e:
@@ -307,6 +333,24 @@ class DocumentQAApplication:
         if not self.initialized or not self.workflow_manager:
             raise DocumentQAError("Application not properly initialized", ErrorType.SYSTEM_ERROR)
         return self.workflow_manager
+    
+    @handle_errors(ErrorType.STORAGE_ERROR)
+    def get_document_repository(self) -> SQLiteDocumentRepository:
+        """Get document repository instance."""
+        if not self.initialized or not self.document_repository:
+            raise DocumentQAError("Application not properly initialized", ErrorType.SYSTEM_ERROR)
+        return self.document_repository
+    
+    @handle_errors(ErrorType.STORAGE_ERROR)
+    def get_patient_repository(self) -> SQLitePatientRepository:
+        """Get patient repository instance."""
+        if not self.initialized or not self.patient_repository:
+            raise DocumentQAError("Application not properly initialized", ErrorType.SYSTEM_ERROR)
+        return self.patient_repository
+    
+    def get_app_config(self):
+        """Get application configuration."""
+        return self.app_config
 
 
 # Global application instance

@@ -1,0 +1,46 @@
+2025-09-13 19:26:49,486 - __main__ - ERROR - main:55 - Streamlit initialization error: name 'asyncio' is not defined
+Traceback (most recent call last):
+  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/ui/main_app.py", line 42, in main
+    success = asyncio.run(startup.startup())
+              ^^^^^^^
+NameError: name 'asyncio' is not defined. Did you forget to import 'asyncio'?
+2025-09-13 19:31:32,226 - src.startup - ERROR - _initialize_knowledge_base:154 - Knowledge base initialization failed: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
+Traceback (most recent call last):
+  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/startup.py", line 135, in _initialize_knowledge_base
+    pipeline = self.container.get_ingestion_pipeline()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
+2025-09-13 19:36:43,535 - __main__ - ERROR - main:235 - Page rendering error on Q&A Interface: 'str' object has no attribute 'create_qa_session'
+Traceback (most recent call last):
+  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/ui/main_app.py", line 218, in main
+    render_qa_page()
+    ~~~~~~~~~~~~~~^^
+  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/ui/qa_interface.py", line 341, in render_qa_page
+    qa_interface.render_qa_interface()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/ui/qa_interface.py", line 55, in render_qa_interface
+    self._render_qa_session(selected_doc)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/ui/qa_interface.py", line 127, in _render_qa_session
+    session_id = self._get_or_create_session(document.id)
+  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/ui/qa_interface.py", line 145, in _get_or_create_session
+    session_id = self.qa_engine.create_qa_session(document_id)
+  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/services/qa_engine.py", line 363, in create_qa_session
+    self.storage.create_qa_session(session)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'str' object has no attribute 'create_qa_session'
+2025-09-13 19:39:04,442 - src.startup - ERROR - _initialize_knowledge_base:154 - Knowledge base initialization failed: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
+Traceback (most recent call last):
+  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/startup.py", line 135, in _initialize_knowledge_base
+    pipeline = self.container.get_ingestion_pipeline()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
+2025-09-13 19:43:27,223 - src.services.document_processor - ERROR - process_document_simple:86 - Error processing document AMAGuides 5th Edition.pdf: no such column: file_path
+2025-09-13 19:43:27,269 - src.services.document_processor - ERROR - process_document_simple:86 - Error processing document QME-Study-Guide.pdf: no such column: file_path
+2025-09-13 19:43:27,316 - src.services.document_processor - ERROR - process_document_simple:86 - Error processing document Sample3.pdf: no such column: file_path
+2025-09-13 19:47:40,593 - src.startup - ERROR - _initialize_knowledge_base:154 - Knowledge base initialization failed: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
+Traceback (most recent call last):
+  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/startup.py", line 135, in _initialize_knowledge_base
+    pipeline = self.container.get_ingestion_pipeline()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
