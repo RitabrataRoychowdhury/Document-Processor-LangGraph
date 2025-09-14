@@ -1,0 +1,22 @@
+{
+  "completeness_standards": {
+    "all_sections_present": 100,
+    "required_elements_complete": 95,
+    "supporting_documentation": 90
+  },
+  "accuracy_standards": {
+    "medical_facts_accurate": 100,
+    "calculations_correct": 100,
+    "references_valid": 95
+  },
+  "compliance_standards": {
+    "legal_requirements_met": 100,
+    "ama_guidelines_followed": 100,
+    "formatting_professional": 85
+  },
+  "content_quality": {
+    "medical_reasoning_sound": 90,
+    "conclusions_supported": 95,
+    "language_professional": 85
+  }
+}

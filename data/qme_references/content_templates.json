@@ -1,0 +1,9 @@
+{
+  "history_template": "The patient reports sustaining an injury on {date} when {mechanism}. Initially, the patient experienced {initial_symptoms}. Currently, the patient describes {current_symptoms}.",
+  "examination_template": "Physical examination reveals {general_appearance}. Range of motion testing shows {rom_findings}. Strength testing demonstrates {strength_findings}. Neurological examination reveals {neuro_findings}.",
+  "diagnosis_template": "Based on the history, physical examination, and review of medical records, the diagnosis is {primary_diagnosis} (ICD-10: {icd_code}).",
+  "impairment_template": "Using the AMA Guides to the Evaluation of Permanent Impairment, 5th Edition, {methodology}, the impairment rating is {percentage}% whole person impairment.",
+  "causation_template": "It is my opinion to a reasonable degree of medical probability that the {condition} is causally related to the industrial injury of {date} based on {rationale}.",
+  "treatment_template": "Future medical care recommendations include: {recommendations}. These treatments are reasonable and necessary for the diagnosed condition.",
+  "restrictions_template": "Based on the examination findings and functional limitations, the following work restrictions are recommended: {restrictions}."
+}

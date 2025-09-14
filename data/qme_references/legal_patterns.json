@@ -1,0 +1,62 @@
+[
+  {
+    "requirement_type": "section_4062_3_compliance",
+    "statutory_reference": "Labor Code Section 4062.3",
+    "required_language": "The evaluation shall address each of the issues described in the panel QME's report",
+    "compliance_criteria": [
+      "Address all issues in panel report",
+      "Provide medical opinion on each contested issue",
+      "Include impairment rating if requested"
+    ],
+    "violation_consequences": [
+      "Report may be rejected",
+      "Additional evaluation may be required"
+    ],
+    "example_implementation": "This evaluation addresses the following issues as described in the panel QME report: [list issues]"
+  },
+  {
+    "requirement_type": "impairment_rating_requirement",
+    "statutory_reference": "Labor Code Section 4660",
+    "required_language": "Permanent disability shall be determined in accordance with the AMA Guides",
+    "compliance_criteria": [
+      "Use AMA Guides 5th Edition",
+      "Provide specific table references",
+      "Show calculation methodology"
+    ],
+    "violation_consequences": [
+      "Rating may be rejected",
+      "Supplemental report required"
+    ],
+    "example_implementation": "The impairment rating is calculated using AMA Guides 5th Edition, Chapter X, Table Y"
+  },
+  {
+    "requirement_type": "causation_analysis",
+    "statutory_reference": "Labor Code Section 3208.3",
+    "required_language": "Industrial causation must be established to a reasonable degree of medical probability",
+    "compliance_criteria": [
+      "State opinion to reasonable medical probability",
+      "Consider alternative causes",
+      "Provide medical rationale"
+    ],
+    "violation_consequences": [
+      "Causation finding may be rejected",
+      "Additional medical evidence required"
+    ],
+    "example_implementation": "It is my opinion to a reasonable degree of medical probability that..."
+  },
+  {
+    "requirement_type": "apportionment_analysis",
+    "statutory_reference": "Labor Code Sections 4663 and 4664",
+    "required_language": "Apportionment shall be based on causation",
+    "compliance_criteria": [
+      "Identify all contributing factors",
+      "Assign percentage to each factor",
+      "Provide medical basis for apportionment"
+    ],
+    "violation_consequences": [
+      "Apportionment may be rejected",
+      "Supplemental analysis required"
+    ],
+    "example_implementation": "Apportionment: X% industrial, Y% non-industrial based on..."
+  }
+]

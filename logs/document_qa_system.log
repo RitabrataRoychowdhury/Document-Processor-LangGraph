@@ -1313,3 +1313,1056 @@ AttributeError: 'DependencyContainer' object has no attribute 'get_ingestion_pip
 2025-09-13 23:24:09,083 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
 2025-09-13 23:24:09,083 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
 2025-09-13 23:24:09,083 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-14 13:39:05,947 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-14 13:39:05,948 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-14 13:39:05,959 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-14 13:39:05,960 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-14 13:39:13,074 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-14 13:39:13,074 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-14 13:39:13,139 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-14 13:39:13,140 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-14 13:39:13,140 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-14 13:39:14,802 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-14 13:39:14,803 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-14 13:39:14,844 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-14 13:39:14,844 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-14 13:39:14,844 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-14 13:39:14,950 - src.startup - INFO - startup:42 - 🚀 Starting Document Q&A System...
+2025-09-14 13:39:14,950 - src.startup - INFO - startup:46 - ✅ Logging configured
+2025-09-14 13:39:14,950 - src.startup - INFO - startup:50 - ✅ Configuration loaded
+2025-09-14 13:39:14,950 - src.startup - INFO - startup:56 - ✅ Environment validation passed
+2025-09-14 13:39:14,950 - src.config.dependency_injection - INFO - __init__:83 - Initialized DependencyContainer with config: embedding_provider=local, qa_provider=gemini
+2025-09-14 13:39:14,950 - src.startup - INFO - startup:60 - ✅ Dependency container initialized
+2025-09-14 13:39:14,951 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-14 13:39:14,951 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-14 13:39:14,951 - src.startup - INFO - startup:64 - ✅ Health checker initialized
+2025-09-14 13:39:14,951 - src.startup - INFO - startup:68 - ✅ Performance monitor initialized
+2025-09-14 13:39:14,951 - src.startup - INFO - _run_initial_health_checks:103 - Running initial health checks...
+2025-09-14 13:39:14,951 - src.startup - INFO - startup:74 - ✅ Initial health checks passed
+2025-09-14 13:39:14,951 - src.startup - INFO - _initialize_knowledge_base:132 - Initializing knowledge base...
+2025-09-14 13:39:14,951 - src.startup - ERROR - _initialize_knowledge_base:154 - Knowledge base initialization failed: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
+Traceback (most recent call last):
+  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/startup.py", line 135, in _initialize_knowledge_base
+    pipeline = self.container.get_ingestion_pipeline()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
+2025-09-14 13:39:14,952 - src.startup - WARNING - startup:78 - ⚠️  Knowledge base initialization had issues
+2025-09-14 13:39:14,952 - src.startup - INFO - _run_final_health_checks:160 - Running final health checks...
+2025-09-14 13:39:14,953 - src.startup - INFO - _run_final_health_checks:165 - Overall system health: UNHEALTHY
+2025-09-14 13:39:14,953 - src.startup - INFO - _run_final_health_checks:166 - Healthy components: 3/4
+2025-09-14 13:39:14,953 - src.startup - INFO - _run_final_health_checks:171 -   database: PASS - Database is healthy
+2025-09-14 13:39:14,953 - src.startup - INFO - _run_final_health_checks:171 -   knowledge_graph: FAIL - Knowledge graph is empty - no nodes found
+2025-09-14 13:39:14,953 - src.startup - INFO - _run_final_health_checks:175 -     node_count: 0
+2025-09-14 13:39:14,953 - src.startup - INFO - _run_final_health_checks:171 -   file_system: PASS - File system is healthy
+2025-09-14 13:39:14,953 - src.startup - INFO - _run_final_health_checks:171 -   configuration: PASS - Configuration is valid
+2025-09-14 13:39:14,953 - src.startup - WARNING - startup:85 - ⚠️  Final health checks had issues
+2025-09-14 13:39:14,953 - src.startup - INFO - startup:91 - 🎉 System startup completed successfully!
+2025-09-14 13:39:14,954 - __main__ - INFO - main:50 - Application initialized successfully with startup system
+2025-09-14 13:39:14,955 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-14 13:39:14,956 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-14 13:39:14,956 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-14 13:39:14,956 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-14 13:50:18,258 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-14 13:50:18,259 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-14 13:50:18,262 - src.services.enhanced_document_processor - WARNING - _initialize_nlp_model:136 - spaCy model en_core_web_sm not found, using rule-based extraction
+2025-09-14 13:50:18,263 - src.services.enhanced_document_processor - WARNING - _initialize_nlp_model:136 - spaCy model en_core_web_sm not found, using rule-based extraction
+2025-09-14 13:50:18,264 - src.services.enhanced_document_processor - WARNING - _initialize_nlp_model:136 - spaCy model en_core_web_sm not found, using rule-based extraction
+2025-09-14 13:50:18,266 - src.services.enhanced_document_processor - INFO - establish_relationships:820 - Establishing relationships between 12 entities
+2025-09-14 13:50:18,266 - src.services.enhanced_document_processor - INFO - establish_relationships:856 - Established 11 entity relationships
+2025-09-14 13:50:18,267 - src.services.enhanced_document_processor - WARNING - _initialize_nlp_model:136 - spaCy model en_core_web_sm not found, using rule-based extraction
+2025-09-14 13:50:18,268 - src.services.enhanced_document_processor - WARNING - _initialize_nlp_model:136 - spaCy model en_core_web_sm not found, using rule-based extraction
+2025-09-14 13:50:18,268 - src.services.enhanced_document_processor - WARNING - _initialize_nlp_model:136 - spaCy model en_core_web_sm not found, using rule-based extraction
+2025-09-14 13:50:18,269 - src.services.enhanced_document_processor - WARNING - _initialize_nlp_model:136 - spaCy model en_core_web_sm not found, using rule-based extraction
+2025-09-14 13:50:18,270 - src.services.enhanced_document_processor - WARNING - _initialize_nlp_model:136 - spaCy model en_core_web_sm not found, using rule-based extraction
+2025-09-14 13:50:18,273 - src.services.enhanced_document_processor - WARNING - _initialize_nlp_model:136 - spaCy model en_core_web_sm not found, using rule-based extraction
+2025-09-14 13:50:18,273 - src.services.enhanced_document_processor - WARNING - _initialize_nlp_model:136 - spaCy model en_core_web_sm not found, using rule-based extraction
+2025-09-14 13:50:18,274 - src.services.enhanced_document_processor - WARNING - _initialize_nlp_model:136 - spaCy model en_core_web_sm not found, using rule-based extraction
+2025-09-14 13:50:18,274 - src.services.enhanced_document_processor - WARNING - _initialize_nlp_model:136 - spaCy model en_core_web_sm not found, using rule-based extraction
+2025-09-14 13:50:18,274 - src.services.enhanced_document_processor - INFO - _store_in_knowledge_graph:1005 - Storing entities and relationships in knowledge graph
+2025-09-14 13:50:18,274 - src.services.enhanced_document_processor - ERROR - _store_in_knowledge_graph:1052 - Error storing in knowledge graph: Mock object has no attribute 'save_section'
+2025-09-14 13:50:18,300 - src.services.enhanced_document_processor - WARNING - _initialize_nlp_model:136 - spaCy model en_core_web_sm not found, using rule-based extraction
+2025-09-14 13:50:18,300 - src.services.enhanced_document_processor - INFO - process_patient_documents:271 - Starting enhanced processing of 2 documents
+2025-09-14 13:50:18,300 - src.services.enhanced_document_processor - INFO - _process_single_document:314 - Processing document: /var/folders/tf/v4z6mt_s343b3c611hlfc_jh0000gn/T/tmp4w5142fv.txt
+2025-09-14 13:50:18,300 - src.services.enhanced_document_processor - INFO - perform_semantic_chunking:413 - Performing semantic chunking with medical context preservation
+2025-09-14 13:50:18,301 - src.services.enhanced_document_processor - INFO - perform_semantic_chunking:469 - Created 2 semantic chunks
+2025-09-14 13:50:18,301 - src.services.enhanced_document_processor - INFO - establish_relationships:820 - Establishing relationships between 12 entities
+2025-09-14 13:50:18,301 - src.services.enhanced_document_processor - INFO - establish_relationships:856 - Established 11 entity relationships
+2025-09-14 13:50:18,301 - src.services.enhanced_document_processor - INFO - _store_in_knowledge_graph:1005 - Storing entities and relationships in knowledge graph
+2025-09-14 13:50:18,302 - src.services.enhanced_document_processor - ERROR - _store_in_knowledge_graph:1052 - Error storing in knowledge graph: Mock object has no attribute 'save_section'
+2025-09-14 13:50:18,302 - src.services.enhanced_document_processor - ERROR - process_patient_documents:302 - Error processing document /var/folders/tf/v4z6mt_s343b3c611hlfc_jh0000gn/T/tmp4w5142fv.txt: Mock object has no attribute 'save_section'
+2025-09-14 13:50:18,302 - src.services.enhanced_document_processor - INFO - _process_single_document:314 - Processing document: /var/folders/tf/v4z6mt_s343b3c611hlfc_jh0000gn/T/tmpzvwzqjrn.txt
+2025-09-14 13:50:18,302 - src.services.enhanced_document_processor - INFO - perform_semantic_chunking:413 - Performing semantic chunking with medical context preservation
+2025-09-14 13:50:18,302 - src.services.enhanced_document_processor - INFO - perform_semantic_chunking:469 - Created 2 semantic chunks
+2025-09-14 13:50:18,302 - src.services.enhanced_document_processor - INFO - establish_relationships:820 - Establishing relationships between 12 entities
+2025-09-14 13:50:18,302 - src.services.enhanced_document_processor - INFO - establish_relationships:856 - Established 11 entity relationships
+2025-09-14 13:50:18,302 - src.services.enhanced_document_processor - INFO - _store_in_knowledge_graph:1005 - Storing entities and relationships in knowledge graph
+2025-09-14 13:50:18,302 - src.services.enhanced_document_processor - ERROR - _store_in_knowledge_graph:1052 - Error storing in knowledge graph: Mock object has no attribute 'save_section'
+2025-09-14 13:50:18,302 - src.services.enhanced_document_processor - ERROR - process_patient_documents:302 - Error processing document /var/folders/tf/v4z6mt_s343b3c611hlfc_jh0000gn/T/tmpzvwzqjrn.txt: Mock object has no attribute 'save_section'
+2025-09-14 13:50:18,302 - src.services.enhanced_document_processor - INFO - process_patient_documents:304 - Enhanced processing completed: 0 entities, 0 relationships
+2025-09-14 13:50:18,306 - src.services.enhanced_document_processor - WARNING - _initialize_nlp_model:136 - spaCy model en_core_web_sm not found, using rule-based extraction
+2025-09-14 13:50:18,306 - src.services.enhanced_document_processor - INFO - _process_single_document:314 - Processing document: /var/folders/tf/v4z6mt_s343b3c611hlfc_jh0000gn/T/tmpu0a5rael.txt
+2025-09-14 13:50:18,306 - src.services.enhanced_document_processor - INFO - perform_semantic_chunking:413 - Performing semantic chunking with medical context preservation
+2025-09-14 13:50:18,306 - src.services.enhanced_document_processor - INFO - perform_semantic_chunking:469 - Created 1 semantic chunks
+2025-09-14 13:50:18,307 - src.services.enhanced_document_processor - INFO - establish_relationships:820 - Establishing relationships between 12 entities
+2025-09-14 13:50:18,307 - src.services.enhanced_document_processor - INFO - establish_relationships:856 - Established 11 entity relationships
+2025-09-14 13:50:18,307 - src.services.enhanced_document_processor - INFO - _store_in_knowledge_graph:1005 - Storing entities and relationships in knowledge graph
+2025-09-14 13:50:18,307 - src.services.enhanced_document_processor - ERROR - _store_in_knowledge_graph:1052 - Error storing in knowledge graph: Mock object has no attribute 'save_section'
+2025-09-14 13:50:18,334 - src.services.enhanced_document_processor - WARNING - _initialize_nlp_model:136 - spaCy model en_core_web_sm not found, using rule-based extraction
+2025-09-14 13:50:18,334 - src.services.enhanced_document_processor - INFO - process_specific_pqme_files:1075 - Found PQME file: Injured worker-PQME-(09.05.2025)-AA CL-09.09.2025.p5.pdf
+2025-09-14 13:50:18,334 - src.services.enhanced_document_processor - INFO - process_specific_pqme_files:1075 - Found PQME file: Injured worker-PQME-(09.08.2025)-DA CL-09.09.2025.p4.pdf
+2025-09-14 13:50:18,335 - src.services.enhanced_document_processor - WARNING - _initialize_nlp_model:136 - spaCy model en_core_web_sm not found, using rule-based extraction
+2025-09-14 13:50:18,336 - src.services.enhanced_document_processor - WARNING - _initialize_nlp_model:136 - spaCy model en_core_web_sm not found, using rule-based extraction
+2025-09-14 13:50:18,336 - src.services.enhanced_document_processor - INFO - perform_semantic_chunking:413 - Performing semantic chunking with medical context preservation
+2025-09-14 13:50:18,336 - src.services.enhanced_document_processor - INFO - perform_semantic_chunking:469 - Created 1 semantic chunks
+2025-09-14 13:51:18,638 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-14 13:51:18,639 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-14 13:51:18,642 - src.services.enhanced_document_processor - WARNING - _initialize_nlp_model:136 - spaCy model en_core_web_sm not found, using rule-based extraction
+2025-09-14 13:52:46,961 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-14 13:52:46,961 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-14 13:52:46,964 - src.services.enhanced_document_processor - WARNING - _initialize_nlp_model:136 - spaCy model en_core_web_sm not found, using rule-based extraction
+2025-09-14 13:53:07,219 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-14 13:53:07,220 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-14 13:53:07,223 - src.services.enhanced_document_processor - WARNING - _initialize_nlp_model:136 - spaCy model en_core_web_sm not found, using rule-based extraction
+2025-09-14 13:53:07,223 - src.services.enhanced_document_processor - INFO - perform_semantic_chunking:418 - Performing semantic chunking with medical context preservation
+2025-09-14 13:53:07,223 - src.services.enhanced_document_processor - INFO - perform_semantic_chunking:474 - Created 1 semantic chunks
+2025-09-14 13:53:57,867 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-14 13:53:57,867 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-14 13:53:57,871 - src.services.enhanced_document_processor - WARNING - _initialize_nlp_model:136 - spaCy model en_core_web_sm not found, using rule-based extraction
+2025-09-14 13:53:57,871 - src.services.enhanced_document_processor - INFO - perform_semantic_chunking:418 - Performing semantic chunking with medical context preservation
+2025-09-14 13:53:57,871 - src.services.enhanced_document_processor - INFO - perform_semantic_chunking:475 - Created 5 semantic chunks
+2025-09-14 13:54:26,468 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-14 13:54:26,468 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-14 13:54:26,472 - src.services.enhanced_document_processor - WARNING - _initialize_nlp_model:136 - spaCy model en_core_web_sm not found, using rule-based extraction
+2025-09-14 13:54:26,473 - src.services.enhanced_document_processor - WARNING - _initialize_nlp_model:136 - spaCy model en_core_web_sm not found, using rule-based extraction
+2025-09-14 13:54:26,473 - src.services.enhanced_document_processor - WARNING - _initialize_nlp_model:136 - spaCy model en_core_web_sm not found, using rule-based extraction
+2025-09-14 13:54:26,476 - src.services.enhanced_document_processor - INFO - establish_relationships:829 - Establishing relationships between 12 entities
+2025-09-14 13:54:26,477 - src.services.enhanced_document_processor - INFO - establish_relationships:865 - Established 11 entity relationships
+2025-09-14 13:54:26,477 - src.services.enhanced_document_processor - WARNING - _initialize_nlp_model:136 - spaCy model en_core_web_sm not found, using rule-based extraction
+2025-09-14 13:54:26,478 - src.services.enhanced_document_processor - WARNING - _initialize_nlp_model:136 - spaCy model en_core_web_sm not found, using rule-based extraction
+2025-09-14 13:54:26,478 - src.services.enhanced_document_processor - WARNING - _initialize_nlp_model:136 - spaCy model en_core_web_sm not found, using rule-based extraction
+2025-09-14 13:54:26,479 - src.services.enhanced_document_processor - WARNING - _initialize_nlp_model:136 - spaCy model en_core_web_sm not found, using rule-based extraction
+2025-09-14 13:54:26,480 - src.services.enhanced_document_processor - WARNING - _initialize_nlp_model:136 - spaCy model en_core_web_sm not found, using rule-based extraction
+2025-09-14 13:54:26,481 - src.services.enhanced_document_processor - WARNING - _initialize_nlp_model:136 - spaCy model en_core_web_sm not found, using rule-based extraction
+2025-09-14 13:54:26,481 - src.services.enhanced_document_processor - WARNING - _initialize_nlp_model:136 - spaCy model en_core_web_sm not found, using rule-based extraction
+2025-09-14 13:54:26,482 - src.services.enhanced_document_processor - WARNING - _initialize_nlp_model:136 - spaCy model en_core_web_sm not found, using rule-based extraction
+2025-09-14 13:54:26,483 - src.services.enhanced_document_processor - WARNING - _initialize_nlp_model:136 - spaCy model en_core_web_sm not found, using rule-based extraction
+2025-09-14 13:54:26,483 - src.services.enhanced_document_processor - INFO - _store_in_knowledge_graph:1014 - Storing entities and relationships in knowledge graph
+2025-09-14 13:54:26,483 - src.services.enhanced_document_processor - INFO - _store_in_knowledge_graph:1058 - Successfully stored entities and relationships in knowledge graph
+2025-09-14 13:54:26,483 - src.services.enhanced_document_processor - WARNING - _initialize_nlp_model:136 - spaCy model en_core_web_sm not found, using rule-based extraction
+2025-09-14 13:54:26,484 - src.services.enhanced_document_processor - INFO - process_patient_documents:276 - Starting enhanced processing of 2 documents
+2025-09-14 13:54:26,484 - src.services.enhanced_document_processor - INFO - _process_single_document:319 - Processing document: /var/folders/tf/v4z6mt_s343b3c611hlfc_jh0000gn/T/tmphugci1vs.txt
+2025-09-14 13:54:26,484 - src.services.enhanced_document_processor - INFO - perform_semantic_chunking:418 - Performing semantic chunking with medical context preservation
+2025-09-14 13:54:26,484 - src.services.enhanced_document_processor - INFO - perform_semantic_chunking:475 - Created 5 semantic chunks
+2025-09-14 13:54:26,485 - src.services.enhanced_document_processor - INFO - establish_relationships:829 - Establishing relationships between 13 entities
+2025-09-14 13:54:26,485 - src.services.enhanced_document_processor - INFO - establish_relationships:865 - Established 15 entity relationships
+2025-09-14 13:54:26,485 - src.services.enhanced_document_processor - INFO - _store_in_knowledge_graph:1014 - Storing entities and relationships in knowledge graph
+2025-09-14 13:54:26,485 - src.services.enhanced_document_processor - INFO - _store_in_knowledge_graph:1058 - Successfully stored entities and relationships in knowledge graph
+2025-09-14 13:54:26,485 - src.services.enhanced_document_processor - INFO - _process_single_document:319 - Processing document: /var/folders/tf/v4z6mt_s343b3c611hlfc_jh0000gn/T/tmp1xgqs5ea.txt
+2025-09-14 13:54:26,485 - src.services.enhanced_document_processor - INFO - perform_semantic_chunking:418 - Performing semantic chunking with medical context preservation
+2025-09-14 13:54:26,485 - src.services.enhanced_document_processor - INFO - perform_semantic_chunking:475 - Created 5 semantic chunks
+2025-09-14 13:54:26,486 - src.services.enhanced_document_processor - INFO - establish_relationships:829 - Establishing relationships between 13 entities
+2025-09-14 13:54:26,486 - src.services.enhanced_document_processor - INFO - establish_relationships:865 - Established 15 entity relationships
+2025-09-14 13:54:26,486 - src.services.enhanced_document_processor - INFO - _store_in_knowledge_graph:1014 - Storing entities and relationships in knowledge graph
+2025-09-14 13:54:26,486 - src.services.enhanced_document_processor - INFO - _store_in_knowledge_graph:1058 - Successfully stored entities and relationships in knowledge graph
+2025-09-14 13:54:26,487 - src.services.enhanced_document_processor - INFO - process_patient_documents:309 - Enhanced processing completed: 26 entities, 30 relationships
+2025-09-14 13:54:26,488 - src.services.enhanced_document_processor - WARNING - _initialize_nlp_model:136 - spaCy model en_core_web_sm not found, using rule-based extraction
+2025-09-14 13:54:26,488 - src.services.enhanced_document_processor - INFO - _process_single_document:319 - Processing document: /var/folders/tf/v4z6mt_s343b3c611hlfc_jh0000gn/T/tmpajsm4k1u.txt
+2025-09-14 13:54:26,488 - src.services.enhanced_document_processor - INFO - perform_semantic_chunking:418 - Performing semantic chunking with medical context preservation
+2025-09-14 13:54:26,488 - src.services.enhanced_document_processor - INFO - perform_semantic_chunking:475 - Created 5 semantic chunks
+2025-09-14 13:54:26,489 - src.services.enhanced_document_processor - INFO - establish_relationships:829 - Establishing relationships between 12 entities
+2025-09-14 13:54:26,489 - src.services.enhanced_document_processor - INFO - establish_relationships:865 - Established 13 entity relationships
+2025-09-14 13:54:26,489 - src.services.enhanced_document_processor - INFO - _store_in_knowledge_graph:1014 - Storing entities and relationships in knowledge graph
+2025-09-14 13:54:26,489 - src.services.enhanced_document_processor - INFO - _store_in_knowledge_graph:1058 - Successfully stored entities and relationships in knowledge graph
+2025-09-14 13:54:26,490 - src.services.enhanced_document_processor - WARNING - _initialize_nlp_model:136 - spaCy model en_core_web_sm not found, using rule-based extraction
+2025-09-14 13:54:26,490 - src.services.enhanced_document_processor - INFO - process_specific_pqme_files:1084 - Found PQME file: Injured worker-PQME-(09.05.2025)-AA CL-09.09.2025.p5.pdf
+2025-09-14 13:54:26,490 - src.services.enhanced_document_processor - INFO - process_specific_pqme_files:1084 - Found PQME file: Injured worker-PQME-(09.08.2025)-DA CL-09.09.2025.p4.pdf
+2025-09-14 13:54:26,491 - src.services.enhanced_document_processor - WARNING - _initialize_nlp_model:136 - spaCy model en_core_web_sm not found, using rule-based extraction
+2025-09-14 13:54:26,492 - src.services.enhanced_document_processor - WARNING - _initialize_nlp_model:136 - spaCy model en_core_web_sm not found, using rule-based extraction
+2025-09-14 13:54:26,492 - src.services.enhanced_document_processor - INFO - perform_semantic_chunking:418 - Performing semantic chunking with medical context preservation
+2025-09-14 13:54:26,492 - src.services.enhanced_document_processor - INFO - perform_semantic_chunking:475 - Created 5 semantic chunks
+2025-09-14 13:56:21,519 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-14 13:56:21,519 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-14 13:56:21,521 - src.services.enhanced_document_processor - WARNING - _initialize_nlp_model:136 - spaCy model en_core_web_sm not found, using rule-based extraction
+2025-09-14 13:56:21,521 - src.services.enhanced_document_processor - INFO - process_patient_documents:276 - Starting enhanced processing of 1 documents
+2025-09-14 13:56:21,521 - src.services.enhanced_document_processor - INFO - _process_single_document:319 - Processing document: /var/folders/tf/v4z6mt_s343b3c611hlfc_jh0000gn/T/tmp972x692w.txt
+2025-09-14 13:56:21,522 - src.services.enhanced_document_processor - INFO - perform_semantic_chunking:418 - Performing semantic chunking with medical context preservation
+2025-09-14 13:56:21,522 - src.services.enhanced_document_processor - INFO - perform_semantic_chunking:475 - Created 5 semantic chunks
+2025-09-14 13:56:21,525 - src.services.enhanced_document_processor - INFO - establish_relationships:829 - Establishing relationships between 15 entities
+2025-09-14 13:56:21,525 - src.services.enhanced_document_processor - INFO - establish_relationships:865 - Established 25 entity relationships
+2025-09-14 13:56:21,525 - src.services.enhanced_document_processor - INFO - _store_in_knowledge_graph:1014 - Storing entities and relationships in knowledge graph
+2025-09-14 13:56:21,527 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: 81dc9e5e-d831-4585-8503-0f549732a40c
+2025-09-14 13:56:21,528 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: 84bce52f-d785-49a2-be79-30ae9dc2b0ef
+2025-09-14 13:56:21,528 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: 2edffad8-84eb-4701-8a4e-78a96d5b8a99
+2025-09-14 13:56:21,529 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: 324298c1-9c6e-4b60-a402-438fc3799626
+2025-09-14 13:56:21,530 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: ee41ffda-70da-4364-9898-479f53bc1396
+2025-09-14 13:56:21,531 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: 808e73b1-3438-444f-8529-d40c246c7754
+2025-09-14 13:56:21,531 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: c85ce62b-a727-4ce7-8b26-3e0ecc2497f6
+2025-09-14 13:56:21,531 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: 9b5de244-9c90-4c16-97ba-0bf4f2eb7a61
+2025-09-14 13:56:21,532 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: a032869a-0d9c-4c8d-94a0-42dd81282813
+2025-09-14 13:56:21,533 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: 626364c9-c9a2-4e98-842f-3acec63d793a
+2025-09-14 13:56:21,533 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: 4baf680d-1657-48aa-84e5-894234831698
+2025-09-14 13:56:21,534 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: cf9fa703-2cda-4e22-a716-9ebcf58573f1
+2025-09-14 13:56:21,535 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: 19d69eef-2014-4046-999b-3930f243e70f
+2025-09-14 13:56:21,535 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: 852c8624-68c8-4a41-80ee-ffb90b9c957e
+2025-09-14 13:56:21,536 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: c874c171-c12b-4d3b-a631-a4eebd04d44e
+2025-09-14 13:56:21,537 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: a45681a4-f932-479b-b2dd-4fcbfc800f37
+2025-09-14 13:56:21,538 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 151f28a9-0ac9-43ec-84e6-b5460f118a41
+2025-09-14 13:56:21,538 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: e7dce7eb-fd6e-4b54-b2af-5a02561592e9
+2025-09-14 13:56:21,539 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 72a7ffed-e895-4f0c-aacb-32ffcc5e43a1
+2025-09-14 13:56:21,539 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: b4e433ce-b47c-42e5-9f7b-a3270aa26f3f
+2025-09-14 13:56:21,540 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: f6bab3bc-8552-4385-b22d-3c65d53076be
+2025-09-14 13:56:21,541 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: b6c1391f-2339-4c67-a1dc-ffe10b712a12
+2025-09-14 13:56:21,541 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 9d641aa1-d4ba-4c73-9bf4-eae1aaab577a
+2025-09-14 13:56:21,541 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: e6935f6f-84d3-415a-b3d9-28754502c5d4
+2025-09-14 13:56:21,542 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: b8fe2c9c-1e7c-4b5b-b9b9-69269623bd3c
+2025-09-14 13:56:21,542 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 288e2ed4-30e7-4b71-9711-c970b2a00f76
+2025-09-14 13:56:21,543 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 41b201f1-955c-432b-87dd-13abc8addeaa
+2025-09-14 13:56:21,543 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 3c791b66-38b4-441d-952e-ae1ccb3b1ed2
+2025-09-14 13:56:21,544 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 77785733-c514-4a0f-90f2-fb2eb12498d6
+2025-09-14 13:56:21,544 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: dce8b807-6d60-4455-b148-91a14618dcca
+2025-09-14 13:56:21,545 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 3fdd519d-11aa-40f4-9909-9ea1e14ccd6e
+2025-09-14 13:56:21,545 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: b0de5099-6daf-4749-a54c-f3bd6dc94843
+2025-09-14 13:56:21,546 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: b64ca753-b4e9-4e3a-a0f0-baa282bcab58
+2025-09-14 13:56:21,547 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 4d010eb2-7f16-4cba-82ed-2d5d9ccbd4ef
+2025-09-14 13:56:21,547 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: b36a8077-6584-4174-a37a-6852a2755c67
+2025-09-14 13:56:21,548 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 65166f7d-070b-48e2-8d22-d0cf64bb5624
+2025-09-14 13:56:21,548 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: ef2d9b00-11fc-4e75-a4e2-7cdbbf7559cc
+2025-09-14 13:56:21,549 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 068a6d2a-20a3-4076-946c-ee269c84d6ad
+2025-09-14 13:56:21,549 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: b74a1a75-64e0-427b-80fb-c446278a299e
+2025-09-14 13:56:21,550 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 2ae182e3-fb74-4978-8a3f-b93b281abd96
+2025-09-14 13:56:21,551 - src.repositories.knowledge_graph_repository - INFO - save_section:282 - Saved section: 2688b8c8-0514-46f9-bf60-c8f6edf7ad56
+2025-09-14 13:56:21,552 - src.repositories.knowledge_graph_repository - INFO - save_section:282 - Saved section: 8baddb3d-5073-4763-9447-aa25641f028a
+2025-09-14 13:56:21,552 - src.repositories.knowledge_graph_repository - INFO - save_section:282 - Saved section: 6e7182ce-9db3-4d61-a210-e7f368995b84
+2025-09-14 13:56:21,553 - src.repositories.knowledge_graph_repository - INFO - save_section:282 - Saved section: dc65df85-d341-4dff-9920-2307b0c522d6
+2025-09-14 13:56:21,553 - src.repositories.knowledge_graph_repository - INFO - save_section:282 - Saved section: ef23223d-cc6c-4570-8dbb-576de15d5d18
+2025-09-14 13:56:21,553 - src.services.enhanced_document_processor - INFO - _store_in_knowledge_graph:1058 - Successfully stored entities and relationships in knowledge graph
+2025-09-14 13:56:21,553 - src.services.enhanced_document_processor - INFO - process_patient_documents:309 - Enhanced processing completed: 15 entities, 25 relationships
+2025-09-14 13:56:21,554 - src.services.enhanced_document_processor - INFO - process_specific_pqme_files:1084 - Found PQME file: Injured worker-PQME-(09.05.2025)-AA CL-09.09.2025.p5.pdf
+2025-09-14 13:56:21,554 - src.services.enhanced_document_processor - INFO - process_specific_pqme_files:1084 - Found PQME file: Injured worker-PQME-(09.08.2025)-DA CL-09.09.2025.p4.pdf
+2025-09-14 13:56:21,554 - src.services.enhanced_document_processor - INFO - process_patient_documents:276 - Starting enhanced processing of 2 documents
+2025-09-14 13:56:21,554 - src.services.enhanced_document_processor - INFO - _process_single_document:319 - Processing document: ./Injured worker-PQME-(09.05.2025)-AA CL-09.09.2025.p5.pdf
+2025-09-14 13:56:21,582 - src.services.enhanced_document_processor - INFO - perform_semantic_chunking:418 - Performing semantic chunking with medical context preservation
+2025-09-14 13:56:21,582 - src.services.enhanced_document_processor - INFO - perform_semantic_chunking:475 - Created 1 semantic chunks
+2025-09-14 13:56:21,582 - src.services.enhanced_document_processor - INFO - establish_relationships:829 - Establishing relationships between 0 entities
+2025-09-14 13:56:21,582 - src.services.enhanced_document_processor - INFO - establish_relationships:865 - Established 0 entity relationships
+2025-09-14 13:56:21,582 - src.services.enhanced_document_processor - INFO - _store_in_knowledge_graph:1014 - Storing entities and relationships in knowledge graph
+2025-09-14 13:56:21,583 - src.repositories.knowledge_graph_repository - INFO - save_section:282 - Saved section: 9ea70dcf-2633-42c5-8ba3-f263d6c015b0
+2025-09-14 13:56:21,583 - src.services.enhanced_document_processor - INFO - _store_in_knowledge_graph:1058 - Successfully stored entities and relationships in knowledge graph
+2025-09-14 13:56:21,583 - src.services.enhanced_document_processor - INFO - _process_single_document:319 - Processing document: ./Injured worker-PQME-(09.08.2025)-DA CL-09.09.2025.p4.pdf
+2025-09-14 13:56:21,643 - src.services.enhanced_document_processor - INFO - perform_semantic_chunking:418 - Performing semantic chunking with medical context preservation
+2025-09-14 13:56:21,645 - src.services.enhanced_document_processor - INFO - perform_semantic_chunking:475 - Created 5 semantic chunks
+2025-09-14 13:56:21,648 - src.services.enhanced_document_processor - INFO - establish_relationships:829 - Establishing relationships between 47 entities
+2025-09-14 13:56:21,648 - src.services.enhanced_document_processor - INFO - establish_relationships:865 - Established 86 entity relationships
+2025-09-14 13:56:21,648 - src.services.enhanced_document_processor - INFO - _store_in_knowledge_graph:1014 - Storing entities and relationships in knowledge graph
+2025-09-14 13:56:21,649 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: ab97c060-b578-473c-8140-de30035eb3fd
+2025-09-14 13:56:21,649 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: 8a3b968e-8099-425f-9809-d753e8ffd8d4
+2025-09-14 13:56:21,650 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: 16731b60-250c-47d6-b41d-6b8a242714e9
+2025-09-14 13:56:21,650 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: f4d1ec21-9fec-4181-aeed-203576a0d201
+2025-09-14 13:56:21,651 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: db520752-a40a-44ea-9cad-d55316868e9f
+2025-09-14 13:56:21,651 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: e4866516-95fd-4a03-ad6e-9b7d2764a743
+2025-09-14 13:56:21,652 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: 78734988-d6ed-4da3-ab57-2742d7f509e7
+2025-09-14 13:56:21,652 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: 8289c098-abaf-4254-9968-a3028a535e9e
+2025-09-14 13:56:21,653 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: fd973c07-4823-47af-9c4a-09e7dd7a9884
+2025-09-14 13:56:21,654 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: 54ed0409-4c7e-4731-b9b3-64bb39bb258d
+2025-09-14 13:56:21,654 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: 74e512c8-91e1-4bdb-83fd-0ce4d8a406dc
+2025-09-14 13:56:21,655 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: f425963f-064c-4c36-948b-e4dd18c10bb2
+2025-09-14 13:56:21,655 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: 3e81c831-f4e4-46a8-94a3-1d08f9c7af1a
+2025-09-14 13:56:21,656 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: 496b6ec4-abb1-42b1-87b9-c0987c7e5626
+2025-09-14 13:56:21,656 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: 21b92a2e-85bf-4a4d-8ed3-90f9bd0eb75a
+2025-09-14 13:56:21,657 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: bcc5b0f3-db59-4035-aadc-cade4c07fabe
+2025-09-14 13:56:21,657 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: 84d9b76c-e4da-4391-be8c-83e26320a6b9
+2025-09-14 13:56:21,658 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: 4908f299-a0c5-43a3-9e25-e009e1dc6e0d
+2025-09-14 13:56:21,658 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: 15ecdd2a-7b4e-4240-b5b1-29e43adb0cea
+2025-09-14 13:56:21,659 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: d9229c8c-03bb-4a34-ba77-8eea8252f52d
+2025-09-14 13:56:21,659 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: 93759518-3754-4321-906b-d6b8d09e8edf
+2025-09-14 13:56:21,660 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: d8312ccc-b0e9-49cc-8828-644154b2285f
+2025-09-14 13:56:21,660 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: 76c1dd0e-03c8-4c70-87de-1ee9617e17a4
+2025-09-14 13:56:21,660 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: 28324a51-89d5-4f30-a3be-f2bdc5c009ea
+2025-09-14 13:56:21,661 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: 43ce37d2-0b11-4ec6-a641-0998da1bad8e
+2025-09-14 13:56:21,661 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: b19e43d4-7fbe-4481-b8f3-4ece6f5078cd
+2025-09-14 13:56:21,662 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: bc4b0eb0-1272-4822-9930-5aba2c8f2cef
+2025-09-14 13:56:21,662 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: 1f1d3a92-1f15-431d-abe1-1fdf5e15be2e
+2025-09-14 13:56:21,663 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: 22b05c94-786a-46c2-a57e-2f6d7bb9b0a9
+2025-09-14 13:56:21,663 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: ec3d1123-a8f6-4806-9c32-ede4c023e6fa
+2025-09-14 13:56:21,664 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: 028c5dcc-e653-41fc-b608-32130e04a3e2
+2025-09-14 13:56:21,664 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: b05bad28-d78c-4008-af0d-06346a53abb7
+2025-09-14 13:56:21,665 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: 8c2144dd-5364-4176-b949-c16d466514d3
+2025-09-14 13:56:21,665 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: b70d7a5c-9f5f-4ce4-8bdd-96281970bbbe
+2025-09-14 13:56:21,666 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: 0b6782b0-dc62-4e1b-89f1-5fc20dc09776
+2025-09-14 13:56:21,666 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: 413c308a-f5f9-4594-a8cc-3f2f5333794c
+2025-09-14 13:56:21,666 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: 48333a9f-cefb-4c2d-a3cb-d52224943042
+2025-09-14 13:56:21,667 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: 54a1cb24-ca13-4c83-86f4-fc548ef7d6ff
+2025-09-14 13:56:21,667 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: 0badc62d-b080-4448-96dc-4763abd7aeff
+2025-09-14 13:56:21,668 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: e489c413-be94-4e04-84a7-5f86f8ea2f8c
+2025-09-14 13:56:21,668 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: 6c13c9ab-1ce6-4f86-94be-64ac7257f802
+2025-09-14 13:56:21,669 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: 14a13137-c72a-4a37-835b-312cd1c416d4
+2025-09-14 13:56:21,669 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: cd34624f-4eca-4dfe-9f20-6a7007256cc5
+2025-09-14 13:56:21,669 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: 7bd38f3e-2893-4624-94f1-a4414a8e55a4
+2025-09-14 13:56:21,670 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: 30496a18-43c6-4f03-bdbb-b784fe590fa6
+2025-09-14 13:56:21,671 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: 86abc288-4d04-4ef1-b9cc-4fd5581eb996
+2025-09-14 13:56:21,671 - src.repositories.knowledge_graph_repository - INFO - save_node:100 - Saved knowledge node: ea5c090a-c796-410d-a544-3cc5b1ee17c5
+2025-09-14 13:56:21,672 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: cb29662b-7f29-4175-8e2c-f4e4851710e4
+2025-09-14 13:56:21,672 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: b455b162-7299-48ef-b6a9-e57e126662f3
+2025-09-14 13:56:21,673 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 31fca2c9-90e7-4dd7-9343-88f651bb53b4
+2025-09-14 13:56:21,673 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 141b4898-8f76-4983-9d82-9937f0fa5434
+2025-09-14 13:56:21,674 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 36fdc0a9-3915-4289-b44f-c9677c59e3cd
+2025-09-14 13:56:21,674 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: a6a79d9e-9df9-4714-bcb7-966214e6c9b9
+2025-09-14 13:56:21,675 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: f1b79daf-7e8c-460d-9e78-91d234b06b3b
+2025-09-14 13:56:21,675 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: c5d59fec-7692-4152-b7e1-8b0f571d21f7
+2025-09-14 13:56:21,676 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 7d54b918-c245-41ab-b604-ad053e9c51b4
+2025-09-14 13:56:21,676 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 54040231-5964-42df-973e-185747fa3322
+2025-09-14 13:56:21,677 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 4460d536-65a1-470d-bfd6-2aadbbb32f75
+2025-09-14 13:56:21,677 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 7b1210fe-e3df-464f-8735-6073cb741682
+2025-09-14 13:56:21,678 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 0ca89a53-3101-43b1-a5e8-72f983022141
+2025-09-14 13:56:21,678 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 77703054-72b1-47c3-bfb3-e3ddfaf3278f
+2025-09-14 13:56:21,679 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 9d943514-b141-47a7-87d4-1c95124ec0f5
+2025-09-14 13:56:21,679 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: d87c2dc4-4e74-46ee-837f-36e5c0cd29a5
+2025-09-14 13:56:21,680 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 21f0fcd3-cec9-4714-a1c5-e197406bd418
+2025-09-14 13:56:21,681 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 247d754a-280e-4dce-8451-534bc241ddfd
+2025-09-14 13:56:21,681 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 3993dc51-cb44-4bf2-baf6-453d92654ff3
+2025-09-14 13:56:21,682 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 1d8cf2e2-c71b-4cd2-a5e8-af6d7a35a035
+2025-09-14 13:56:21,682 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: b45a0ed9-d0e9-4b81-a582-cf4b2f1b7d3b
+2025-09-14 13:56:21,682 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 60aa4599-3337-4d22-a551-96504e1cc26a
+2025-09-14 13:56:21,683 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 52a4c95c-d886-4069-b060-39774e80741b
+2025-09-14 13:56:21,683 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 8920f3c3-ec2f-4f27-8d55-e0d333c29e66
+2025-09-14 13:56:21,684 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 70dd8f18-c62e-4a36-bcf4-e301c2c41dcb
+2025-09-14 13:56:21,684 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 7fd56ad8-6115-4af8-984d-eadbbccc0890
+2025-09-14 13:56:21,685 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 67c55d1e-5d95-434d-9eb4-5f6a27679971
+2025-09-14 13:56:21,685 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 022f2276-39ae-4a78-a1a4-35e52fd4f649
+2025-09-14 13:56:21,686 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: a720e561-05d2-4066-ac7f-76d917877671
+2025-09-14 13:56:21,686 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 062e98b7-d7be-4f8f-86ba-3ab17e5116b9
+2025-09-14 13:56:21,687 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 05c3cf4a-339a-4798-a17e-c9ce65721352
+2025-09-14 13:56:21,687 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: d67ae187-da80-4c12-943f-2ec9991df01b
+2025-09-14 13:56:21,688 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: cab25d2d-4ee2-435d-9ce4-67314f0f968a
+2025-09-14 13:56:21,688 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: a6b8db79-46d0-46d7-b875-e04d45880dce
+2025-09-14 13:56:21,689 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 1816ac5c-5bfa-4c0d-9fe9-fc09e609eedf
+2025-09-14 13:56:21,689 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 3ad54ba2-0c47-4882-ae47-708b8aee5352
+2025-09-14 13:56:21,690 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: cd6b3ade-8154-49f1-9c42-1d26fb267d6e
+2025-09-14 13:56:21,690 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 55371ddf-b4d2-462f-b5fc-49eeeb9891ab
+2025-09-14 13:56:21,691 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 3a80dd60-3772-486d-b0f8-34c16af9db78
+2025-09-14 13:56:21,691 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: ec5a2fae-5985-4f6e-a30b-80a49ff47def
+2025-09-14 13:56:21,691 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 334112cb-21c5-428d-9a39-1739d9caf4f6
+2025-09-14 13:56:21,692 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 6bcb0807-8d57-4771-b44f-0285bf43095d
+2025-09-14 13:56:21,692 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 86a4f612-f370-44cc-bd77-90a6566dd622
+2025-09-14 13:56:21,693 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 4b8c2571-d90f-47da-b9a2-e156e859d6d8
+2025-09-14 13:56:21,693 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 28d1862e-6790-4d57-9a8c-003411bf68c1
+2025-09-14 13:56:21,694 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 87f55f96-47ec-4770-80ea-4906e1d95b26
+2025-09-14 13:56:21,694 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 71fc6c7d-4d39-4d07-973a-1a720edf06ee
+2025-09-14 13:56:21,695 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 663fe596-899c-4a20-98eb-3471c87ade21
+2025-09-14 13:56:21,695 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: acc2ada6-8367-4638-8d5f-fec7ebe0a618
+2025-09-14 13:56:21,696 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: b9367bf2-d87b-4615-8aae-d7e448e1a9e4
+2025-09-14 13:56:21,696 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 273bbcf8-bed2-4168-a3f8-15766f4e9933
+2025-09-14 13:56:21,697 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 0f3f46be-6618-46b9-ac0c-e1635ae695dd
+2025-09-14 13:56:21,697 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: ddccc27e-a0db-4053-849f-fa5b08c3aeef
+2025-09-14 13:56:21,698 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: d64ba282-95b3-4b64-ac92-d0239a8cf009
+2025-09-14 13:56:21,698 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: f1f61229-bacf-4a0c-8d54-7489bf47ad7a
+2025-09-14 13:56:21,699 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: e87702b5-6a5e-4bb5-b4ef-fff4ce5658d9
+2025-09-14 13:56:21,699 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 245997aa-7981-416f-99fb-cfdc5821430e
+2025-09-14 13:56:21,700 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: b1092a91-e4d7-4751-a6fd-1c5c16da7ef3
+2025-09-14 13:56:21,700 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 0605f19d-bf89-41e3-859f-71e9b1fb49fc
+2025-09-14 13:56:21,701 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 41c556f5-2ebb-42b5-bd79-abf1d7cc0ab4
+2025-09-14 13:56:21,701 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 54f9508b-8d38-4094-b4ad-0c619c5523bd
+2025-09-14 13:56:21,702 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 15bbfa55-a10b-49f7-a047-afd90b7ee57d
+2025-09-14 13:56:21,703 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 0dc8c40b-e016-4623-816b-db633a87ed4f
+2025-09-14 13:56:21,703 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: d1627748-e2df-4e19-a0f9-9dc05e135296
+2025-09-14 13:56:21,704 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 3865f45d-acc6-452b-afee-d57670171a51
+2025-09-14 13:56:21,704 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 52084469-450f-4bd7-9456-ffb2915618c5
+2025-09-14 13:56:21,705 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 022387c6-aa4b-4ca8-a4f3-ae3f119c9a08
+2025-09-14 13:56:21,705 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: f6b9657d-0c5a-410a-9d56-fdb13c5e0297
+2025-09-14 13:56:21,706 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 0d48a29c-12d0-47e4-ade5-91f4198abbda
+2025-09-14 13:56:21,706 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 8c19bba0-405d-4406-a751-f117aa0b6175
+2025-09-14 13:56:21,707 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 2cf7a254-e002-450a-b158-c2f9356833aa
+2025-09-14 13:56:21,707 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 502d9ba3-50d3-410a-a981-d54c1f5506bb
+2025-09-14 13:56:21,708 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 4735980d-dfcc-42c0-94eb-859635117973
+2025-09-14 13:56:21,708 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 2799eb0d-7e30-4181-949d-96e5472018f4
+2025-09-14 13:56:21,709 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 28d0318b-bc3b-4ece-90dd-39a071003003
+2025-09-14 13:56:21,709 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 2a5f1172-2e9a-4bf7-88f2-d2afe4653bec
+2025-09-14 13:56:21,710 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 70b0e70d-7bb4-40fd-b9cc-666f660632e6
+2025-09-14 13:56:21,710 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 1d66eea7-cd60-4ae9-9851-25d8d9d9ad0b
+2025-09-14 13:56:21,711 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 77dc66ee-d0e4-435b-8f03-ab676a7fe2a2
+2025-09-14 13:56:21,711 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: df82cd90-3899-4253-b6c1-9e795e88268c
+2025-09-14 13:56:21,712 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: f59e78ce-002d-4fee-b4b6-db2658d46f1f
+2025-09-14 13:56:21,712 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 5fb436f9-8a83-4f71-bef8-2f82056ca7dd
+2025-09-14 13:56:21,713 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: fbe76e48-0d55-4c53-88c7-21b9b6482a47
+2025-09-14 13:56:21,713 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 56e8c94c-01ef-4b77-9b47-c792618be0d0
+2025-09-14 13:56:21,714 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: c34c413b-7bd0-45bc-89fb-1f534ec354bb
+2025-09-14 13:56:21,714 - src.repositories.knowledge_graph_repository - INFO - save_relationship:127 - Saved knowledge relationship: 353c23f1-417e-4bfb-96be-e365d44d8203
+2025-09-14 13:56:21,715 - src.repositories.knowledge_graph_repository - INFO - save_section:282 - Saved section: da917b15-db20-4cd1-b14d-5fe73eda4520
+2025-09-14 13:56:21,715 - src.repositories.knowledge_graph_repository - INFO - save_section:282 - Saved section: 633781cb-d41c-4887-8f1e-d87627946476
+2025-09-14 13:56:21,716 - src.repositories.knowledge_graph_repository - INFO - save_section:282 - Saved section: 8cbd9b8c-698a-4a0a-9ede-0c5f0a96377d
+2025-09-14 13:56:21,716 - src.repositories.knowledge_graph_repository - INFO - save_section:282 - Saved section: df263c7b-ba0c-4060-9554-7519b7dd097a
+2025-09-14 13:56:21,717 - src.repositories.knowledge_graph_repository - INFO - save_section:282 - Saved section: dc7afd7a-daaf-462f-96fb-728af388facf
+2025-09-14 13:56:21,717 - src.services.enhanced_document_processor - INFO - _store_in_knowledge_graph:1058 - Successfully stored entities and relationships in knowledge graph
+2025-09-14 13:56:21,722 - src.services.enhanced_document_processor - INFO - process_patient_documents:309 - Enhanced processing completed: 47 entities, 86 relationships
+2025-09-14 14:08:40,873 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-14 14:08:40,874 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-14 14:10:35,792 - src.services.ama_guidelines_engine - INFO - __init__:165 - Initialized AMA Guidelines processor for: test_ama_guides.pdf
+2025-09-14 14:11:46,152 - src.services.ama_guidelines_engine - INFO - __init__:512 - Initialized AMA Method Selector
+2025-09-14 14:11:46,153 - src.services.ama_guidelines_engine - INFO - __init__:512 - Initialized AMA Method Selector
+2025-09-14 14:11:46,153 - src.services.ama_guidelines_engine - INFO - select_appropriate_method:526 - Selecting AMA method for diagnosis: Lumbar disc herniation
+2025-09-14 14:11:46,153 - src.services.ama_guidelines_engine - INFO - __init__:512 - Initialized AMA Method Selector
+2025-09-14 14:11:46,153 - src.services.ama_guidelines_engine - INFO - select_appropriate_method:526 - Selecting AMA method for diagnosis: Shoulder impingement syndrome
+2025-09-14 14:12:35,157 - src.services.ama_guidelines_engine - INFO - __init__:660 - Initialized Combined Values Calculator
+2025-09-14 14:12:35,158 - src.services.ama_guidelines_engine - INFO - __init__:660 - Initialized Combined Values Calculator
+2025-09-14 14:12:35,158 - src.services.ama_guidelines_engine - INFO - __init__:660 - Initialized Combined Values Calculator
+2025-09-14 14:12:35,158 - src.services.ama_guidelines_engine - INFO - calculate_combined_impairment:679 - Calculating combined impairment for: [10.0, 5.0]
+2025-09-14 14:12:35,159 - src.services.ama_guidelines_engine - INFO - __init__:660 - Initialized Combined Values Calculator
+2025-09-14 14:13:21,563 - src.services.ama_guidelines_engine - INFO - __init__:780 - Initialized Medical Reasoning Engine
+2025-09-14 14:13:21,564 - src.services.ama_guidelines_engine - INFO - __init__:780 - Initialized Medical Reasoning Engine
+2025-09-14 14:13:21,582 - src.services.ama_guidelines_engine - INFO - __init__:780 - Initialized Medical Reasoning Engine
+2025-09-14 14:14:11,694 - src.services.ama_guidelines_engine - INFO - __init__:780 - Initialized Medical Reasoning Engine
+2025-09-14 14:14:11,695 - src.services.ama_guidelines_engine - INFO - __init__:780 - Initialized Medical Reasoning Engine
+2025-09-14 14:14:11,695 - src.services.ama_guidelines_engine - INFO - __init__:780 - Initialized Medical Reasoning Engine
+2025-09-14 14:14:11,695 - src.services.ama_guidelines_engine - INFO - generate_medical_reasoning:800 - Generating medical reasoning for diagnosis: Lumbar strain
+2025-09-14 14:14:11,695 - src.services.ama_guidelines_engine - INFO - generate_medical_reasoning:837 - Medical reasoning generation complete
+2025-09-14 14:14:21,465 - src.services.enhanced_impairment_calculator - INFO - __init__:105 - Initialized Enhanced Impairment Calculator
+2025-09-14 14:14:21,465 - src.services.enhanced_impairment_calculator - INFO - calculate_functional_impairment:334 - Calculating functional impairment
+2025-09-14 14:14:21,466 - src.services.enhanced_impairment_calculator - INFO - __init__:105 - Initialized Enhanced Impairment Calculator
+2025-09-14 14:14:21,467 - src.services.enhanced_impairment_calculator - INFO - calculate_range_of_motion_impairment:201 - Calculating ROM impairment for spine
+2025-09-14 14:14:21,467 - src.services.enhanced_impairment_calculator - INFO - __init__:105 - Initialized Enhanced Impairment Calculator
+2025-09-14 14:14:21,467 - src.services.enhanced_impairment_calculator - INFO - calculate_strength_impairment:265 - Calculating strength impairment for spine
+2025-09-14 14:16:19,664 - services.ama_guidelines_engine - INFO - __init__:165 - Initialized AMA Guidelines processor for: AMAGuides 5th Edition.pdf
+2025-09-14 14:16:19,664 - services.ama_guidelines_engine - INFO - __init__:780 - Initialized Medical Reasoning Engine
+2025-09-14 14:16:19,664 - services.ama_guidelines_engine - INFO - process_ama_guidelines:170 - Starting AMA Guidelines processing and indexing
+2025-09-14 14:16:23,796 - services.ama_guidelines_engine - INFO - _build_combined_values_chart:369 - Built Combined Values Chart with 41 entries
+2025-09-14 14:16:23,796 - services.ama_guidelines_engine - INFO - _save_processed_data:498 - Saved AMA data to data/ama_guidelines
+2025-09-14 14:16:23,797 - services.ama_guidelines_engine - INFO - process_ama_guidelines:188 - AMA Guidelines processing complete: 6 chapters, 5 tables
+2025-09-14 14:16:23,797 - services.ama_guidelines_engine - INFO - __init__:512 - Initialized AMA Method Selector
+2025-09-14 14:16:23,797 - services.ama_guidelines_engine - INFO - __init__:660 - Initialized Combined Values Calculator
+2025-09-14 14:16:23,797 - services.ama_guidelines_engine - INFO - _initialize_components:1175 - AMA Guidelines Engine initialization successful
+2025-09-14 14:16:23,797 - services.ama_guidelines_engine - INFO - __init__:1163 - Initialized AMA Guidelines Engine
+2025-09-14 14:16:23,797 - services.ama_guidelines_engine - INFO - __init__:165 - Initialized AMA Guidelines processor for: AMAGuides 5th Edition.pdf
+2025-09-14 14:16:23,797 - services.ama_guidelines_engine - INFO - __init__:780 - Initialized Medical Reasoning Engine
+2025-09-14 14:16:23,797 - services.ama_guidelines_engine - INFO - process_ama_guidelines:170 - Starting AMA Guidelines processing and indexing
+2025-09-14 14:16:27,910 - services.ama_guidelines_engine - INFO - _build_combined_values_chart:369 - Built Combined Values Chart with 41 entries
+2025-09-14 14:16:27,911 - services.ama_guidelines_engine - INFO - _save_processed_data:498 - Saved AMA data to data/ama_guidelines
+2025-09-14 14:16:27,911 - services.ama_guidelines_engine - INFO - process_ama_guidelines:188 - AMA Guidelines processing complete: 6 chapters, 5 tables
+2025-09-14 14:16:27,911 - services.ama_guidelines_engine - INFO - __init__:512 - Initialized AMA Method Selector
+2025-09-14 14:16:27,911 - services.ama_guidelines_engine - INFO - __init__:660 - Initialized Combined Values Calculator
+2025-09-14 14:16:27,911 - services.ama_guidelines_engine - INFO - _initialize_components:1175 - AMA Guidelines Engine initialization successful
+2025-09-14 14:16:27,911 - services.ama_guidelines_engine - INFO - __init__:1163 - Initialized AMA Guidelines Engine
+2025-09-14 14:16:27,911 - services.enhanced_impairment_calculator - INFO - __init__:105 - Initialized Enhanced Impairment Calculator
+2025-09-14 14:16:27,911 - services.qme_reference_processor - INFO - __init__:107 - Initialized QME Study Guide processor: QME-Study-Guide.pdf
+2025-09-14 14:16:27,911 - services.qme_reference_processor - INFO - __init__:354 - Initialized Sample Report processor: Sample3.pdf
+2025-09-14 14:16:27,911 - services.qme_reference_processor - INFO - __init__:608 - Initialized QME Reference Integrator
+2025-09-14 14:16:27,911 - services.qme_reference_processor - INFO - process_all_references:613 - Processing all QME reference materials
+2025-09-14 14:16:27,911 - services.qme_reference_processor - INFO - process_study_guide:112 - Processing QME Study Guide for compliance patterns
+2025-09-14 14:16:28,334 - services.qme_reference_processor - INFO - _save_study_guide_data:337 - Saved study guide data to data/qme_references
+2025-09-14 14:16:28,334 - services.qme_reference_processor - INFO - process_study_guide:134 - Study guide processing complete: 4 legal patterns
+2025-09-14 14:16:28,334 - services.qme_reference_processor - INFO - process_sample_report:359 - Processing sample report for structure patterns
+2025-09-14 14:16:28,527 - services.qme_reference_processor - INFO - _save_sample_data:593 - Saved sample data to data/qme_references
+2025-09-14 14:16:28,527 - services.qme_reference_processor - INFO - process_sample_report:381 - Sample report processing complete: 6 patterns
+2025-09-14 14:16:28,527 - services.qme_reference_processor - INFO - _save_integrated_data:705 - Saved integrated reference data to data/qme_references
+2025-09-14 14:16:28,527 - services.qme_reference_processor - INFO - process_all_references:628 - Reference processing successful
+2025-09-14 14:16:28,527 - services.comprehensive_ama_integration - INFO - _initialize_reference_materials:308 - Reference materials initialized successfully
+2025-09-14 14:16:28,527 - services.comprehensive_ama_integration - INFO - __init__:106 - Initialized Comprehensive AMA Integration Service
+2025-09-14 14:16:28,527 - services.comprehensive_ama_integration - INFO - perform_comprehensive_evaluation:119 - Starting comprehensive AMA evaluation for patient: DEMO_PATIENT_001
+2025-09-14 14:16:28,527 - services.enhanced_impairment_calculator - INFO - calculate_comprehensive_impairment:129 - Calculating comprehensive impairment for: Lumbar disc herniation with radiculopathy
+2025-09-14 14:16:28,527 - services.ama_guidelines_engine - INFO - calculate_impairment_rating:1196 - Calculating impairment rating for: Lumbar disc herniation with radiculopathy
+2025-09-14 14:16:28,527 - services.ama_guidelines_engine - INFO - select_appropriate_method:526 - Selecting AMA method for diagnosis: Lumbar disc herniation with radiculopathy
+2025-09-14 14:16:28,527 - services.ama_guidelines_engine - INFO - calculate_impairment_rating:1239 - Impairment calculation complete: 0.0% (range_of_motion)
+2025-09-14 14:16:28,527 - services.enhanced_impairment_calculator - INFO - calculate_comprehensive_impairment:180 - Comprehensive impairment calculation complete: 0.0%
+2025-09-14 14:16:28,527 - services.ama_guidelines_engine - INFO - generate_medical_reasoning:800 - Generating medical reasoning for diagnosis: Lumbar disc herniation with radiculopathy
+2025-09-14 14:16:28,527 - services.ama_guidelines_engine - INFO - generate_medical_reasoning:837 - Medical reasoning generation complete
+2025-09-14 14:16:28,527 - services.ama_guidelines_engine - INFO - select_appropriate_method:526 - Selecting AMA method for diagnosis: Lumbar disc herniation with radiculopathy
+2025-09-14 14:16:28,527 - services.comprehensive_ama_integration - INFO - perform_comprehensive_evaluation:195 - Comprehensive AMA evaluation complete for patient: DEMO_PATIENT_001
+2025-09-14 14:16:28,528 - services.comprehensive_ama_integration - INFO - generate_ama_compliant_report_content:213 - Generating AMA-compliant report content
+2025-09-14 14:16:28,528 - services.comprehensive_ama_integration - INFO - generate_ama_compliant_report_content:238 - AMA-compliant report content generation complete
+2025-09-14 14:16:28,528 - services.comprehensive_ama_integration - INFO - validate_ama_compliance:256 - Validating AMA compliance
+2025-09-14 14:16:28,528 - services.comprehensive_ama_integration - INFO - validate_ama_compliance:296 - AMA compliance validation complete: 97.0%
+2025-09-14 14:26:12,100 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-14 14:26:12,100 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-14 14:26:12,122 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-14 14:26:12,122 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-14 14:26:12,122 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-14 14:26:12,154 - src.services.advanced_qme_rules_engine - INFO - _load_rules:1126 - Loaded 37 rules from src/rules/rules.yaml
+2025-09-14 14:26:12,154 - src.services.advanced_qme_rules_engine - INFO - __init__:1090 - Initialized Advanced QME Rules Engine with 37 rules
+2025-09-14 14:27:04,364 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-14 14:27:04,364 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-14 14:27:04,386 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-14 14:27:04,386 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-14 14:27:04,386 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-14 14:27:04,417 - src.services.advanced_qme_rules_engine - INFO - _load_rules:1126 - Loaded 37 rules from src/rules/rules.yaml
+2025-09-14 14:27:04,418 - src.services.advanced_qme_rules_engine - INFO - __init__:1090 - Initialized Advanced QME Rules Engine with 37 rules
+2025-09-14 14:28:08,035 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-14 14:28:08,035 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-14 14:28:08,055 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-14 14:28:08,055 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-14 14:28:08,055 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-14 14:28:08,089 - src.services.advanced_qme_rules_engine - INFO - _load_rules:1126 - Loaded 37 rules from src/rules/rules.yaml
+2025-09-14 14:28:08,089 - src.services.advanced_qme_rules_engine - INFO - __init__:1090 - Initialized Advanced QME Rules Engine with 37 rules
+2025-09-14 14:28:08,090 - src.services.advanced_qme_rules_engine - INFO - validate_qme_report_comprehensive:1145 - Starting comprehensive QME validation with YAML rules
+2025-09-14 14:28:08,090 - src.services.advanced_qme_rules_engine - ERROR - _execute_single_action:283 - Error executing action {'validate_format': [{'claimant_name': '^[A-Z][a-z]+(\\s+[A-Z][a-z]+)*$'}, {'claim_number': '^[A-Z0-9\\-]{5,20}$'}, {'wcab_number': '^[A-Z0-9\\-]{5,20}$'}, {'dates_of_injury': '^\\d{1,2}/\\d{1,2}/\\d{4}$'}]}: 'list' object has no attribute 'items'
+2025-09-14 14:28:08,090 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_page_count_attestation
+2025-09-14 14:28:08,090 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_table_structure
+2025-09-14 14:28:08,090 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_tables
+2025-09-14 14:28:08,090 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_table_structure
+2025-09-14 14:28:08,090 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_text
+2025-09-14 14:28:08,090 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_text
+2025-09-14 14:28:08,090 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_tables
+2025-09-14 14:28:08,090 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_table_structure
+2025-09-14 14:28:08,090 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_bilateral_testing
+2025-09-14 14:28:08,090 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_numbered_list
+2025-09-14 14:28:08,090 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_icd_codes
+2025-09-14 14:28:08,090 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_text
+2025-09-14 14:28:08,090 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_causation_type
+2025-09-14 14:28:08,090 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_conditional_blocks
+2025-09-14 14:28:08,090 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_text
+2025-09-14 14:28:08,091 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_ama_references
+2025-09-14 14:28:08,091 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_calculations
+2025-09-14 14:28:08,091 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_text
+2025-09-14 14:28:08,091 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_text
+2025-09-14 14:28:08,091 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_case_law_references
+2025-09-14 14:28:08,091 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_percentage_allocation
+2025-09-14 14:28:08,091 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_medical_evidence_substantiation
+2025-09-14 14:28:08,091 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_restriction_categories
+2025-09-14 14:28:08,091 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_specific_limitations
+2025-09-14 14:28:08,091 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_rtw_determination
+2025-09-14 14:28:08,091 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_care_categories
+2025-09-14 14:28:08,091 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_medical_necessity_justification
+2025-09-14 14:28:08,091 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_attestation_text
+2025-09-14 14:28:08,091 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_penalty_of_perjury
+2025-09-14 14:28:08,091 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_signature_and_date
+2025-09-14 14:28:08,091 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_provenance_format
+2025-09-14 14:28:08,091 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_mmi_status
+2025-09-14 14:28:08,091 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_temporary_disability_opinion
+2025-09-14 14:28:08,091 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: conditional_permanent_disability
+2025-09-14 14:28:08,091 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_history_span
+2025-09-14 14:28:08,091 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_job_description
+2025-09-14 14:28:08,091 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: document_physical_demands
+2025-09-14 14:28:08,091 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: document_current_employment_status
+2025-09-14 14:28:08,091 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_medical_evidence_basis
+2025-09-14 14:28:08,091 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_penalty_of_perjury_statements
+2025-09-14 14:28:08,091 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_exact_checkbox_language
+2025-09-14 14:28:08,091 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_page_count_attestation_match
+2025-09-14 14:28:08,091 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_calculation_steps
+2025-09-14 14:28:08,091 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_almaraz_guzman_reference
+2025-09-14 14:28:08,091 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_tables
+2025-09-14 14:28:08,091 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_table_structure
+2025-09-14 14:28:08,091 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_measurement_consistency
+2025-09-14 14:28:08,091 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_all_selections_made
+2025-09-14 14:28:08,091 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_tables
+2025-09-14 14:28:08,092 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_bilateral_consistency
+2025-09-14 14:28:08,092 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_text
+2025-09-14 14:28:08,092 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_medical_reasoning
+2025-09-14 14:28:08,092 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_supporting_evidence
+2025-09-14 14:28:08,092 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_attestation_text
+2025-09-14 14:28:08,092 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_penalty_of_perjury_signature
+2025-09-14 14:28:08,092 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_appendix_b_declaration
+2025-09-14 14:28:08,092 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_appendix_b_accuracy
+2025-09-14 14:28:08,092 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_signature_completeness
+2025-09-14 14:28:08,092 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_measurements
+2025-09-14 14:28:08,092 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_credibility_determination
+2025-09-14 14:28:08,092 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_justification
+2025-09-14 14:28:08,092 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: document_inconsistencies
+2025-09-14 14:28:08,092 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: document_special_tests
+2025-09-14 14:28:08,092 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_bilateral_testing
+2025-09-14 14:28:08,092 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: document_test_results
+2025-09-14 14:28:08,092 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_vital_signs
+2025-09-14 14:28:08,092 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_general_appearance
+2025-09-14 14:28:08,092 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_medication_format
+2025-09-14 14:28:08,092 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: document_last_medication_taken
+2025-09-14 14:28:08,092 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_allergy_documentation
+2025-09-14 14:28:08,092 - src.services.advanced_qme_rules_engine - INFO - validate_qme_report_comprehensive:1195 - Comprehensive validation complete: 102 issues, score: 15.9
+2025-09-14 14:28:28,896 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-14 14:28:28,896 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-14 14:28:28,912 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-14 14:28:28,912 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-14 14:28:28,912 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-14 14:28:28,943 - src.services.advanced_qme_rules_engine - INFO - _load_rules:1126 - Loaded 37 rules from src/rules/rules.yaml
+2025-09-14 14:28:28,943 - src.services.advanced_qme_rules_engine - INFO - __init__:1090 - Initialized Advanced QME Rules Engine with 37 rules
+2025-09-14 14:28:28,944 - src.services.advanced_qme_rules_engine - INFO - validate_qme_report_comprehensive:1145 - Starting comprehensive QME validation with YAML rules
+2025-09-14 14:28:28,944 - src.services.advanced_qme_rules_engine - ERROR - _execute_single_action:283 - Error executing action {'validate_format': [{'claimant_name': '^[A-Z][a-z]+(\\s+[A-Z][a-z]+)*$'}, {'claim_number': '^[A-Z0-9\\-]{5,20}$'}, {'wcab_number': '^[A-Z0-9\\-]{5,20}$'}, {'dates_of_injury': '^\\d{1,2}/\\d{1,2}/\\d{4}$'}]}: 'list' object has no attribute 'items'
+2025-09-14 14:28:28,944 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_page_count_attestation
+2025-09-14 14:28:28,944 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_table_structure
+2025-09-14 14:28:28,944 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_tables
+2025-09-14 14:28:28,944 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_table_structure
+2025-09-14 14:28:28,944 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_text
+2025-09-14 14:28:28,944 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_text
+2025-09-14 14:28:28,944 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_tables
+2025-09-14 14:28:28,944 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_table_structure
+2025-09-14 14:28:28,944 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_bilateral_testing
+2025-09-14 14:28:28,944 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_numbered_list
+2025-09-14 14:28:28,944 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_icd_codes
+2025-09-14 14:28:28,944 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_text
+2025-09-14 14:28:28,944 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_causation_type
+2025-09-14 14:28:28,944 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_conditional_blocks
+2025-09-14 14:28:28,944 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_text
+2025-09-14 14:28:28,944 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_ama_references
+2025-09-14 14:28:28,944 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_calculations
+2025-09-14 14:28:28,944 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_text
+2025-09-14 14:28:28,944 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_text
+2025-09-14 14:28:28,944 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_case_law_references
+2025-09-14 14:28:28,945 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_percentage_allocation
+2025-09-14 14:28:28,945 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_medical_evidence_substantiation
+2025-09-14 14:28:28,945 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_restriction_categories
+2025-09-14 14:28:28,945 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_specific_limitations
+2025-09-14 14:28:28,945 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_rtw_determination
+2025-09-14 14:28:28,945 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_care_categories
+2025-09-14 14:28:28,945 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_medical_necessity_justification
+2025-09-14 14:28:28,945 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_attestation_text
+2025-09-14 14:28:28,945 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_penalty_of_perjury
+2025-09-14 14:28:28,945 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_signature_and_date
+2025-09-14 14:28:28,945 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_provenance_format
+2025-09-14 14:28:28,945 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_mmi_status
+2025-09-14 14:28:28,945 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_temporary_disability_opinion
+2025-09-14 14:28:28,945 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: conditional_permanent_disability
+2025-09-14 14:28:28,945 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_history_span
+2025-09-14 14:28:28,945 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_job_description
+2025-09-14 14:28:28,945 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: document_physical_demands
+2025-09-14 14:28:28,945 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: document_current_employment_status
+2025-09-14 14:28:28,945 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_medical_evidence_basis
+2025-09-14 14:28:28,945 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_penalty_of_perjury_statements
+2025-09-14 14:28:28,945 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_exact_checkbox_language
+2025-09-14 14:28:28,945 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_page_count_attestation_match
+2025-09-14 14:28:28,945 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_calculation_steps
+2025-09-14 14:28:28,945 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_almaraz_guzman_reference
+2025-09-14 14:28:28,945 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_tables
+2025-09-14 14:28:28,945 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_table_structure
+2025-09-14 14:28:28,945 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_measurement_consistency
+2025-09-14 14:28:28,945 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_all_selections_made
+2025-09-14 14:28:28,945 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_tables
+2025-09-14 14:28:28,946 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_bilateral_consistency
+2025-09-14 14:28:28,946 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_text
+2025-09-14 14:28:28,946 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_medical_reasoning
+2025-09-14 14:28:28,946 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_supporting_evidence
+2025-09-14 14:28:28,946 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_attestation_text
+2025-09-14 14:28:28,946 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_penalty_of_perjury_signature
+2025-09-14 14:28:28,946 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_appendix_b_declaration
+2025-09-14 14:28:28,946 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_appendix_b_accuracy
+2025-09-14 14:28:28,946 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_signature_completeness
+2025-09-14 14:28:28,946 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_measurements
+2025-09-14 14:28:28,946 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_credibility_determination
+2025-09-14 14:28:28,946 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_justification
+2025-09-14 14:28:28,946 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: document_inconsistencies
+2025-09-14 14:28:28,946 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: document_special_tests
+2025-09-14 14:28:28,946 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_bilateral_testing
+2025-09-14 14:28:28,946 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: document_test_results
+2025-09-14 14:28:28,946 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_vital_signs
+2025-09-14 14:28:28,946 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_general_appearance
+2025-09-14 14:28:28,946 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_medication_format
+2025-09-14 14:28:28,946 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: document_last_medication_taken
+2025-09-14 14:28:28,946 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_allergy_documentation
+2025-09-14 14:28:28,946 - src.services.advanced_qme_rules_engine - INFO - validate_qme_report_comprehensive:1195 - Comprehensive validation complete: 108 issues, score: 15.9
+2025-09-14 14:32:03,975 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-14 14:32:03,975 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-14 14:32:03,996 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-14 14:32:03,996 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-14 14:32:03,996 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-14 14:32:04,029 - src.services.advanced_qme_rules_engine - INFO - _load_rules:1126 - Loaded 37 rules from src/rules/rules.yaml
+2025-09-14 14:32:04,029 - src.services.advanced_qme_rules_engine - INFO - __init__:1090 - Initialized Advanced QME Rules Engine with 37 rules
+2025-09-14 14:32:04,030 - src.services.advanced_qme_rules_engine - INFO - validate_qme_report_comprehensive:1145 - Starting comprehensive QME validation with YAML rules
+2025-09-14 14:32:04,030 - src.services.advanced_qme_rules_engine - ERROR - _execute_single_action:283 - Error executing action {'validate_format': [{'claimant_name': '^[A-Z][a-z]+(\\s+[A-Z][a-z]+)*$'}, {'claim_number': '^[A-Z0-9\\-]{5,20}$'}, {'wcab_number': '^[A-Z0-9\\-]{5,20}$'}, {'dates_of_injury': '^\\d{1,2}/\\d{1,2}/\\d{4}$'}]}: 'list' object has no attribute 'items'
+2025-09-14 14:32:04,030 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_page_count_attestation
+2025-09-14 14:32:04,030 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_table_structure
+2025-09-14 14:32:04,030 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_tables
+2025-09-14 14:32:04,030 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_table_structure
+2025-09-14 14:32:04,030 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_text
+2025-09-14 14:32:04,030 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_text
+2025-09-14 14:32:04,030 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_tables
+2025-09-14 14:32:04,030 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_table_structure
+2025-09-14 14:32:04,030 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_bilateral_testing
+2025-09-14 14:32:04,030 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_numbered_list
+2025-09-14 14:32:04,031 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_icd_codes
+2025-09-14 14:32:04,031 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_text
+2025-09-14 14:32:04,031 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_causation_type
+2025-09-14 14:32:04,031 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_conditional_blocks
+2025-09-14 14:32:04,031 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_text
+2025-09-14 14:32:04,031 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_ama_references
+2025-09-14 14:32:04,031 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_calculations
+2025-09-14 14:32:04,031 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_text
+2025-09-14 14:32:04,031 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_text
+2025-09-14 14:32:04,031 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_case_law_references
+2025-09-14 14:32:04,031 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_percentage_allocation
+2025-09-14 14:32:04,031 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_medical_evidence_substantiation
+2025-09-14 14:32:04,031 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_restriction_categories
+2025-09-14 14:32:04,031 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_specific_limitations
+2025-09-14 14:32:04,031 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_rtw_determination
+2025-09-14 14:32:04,031 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_care_categories
+2025-09-14 14:32:04,031 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_medical_necessity_justification
+2025-09-14 14:32:04,031 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_attestation_text
+2025-09-14 14:32:04,031 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_penalty_of_perjury
+2025-09-14 14:32:04,031 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_signature_and_date
+2025-09-14 14:32:04,031 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_provenance_format
+2025-09-14 14:32:04,031 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_mmi_status
+2025-09-14 14:32:04,031 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_temporary_disability_opinion
+2025-09-14 14:32:04,031 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: conditional_permanent_disability
+2025-09-14 14:32:04,031 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_history_span
+2025-09-14 14:32:04,031 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_job_description
+2025-09-14 14:32:04,031 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: document_physical_demands
+2025-09-14 14:32:04,031 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: document_current_employment_status
+2025-09-14 14:32:04,031 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_medical_evidence_basis
+2025-09-14 14:32:04,031 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_penalty_of_perjury_statements
+2025-09-14 14:32:04,032 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_exact_checkbox_language
+2025-09-14 14:32:04,032 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_page_count_attestation_match
+2025-09-14 14:32:04,032 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_calculation_steps
+2025-09-14 14:32:04,032 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_almaraz_guzman_reference
+2025-09-14 14:32:04,032 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_tables
+2025-09-14 14:32:04,032 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_table_structure
+2025-09-14 14:32:04,032 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_measurement_consistency
+2025-09-14 14:32:04,032 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_all_selections_made
+2025-09-14 14:32:04,032 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_tables
+2025-09-14 14:32:04,032 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_bilateral_consistency
+2025-09-14 14:32:04,032 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_text
+2025-09-14 14:32:04,032 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_medical_reasoning
+2025-09-14 14:32:04,032 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_supporting_evidence
+2025-09-14 14:32:04,032 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_attestation_text
+2025-09-14 14:32:04,032 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_penalty_of_perjury_signature
+2025-09-14 14:32:04,032 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_appendix_b_declaration
+2025-09-14 14:32:04,032 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_appendix_b_accuracy
+2025-09-14 14:32:04,032 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_signature_completeness
+2025-09-14 14:32:04,032 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_measurements
+2025-09-14 14:32:04,032 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_credibility_determination
+2025-09-14 14:32:04,032 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_justification
+2025-09-14 14:32:04,032 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: document_inconsistencies
+2025-09-14 14:32:04,032 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: document_special_tests
+2025-09-14 14:32:04,032 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_bilateral_testing
+2025-09-14 14:32:04,032 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: document_test_results
+2025-09-14 14:32:04,032 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_vital_signs
+2025-09-14 14:32:04,032 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_general_appearance
+2025-09-14 14:32:04,032 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_medication_format
+2025-09-14 14:32:04,032 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: document_last_medication_taken
+2025-09-14 14:32:04,032 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_allergy_documentation
+2025-09-14 14:32:04,033 - src.services.advanced_qme_rules_engine - INFO - validate_qme_report_comprehensive:1195 - Comprehensive validation complete: 102 issues, score: 15.9
+2025-09-14 14:33:31,303 - storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-14 14:33:31,304 - storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-14 14:33:31,333 - factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-14 14:33:31,333 - factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-14 14:33:31,333 - factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-14 14:34:10,405 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-14 14:34:10,405 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-14 14:34:10,423 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-14 14:34:10,423 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-14 14:34:10,423 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-14 14:34:10,504 - src.services.advanced_qme_rules_engine - INFO - _load_rules:1126 - Loaded 37 rules from src/rules/rules.yaml
+2025-09-14 14:34:10,504 - src.services.advanced_qme_rules_engine - INFO - __init__:1090 - Initialized Advanced QME Rules Engine with 37 rules
+2025-09-14 14:34:10,505 - src.services.advanced_qme_rules_engine - INFO - validate_qme_report_comprehensive:1145 - Starting comprehensive QME validation with YAML rules
+2025-09-14 14:34:10,505 - src.services.advanced_qme_rules_engine - ERROR - _execute_single_action:283 - Error executing action {'validate_format': [{'claimant_name': '^[A-Z][a-z]+(\\s+[A-Z][a-z]+)*$'}, {'claim_number': '^[A-Z0-9\\-]{5,20}$'}, {'wcab_number': '^[A-Z0-9\\-]{5,20}$'}, {'dates_of_injury': '^\\d{1,2}/\\d{1,2}/\\d{4}$'}]}: 'list' object has no attribute 'items'
+2025-09-14 14:34:10,505 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_page_count_attestation
+2025-09-14 14:34:10,505 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_table_structure
+2025-09-14 14:34:10,505 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_tables
+2025-09-14 14:34:10,505 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_table_structure
+2025-09-14 14:34:10,505 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_text
+2025-09-14 14:34:10,505 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_text
+2025-09-14 14:34:10,505 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_tables
+2025-09-14 14:34:10,505 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_table_structure
+2025-09-14 14:34:10,505 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_bilateral_testing
+2025-09-14 14:34:10,505 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_numbered_list
+2025-09-14 14:34:10,505 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_icd_codes
+2025-09-14 14:34:10,505 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_text
+2025-09-14 14:34:10,505 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_causation_type
+2025-09-14 14:34:10,505 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_conditional_blocks
+2025-09-14 14:34:10,505 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_text
+2025-09-14 14:34:10,505 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_ama_references
+2025-09-14 14:34:10,505 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_calculations
+2025-09-14 14:34:10,505 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_text
+2025-09-14 14:34:10,505 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_text
+2025-09-14 14:34:10,506 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_case_law_references
+2025-09-14 14:34:10,506 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_percentage_allocation
+2025-09-14 14:34:10,506 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_medical_evidence_substantiation
+2025-09-14 14:34:10,506 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_restriction_categories
+2025-09-14 14:34:10,506 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_specific_limitations
+2025-09-14 14:34:10,506 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_rtw_determination
+2025-09-14 14:34:10,506 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_care_categories
+2025-09-14 14:34:10,506 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_medical_necessity_justification
+2025-09-14 14:34:10,506 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_attestation_text
+2025-09-14 14:34:10,506 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_penalty_of_perjury
+2025-09-14 14:34:10,506 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_signature_and_date
+2025-09-14 14:34:10,506 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_provenance_format
+2025-09-14 14:34:10,506 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_mmi_status
+2025-09-14 14:34:10,506 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_temporary_disability_opinion
+2025-09-14 14:34:10,506 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: conditional_permanent_disability
+2025-09-14 14:34:10,506 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_history_span
+2025-09-14 14:34:10,506 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_job_description
+2025-09-14 14:34:10,506 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: document_physical_demands
+2025-09-14 14:34:10,506 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: document_current_employment_status
+2025-09-14 14:34:10,506 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_medical_evidence_basis
+2025-09-14 14:34:10,506 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_penalty_of_perjury_statements
+2025-09-14 14:34:10,506 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_exact_checkbox_language
+2025-09-14 14:34:10,506 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_page_count_attestation_match
+2025-09-14 14:34:10,506 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_calculation_steps
+2025-09-14 14:34:10,506 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_almaraz_guzman_reference
+2025-09-14 14:34:10,506 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_tables
+2025-09-14 14:34:10,506 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_table_structure
+2025-09-14 14:34:10,506 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_measurement_consistency
+2025-09-14 14:34:10,506 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_all_selections_made
+2025-09-14 14:34:10,506 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_tables
+2025-09-14 14:34:10,506 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_bilateral_consistency
+2025-09-14 14:34:10,506 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_text
+2025-09-14 14:34:10,506 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_medical_reasoning
+2025-09-14 14:34:10,506 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_supporting_evidence
+2025-09-14 14:34:10,506 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_attestation_text
+2025-09-14 14:34:10,506 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_penalty_of_perjury_signature
+2025-09-14 14:34:10,506 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_appendix_b_declaration
+2025-09-14 14:34:10,506 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_appendix_b_accuracy
+2025-09-14 14:34:10,507 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_signature_completeness
+2025-09-14 14:34:10,507 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_measurements
+2025-09-14 14:34:10,507 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_credibility_determination
+2025-09-14 14:34:10,507 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_justification
+2025-09-14 14:34:10,507 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: document_inconsistencies
+2025-09-14 14:34:10,507 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: document_special_tests
+2025-09-14 14:34:10,507 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_bilateral_testing
+2025-09-14 14:34:10,507 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: document_test_results
+2025-09-14 14:34:10,507 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_vital_signs
+2025-09-14 14:34:10,507 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_general_appearance
+2025-09-14 14:34:10,507 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_medication_format
+2025-09-14 14:34:10,507 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: document_last_medication_taken
+2025-09-14 14:34:10,507 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_allergy_documentation
+2025-09-14 14:34:10,507 - src.services.advanced_qme_rules_engine - INFO - validate_qme_report_comprehensive:1195 - Comprehensive validation complete: 102 issues, score: 18.2
+2025-09-14 14:34:10,507 - src.services.advanced_qme_rules_engine - INFO - validate_qme_report_comprehensive:1145 - Starting comprehensive QME validation with YAML rules
+2025-09-14 14:34:10,507 - src.services.advanced_qme_rules_engine - ERROR - _execute_single_action:283 - Error executing action {'validate_format': [{'claimant_name': '^[A-Z][a-z]+(\\s+[A-Z][a-z]+)*$'}, {'claim_number': '^[A-Z0-9\\-]{5,20}$'}, {'wcab_number': '^[A-Z0-9\\-]{5,20}$'}, {'dates_of_injury': '^\\d{1,2}/\\d{1,2}/\\d{4}$'}]}: 'list' object has no attribute 'items'
+2025-09-14 14:34:10,507 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_page_count_attestation
+2025-09-14 14:34:10,507 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_text
+2025-09-14 14:34:10,507 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_text
+2025-09-14 14:34:10,507 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_field
+2025-09-14 14:34:10,507 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_table_structure
+2025-09-14 14:34:10,507 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_tables
+2025-09-14 14:34:10,507 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_table_structure
+2025-09-14 14:34:10,507 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_text
+2025-09-14 14:34:10,507 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_text
+2025-09-14 14:34:10,507 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_tables
+2025-09-14 14:34:10,507 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_table_structure
+2025-09-14 14:34:10,507 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_bilateral_testing
+2025-09-14 14:34:10,507 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_numbered_list
+2025-09-14 14:34:10,508 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_icd_codes
+2025-09-14 14:34:10,508 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_text
+2025-09-14 14:34:10,508 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_causation_type
+2025-09-14 14:34:10,508 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_conditional_blocks
+2025-09-14 14:34:10,508 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_text
+2025-09-14 14:34:10,508 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_ama_references
+2025-09-14 14:34:10,508 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_calculations
+2025-09-14 14:34:10,508 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_text
+2025-09-14 14:34:10,508 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_text
+2025-09-14 14:34:10,508 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_case_law_references
+2025-09-14 14:34:10,508 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_percentage_allocation
+2025-09-14 14:34:10,508 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_medical_evidence_substantiation
+2025-09-14 14:34:10,508 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_restriction_categories
+2025-09-14 14:34:10,508 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_specific_limitations
+2025-09-14 14:34:10,508 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_rtw_determination
+2025-09-14 14:34:10,508 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_care_categories
+2025-09-14 14:34:10,508 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_medical_necessity_justification
+2025-09-14 14:34:10,508 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_attestation_text
+2025-09-14 14:34:10,508 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_penalty_of_perjury
+2025-09-14 14:34:10,508 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_signature_and_date
+2025-09-14 14:34:10,508 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_provenance_format
+2025-09-14 14:34:10,508 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_mmi_status
+2025-09-14 14:34:10,508 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_temporary_disability_opinion
+2025-09-14 14:34:10,508 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: conditional_permanent_disability
+2025-09-14 14:34:10,508 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_history_span
+2025-09-14 14:34:10,508 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_job_description
+2025-09-14 14:34:10,508 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: document_physical_demands
+2025-09-14 14:34:10,508 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: document_current_employment_status
+2025-09-14 14:34:10,508 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_medical_evidence_basis
+2025-09-14 14:34:10,508 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_penalty_of_perjury_statements
+2025-09-14 14:34:10,508 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_exact_checkbox_language
+2025-09-14 14:34:10,508 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_page_count_attestation_match
+2025-09-14 14:34:10,508 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_calculation_steps
+2025-09-14 14:34:10,508 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_almaraz_guzman_reference
+2025-09-14 14:34:10,508 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_tables
+2025-09-14 14:34:10,508 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_table_structure
+2025-09-14 14:34:10,508 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_measurement_consistency
+2025-09-14 14:34:10,508 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_all_selections_made
+2025-09-14 14:34:10,508 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_tables
+2025-09-14 14:34:10,508 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_bilateral_consistency
+2025-09-14 14:34:10,509 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_text
+2025-09-14 14:34:10,509 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_medical_reasoning
+2025-09-14 14:34:10,509 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_supporting_evidence
+2025-09-14 14:34:10,509 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_attestation_text
+2025-09-14 14:34:10,509 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_penalty_of_perjury_signature
+2025-09-14 14:34:10,509 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_appendix_b_declaration
+2025-09-14 14:34:10,509 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_appendix_b_accuracy
+2025-09-14 14:34:10,509 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_signature_completeness
+2025-09-14 14:34:10,509 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_measurements
+2025-09-14 14:34:10,509 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_credibility_determination
+2025-09-14 14:34:10,509 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_justification
+2025-09-14 14:34:10,509 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: document_inconsistencies
+2025-09-14 14:34:10,509 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: document_special_tests
+2025-09-14 14:34:10,509 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_bilateral_testing
+2025-09-14 14:34:10,509 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: document_test_results
+2025-09-14 14:34:10,509 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_vital_signs
+2025-09-14 14:34:10,509 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: require_general_appearance
+2025-09-14 14:34:10,509 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_medication_format
+2025-09-14 14:34:10,509 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: document_last_medication_taken
+2025-09-14 14:34:10,509 - src.services.advanced_qme_rules_engine - WARNING - _execute_single_action:278 - Unknown action type: validate_allergy_documentation
+2025-09-14 14:34:10,509 - src.services.advanced_qme_rules_engine - INFO - validate_qme_report_comprehensive:1195 - Comprehensive validation complete: 108 issues, score: 18.2
+2025-09-14 14:44:23,362 - root - ERROR - generate_content:455 - Error generating diagnostic studies: 'DiagnosticStudiesGenerator' object has no attribute '_get_all_source_entities'
+2025-09-14 15:16:56,531 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-14 15:16:56,531 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-14 15:16:56,544 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-14 15:16:56,545 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-14 15:17:01,751 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-14 15:17:01,752 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-14 15:17:01,808 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-14 15:17:01,808 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-14 15:17:01,808 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-14 15:17:02,680 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-14 15:17:02,681 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-14 15:17:02,719 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-14 15:17:02,719 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-14 15:17:02,719 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-14 15:32:27,996 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-14 15:32:27,996 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-14 15:32:28,017 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-14 15:32:28,017 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-14 15:32:28,017 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-14 15:32:28,055 - src.services.professional_template_assembler_simple - INFO - __init__:69 - Initialized Professional Template Assembler (Simplified)
+2025-09-14 15:32:37,888 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-14 15:32:37,888 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-14 15:32:37,927 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-14 15:32:37,927 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-14 15:32:37,927 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-14 15:35:59,548 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-14 15:35:59,548 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-14 15:35:59,561 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-14 15:35:59,561 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-14 15:36:00,910 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-14 15:36:00,910 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-14 15:36:00,974 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-14 15:36:00,974 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-14 15:36:00,974 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-14 15:36:01,114 - src.startup - INFO - startup:42 - 🚀 Starting Document Q&A System...
+2025-09-14 15:36:01,114 - src.startup - INFO - startup:46 - ✅ Logging configured
+2025-09-14 15:36:01,114 - src.startup - INFO - startup:50 - ✅ Configuration loaded
+2025-09-14 15:36:01,114 - src.startup - INFO - startup:56 - ✅ Environment validation passed
+2025-09-14 15:36:01,114 - src.config.dependency_injection - INFO - __init__:83 - Initialized DependencyContainer with config: embedding_provider=local, qa_provider=gemini
+2025-09-14 15:36:01,114 - src.startup - INFO - startup:60 - ✅ Dependency container initialized
+2025-09-14 15:36:01,115 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:198 - Starting database migration to knowledge graph schema
+2025-09-14 15:36:01,115 - src.storage.knowledge_graph_schema - INFO - migrate_existing_database:210 - Database migration not needed - schema is up to date
+2025-09-14 15:36:01,115 - src.startup - INFO - startup:64 - ✅ Health checker initialized
+2025-09-14 15:36:01,115 - src.startup - INFO - startup:68 - ✅ Performance monitor initialized
+2025-09-14 15:36:01,115 - src.startup - INFO - _run_initial_health_checks:103 - Running initial health checks...
+2025-09-14 15:36:01,115 - src.startup - INFO - startup:74 - ✅ Initial health checks passed
+2025-09-14 15:36:01,115 - src.startup - INFO - _initialize_knowledge_base:132 - Initializing knowledge base...
+2025-09-14 15:36:01,115 - src.startup - ERROR - _initialize_knowledge_base:154 - Knowledge base initialization failed: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
+Traceback (most recent call last):
+  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/startup.py", line 135, in _initialize_knowledge_base
+    pipeline = self.container.get_ingestion_pipeline()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
+2025-09-14 15:36:01,116 - src.startup - WARNING - startup:78 - ⚠️  Knowledge base initialization had issues
+2025-09-14 15:36:01,116 - src.startup - INFO - _run_final_health_checks:160 - Running final health checks...
+2025-09-14 15:36:01,117 - src.startup - INFO - _run_final_health_checks:165 - Overall system health: HEALTHY
+2025-09-14 15:36:01,117 - src.startup - INFO - _run_final_health_checks:166 - Healthy components: 4/4
+2025-09-14 15:36:01,117 - src.startup - INFO - _run_final_health_checks:171 -   database: PASS - Database is healthy
+2025-09-14 15:36:01,117 - src.startup - INFO - _run_final_health_checks:171 -   knowledge_graph: PASS - Knowledge graph is healthy
+2025-09-14 15:36:01,117 - src.startup - INFO - _run_final_health_checks:171 -   file_system: PASS - File system is healthy
+2025-09-14 15:36:01,117 - src.startup - INFO - _run_final_health_checks:171 -   configuration: PASS - Configuration is valid
+2025-09-14 15:36:01,117 - src.startup - INFO - startup:88 - ✅ Final health checks passed
+2025-09-14 15:36:01,117 - src.startup - INFO - startup:91 - 🎉 System startup completed successfully!
+2025-09-14 15:36:01,118 - __main__ - INFO - main:51 - Application initialized successfully with startup system
+2025-09-14 15:36:01,120 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-14 15:36:01,120 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-14 15:36:01,120 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-14 15:36:01,120 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-14 15:36:55,853 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-14 15:36:55,854 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-14 15:36:55,854 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-14 15:36:55,854 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-14 15:37:04,796 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-14 15:37:04,796 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-14 15:37:04,796 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-14 15:37:04,796 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-14 15:37:04,798 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-14 15:37:04,798 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-14 15:37:04,798 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-14 15:37:04,798 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-14 15:37:04,798 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-14 15:37:14,845 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-14 15:37:14,845 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-14 15:37:14,846 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-14 15:37:14,846 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-14 15:37:14,846 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-14 15:37:14,847 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-14 15:37:14,847 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-14 15:37:14,847 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-14 15:37:14,847 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-14 15:37:19,394 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-14 15:37:19,395 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-14 15:37:19,395 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-14 15:37:19,395 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-14 15:37:19,396 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-14 15:37:19,396 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-14 15:37:19,397 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-14 15:37:19,397 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-14 15:37:19,397 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-14 15:37:23,455 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-14 15:37:23,457 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-14 15:37:23,457 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-14 15:37:23,457 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-14 15:37:23,458 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-14 15:37:23,458 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-14 15:37:23,458 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-14 15:37:23,458 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-14 15:37:23,459 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-14 15:37:23,491 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-14 15:37:23,491 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-14 15:37:23,491 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-14 15:37:23,491 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-14 15:37:23,491 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-14 15:37:23,492 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-14 15:37:23,492 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-14 15:37:23,492 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-14 15:37:23,492 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-14 15:37:33,182 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-14 15:37:33,183 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-14 15:37:33,183 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-14 15:37:33,183 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-14 15:37:33,184 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-14 15:37:33,184 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-14 15:37:33,185 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-14 15:37:33,185 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-14 15:37:33,185 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-14 15:37:33,224 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-14 15:37:33,224 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-14 15:37:33,225 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-14 15:37:33,225 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-14 15:37:33,225 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-14 15:37:33,225 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-14 15:37:33,226 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-14 15:37:33,226 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-14 15:37:33,226 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-14 15:37:38,732 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-14 15:37:38,733 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-14 15:37:38,733 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-14 15:37:38,733 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-14 15:37:38,734 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-14 15:37:38,735 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-14 15:37:38,735 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-14 15:37:38,735 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-14 15:37:38,735 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-14 15:37:39,886 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-14 15:37:39,887 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-14 15:37:39,887 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-14 15:37:39,887 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-14 15:37:39,888 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-14 15:37:39,888 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-14 15:37:39,888 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-14 15:37:39,889 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-14 15:37:39,889 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-14 15:37:45,077 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-14 15:37:45,078 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-14 15:37:45,079 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-14 15:37:45,079 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-14 15:37:45,081 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-14 15:37:45,081 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-14 15:37:45,082 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-14 15:37:45,082 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-14 15:37:45,082 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-14 15:40:32,289 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-14 15:40:32,290 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-14 15:40:32,291 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-14 15:40:32,291 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-14 15:40:32,292 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-14 15:40:32,292 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-14 15:40:32,293 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-14 15:40:32,293 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-14 15:40:32,294 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-14 15:40:39,444 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-14 15:40:39,444 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-14 15:40:39,445 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-14 15:40:39,445 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']
+2025-09-14 15:40:39,446 - src.services.qme_template_generator - INFO - __init__:618 - Initialized QME Template Generator
+2025-09-14 15:40:39,446 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor PDFProcessor for .pdf
+2025-09-14 15:40:39,446 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor DOCXProcessor for .docx
+2025-09-14 15:40:39,446 - src.factories.processor_factory - INFO - register_processor:355 - Registered processor TXTProcessor for .txt
+2025-09-14 15:40:39,446 - src.services.file_handler - INFO - __init__:62 - Initialized FileUploadHandler with supported types: ['.pdf', '.docx', '.txt']

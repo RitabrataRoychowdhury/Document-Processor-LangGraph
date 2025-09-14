@@ -2,8 +2,248 @@
 
 from dataclasses import dataclass, field
 from datetime import datetime
-from typing import Dict, Any, List, Optional
+from typing import Dict, Any, List, Optional, Union
+from enum import Enum
 import json
+
+
+class MedicalEntityType(Enum):
+    """Medical entity types for enhanced knowledge graph"""
+    PATIENT = "Patient"
+    DIAGNOSIS = "Diagnosis"
+    IMAGING_STUDY = "ImagingStudy"
+    FINDINGS = "Findings"
+    CLAIM = "Claim"
+    TREATMENT = "Treatment"
+    IMPAIRMENT_RATING = "ImpairmentRating"
+    SYMPTOM = "Symptom"
+    COMPLAINT = "Complaint"
+    PAIN = "Pain"
+    LIMITATION = "Limitation"
+    ROM = "ROM"
+    STRENGTH_TEST = "StrengthTest"
+    NEUROLOGICAL = "Neurological"
+    APPEARANCE = "Appearance"
+    LAB_RESULT = "LabResult"
+    WORK_INJURY = "WorkInjury"
+    PREEXISTING_CONDITION = "PreexistingCondition"
+    MEDICATION = "Medication"
+    THERAPY = "Therapy"
+    PROCEDURE = "Procedure"
+
+
+class ValidationStatus(Enum):
+    """Validation status for medical entities"""
+    VALID = "valid"
+    PENDING = "pending"
+    INVALID = "invalid"
+    NEEDS_REVIEW = "needs_review"
+
+
+@dataclass
+class ProvenanceReference:
+    """Provenance information for medical entities"""
+    document_id: str
+    page_number: int
+    offset: int
+    snippet: str
+    confidence_score: float = 1.0
+    
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            'document_id': self.document_id,
+            'page_number': self.page_number,
+            'offset': self.offset,
+            'snippet': self.snippet,
+            'confidence_score': self.confidence_score
+        }
+    
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> 'ProvenanceReference':
+        return cls(
+            document_id=data['document_id'],
+            page_number=data['page_number'],
+            offset=data['offset'],
+            snippet=data['snippet'],
+            confidence_score=data.get('confidence_score', 1.0)
+        )
+
+
+@dataclass
+class EntityRelationship:
+    """Relationship between medical entities"""
+    target_entity_id: str
+    relationship_type: str
+    confidence_score: float = 1.0
+    properties: Dict[str, Any] = field(default_factory=dict)
+    
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            'target_entity_id': self.target_entity_id,
+            'relationship_type': self.relationship_type,
+            'confidence_score': self.confidence_score,
+            'properties': self.properties
+        }
+    
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> 'EntityRelationship':
+        return cls(
+            target_entity_id=data['target_entity_id'],
+            relationship_type=data['relationship_type'],
+            confidence_score=data.get('confidence_score', 1.0),
+            properties=data.get('properties', {})
+        )
+
+
+@dataclass
+class MedicalEntity:
+    """Enhanced medical entity for intelligent content generation"""
+    id: str
+    entity_type: MedicalEntityType
+    content: str
+    confidence_score: float
+    provenance: List[ProvenanceReference] = field(default_factory=list)
+    relationships: List[EntityRelationship] = field(default_factory=list)
+    ama_references: List[str] = field(default_factory=list)
+    validation_status: ValidationStatus = ValidationStatus.PENDING
+    metadata: Dict[str, Any] = field(default_factory=dict)
+    created_at: datetime = field(default_factory=datetime.now)
+    updated_at: datetime = field(default_factory=datetime.now)
+    
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            'id': self.id,
+            'entity_type': self.entity_type.value,
+            'content': self.content,
+            'confidence_score': self.confidence_score,
+            'provenance': [p.to_dict() for p in self.provenance],
+            'relationships': [r.to_dict() for r in self.relationships],
+            'ama_references': self.ama_references,
+            'validation_status': self.validation_status.value,
+            'metadata': self.metadata,
+            'created_at': self.created_at.isoformat(),
+            'updated_at': self.updated_at.isoformat()
+        }
+    
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> 'MedicalEntity':
+        return cls(
+            id=data['id'],
+            entity_type=MedicalEntityType(data['entity_type']),
+            content=data['content'],
+            confidence_score=data['confidence_score'],
+            provenance=[ProvenanceReference.from_dict(p) for p in data.get('provenance', [])],
+            relationships=[EntityRelationship.from_dict(r) for r in data.get('relationships', [])],
+            ama_references=data.get('ama_references', []),
+            validation_status=ValidationStatus(data.get('validation_status', 'pending')),
+            metadata=data.get('metadata', {}),
+            created_at=datetime.fromisoformat(data['created_at']) if data.get('created_at') else datetime.now(),
+            updated_at=datetime.fromisoformat(data['updated_at']) if data.get('updated_at') else datetime.now()
+        )
+
+
+@dataclass
+class MedicalRelationship:
+    """Enhanced medical relationship for knowledge graph"""
+    id: str
+    source_entity_id: str
+    target_entity_id: str
+    relationship_type: str
+    confidence_score: float = 1.0
+    properties: Dict[str, Any] = field(default_factory=dict)
+    provenance: List[ProvenanceReference] = field(default_factory=list)
+    created_at: datetime = field(default_factory=datetime.now)
+    
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            'id': self.id,
+            'source_entity_id': self.source_entity_id,
+            'target_entity_id': self.target_entity_id,
+            'relationship_type': self.relationship_type,
+            'confidence_score': self.confidence_score,
+            'properties': self.properties,
+            'provenance': [p.to_dict() for p in self.provenance],
+            'created_at': self.created_at.isoformat()
+        }
+    
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> 'MedicalRelationship':
+        return cls(
+            id=data['id'],
+            source_entity_id=data['source_entity_id'],
+            target_entity_id=data['target_entity_id'],
+            relationship_type=data['relationship_type'],
+            confidence_score=data.get('confidence_score', 1.0),
+            properties=data.get('properties', {}),
+            provenance=[ProvenanceReference.from_dict(p) for p in data.get('provenance', [])],
+            created_at=datetime.fromisoformat(data['created_at']) if data.get('created_at') else datetime.now()
+        )
+
+
+@dataclass
+class KnowledgeGraph:
+    """Enhanced knowledge graph for intelligent content generation"""
+    entities: Dict[str, MedicalEntity] = field(default_factory=dict)
+    relationships: List[MedicalRelationship] = field(default_factory=list)
+    metadata: Dict[str, Any] = field(default_factory=dict)
+    created_at: datetime = field(default_factory=datetime.now)
+    updated_at: datetime = field(default_factory=datetime.now)
+    
+    def add_entity(self, entity: MedicalEntity) -> None:
+        """Add entity to knowledge graph"""
+        self.entities[entity.id] = entity
+        self.updated_at = datetime.now()
+    
+    def add_relationship(self, relationship: MedicalRelationship) -> None:
+        """Add relationship to knowledge graph"""
+        self.relationships.append(relationship)
+        self.updated_at = datetime.now()
+    
+    def get_entities_by_type(self, entity_type: MedicalEntityType) -> List[MedicalEntity]:
+        """Get all entities of a specific type"""
+        return [entity for entity in self.entities.values() if entity.entity_type == entity_type]
+    
+    def get_related_entities(self, entity_id: str) -> List[MedicalEntity]:
+        """Get entities related to a specific entity"""
+        related_ids = set()
+        
+        # Find relationships where this entity is the source
+        for rel in self.relationships:
+            if rel.source_entity_id == entity_id:
+                related_ids.add(rel.target_entity_id)
+            elif rel.target_entity_id == entity_id:
+                related_ids.add(rel.source_entity_id)
+        
+        return [self.entities[entity_id] for entity_id in related_ids if entity_id in self.entities]
+    
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            'entities': {k: v.to_dict() for k, v in self.entities.items()},
+            'relationships': [r.to_dict() for r in self.relationships],
+            'metadata': self.metadata,
+            'created_at': self.created_at.isoformat(),
+            'updated_at': self.updated_at.isoformat()
+        }
+    
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> 'KnowledgeGraph':
+        kg = cls(
+            metadata=data.get('metadata', {}),
+            created_at=datetime.fromisoformat(data['created_at']) if data.get('created_at') else datetime.now(),
+            updated_at=datetime.fromisoformat(data['updated_at']) if data.get('updated_at') else datetime.now()
+        )
+        
+        # Load entities
+        for entity_data in data.get('entities', {}).values():
+            entity = MedicalEntity.from_dict(entity_data)
+            kg.add_entity(entity)
+        
+        # Load relationships
+        for rel_data in data.get('relationships', []):
+            relationship = MedicalRelationship.from_dict(rel_data)
+            kg.add_relationship(relationship)
+        
+        return kg
 
 
 @dataclass

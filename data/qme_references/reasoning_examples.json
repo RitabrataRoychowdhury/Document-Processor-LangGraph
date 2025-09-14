@@ -1,0 +1,36 @@
+[
+  {
+    "diagnosis_type": "spine_injury",
+    "reasoning_pattern": "The mechanism of injury involving {mechanism} is consistent with {diagnosis}. The temporal relationship between injury and symptom onset supports industrial causation.",
+    "causation_language": "It is my opinion to a reasonable degree of medical probability that the {condition} is causally related to the industrial injury of {date}.",
+    "impairment_rationale": "The impairment rating is based on {method} using AMA Guides 5th Edition, {table_reference}. The {measurements} support a {percentage}% whole person impairment.",
+    "treatment_recommendations": [
+      "Conservative treatment with physical therapy",
+      "Anti-inflammatory medications as needed",
+      "Work restrictions as outlined"
+    ],
+    "source_document": "Sample3.pdf",
+    "confidence_indicators": [
+      "Objective findings",
+      "Consistent history",
+      "Appropriate methodology"
+    ]
+  },
+  {
+    "diagnosis_type": "extremity_injury",
+    "reasoning_pattern": "The injury to the {body_part} involving {mechanism} resulted in {pathology}. The examination findings of {findings} are consistent with the reported mechanism.",
+    "causation_language": "Based on reasonable medical probability, the {condition} is industrially related given the mechanism of injury and temporal relationship.",
+    "impairment_rationale": "Using AMA Guides 5th Edition methodology, the {measurements} result in {percentage}% impairment of the {body_part}, which converts to {whole_person}% whole person impairment.",
+    "treatment_recommendations": [
+      "Physical therapy for range of motion and strengthening",
+      "Activity modification during recovery",
+      "Follow-up as needed"
+    ],
+    "source_document": "Sample3.pdf",
+    "confidence_indicators": [
+      "Objective measurements",
+      "Consistent examination",
+      "Appropriate calculations"
+    ]
+  }
+]

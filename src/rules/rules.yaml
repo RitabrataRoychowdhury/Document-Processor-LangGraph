@@ -523,3 +523,267 @@ rules:
     - generate_validation_report: true
     - determine_pass_fail_status: true
     - add_audit: "Final comprehensive validation completed"
+
+# ENHANCED LEGAL COMPLIANCE RULES
+- id: R101_lc4663_apportionment_language
+  priority: MUST
+  description: "Enforce exact LC 4663/4664 apportionment language and case law citations"
+  section: "apportionment"
+  when:
+    - template.assembling: true
+  then:
+    - require_exact_text: |
+        "Having taken effect on April 19, 2004, SB 899 mandated that apportionment be based on causation"
+    - require_case_law_citations:
+        - "Escobedo v. Marshalls (2005) 70 CCC 604"
+        - "Gatten v. WCAB (2008) 73 CCC 1260"
+        - "Benson v. The Permanente Medical Group (2009) 74 CCC 1100"
+    - require_legal_references:
+        - "Labor Code Section 4663"
+        - "Labor Code Section 4664"
+    - validate_percentage_breakdown:
+        industrial_minimum: 1
+        nonindustrial_maximum: 99
+        total_equals: 100
+    - require_medical_evidence_basis: true
+    - add_audit: "LC 4663/4664 apportionment language validated"
+
+- id: R102_statutory_language_precision
+  priority: MUST
+  description: "Ensure exact statutory language matching for all legal requirements"
+  section: "legal_compliance"
+  when:
+    - template.assembling: true
+  then:
+    - validate_exact_statutory_text:
+        section_4062_3: |
+          "Any documents sent to the physician for record review must be accompanied by a declaration under penalty of perjury that the provider of the documents has complied with the provisions of Labor Code section 4062.3 before providing the documents to the physician. The declaration must also contain an attestation as to the total page count of the documents provided."
+        section_9795: |
+          "This report has been prepared pursuant to the provisions of 8 Cal. Code Regulations §9795"
+        ab_1300_declaration: |
+          "Pursuant to AB 1300, LC Sec. 5703, I have not violated Labor Code section 139.3"
+    - validate_penalty_of_perjury_statements: true
+    - require_exact_checkbox_language: true
+    - add_audit: "Statutory language precision validated"
+
+- id: R103_interpreter_93_modifier_compliance
+  priority: MUST
+  description: "Comprehensive interpreter requirements and -93 modifier validation"
+  section: "interpreter"
+  when:
+    - document.metadata.interpreter_used: true
+  then:
+    - require_checkbox: "interpreter_circumstances_93_modifier"
+    - require_exact_text: |
+        "An interpreter was needed because the injured worker spoke a language different from the language spoken by the evaluator. These circumstances dictate that when the injured worker spoke words, the evaluator could not understand the injured worker's words, and vice-versa."
+    - require_exact_text: |
+        "The need for an interpreter increased the time necessary for the evaluation by the amount of time it takes to communicate in two separate languages as enabled by the presence of an interpreter."
+    - require_fields:
+        - interpreter_name_and_number
+        - interpreter_certification_status
+    - validate_billing_modifier: "-93"
+    - add_audit: "Interpreter -93 modifier compliance validated"
+
+- id: R104_mlprr_billing_precision
+  priority: MUST
+  description: "Precise MLPRR billing calculations with penalty of perjury attestation"
+  section: "billing"
+  when:
+    - template.assembling: true
+  then:
+    - require_table: "record_review_billing_table"
+    - validate_billing_calculation:
+        formula: "(total_pages - 200) * 3.00"
+        minimum_pages: 200
+        rate_per_page: 3.00
+    - require_under_penalty_perjury:
+        - "total_pages_reviewed_verification"
+        - "billing_calculation_accuracy"
+    - require_exact_text: |
+        "Under penalty of perjury: Total pages reviewed by physician evaluator"
+    - validate_page_count_attestation_match: true
+    - require_checkbox: "section_4062_3_declaration_received"
+    - require_checkbox: "section_9795_verification"
+    - add_audit: "MLPRR billing precision validated"
+
+- id: R105_ama_guides_citation_accuracy
+  priority: MUST
+  description: "Accurate AMA Guides 5th Edition citations and methodology references"
+  section: "impairment_rating"
+  when:
+    - template.assembling: true
+  then:
+    - require_exact_text: |
+        "American Medical Association Guides to the Evaluation of Permanent Impairment (5th Edition)"
+    - validate_ama_citations:
+        chapter_format: "Chapter \\d+"
+        table_format: "Table \\d+-\\d+"
+        page_format: "page \\d+"
+    - require_methodology_documentation:
+        - table_method
+        - rom_method
+        - dre_method
+        - combined_values_chart
+    - validate_calculation_steps: true
+    - require_almaraz_guzman_reference: |
+        "accurate reflection of the permanent disability in accordance with Almaraz/Guzman"
+    - add_audit: "AMA Guides citation accuracy validated"
+
+- id: R106_rom_measurement_compliance
+  priority: MUST
+  description: "Strict ROM measurement table compliance with 3-measurement protocol"
+  section: "physical_examination"
+  when:
+    - template.assembling: true
+  then:
+    - require_tables:
+        cervical_spine:
+          - "cervical_spine_flexion"
+          - "cervical_spine_extension"
+          - "cervical_right_lateral_bending"
+          - "cervical_left_lateral_bending"
+          - "cervical_rotation"
+        thoracic_spine:
+          - "thoracic_spine_flexion"
+          - "thoracic_spine_extension"
+          - "thoracic_right_lateral_rotation"
+          - "thoracic_left_lateral_rotation"
+        lumbar_spine:
+          - "lumbar_spine_flexion"
+          - "lumbar_spine_extension"
+          - "lumbar_right_lateral_bending"
+          - "lumbar_left_lateral_bending"
+    - validate_table_structure:
+        required_columns: ["1st Measure", "2nd Measure", "3rd Measure", "Average"]
+        numeric_validation: true
+        average_calculation_accuracy: true
+    - require_exact_text: |
+        "Spine range of motion values obtained after appropriate warm-up and with adequate motivational instruction"
+    - require_exact_text: |
+        "Two inclinometers were utilized for measurements"
+    - validate_measurement_consistency: true
+    - add_audit: "ROM measurement compliance validated"
+
+- id: R107_adl_grid_comprehensive
+  priority: MUST
+  description: "Comprehensive ADL functional capacity grid with all required categories"
+  section: "activities_daily_living"
+  when:
+    - template.assembling: true
+  then:
+    - require_table: "adl_functional_capacity_grid"
+    - validate_adl_structure:
+        columns: ["Without Difficulty", "With Some Difficulty", "With Moderate Difficulty", "Unable To Do"]
+        main_categories:
+          - "Personal Hygiene"
+          - "Communication"
+          - "Physical Activity"
+          - "Sensory Function"
+          - "Hand Function"
+          - "Travel"
+          - "Sexual Function"
+          - "Sleep Restfully"
+        personal_hygiene_items:
+          - "Take a bath"
+          - "Brush your teeth"
+          - "Dress yourself"
+          - "Comb your hair"
+          - "Eat and drink"
+          - "Have a bowel movement"
+          - "Urinate"
+        communication_items:
+          - "Write comfortably"
+          - "Type on a computer"
+          - "See clearly (with glasses if needed)"
+          - "Hear clearly"
+          - "Speak clearly"
+        physical_activity_items:
+          - "Stand"
+          - "Sit"
+          - "Walk"
+          - "Climb stairs"
+        sensory_function_items:
+          - "Feel what you touch"
+          - "Smell the food you eat"
+          - "Taste the food you eat"
+        hand_function_items:
+          - "Hold something without pain"
+          - "Open windows at home"
+          - "Lift a child"
+        travel_items:
+          - "Ride in a car for 30 minutes"
+          - "Fly in a plane"
+        sexual_function_items:
+          - "Have sexual intercourse"
+    - validate_all_selections_made: true
+    - add_audit: "ADL grid comprehensive validation completed"
+
+- id: R108_neurological_testing_bilateral
+  priority: MUST
+  description: "Comprehensive bilateral neurological testing documentation"
+  section: "neurological_examination"
+  when:
+    - template.assembling: true
+  then:
+    - require_tables:
+        - "cervical_spine_sensory_motor"
+        - "cervical_spine_reflexes"
+        - "lumbar_spine_sensory_motor"
+        - "lumbar_spine_reflexes"
+    - validate_neurological_structure:
+        sensory_levels:
+          cervical: ["C4", "C5", "C6", "C7", "C8", "T1"]
+          lumbar: ["L2", "L3", "L4", "L5", "S1"]
+        motor_scale: ["0", "1", "2", "3", "4", "5"]
+        reflex_scale: ["0", "1+", "2+", "3+", "4+"]
+        bilateral_testing: true
+    - require_special_tests:
+        cervical: ["Spurling's Test", "Wartenberg's Sign", "Hoffman's Sign"]
+        lumbar: ["Straight Leg Raise", "Seated Sciatic Tension"]
+    - validate_bilateral_consistency: true
+    - add_audit: "Neurological testing bilateral validation completed"
+
+- id: R109_causation_medical_probability
+  priority: MUST
+  description: "Causation analysis with required medical probability language"
+  section: "causation"
+  when:
+    - template.assembling: true
+  then:
+    - require_section: "opinion_on_causation"
+    - require_text: "reasonable medical probability"
+    - validate_causation_determination:
+        specific_injury_format: "sustained a specific injury to [body part] on [date]"
+        continuous_trauma_format: "sustained a continuous trauma to [body part] which spans"
+    - require_conditional_language:
+        if_no_causation: |
+          "Since I am unable to find industrial causation for the applicant's claim of injury arising out of and occurring in the course of his / her employment"
+        if_causation_found: |
+          "Based on reasonable medical probability, the applicant sustained"
+    - validate_medical_reasoning: true
+    - require_supporting_evidence: true
+    - add_audit: "Causation medical probability analysis validated"
+
+- id: R110_signature_attestation_complete
+  priority: MUST
+  description: "Complete signature block with all required attestations"
+  section: "signature"
+  when:
+    - template.assembling: true
+  then:
+    - require_section: "signature_block"
+    - require_fields:
+        - examiner_name
+        - examiner_title
+        - examiner_license_number
+        - signature_date
+        - signature_location
+    - require_attestation_text: |
+        "Pursuant to AB 1300, LC Sec. 5703, I have not violated Labor Code section 139.3"
+    - require_penalty_of_perjury_signature: true
+    - require_appendix_b_declaration: |
+        "I declare under penalty of perjury that I did not discriminate in any way against the parties to the action or the injured worker in the evaluation process or in the content of this report"
+    - require_appendix_b_accuracy: |
+        "I declare under penalty of perjury that the information contained in this report and its attachments, if any, is true and correct to the best of my knowledge and belief"
+    - validate_signature_completeness: true
+    - add_audit: "Signature attestation complete validation finished"

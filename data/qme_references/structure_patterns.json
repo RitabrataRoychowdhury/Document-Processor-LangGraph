@@ -1,0 +1,131 @@
+[
+  {
+    "section_name": "Patient Identification",
+    "section_order": 1,
+    "required_elements": [
+      "name",
+      "age",
+      "case_number",
+      "injury_date"
+    ],
+    "content_patterns": [
+      "Name:\\s*[A-Z][a-z]+",
+      "Age:\\s*\\d+",
+      "Case.*:\\s*\\w+"
+    ],
+    "example_content": "Patient identification with complete demographic information",
+    "legal_requirements": [
+      "\u00a74062.3 identification requirements"
+    ],
+    "quality_indicators": [
+      "Complete demographics",
+      "Accurate case information"
+    ]
+  },
+  {
+    "section_name": "History of Present Illness",
+    "section_order": 2,
+    "required_elements": [
+      "injury_mechanism",
+      "symptom_onset",
+      "current_symptoms"
+    ],
+    "content_patterns": [
+      "injured.*on",
+      "reports.*pain",
+      "describes.*symptoms"
+    ],
+    "example_content": "Detailed narrative of injury and symptom progression",
+    "legal_requirements": [
+      "Comprehensive history documentation"
+    ],
+    "quality_indicators": [
+      "Chronological narrative",
+      "Symptom detail"
+    ]
+  },
+  {
+    "section_name": "Physical Examination",
+    "section_order": 6,
+    "required_elements": [
+      "general_appearance",
+      "range_of_motion",
+      "strength_testing"
+    ],
+    "content_patterns": [
+      "examination.*reveals",
+      "range of motion",
+      "strength.*5/5"
+    ],
+    "example_content": "Systematic physical examination with objective findings",
+    "legal_requirements": [
+      "Objective examination required"
+    ],
+    "quality_indicators": [
+      "Systematic approach",
+      "Objective measurements"
+    ]
+  },
+  {
+    "section_name": "Diagnosis",
+    "section_order": 8,
+    "required_elements": [
+      "primary_diagnosis",
+      "icd_code"
+    ],
+    "content_patterns": [
+      "Primary.*diagnosis",
+      "ICD.*\\d+"
+    ],
+    "example_content": "Clear diagnostic statements with ICD codes",
+    "legal_requirements": [
+      "Specific diagnosis required"
+    ],
+    "quality_indicators": [
+      "Clear diagnosis",
+      "Appropriate ICD codes"
+    ]
+  },
+  {
+    "section_name": "Impairment Rating",
+    "section_order": 9,
+    "required_elements": [
+      "percentage",
+      "ama_reference",
+      "methodology"
+    ],
+    "content_patterns": [
+      "\\d+%.*impairment",
+      "AMA.*Guides",
+      "Table.*\\d+"
+    ],
+    "example_content": "Impairment rating with AMA methodology",
+    "legal_requirements": [
+      "AMA Guides compliance"
+    ],
+    "quality_indicators": [
+      "Accurate calculation",
+      "Proper references"
+    ]
+  },
+  {
+    "section_name": "Causation Analysis",
+    "section_order": 12,
+    "required_elements": [
+      "medical_probability",
+      "causation_opinion"
+    ],
+    "content_patterns": [
+      "reasonable.*medical.*probability",
+      "causally.*related"
+    ],
+    "example_content": "Medical causation analysis with probability statement",
+    "legal_requirements": [
+      "Reasonable medical probability standard"
+    ],
+    "quality_indicators": [
+      "Clear causation opinion",
+      "Medical rationale"
+    ]
+  }
+]

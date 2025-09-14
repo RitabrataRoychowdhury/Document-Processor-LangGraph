@@ -1,0 +1,167 @@
+{
+  "15-3": {
+    "table_id": "15-3",
+    "chapter": 15,
+    "title": "Impairment Due to Specific Spine Disorders",
+    "body_system": "spine",
+    "method_type": "table_based",
+    "description": "AMA Guides 5th Edition Impairment Due to Specific Spine Disorders",
+    "data_structure": {
+      "type": "disorder_based",
+      "entries": {
+        "herniated_disc_single_level": {
+          "percentage": 5,
+          "modifiers": [
+            "surgical",
+            "conservative"
+          ]
+        },
+        "herniated_disc_multiple_level": {
+          "percentage": 8,
+          "modifiers": [
+            "surgical",
+            "conservative"
+          ]
+        },
+        "spinal_stenosis": {
+          "percentage": 10,
+          "modifiers": [
+            "severity",
+            "levels"
+          ]
+        },
+        "spondylolisthesis": {
+          "percentage": 7,
+          "modifiers": [
+            "grade",
+            "stability"
+          ]
+        }
+      }
+    },
+    "page_reference": 384,
+    "usage_criteria": [
+      "Specific spine disorders",
+      "Documented pathology"
+    ],
+    "calculation_steps": [
+      "Identify disorder",
+      "Locate in table",
+      "Apply percentage"
+    ]
+  },
+  "15-5": {
+    "table_id": "15-5",
+    "chapter": 15,
+    "title": "Cervical Spine Range of Motion Impairment",
+    "body_system": "spine",
+    "method_type": "range_of_motion",
+    "description": "AMA Guides 5th Edition Cervical Spine Range of Motion Impairment",
+    "data_structure": {
+      "type": "range_of_motion",
+      "measurements": {
+        "flexion": {
+          "normal": 50,
+          "units": "degrees"
+        },
+        "extension": {
+          "normal": 60,
+          "units": "degrees"
+        },
+        "lateral_flexion": {
+          "normal": 45,
+          "units": "degrees"
+        },
+        "rotation": {
+          "normal": 80,
+          "units": "degrees"
+        }
+      },
+      "calculation_method": "percentage_loss"
+    },
+    "page_reference": 394,
+    "usage_criteria": [
+      "Cervical spine injury",
+      "ROM limitations"
+    ],
+    "calculation_steps": [
+      "Measure ROM",
+      "Calculate loss",
+      "Apply table values"
+    ]
+  },
+  "15-7": {
+    "table_id": "15-7",
+    "chapter": 15,
+    "title": "Lumbar Spine Range of Motion Impairment",
+    "body_system": "spine",
+    "method_type": "range_of_motion",
+    "description": "AMA Guides 5th Edition Lumbar Spine Range of Motion Impairment",
+    "data_structure": {
+      "type": "range_of_motion",
+      "measurements": {
+        "flexion": {
+          "normal": 60,
+          "units": "degrees"
+        },
+        "extension": {
+          "normal": 25,
+          "units": "degrees"
+        }
+      },
+      "calculation_method": "ankylosis_model"
+    },
+    "page_reference": 399,
+    "usage_criteria": [
+      "Lumbar spine injury",
+      "ROM limitations"
+    ],
+    "calculation_steps": [
+      "Measure flexion/extension",
+      "Calculate impairment",
+      "Apply modifiers"
+    ]
+  },
+  "16-3": {
+    "table_id": "16-3",
+    "chapter": 16,
+    "title": "Upper Extremity Impairment Due to Amputation",
+    "body_system": "upper_extremity",
+    "method_type": "table_based",
+    "description": "AMA Guides 5th Edition Upper Extremity Impairment Due to Amputation",
+    "data_structure": {
+      "type": "generic",
+      "structure": "table_based"
+    },
+    "page_reference": 438,
+    "usage_criteria": [
+      "Amputation",
+      "Upper extremity loss"
+    ],
+    "calculation_steps": [
+      "Identify amputation level",
+      "Apply table percentage"
+    ]
+  },
+  "17-2": {
+    "table_id": "17-2",
+    "chapter": 17,
+    "title": "Lower Extremity Impairment Due to Leg Length Discrepancy",
+    "body_system": "lower_extremity",
+    "method_type": "table_based",
+    "description": "AMA Guides 5th Edition Lower Extremity Impairment Due to Leg Length Discrepancy",
+    "data_structure": {
+      "type": "generic",
+      "structure": "table_based"
+    },
+    "page_reference": 523,
+    "usage_criteria": [
+      "Leg length difference",
+      "Measured discrepancy"
+    ],
+    "calculation_steps": [
+      "Measure discrepancy",
+      "Apply table values"
+    ]
+  }
+}

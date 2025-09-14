@@ -461,7 +461,58 @@ class QMETemplateInterface:
         if st.button("⭐ Save to Template Gallery"):
             self._save_to_gallery(template_info)
         
+        # Professional Template Assembly Integration
+        st.markdown("---")
+        st.subheader("🏥 Professional Template Assembly")
+        st.info("""
+        **Upgrade to Professional Gold Standard Templates**
+        
+        Take your QME template to the next level with our Professional Template Assembly System:
+        - ✅ Gold standard compliance based on AI Example QME Report Template
+        - ✅ Comprehensive validation and quality assurance
+        - ✅ Professional medical formatting and structure
+        - ✅ Missing information detection and placeholder management
+        - ✅ Complete quality reports and compliance checking
+        """)
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            if st.button("🚀 Upgrade to Professional Template", type="primary"):
+                # Store the current template data for professional assembly
+                if 'final_template' in st.session_state:
+                    st.session_state.qme_template_data = template_info['data']
+                st.session_state.switch_to_professional_template = True
+                st.rerun()
+        
+        with col2:
+            if st.button("📋 Learn More About Professional Assembly"):
+                st.info("""
+                **Professional Template Assembly Features:**
+                
+                🏥 **Gold Standard Compliance**
+                - Exact formatting from AI Example QME Report Template.docx
+                - Professional medical document structure
+                - Proper headers, footers, and signature blocks
+                
+                🔍 **Comprehensive Validation**
+                - Pre-assembly and post-assembly quality checks
+                - Missing information detection and highlighting
+                - Compliance status and improvement recommendations
+                
+                📊 **Quality Assurance**
+                - Detailed quality scoring (completeness, accuracy, compliance)
+                - Professional quality reports with actionable insights
+                - Validation against AMA Guidelines and legal requirements
+                
+                📥 **Professional Download**
+                - High-quality DOCX with proper medical formatting
+                - Complete packages with quality reports
+                - Ready for submission and professional use
+                """)
+        
         # Start New Template
+        st.markdown("---")
         if st.button("🔄 Generate New Template", type="secondary"):
             self._reset_workflow()
     

@@ -18,6 +18,7 @@ from src.ui.upload_interface import UploadInterface
 from src.ui.qa_interface import render_qa_page
 from src.ui.document_manager import render_document_management_page
 from src.ui.qme_template_interface import render_qme_template_page
+from src.ui.professional_template_interface import ProfessionalTemplateInterface
 from src.utils.logging_config import get_logger
 from src.utils.error_handling import DocumentQAError, format_error_for_ui
 from src.config.app_config import app_config
@@ -175,7 +176,7 @@ def main():
             if st.button("Run Migration"):
                 st.session_state.switch_to_migration = True
         
-        page_options = ["Upload Documents", "Document Management", "Q&A Interface", "QME Template Generator", "Upload History", "System Status", "Performance Monitor", "Knowledge Base Setup", "About"]
+        page_options = ["Upload Documents", "Document Management", "Q&A Interface", "QME Template Generator", "Professional Template Assembly", "Upload History", "System Status", "Performance Monitor", "Knowledge Base Setup", "About"]
         
         # Add migration page if needed
         if st.session_state.get('migration_needed') or st.session_state.get('show_migration'):
@@ -196,6 +197,9 @@ def main():
     elif st.session_state.get('switch_to_qme_template', False):
         st.session_state.switch_to_qme_template = False
         page = "QME Template Generator"
+    elif st.session_state.get('switch_to_professional_template', False):
+        st.session_state.switch_to_professional_template = False
+        page = "Professional Template Assembly"
     
     # Main content area with error handling
     try:
@@ -222,6 +226,8 @@ def main():
                 render_qa_page()
         elif page == "QME Template Generator":
             render_qme_template_page()
+        elif page == "Professional Template Assembly":
+            render_professional_template_assembly_page()
         elif page == "Upload History":
             if upload_interface:
                 render_history_page(upload_interface)
@@ -996,6 +1002,36 @@ def render_about_page():
     - User-friendly error messages
     - Detailed logging for debugging
     """)
+
+def render_professional_template_assembly_page():
+    """Render the Professional Template Assembly page"""
+    try:
+        # Initialize the professional template interface
+        if 'professional_template_interface' not in st.session_state:
+            st.session_state.professional_template_interface = ProfessionalTemplateInterface()
+        
+        interface = st.session_state.professional_template_interface
+        interface.render_professional_template_page()
+        
+    except Exception as e:
+        error_info = format_error_for_ui(e)
+        st.error(f"Professional Template Assembly error: {error_info['user_message']}")
+        logger.error(f"Professional template assembly page error: {e}", exc_info=True)
+        
+        # Show fallback information
+        st.markdown("---")
+        st.info("""
+        **Professional Template Assembly System**
+        
+        This feature provides gold-standard compliant QME template generation with:
+        - Professional DOCX formatting based on AI Example QME Report Template
+        - Comprehensive validation and quality assurance
+        - Missing information detection and placeholder management
+        - Download functionality with complete packages
+        
+        Please check the system configuration and try again.
+        """)
+
 
 if __name__ == "__main__":
     main()

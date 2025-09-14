@@ -1,0 +1,110 @@
+{
+  "15": {
+    "chapter_number": 15,
+    "title": "The Spine",
+    "body_system": "spine",
+    "overview": "Chapter 15 covers impairment evaluation for the spine",
+    "general_principles": [
+      "Spine impairment should be based on objective findings",
+      "Range of motion measurements must be reliable and reproducible",
+      "Consider both structural and functional impairments"
+    ],
+    "measurement_techniques": [
+      "Use goniometer for range of motion measurements",
+      "Take three measurements and use average",
+      "Ensure patient cooperation and maximum effort"
+    ],
+    "special_considerations": [
+      "Age-related changes in spine mobility",
+      "Pre-existing degenerative changes",
+      "Pain behavior assessment"
+    ]
+  },
+  "16": {
+    "chapter_number": 16,
+    "title": "The Upper Extremities",
+    "body_system": "upper_extremity",
+    "overview": "Chapter 16 covers impairment evaluation for the upper extremities",
+    "general_principles": [
+      "Upper extremity impairment considers function and anatomy",
+      "Regional impairments must be converted to whole person",
+      "Consider dominant vs non-dominant hand differences"
+    ],
+    "measurement_techniques": [
+      "Standardized positioning for measurements",
+      "Consider grip strength and pinch strength",
+      "Assess sensory function when applicable"
+    ],
+    "special_considerations": [
+      "Occupational demands on upper extremities",
+      "Bilateral involvement considerations",
+      "Prosthetic use and adaptation"
+    ]
+  },
+  "17": {
+    "chapter_number": 17,
+    "title": "The Lower Extremities",
+    "body_system": "lower_extremity",
+    "overview": "Chapter 17 covers impairment evaluation for the lower extremities",
+    "general_principles": [
+      "Lower extremity impairment affects mobility and stability",
+      "Weight-bearing function is primary consideration",
+      "Gait analysis may be necessary for complex cases"
+    ],
+    "measurement_techniques": [
+      "Weight-bearing and non-weight-bearing measurements",
+      "Assess stability and proprioception",
+      "Consider functional testing"
+    ],
+    "special_considerations": [
+      "Ambulatory status and assistive devices",
+      "Balance and fall risk assessment",
+      "Activity limitations"
+    ]
+  },
+  "13": {
+    "chapter_number": 13,
+    "title": "The Central and Peripheral Nervous System",
+    "body_system": "nervous_system",
+    "overview": "Chapter 13 covers impairment evaluation for the central and peripheral nervous system",
+    "general_principles": [
+      "General AMA principles apply"
+    ],
+    "measurement_techniques": [
+      "Standard measurement techniques"
+    ],
+    "special_considerations": [
+      "Standard considerations apply"
+    ]
+  },
+  "4": {
+    "chapter_number": 4,
+    "title": "The Cardiovascular System",
+    "body_system": "cardiovascular",
+    "overview": "Chapter 4 covers impairment evaluation for the cardiovascular system",
+    "general_principles": [
+      "General AMA principles apply"
+    ],
+    "measurement_techniques": [
+      "Standard measurement techniques"
+    ],
+    "special_considerations": [
+      "Standard considerations apply"
+    ]
+  },
+  "5": {
+    "chapter_number": 5,
+    "title": "The Respiratory System",
+    "body_system": "respiratory",
+    "overview": "Chapter 5 covers impairment evaluation for the respiratory system",
+    "general_principles": [
+      "General AMA principles apply"
+    ],
+    "measurement_techniques": [
+      "Standard measurement techniques"
+    ],
+    "special_considerations": [
+      "Standard considerations apply"
+    ]
+  }
+}

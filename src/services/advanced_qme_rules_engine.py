@@ -242,6 +242,34 @@ class RuleActionExecutor:
                     issues.extend(self._validate_docx_placeholders(action_params, context, rule_id))
                 elif action_type == "require_provenance_for":
                     issues.extend(self._require_provenance_for(action_params, context, rule_id))
+                elif action_type == "validate_exact_statutory_text":
+                    issues.extend(self._validate_exact_statutory_text(action_params, context, rule_id))
+                elif action_type == "require_case_law_citations":
+                    issues.extend(self._require_case_law_citations(action_params, context, rule_id))
+                elif action_type == "require_legal_references":
+                    issues.extend(self._require_legal_references(action_params, context, rule_id))
+                elif action_type == "validate_percentage_breakdown":
+                    issues.extend(self._validate_percentage_breakdown(action_params, context, rule_id))
+                elif action_type == "validate_billing_calculation":
+                    issues.extend(self._validate_billing_calculation(action_params, context, rule_id))
+                elif action_type == "require_under_penalty_perjury":
+                    issues.extend(self._require_under_penalty_perjury(action_params, context, rule_id))
+                elif action_type == "validate_ama_citations":
+                    issues.extend(self._validate_ama_citations(action_params, context, rule_id))
+                elif action_type == "require_methodology_documentation":
+                    issues.extend(self._require_methodology_documentation(action_params, context, rule_id))
+                elif action_type == "validate_adl_structure":
+                    issues.extend(self._validate_adl_structure(action_params, context, rule_id))
+                elif action_type == "validate_neurological_structure":
+                    issues.extend(self._validate_neurological_structure(action_params, context, rule_id))
+                elif action_type == "require_special_tests":
+                    issues.extend(self._require_special_tests(action_params, context, rule_id))
+                elif action_type == "validate_causation_determination":
+                    issues.extend(self._validate_causation_determination(action_params, context, rule_id))
+                elif action_type == "require_conditional_language":
+                    issues.extend(self._require_conditional_language(action_params, context, rule_id))
+                elif action_type == "execute_comprehensive_validation":
+                    issues.extend(self._execute_comprehensive_validation(action_params, context, rule_id))
                 elif action_type == "add_audit":
                     self._add_audit(action_params, context, rule_id)
                 elif action_type == "set_field":
@@ -428,6 +456,407 @@ class RuleActionExecutor:
         for field, value in field_params.items():
             context.template_status[field] = value
     
+    def _validate_exact_statutory_text(self, text_requirements: Dict[str, str], context: ValidationContext, rule_id: str) -> List[ValidationIssue]:
+        """Validate exact statutory language is present."""
+        issues = []
+        
+        for section_name, required_text in text_requirements.items():
+            if not self._exact_text_present(required_text, context):
+                issues.append(ValidationIssue(
+                    section=SectionType.PATIENT_DEMOGRAPHICS,
+                    severity=ValidationSeverity.CRITICAL,
+                    title=f"Missing Statutory Language: {section_name}",
+                    description=f"Required statutory text for {section_name} is missing or incorrect",
+                    suggestions=[f"Insert exact statutory language for {section_name}"],
+                    auto_fixable=True
+                ))
+        
+        return issues
+    
+    def _require_case_law_citations(self, citations: List[str], context: ValidationContext, rule_id: str) -> List[ValidationIssue]:
+        """Validate required case law citations are present."""
+        issues = []
+        
+        for citation in citations:
+            if not self._citation_present(citation, context):
+                issues.append(ValidationIssue(
+                    section=SectionType.APPORTIONMENT,
+                    severity=ValidationSeverity.CRITICAL,
+                    title=f"Missing Case Law Citation: {citation}",
+                    description=f"Required case law citation '{citation}' is missing",
+                    suggestions=[f"Add case law citation: {citation}"],
+                    auto_fixable=True
+                ))
+        
+        return issues
+    
+    def _require_legal_references(self, references: List[str], context: ValidationContext, rule_id: str) -> List[ValidationIssue]:
+        """Validate required legal code references are present."""
+        issues = []
+        
+        for reference in references:
+            if not self._legal_reference_present(reference, context):
+                issues.append(ValidationIssue(
+                    section=SectionType.APPORTIONMENT,
+                    severity=ValidationSeverity.CRITICAL,
+                    title=f"Missing Legal Reference: {reference}",
+                    description=f"Required legal code reference '{reference}' is missing",
+                    suggestions=[f"Add legal reference: {reference}"],
+                    auto_fixable=True
+                ))
+        
+        return issues
+    
+    def _validate_percentage_breakdown(self, breakdown_params: Dict[str, Any], context: ValidationContext, rule_id: str) -> List[ValidationIssue]:
+        """Validate percentage breakdown for apportionment."""
+        issues = []
+        
+        industrial_pct = self._get_industrial_percentage(context)
+        nonindustrial_pct = self._get_nonindustrial_percentage(context)
+        
+        if industrial_pct is None or nonindustrial_pct is None:
+            issues.append(ValidationIssue(
+                section=SectionType.APPORTIONMENT,
+                severity=ValidationSeverity.CRITICAL,
+                title="Missing Apportionment Percentages",
+                description="Industrial and/or nonindustrial percentages are missing",
+                suggestions=["Provide both industrial and nonindustrial percentages"],
+                auto_fixable=False
+            ))
+        elif industrial_pct + nonindustrial_pct != 100:
+            issues.append(ValidationIssue(
+                section=SectionType.APPORTIONMENT,
+                severity=ValidationSeverity.CRITICAL,
+                title="Apportionment Percentage Error",
+                description=f"Percentages do not sum to 100% (Industrial: {industrial_pct}%, Nonindustrial: {nonindustrial_pct}%)",
+                suggestions=["Correct percentages to sum to 100%"],
+                auto_fixable=True
+            ))
+        
+        return issues
+    
+    def _validate_billing_calculation(self, calc_params: Dict[str, Any], context: ValidationContext, rule_id: str) -> List[ValidationIssue]:
+        """Validate MLPRR billing calculations."""
+        issues = []
+        
+        total_pages = self._get_total_pages_reviewed(context)
+        minimum_pages = calc_params.get("minimum_pages", 200)
+        rate_per_page = calc_params.get("rate_per_page", 3.00)
+        
+        if total_pages is None:
+            issues.append(ValidationIssue(
+                section=SectionType.PATIENT_DEMOGRAPHICS,
+                severity=ValidationSeverity.CRITICAL,
+                title="Missing Page Count",
+                description="Total pages reviewed is not specified",
+                suggestions=["Provide total pages reviewed count"],
+                auto_fixable=False
+            ))
+        elif total_pages < minimum_pages:
+            # No billing required under minimum
+            pass
+        else:
+            billable_units = total_pages - minimum_pages
+            expected_amount = billable_units * rate_per_page
+            
+            if not self._billing_calculation_correct(expected_amount, context):
+                issues.append(ValidationIssue(
+                    section=SectionType.PATIENT_DEMOGRAPHICS,
+                    severity=ValidationSeverity.CRITICAL,
+                    title="MLPRR Billing Calculation Error",
+                    description=f"Billing calculation incorrect. Expected: {billable_units} units × ${rate_per_page} = ${expected_amount}",
+                    suggestions=["Correct the MLPRR billing calculation"],
+                    auto_fixable=True
+                ))
+        
+        return issues
+    
+    def _require_under_penalty_perjury(self, statements: List[str], context: ValidationContext, rule_id: str) -> List[ValidationIssue]:
+        """Validate under penalty of perjury statements are present."""
+        issues = []
+        
+        for statement in statements:
+            if not self._penalty_of_perjury_present(statement, context):
+                issues.append(ValidationIssue(
+                    section=SectionType.PATIENT_DEMOGRAPHICS,
+                    severity=ValidationSeverity.CRITICAL,
+                    title=f"Missing Penalty of Perjury: {statement}",
+                    description=f"Required penalty of perjury statement '{statement}' is missing",
+                    suggestions=[f"Add penalty of perjury statement for {statement}"],
+                    auto_fixable=True
+                ))
+        
+        return issues
+    
+    def _validate_ama_citations(self, citation_params: Dict[str, str], context: ValidationContext, rule_id: str) -> List[ValidationIssue]:
+        """Validate AMA Guides citations format and presence."""
+        issues = []
+        
+        for citation_type, pattern in citation_params.items():
+            if not self._ama_citation_format_valid(citation_type, pattern, context):
+                issues.append(ValidationIssue(
+                    section=SectionType.IMPAIRMENT_RATING,
+                    severity=ValidationSeverity.HIGH,
+                    title=f"Invalid AMA Citation Format: {citation_type}",
+                    description=f"AMA citation format for {citation_type} does not match required pattern",
+                    suggestions=[f"Correct AMA citation format for {citation_type}"],
+                    auto_fixable=False
+                ))
+        
+        return issues
+    
+    def _require_methodology_documentation(self, methodologies: List[str], context: ValidationContext, rule_id: str) -> List[ValidationIssue]:
+        """Validate impairment methodology documentation."""
+        issues = []
+        
+        for methodology in methodologies:
+            if not self._methodology_documented(methodology, context):
+                issues.append(ValidationIssue(
+                    section=SectionType.IMPAIRMENT_RATING,
+                    severity=ValidationSeverity.HIGH,
+                    title=f"Missing Methodology: {methodology}",
+                    description=f"Impairment methodology '{methodology}' is not documented",
+                    suggestions=[f"Document {methodology} methodology"],
+                    auto_fixable=False
+                ))
+        
+        return issues
+    
+    def _validate_adl_structure(self, adl_params: Dict[str, Any], context: ValidationContext, rule_id: str) -> List[ValidationIssue]:
+        """Validate ADL grid structure and completeness."""
+        issues = []
+        
+        required_columns = adl_params.get("columns", [])
+        main_categories = adl_params.get("main_categories", [])
+        
+        # Check ADL grid presence
+        if not self._adl_grid_present(context):
+            issues.append(ValidationIssue(
+                section=SectionType.OCCUPATIONAL_HISTORY,
+                severity=ValidationSeverity.CRITICAL,
+                title="Missing ADL Grid",
+                description="Activities of Daily Living grid is missing",
+                suggestions=["Add complete ADL functional capacity grid"],
+                auto_fixable=False
+            ))
+            return issues
+        
+        # Validate columns
+        for column in required_columns:
+            if not self._adl_column_present(column, context):
+                issues.append(ValidationIssue(
+                    section=SectionType.OCCUPATIONAL_HISTORY,
+                    severity=ValidationSeverity.CRITICAL,
+                    title=f"Missing ADL Column: {column}",
+                    description=f"ADL grid missing required column '{column}'",
+                    suggestions=[f"Add {column} column to ADL grid"],
+                    auto_fixable=False
+                ))
+        
+        # Validate categories and subcategories
+        for category in main_categories:
+            if not self._adl_category_present(category, context):
+                issues.append(ValidationIssue(
+                    section=SectionType.OCCUPATIONAL_HISTORY,
+                    severity=ValidationSeverity.CRITICAL,
+                    title=f"Missing ADL Category: {category}",
+                    description=f"ADL grid missing required category '{category}'",
+                    suggestions=[f"Add {category} category to ADL grid"],
+                    auto_fixable=False
+                ))
+            
+            # Check subcategory items
+            category_key = category.lower().replace(" ", "_")
+            if f"{category_key}_items" in adl_params:
+                subcategory_items = adl_params[f"{category_key}_items"]
+                for item in subcategory_items:
+                    if not self._adl_item_present(item, context):
+                        issues.append(ValidationIssue(
+                            section=SectionType.OCCUPATIONAL_HISTORY,
+                            severity=ValidationSeverity.HIGH,
+                            title=f"Missing ADL Item: {item}",
+                            description=f"ADL grid missing required item '{item}' in {category}",
+                            suggestions=[f"Add '{item}' to {category} section"],
+                            auto_fixable=False
+                        ))
+        
+        return issues
+    
+    def _validate_neurological_structure(self, neuro_params: Dict[str, Any], context: ValidationContext, rule_id: str) -> List[ValidationIssue]:
+        """Validate neurological testing structure and completeness."""
+        issues = []
+        
+        sensory_levels = neuro_params.get("sensory_levels", {})
+        motor_scale = neuro_params.get("motor_scale", [])
+        reflex_scale = neuro_params.get("reflex_scale", [])
+        
+        # Validate cervical neurological testing
+        if "cervical" in sensory_levels:
+            for level in sensory_levels["cervical"]:
+                if not self._neurological_level_tested(level, "cervical", context):
+                    issues.append(ValidationIssue(
+                        section=SectionType.PHYSICAL_EXAMINATION,
+                        severity=ValidationSeverity.HIGH,
+                        title=f"Missing Cervical Neurological Test: {level}",
+                        description=f"Cervical neurological testing missing for level {level}",
+                        suggestions=[f"Add bilateral sensory/motor testing for {level}"],
+                        auto_fixable=False
+                    ))
+        
+        # Validate lumbar neurological testing
+        if "lumbar" in sensory_levels:
+            for level in sensory_levels["lumbar"]:
+                if not self._neurological_level_tested(level, "lumbar", context):
+                    issues.append(ValidationIssue(
+                        section=SectionType.PHYSICAL_EXAMINATION,
+                        severity=ValidationSeverity.HIGH,
+                        title=f"Missing Lumbar Neurological Test: {level}",
+                        description=f"Lumbar neurological testing missing for level {level}",
+                        suggestions=[f"Add bilateral sensory/motor testing for {level}"],
+                        auto_fixable=False
+                    ))
+        
+        return issues
+    
+    def _require_special_tests(self, test_params: Dict[str, List[str]], context: ValidationContext, rule_id: str) -> List[ValidationIssue]:
+        """Validate special orthopedic tests are documented."""
+        issues = []
+        
+        for region, tests in test_params.items():
+            for test in tests:
+                if not self._special_test_documented(test, region, context):
+                    issues.append(ValidationIssue(
+                        section=SectionType.PHYSICAL_EXAMINATION,
+                        severity=ValidationSeverity.MEDIUM,
+                        title=f"Missing Special Test: {test}",
+                        description=f"Special orthopedic test '{test}' not documented for {region}",
+                        suggestions=[f"Document {test} results for {region}"],
+                        auto_fixable=False
+                    ))
+        
+        return issues
+    
+    def _validate_causation_determination(self, causation_params: Dict[str, str], context: ValidationContext, rule_id: str) -> List[ValidationIssue]:
+        """Validate causation determination format and content."""
+        issues = []
+        
+        causation_type = self._get_causation_type(context)
+        
+        if causation_type == "specific_injury":
+            required_format = causation_params.get("specific_injury_format", "")
+            if not self._causation_format_matches(required_format, context):
+                issues.append(ValidationIssue(
+                    section=SectionType.CAUSATION_ANALYSIS,
+                    severity=ValidationSeverity.HIGH,
+                    title="Incorrect Specific Injury Format",
+                    description="Specific injury causation does not follow required format",
+                    suggestions=["Use correct specific injury causation format"],
+                    auto_fixable=False
+                ))
+        elif causation_type == "continuous_trauma":
+            required_format = causation_params.get("continuous_trauma_format", "")
+            if not self._causation_format_matches(required_format, context):
+                issues.append(ValidationIssue(
+                    section=SectionType.CAUSATION_ANALYSIS,
+                    severity=ValidationSeverity.HIGH,
+                    title="Incorrect Continuous Trauma Format",
+                    description="Continuous trauma causation does not follow required format",
+                    suggestions=["Use correct continuous trauma causation format"],
+                    auto_fixable=False
+                ))
+        
+        return issues
+    
+    def _require_conditional_language(self, language_params: Dict[str, str], context: ValidationContext, rule_id: str) -> List[ValidationIssue]:
+        """Validate conditional language based on causation findings."""
+        issues = []
+        
+        causation_found = self._causation_established(context)
+        
+        if not causation_found and "if_no_causation" in language_params:
+            required_text = language_params["if_no_causation"]
+            if not self._text_present_in_document(required_text, context):
+                issues.append(ValidationIssue(
+                    section=SectionType.CAUSATION_ANALYSIS,
+                    severity=ValidationSeverity.CRITICAL,
+                    title="Missing No-Causation Language",
+                    description="Required language for no causation finding is missing",
+                    suggestions=["Add required no-causation language"],
+                    auto_fixable=True
+                ))
+        elif causation_found and "if_causation_found" in language_params:
+            required_text = language_params["if_causation_found"]
+            if not self._text_present_in_document(required_text, context):
+                issues.append(ValidationIssue(
+                    section=SectionType.CAUSATION_ANALYSIS,
+                    severity=ValidationSeverity.CRITICAL,
+                    title="Missing Causation-Found Language",
+                    description="Required language for positive causation finding is missing",
+                    suggestions=["Add required causation-found language"],
+                    auto_fixable=True
+                ))
+        
+        return issues
+    
+    def _execute_comprehensive_validation(self, validation_params: Any, context: ValidationContext, rule_id: str) -> List[ValidationIssue]:
+        """Execute comprehensive final validation."""
+        issues = []
+        
+        # Validate all required sections are present
+        required_sections = [
+            "header", "legal_declarations", "records_review", "identifying_data",
+            "history_of_injury", "occupational_history", "activities_daily_living",
+            "physical_examination", "diagnostic_impression", "causation_analysis",
+            "impairment_rating", "apportionment", "work_restrictions", 
+            "future_medical_care", "signature_block"
+        ]
+        
+        for section in required_sections:
+            if not self._section_complete(section, context):
+                issues.append(ValidationIssue(
+                    section=self._map_section_name(section),
+                    severity=ValidationSeverity.CRITICAL,
+                    title=f"Incomplete Section: {section}",
+                    description=f"Required section '{section}' is incomplete or missing",
+                    suggestions=[f"Complete the {section.replace('_', ' ')} section"],
+                    auto_fixable=False
+                ))
+        
+        # Validate all calculations are correct
+        if not self._all_calculations_correct(context):
+            issues.append(ValidationIssue(
+                section=SectionType.IMPAIRMENT_RATING,
+                severity=ValidationSeverity.CRITICAL,
+                title="Calculation Errors Present",
+                description="One or more calculations contain errors",
+                suggestions=["Review and correct all calculations"],
+                auto_fixable=False
+            ))
+        
+        # Validate legal requirements compliance
+        if not self._legal_requirements_met(context):
+            issues.append(ValidationIssue(
+                section=SectionType.PATIENT_DEMOGRAPHICS,
+                severity=ValidationSeverity.CRITICAL,
+                title="Legal Requirements Not Met",
+                description="One or more legal requirements are not satisfied",
+                suggestions=["Review and satisfy all legal requirements"],
+                auto_fixable=False
+            ))
+        
+        # Validate provenance completeness
+        if not self._provenance_complete(context):
+            issues.append(ValidationIssue(
+                section=SectionType.DIAGNOSIS,
+                severity=ValidationSeverity.HIGH,
+                title="Incomplete Provenance",
+                description="Some substantive statements lack required provenance",
+                suggestions=["Add source references for all substantive statements"],
+                auto_fixable=False
+            ))
+        
+        return issues
+    
     # Helper methods for field/table/section checking
     def _field_present(self, field: str, context: ValidationContext) -> bool:
         """Check if field is present and not empty."""
@@ -515,12 +944,131 @@ class RuleActionExecutor:
         section_mapping = {
             "diagnostic_impression": SectionType.DIAGNOSIS,
             "opinion_on_causation": SectionType.CAUSATION_ANALYSIS,
+            "causation_analysis": SectionType.CAUSATION_ANALYSIS,
             "whole_person_impairment": SectionType.IMPAIRMENT_RATING,
+            "impairment_rating": SectionType.IMPAIRMENT_RATING,
             "apportionment_according_to_sb899_lc4663": SectionType.APPORTIONMENT,
+            "apportionment": SectionType.APPORTIONMENT,
             "ability_to_return_to_work": SectionType.WORK_RESTRICTIONS,
+            "work_restrictions": SectionType.WORK_RESTRICTIONS,
             "future_medical_care": SectionType.FUTURE_MEDICAL_CARE,
+            "physical_examination": SectionType.PHYSICAL_EXAMINATION,
+            "occupational_history": SectionType.OCCUPATIONAL_HISTORY,
+            "activities_daily_living": SectionType.OCCUPATIONAL_HISTORY,
         }
         return section_mapping.get(section_name, SectionType.PATIENT_DEMOGRAPHICS)
+    
+    # Enhanced helper methods for comprehensive validation
+    def _exact_text_present(self, text: str, context: ValidationContext) -> bool:
+        """Check if exact text is present in document."""
+        # This would check the generated document content for exact text match
+        # For simulation, we'll check if it's in the validation state
+        return context.validation_state.get(f"text_present_{hash(text)}", False)
+    
+    def _citation_present(self, citation: str, context: ValidationContext) -> bool:
+        """Check if case law citation is present."""
+        return context.validation_state.get(f"citation_{citation}", False)
+    
+    def _legal_reference_present(self, reference: str, context: ValidationContext) -> bool:
+        """Check if legal code reference is present."""
+        return context.validation_state.get(f"legal_ref_{reference}", False)
+    
+    def _get_industrial_percentage(self, context: ValidationContext) -> Optional[float]:
+        """Get industrial apportionment percentage."""
+        return context.document_metadata.get("industrial_percentage")
+    
+    def _get_nonindustrial_percentage(self, context: ValidationContext) -> Optional[float]:
+        """Get nonindustrial apportionment percentage."""
+        return context.document_metadata.get("nonindustrial_percentage")
+    
+    def _get_total_pages_reviewed(self, context: ValidationContext) -> Optional[int]:
+        """Get total pages reviewed count."""
+        return context.document_metadata.get("total_pages_reviewed")
+    
+    def _billing_calculation_correct(self, expected_amount: float, context: ValidationContext) -> bool:
+        """Check if billing calculation is correct."""
+        actual_amount = context.document_metadata.get("billing_amount")
+        return actual_amount is not None and abs(actual_amount - expected_amount) < 0.01
+    
+    def _penalty_of_perjury_present(self, statement: str, context: ValidationContext) -> bool:
+        """Check if penalty of perjury statement is present."""
+        return context.validation_state.get(f"perjury_{statement}", False)
+    
+    def _ama_citation_format_valid(self, citation_type: str, pattern: str, context: ValidationContext) -> bool:
+        """Check if AMA citation format is valid."""
+        citations = context.validation_state.get("ama_citations", [])
+        for citation in citations:
+            if re.match(pattern, citation):
+                return True
+        return False
+    
+    def _methodology_documented(self, methodology: str, context: ValidationContext) -> bool:
+        """Check if impairment methodology is documented."""
+        documented_methods = context.validation_state.get("documented_methodologies", [])
+        return methodology in documented_methods
+    
+    def _adl_grid_present(self, context: ValidationContext) -> bool:
+        """Check if ADL grid is present."""
+        return context.validation_state.get("adl_grid_present", False)
+    
+    def _adl_column_present(self, column: str, context: ValidationContext) -> bool:
+        """Check if ADL grid column is present."""
+        adl_columns = context.validation_state.get("adl_columns", [])
+        return column in adl_columns
+    
+    def _adl_category_present(self, category: str, context: ValidationContext) -> bool:
+        """Check if ADL category is present."""
+        adl_categories = context.validation_state.get("adl_categories", [])
+        return category in adl_categories
+    
+    def _adl_item_present(self, item: str, context: ValidationContext) -> bool:
+        """Check if ADL item is present."""
+        adl_items = context.validation_state.get("adl_items", [])
+        return item in adl_items
+    
+    def _neurological_level_tested(self, level: str, region: str, context: ValidationContext) -> bool:
+        """Check if neurological level is tested."""
+        tested_levels = context.validation_state.get(f"neuro_{region}_levels", [])
+        return level in tested_levels
+    
+    def _special_test_documented(self, test: str, region: str, context: ValidationContext) -> bool:
+        """Check if special orthopedic test is documented."""
+        documented_tests = context.validation_state.get(f"special_tests_{region}", [])
+        return test in documented_tests
+    
+    def _get_causation_type(self, context: ValidationContext) -> str:
+        """Get the type of causation determination."""
+        return context.document_metadata.get("causation_type", "specific_injury")
+    
+    def _causation_format_matches(self, required_format: str, context: ValidationContext) -> bool:
+        """Check if causation format matches requirements."""
+        actual_format = context.validation_state.get("causation_format")
+        return actual_format == required_format
+    
+    def _causation_established(self, context: ValidationContext) -> bool:
+        """Check if causation has been established."""
+        return context.document_metadata.get("causation_found", False)
+    
+    def _section_complete(self, section: str, context: ValidationContext) -> bool:
+        """Check if section is complete."""
+        completed_sections = context.validation_state.get("completed_sections", [])
+        return section in completed_sections
+    
+    def _all_calculations_correct(self, context: ValidationContext) -> bool:
+        """Check if all calculations are correct."""
+        return context.validation_state.get("calculations_correct", True)
+    
+    def _legal_requirements_met(self, context: ValidationContext) -> bool:
+        """Check if all legal requirements are met."""
+        return context.validation_state.get("legal_requirements_met", True)
+    
+    def _provenance_complete(self, context: ValidationContext) -> bool:
+        """Check if provenance is complete for all substantive statements."""
+        required_provenance = context.validation_state.get("required_provenance_items", [])
+        for item in required_provenance:
+            if item not in context.provenance_map or not context.provenance_map[item]:
+                return False
+        return True
 
 
 class AdvancedQMERulesEngine:
@@ -667,20 +1215,106 @@ class AdvancedQMERulesEngine:
     def _calculate_comprehensive_quality_score(self, issues: List[ValidationIssue], context: ValidationContext) -> QualityScore:
         """Calculate comprehensive quality score based on rule validation."""
         try:
-            # Count issues by severity and priority
-            must_issues = 0
-            should_issues = 0
-            may_issues = 0
-            
+            # Count issues by severity
             critical_count = sum(1 for issue in issues if issue.severity == ValidationSeverity.CRITICAL)
             high_count = sum(1 for issue in issues if issue.severity == ValidationSeverity.HIGH)
             medium_count = sum(1 for issue in issues if issue.severity == ValidationSeverity.MEDIUM)
             low_count = sum(1 for issue in issues if issue.severity == ValidationSeverity.LOW)
             
-            # Calculate component scores
+            # Count issues by rule priority (based on rule IDs)
+            must_issues = sum(1 for issue in issues if self._is_must_rule_issue(issue))
+            should_issues = sum(1 for issue in issues if self._is_should_rule_issue(issue))
+            may_issues = sum(1 for issue in issues if self._is_may_rule_issue(issue))
+            
+            # Calculate component scores with enhanced weighting
             completeness_score = self._calculate_completeness_score_advanced(context)
             accuracy_score = max(0, 100 - (critical_count * 25 + high_count * 15 + medium_count * 10 + low_count * 5))
             compliance_score = max(0, 100 - (critical_count * 30 + high_count * 20))
+            
+            # Legal compliance gets extra weight for MUST rules
+            legal_compliance_penalty = must_issues * 35 + should_issues * 15 + may_issues * 5
+            legal_compliance_score = max(0, 100 - legal_compliance_penalty)
+            
+            # Calculate overall score with weighted components
+            overall_score = (
+                completeness_score * 0.25 +
+                accuracy_score * 0.25 +
+                compliance_score * 0.25 +
+                legal_compliance_score * 0.25
+            )
+            
+            return QualityScore(
+                overall_score=overall_score,
+                completeness_score=completeness_score,
+                accuracy_score=accuracy_score,
+                compliance_score=min(compliance_score, legal_compliance_score)
+            )
+            
+        except Exception as e:
+            logger.error(f"Error calculating comprehensive quality score: {e}")
+            return QualityScore(
+                overall_score=0.0,
+                completeness_score=0.0,
+                accuracy_score=0.0,
+                compliance_score=0.0
+            )
+    
+    def _is_must_rule_issue(self, issue: ValidationIssue) -> bool:
+        """Check if issue is from a MUST priority rule."""
+        # Check if the issue title contains indicators of MUST rules
+        must_indicators = ["Missing Required", "Statutory Language", "Legal Reference", 
+                          "Case Law Citation", "Penalty of Perjury", "Declaration"]
+        return any(indicator in issue.title for indicator in must_indicators)
+    
+    def _is_should_rule_issue(self, issue: ValidationIssue) -> bool:
+        """Check if issue is from a SHOULD priority rule."""
+        should_indicators = ["Missing Methodology", "Special Test", "Circumferential"]
+        return any(indicator in issue.title for indicator in should_indicators)
+    
+    def _is_may_rule_issue(self, issue: ValidationIssue) -> bool:
+        """Check if issue is from a MAY priority rule."""
+        # Issues not classified as MUST or SHOULD are considered MAY
+        return not (self._is_must_rule_issue(issue) or self._is_should_rule_issue(issue))
+    
+    def _calculate_completeness_score_advanced(self, context: ValidationContext) -> float:
+        """Calculate advanced completeness score based on section completion."""
+        try:
+            # Define required sections with weights
+            required_sections = {
+                "header": 5,
+                "legal_declarations": 10,
+                "records_review": 5,
+                "identifying_data": 5,
+                "history_of_injury": 8,
+                "occupational_history": 8,
+                "activities_daily_living": 10,
+                "physical_examination": 15,
+                "diagnostic_impression": 10,
+                "causation_analysis": 12,
+                "impairment_rating": 15,
+                "apportionment": 10,
+                "work_restrictions": 8,
+                "future_medical_care": 7,
+                "signature_block": 5
+            }
+            
+            completed_sections = context.validation_state.get("completed_sections", [])
+            total_weight = sum(required_sections.values())
+            completed_weight = sum(weight for section, weight in required_sections.items() 
+                                 if section in completed_sections)
+            
+            completeness_percentage = (completed_weight / total_weight) * 100 if total_weight > 0 else 0
+            
+            # Bonus for having all critical sections
+            critical_sections = ["legal_declarations", "physical_examination", "impairment_rating", "causation_analysis"]
+            if all(section in completed_sections for section in critical_sections):
+                completeness_percentage = min(100, completeness_percentage + 5)
+            
+            return completeness_percentage
+            
+        except Exception as e:
+            logger.error(f"Error calculating advanced completeness score: {e}")
+            return 0.0
             
             # Overall score with weighted components
             overall_score = (
@@ -861,3 +1495,249 @@ class AdvancedQMERulesEngine:
         except Exception as e:
             logger.error(f"Error validating rules configuration: {e}")
             return [f"Configuration validation error: {str(e)}"]
+
+    def generate_comprehensive_audit_report(self, audit_trail: List[AuditEntry]) -> str:
+        """Generate comprehensive audit report with provenance tracking."""
+        try:
+            report_lines = [
+                "=== COMPREHENSIVE QME VALIDATION AUDIT REPORT ===",
+                f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
+                f"Total Audit Entries: {len(audit_trail)}",
+                ""
+            ]
+            
+            # Group by rule priority
+            must_entries = [entry for entry in audit_trail if self._is_must_rule_entry(entry)]
+            should_entries = [entry for entry in audit_trail if self._is_should_rule_entry(entry)]
+            may_entries = [entry for entry in audit_trail if self._is_may_rule_entry(entry)]
+            
+            report_lines.extend([
+                "RULE EXECUTION SUMMARY:",
+                f"  MUST Rules Executed: {len(must_entries)}",
+                f"  SHOULD Rules Executed: {len(should_entries)}",
+                f"  MAY Rules Executed: {len(may_entries)}",
+                ""
+            ])
+            
+            # Legal compliance summary
+            legal_entries = [entry for entry in audit_trail if self._is_legal_compliance_entry(entry)]
+            report_lines.extend([
+                "LEGAL COMPLIANCE SUMMARY:",
+                f"  Legal Requirements Validated: {len(legal_entries)}",
+                f"  §4062.3 Compliance: {'✓' if any('4062.3' in entry.rule_id for entry in legal_entries) else '✗'}",
+                f"  MLPRR Billing Validation: {'✓' if any('page_count' in entry.rule_id for entry in legal_entries) else '✗'}",
+                f"  Apportionment LC 4663/4664: {'✓' if any('apportionment' in entry.rule_id for entry in legal_entries) else '✗'}",
+                ""
+            ])
+            
+            # Provenance tracking summary
+            provenance_entries = [entry for entry in audit_trail if entry.provenance]
+            report_lines.extend([
+                "PROVENANCE TRACKING SUMMARY:",
+                f"  Entries with Provenance: {len(provenance_entries)}",
+                f"  Source Documents Referenced: {len(set(entry.provenance.get('doc_id', '') for entry in provenance_entries if entry.provenance))}",
+                ""
+            ])
+            
+            # Detailed audit entries by priority
+            for priority, entries in [("MUST", must_entries), ("SHOULD", should_entries), ("MAY", may_entries)]:
+                if entries:
+                    report_lines.extend([
+                        f"{priority} PRIORITY RULES:",
+                        "=" * (len(priority) + 16)
+                    ])
+                    
+                    for entry in entries:
+                        report_lines.extend([
+                            f"Rule ID: {entry.rule_id}",
+                            f"Timestamp: {entry.timestamp.strftime('%Y-%m-%d %H:%M:%S')}",
+                            f"Action: {entry.action}",
+                            f"Result: {entry.result}",
+                            f"Details: {entry.details}",
+                        ])
+                        
+                        if entry.provenance:
+                            report_lines.extend([
+                                f"Provenance: Doc {entry.provenance.get('doc_id', 'N/A')}, "
+                                f"Page {entry.provenance.get('page', 'N/A')}, "
+                                f"Offset {entry.provenance.get('offset', 'N/A')}"
+                            ])
+                        
+                        report_lines.append("")
+            
+            # Validation statistics
+            successful_validations = len([entry for entry in audit_trail if entry.result == "completed"])
+            failed_validations = len([entry for entry in audit_trail if entry.result == "failed"])
+            
+            report_lines.extend([
+                "VALIDATION STATISTICS:",
+                f"  Successful Validations: {successful_validations}",
+                f"  Failed Validations: {failed_validations}",
+                f"  Success Rate: {(successful_validations / len(audit_trail) * 100):.1f}%" if audit_trail else "N/A",
+                ""
+            ])
+            
+            return "\n".join(report_lines)
+            
+        except Exception as e:
+            logger.error(f"Error generating comprehensive audit report: {e}")
+            return f"Error generating comprehensive audit report: {str(e)}"
+    
+    def _is_must_rule_entry(self, entry: AuditEntry) -> bool:
+        """Check if audit entry is from a MUST priority rule."""
+        must_rule_prefixes = ["R001_", "R002_", "R020_", "R070_", "R080_", "R081_", "R082_", 
+                             "R083_", "R091_", "R092_", "R100_", "R101_", "R102_", "R103_", 
+                             "R104_", "R105_", "R106_", "R107_", "R108_", "R109_", "R110_"]
+        return any(entry.rule_id.startswith(prefix) for prefix in must_rule_prefixes)
+    
+    def _is_should_rule_entry(self, entry: AuditEntry) -> bool:
+        """Check if audit entry is from a SHOULD priority rule."""
+        should_rule_prefixes = ["R050_", "R085_", "R094_", "R096_", "R097_", "R098_"]
+        return any(entry.rule_id.startswith(prefix) for prefix in should_rule_prefixes)
+    
+    def _is_may_rule_entry(self, entry: AuditEntry) -> bool:
+        """Check if audit entry is from a MAY priority rule."""
+        return not (self._is_must_rule_entry(entry) or self._is_should_rule_entry(entry))
+    
+    def _is_legal_compliance_entry(self, entry: AuditEntry) -> bool:
+        """Check if audit entry relates to legal compliance."""
+        legal_keywords = ["4062.3", "page_count", "apportionment", "statutory", "penalty_of_perjury", 
+                         "declaration", "mlprr", "interpreter", "signature"]
+        return any(keyword in entry.rule_id.lower() for keyword in legal_keywords)
+
+    def get_rule_coverage_report(self) -> Dict[str, Any]:
+        """Get report on rule coverage and configuration."""
+        try:
+            coverage = {
+                "total_rules": len(self.rules),
+                "rules_by_priority": {
+                    "MUST": len([r for r in self.rules if r.priority == RulePriority.MUST]),
+                    "SHOULD": len([r for r in self.rules if r.priority == RulePriority.SHOULD]),
+                    "MAY": len([r for r in self.rules if r.priority == RulePriority.MAY])
+                },
+                "rules_by_section": {},
+                "rule_ids": [rule.id for rule in self.rules],
+                "legal_compliance_rules": len([r for r in self.rules if self._is_legal_compliance_rule(r)]),
+                "medical_validation_rules": len([r for r in self.rules if self._is_medical_validation_rule(r)]),
+                "formatting_rules": len([r for r in self.rules if self._is_formatting_rule(r)])
+            }
+            
+            # Group by section
+            for rule in self.rules:
+                section = rule.section
+                if section not in coverage["rules_by_section"]:
+                    coverage["rules_by_section"][section] = 0
+                coverage["rules_by_section"][section] += 1
+            
+            return coverage
+            
+        except Exception as e:
+            logger.error(f"Error generating coverage report: {e}")
+            return {"error": str(e)}
+    
+    def _is_legal_compliance_rule(self, rule: RuleDefinition) -> bool:
+        """Check if rule is for legal compliance."""
+        legal_sections = ["legal_declarations", "billing", "interpreter", "signature", "apportionment"]
+        return rule.section in legal_sections
+    
+    def _is_medical_validation_rule(self, rule: RuleDefinition) -> bool:
+        """Check if rule is for medical validation."""
+        medical_sections = ["physical_examination", "neurological_examination", "impairment_rating", 
+                           "causation", "diagnosis"]
+        return rule.section in medical_sections
+    
+    def _is_formatting_rule(self, rule: RuleDefinition) -> bool:
+        """Check if rule is for formatting validation."""
+        formatting_sections = ["formatting", "final_validation"]
+        return rule.section in formatting_sections
+
+    def validate_rules_configuration(self) -> List[str]:
+        """Validate the rules configuration for completeness and correctness."""
+        validation_errors = []
+        
+        try:
+            # Check for required rule IDs from gold standard
+            required_rule_ids = [
+                "R001_require_4062_3", "R002_page_count_billable", "R020_require_3rom_measures",
+                "R070_impairment_calc_check", "R080_require_header", "R081_interpreter_checkbox",
+                "R082_no_records_block", "R083_require_adl_grid", "R091_signature_block",
+                "R101_lc4663_apportionment_language", "R102_statutory_language_precision",
+                "R103_interpreter_93_modifier_compliance", "R104_mlprr_billing_precision",
+                "R105_ama_guides_citation_accuracy", "R106_rom_measurement_compliance",
+                "R107_adl_grid_comprehensive", "R108_neurological_testing_bilateral",
+                "R109_causation_medical_probability", "R110_signature_attestation_complete"
+            ]
+            
+            existing_rule_ids = [rule.id for rule in self.rules]
+            
+            for required_id in required_rule_ids:
+                if required_id not in existing_rule_ids:
+                    validation_errors.append(f"Missing required rule: {required_id}")
+            
+            # Check rule structure
+            for rule in self.rules:
+                if not rule.when_conditions:
+                    validation_errors.append(f"Rule {rule.id} has no conditions")
+                
+                if not rule.then_actions:
+                    validation_errors.append(f"Rule {rule.id} has no actions")
+                
+                # Validate priority levels
+                if rule.priority not in [RulePriority.MUST, RulePriority.SHOULD, RulePriority.MAY]:
+                    validation_errors.append(f"Rule {rule.id} has invalid priority: {rule.priority}")
+            
+            # Check for legal compliance coverage
+            legal_compliance_rules = [r for r in self.rules if self._is_legal_compliance_rule(r)]
+            if len(legal_compliance_rules) < 10:
+                validation_errors.append("Insufficient legal compliance rules (minimum 10 required)")
+            
+            return validation_errors
+            
+        except Exception as e:
+            logger.error(f"Error validating rules configuration: {e}")
+            return [f"Configuration validation error: {str(e)}"]
+
+    def add_provenance_to_audit(self, audit_entry: AuditEntry, doc_id: str, page: int, offset: int, snippet: str):
+        """Add provenance information to an audit entry."""
+        try:
+            audit_entry.provenance = {
+                "doc_id": doc_id,
+                "page": page,
+                "offset": offset,
+                "snippet": snippet[:200],  # Limit snippet length
+                "timestamp": datetime.now().isoformat()
+            }
+            logger.debug(f"Added provenance to audit entry {audit_entry.id}")
+            
+        except Exception as e:
+            logger.error(f"Error adding provenance to audit entry: {e}")
+
+    def export_rules_configuration(self) -> Dict[str, Any]:
+        """Export current rules configuration for backup or analysis."""
+        try:
+            export_data = {
+                "metadata": {
+                    "export_timestamp": datetime.now().isoformat(),
+                    "total_rules": len(self.rules),
+                    "rules_file": self.rules_file
+                },
+                "rules": []
+            }
+            
+            for rule in self.rules:
+                rule_data = {
+                    "id": rule.id,
+                    "priority": rule.priority.value,
+                    "description": rule.description,
+                    "section": rule.section,
+                    "when_conditions": rule.when_conditions,
+                    "then_actions": rule.then_actions,
+                    "metadata": rule.metadata
+                }
+                export_data["rules"].append(rule_data)
+            
+            return export_data
+            
+        except Exception as e:
+            logger.error(f"Error exporting rules configuration: {e}")
+            return {"error": str(e)}

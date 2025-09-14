@@ -95,3 +95,27 @@ Traceback (most recent call last):
     pipeline = self.container.get_ingestion_pipeline()
                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 AttributeError: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
+2025-09-14 13:39:14,951 - src.startup - ERROR - _initialize_knowledge_base:154 - Knowledge base initialization failed: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
+Traceback (most recent call last):
+  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/startup.py", line 135, in _initialize_knowledge_base
+    pipeline = self.container.get_ingestion_pipeline()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
+2025-09-14 13:50:18,274 - src.services.enhanced_document_processor - ERROR - _store_in_knowledge_graph:1052 - Error storing in knowledge graph: Mock object has no attribute 'save_section'
+2025-09-14 13:50:18,302 - src.services.enhanced_document_processor - ERROR - _store_in_knowledge_graph:1052 - Error storing in knowledge graph: Mock object has no attribute 'save_section'
+2025-09-14 13:50:18,302 - src.services.enhanced_document_processor - ERROR - process_patient_documents:302 - Error processing document /var/folders/tf/v4z6mt_s343b3c611hlfc_jh0000gn/T/tmp4w5142fv.txt: Mock object has no attribute 'save_section'
+2025-09-14 13:50:18,302 - src.services.enhanced_document_processor - ERROR - _store_in_knowledge_graph:1052 - Error storing in knowledge graph: Mock object has no attribute 'save_section'
+2025-09-14 13:50:18,302 - src.services.enhanced_document_processor - ERROR - process_patient_documents:302 - Error processing document /var/folders/tf/v4z6mt_s343b3c611hlfc_jh0000gn/T/tmpzvwzqjrn.txt: Mock object has no attribute 'save_section'
+2025-09-14 13:50:18,307 - src.services.enhanced_document_processor - ERROR - _store_in_knowledge_graph:1052 - Error storing in knowledge graph: Mock object has no attribute 'save_section'
+2025-09-14 14:28:08,090 - src.services.advanced_qme_rules_engine - ERROR - _execute_single_action:283 - Error executing action {'validate_format': [{'claimant_name': '^[A-Z][a-z]+(\\s+[A-Z][a-z]+)*$'}, {'claim_number': '^[A-Z0-9\\-]{5,20}$'}, {'wcab_number': '^[A-Z0-9\\-]{5,20}$'}, {'dates_of_injury': '^\\d{1,2}/\\d{1,2}/\\d{4}$'}]}: 'list' object has no attribute 'items'
+2025-09-14 14:28:28,944 - src.services.advanced_qme_rules_engine - ERROR - _execute_single_action:283 - Error executing action {'validate_format': [{'claimant_name': '^[A-Z][a-z]+(\\s+[A-Z][a-z]+)*$'}, {'claim_number': '^[A-Z0-9\\-]{5,20}$'}, {'wcab_number': '^[A-Z0-9\\-]{5,20}$'}, {'dates_of_injury': '^\\d{1,2}/\\d{1,2}/\\d{4}$'}]}: 'list' object has no attribute 'items'
+2025-09-14 14:32:04,030 - src.services.advanced_qme_rules_engine - ERROR - _execute_single_action:283 - Error executing action {'validate_format': [{'claimant_name': '^[A-Z][a-z]+(\\s+[A-Z][a-z]+)*$'}, {'claim_number': '^[A-Z0-9\\-]{5,20}$'}, {'wcab_number': '^[A-Z0-9\\-]{5,20}$'}, {'dates_of_injury': '^\\d{1,2}/\\d{1,2}/\\d{4}$'}]}: 'list' object has no attribute 'items'
+2025-09-14 14:34:10,505 - src.services.advanced_qme_rules_engine - ERROR - _execute_single_action:283 - Error executing action {'validate_format': [{'claimant_name': '^[A-Z][a-z]+(\\s+[A-Z][a-z]+)*$'}, {'claim_number': '^[A-Z0-9\\-]{5,20}$'}, {'wcab_number': '^[A-Z0-9\\-]{5,20}$'}, {'dates_of_injury': '^\\d{1,2}/\\d{1,2}/\\d{4}$'}]}: 'list' object has no attribute 'items'
+2025-09-14 14:34:10,507 - src.services.advanced_qme_rules_engine - ERROR - _execute_single_action:283 - Error executing action {'validate_format': [{'claimant_name': '^[A-Z][a-z]+(\\s+[A-Z][a-z]+)*$'}, {'claim_number': '^[A-Z0-9\\-]{5,20}$'}, {'wcab_number': '^[A-Z0-9\\-]{5,20}$'}, {'dates_of_injury': '^\\d{1,2}/\\d{1,2}/\\d{4}$'}]}: 'list' object has no attribute 'items'
+2025-09-14 14:44:23,362 - root - ERROR - generate_content:455 - Error generating diagnostic studies: 'DiagnosticStudiesGenerator' object has no attribute '_get_all_source_entities'
+2025-09-14 15:36:01,115 - src.startup - ERROR - _initialize_knowledge_base:154 - Knowledge base initialization failed: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
+Traceback (most recent call last):
+  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/startup.py", line 135, in _initialize_knowledge_base
+    pipeline = self.container.get_ingestion_pipeline()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'

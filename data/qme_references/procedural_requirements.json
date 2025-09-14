@@ -1,0 +1,34 @@
+{
+  "report_structure": [
+    "Patient identification section required",
+    "History sections must be comprehensive",
+    "Physical examination must be documented",
+    "Diagnosis with ICD codes required",
+    "Impairment rating with AMA references",
+    "Work restrictions based on examination",
+    "Future medical care recommendations",
+    "Causation analysis required",
+    "Apportionment if applicable"
+  ],
+  "documentation_standards": [
+    "All sources must be cited",
+    "Medical records must be reviewed",
+    "Examination findings must be objective",
+    "Measurements must be documented",
+    "Calculations must be shown"
+  ],
+  "quality_requirements": [
+    "Professional language required",
+    "Medical terminology must be accurate",
+    "Conclusions must be supported",
+    "Recommendations must be reasonable",
+    "Report must be internally consistent"
+  ],
+  "legal_compliance": [
+    "Statutory language must be exact",
+    "Required declarations must be included",
+    "Interpreter requirements if applicable",
+    "Billing attestations required",
+    "Signature and date required"
+  ]
+}

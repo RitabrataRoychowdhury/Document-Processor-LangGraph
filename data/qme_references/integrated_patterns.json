@@ -1,0 +1,182 @@
+{
+  "legal_compliance": {
+    "patterns": [
+      {
+        "type": "section_4062_3_compliance",
+        "reference": "Labor Code Section 4062.3",
+        "language": "The evaluation shall address each of the issues described in the panel QME's report",
+        "criteria": [
+          "Address all issues in panel report",
+          "Provide medical opinion on each contested issue",
+          "Include impairment rating if requested"
+        ]
+      },
+      {
+        "type": "impairment_rating_requirement",
+        "reference": "Labor Code Section 4660",
+        "language": "Permanent disability shall be determined in accordance with the AMA Guides",
+        "criteria": [
+          "Use AMA Guides 5th Edition",
+          "Provide specific table references",
+          "Show calculation methodology"
+        ]
+      },
+      {
+        "type": "causation_analysis",
+        "reference": "Labor Code Section 3208.3",
+        "language": "Industrial causation must be established to a reasonable degree of medical probability",
+        "criteria": [
+          "State opinion to reasonable medical probability",
+          "Consider alternative causes",
+          "Provide medical rationale"
+        ]
+      },
+      {
+        "type": "apportionment_analysis",
+        "reference": "Labor Code Sections 4663 and 4664",
+        "language": "Apportionment shall be based on causation",
+        "criteria": [
+          "Identify all contributing factors",
+          "Assign percentage to each factor",
+          "Provide medical basis for apportionment"
+        ]
+      }
+    ]
+  },
+  "structure_requirements": {
+    "sections": [
+      {
+        "name": "Patient Identification",
+        "order": 1,
+        "elements": [
+          "name",
+          "age",
+          "case_number",
+          "injury_date"
+        ],
+        "quality_indicators": [
+          "Complete demographics",
+          "Accurate case information"
+        ]
+      },
+      {
+        "name": "History of Present Illness",
+        "order": 2,
+        "elements": [
+          "injury_mechanism",
+          "symptom_onset",
+          "current_symptoms"
+        ],
+        "quality_indicators": [
+          "Chronological narrative",
+          "Symptom detail"
+        ]
+      },
+      {
+        "name": "Physical Examination",
+        "order": 6,
+        "elements": [
+          "general_appearance",
+          "range_of_motion",
+          "strength_testing"
+        ],
+        "quality_indicators": [
+          "Systematic approach",
+          "Objective measurements"
+        ]
+      },
+      {
+        "name": "Diagnosis",
+        "order": 8,
+        "elements": [
+          "primary_diagnosis",
+          "icd_code"
+        ],
+        "quality_indicators": [
+          "Clear diagnosis",
+          "Appropriate ICD codes"
+        ]
+      },
+      {
+        "name": "Impairment Rating",
+        "order": 9,
+        "elements": [
+          "percentage",
+          "ama_reference",
+          "methodology"
+        ],
+        "quality_indicators": [
+          "Accurate calculation",
+          "Proper references"
+        ]
+      },
+      {
+        "name": "Causation Analysis",
+        "order": 12,
+        "elements": [
+          "medical_probability",
+          "causation_opinion"
+        ],
+        "quality_indicators": [
+          "Clear causation opinion",
+          "Medical rationale"
+        ]
+      }
+    ]
+  },
+  "content_guidance": {
+    "reasoning_examples": [
+      {
+        "type": "spine_injury",
+        "pattern": "The mechanism of injury involving {mechanism} is consistent with {diagnosis}. The temporal relationship between injury and symptom onset supports industrial causation.",
+        "causation": "It is my opinion to a reasonable degree of medical probability that the {condition} is causally related to the industrial injury of {date}.",
+        "recommendations": [
+          "Conservative treatment with physical therapy",
+          "Anti-inflammatory medications as needed",
+          "Work restrictions as outlined"
+        ]
+      },
+      {
+        "type": "extremity_injury",
+        "pattern": "The injury to the {body_part} involving {mechanism} resulted in {pathology}. The examination findings of {findings} are consistent with the reported mechanism.",
+        "causation": "Based on reasonable medical probability, the {condition} is industrially related given the mechanism of injury and temporal relationship.",
+        "recommendations": [
+          "Physical therapy for range of motion and strengthening",
+          "Activity modification during recovery",
+          "Follow-up as needed"
+        ]
+      }
+    ],
+    "templates": {
+      "history_template": "The patient reports sustaining an injury on {date} when {mechanism}. Initially, the patient experienced {initial_symptoms}. Currently, the patient describes {current_symptoms}.",
+      "examination_template": "Physical examination reveals {general_appearance}. Range of motion testing shows {rom_findings}. Strength testing demonstrates {strength_findings}. Neurological examination reveals {neuro_findings}.",
+      "diagnosis_template": "Based on the history, physical examination, and review of medical records, the diagnosis is {primary_diagnosis} (ICD-10: {icd_code}).",
+      "impairment_template": "Using the AMA Guides to the Evaluation of Permanent Impairment, 5th Edition, {methodology}, the impairment rating is {percentage}% whole person impairment.",
+      "causation_template": "It is my opinion to a reasonable degree of medical probability that the {condition} is causally related to the industrial injury of {date} based on {rationale}.",
+      "treatment_template": "Future medical care recommendations include: {recommendations}. These treatments are reasonable and necessary for the diagnosed condition.",
+      "restrictions_template": "Based on the examination findings and functional limitations, the following work restrictions are recommended: {restrictions}."
+    }
+  },
+  "quality_standards": {
+    "completeness_standards": {
+      "all_sections_present": 100,
+      "required_elements_complete": 95,
+      "supporting_documentation": 90
+    },
+    "accuracy_standards": {
+      "medical_facts_accurate": 100,
+      "calculations_correct": 100,
+      "references_valid": 95
+    },
+    "compliance_standards": {
+      "legal_requirements_met": 100,
+      "ama_guidelines_followed": 100,
+      "formatting_professional": 85
+    },
+    "content_quality": {
+      "medical_reasoning_sound": 90,
+      "conclusions_supported": 95,
+      "language_professional": 85
+    }
+  }
+}

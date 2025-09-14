@@ -79,8 +79,7 @@ doctor-patient confidentiality exists) and that any information
 provided, as well as the results of any testing and my conclusions
 regarding the case, would be included in a report that may be read by
 people involved in the resolution and/or litigation of the claim. The
-applicant was advised of his or her rights pursuant to QME regulation
-40. The applicant stated that the aforementioned was understood, and
+applicant was advised of his or her rights pursuant to QME regulation 40. The applicant stated that the aforementioned was understood, and
 agreed to proceed with the evaluation. The report belongs to the party
 or parties requesting the evaluation.
 
@@ -122,7 +121,7 @@ report</strong></td>
 This report has been prepared pursuant to the provisions of 8 Cal. Code
 Regulations §9795 as a [ML 201-95-\*\* / ML202-95-\*\* Basic /
 Comprehensive Medical-Legal Evaluation]{.mark} conducted by a Qualified
-Medical Evaluator.  
+Medical Evaluator.
 
 <table>
 <colgroup>
@@ -228,13 +227,11 @@ The applicant is currently not receiving any treatment.
 
 [Industrial injuries:]{.underline}
 
-- 
+-
 
 [Nonindustrial injuries:]{.underline}
 
-- 
-
-**[OCCUPATIONAL HISTORY]{.underline}**
+- **[OCCUPATIONAL HISTORY]{.underline}**
 
 \+ [(Minimum 10 years of employment history)]{.mark}
 
@@ -495,19 +492,15 @@ Difficulty</strong></td>
 
 **[PAST MEDICAL HISTORY]{.underline}**
 
-- 
-
-**OR**
+- **OR**
 
 The applicant denies any past medical history.
 
 **[PAST SURGICAL HISTORY]{.underline}**
 
-- 
+- **[CURRENT MEDICATIONS]{.underline}**
 
-**[CURRENT MEDICATIONS]{.underline}**
-
-- 
+-
 
 The applicant last took +
 
@@ -521,9 +514,7 @@ No known drug allergies
 
 **[FAMILY HISTORY]{.underline}**
 
-- 
-
-**OR**
+- **OR**
 
 The applicant denies family history of disease.
 
@@ -547,7 +538,7 @@ The applicant reports +
 **[VITALS]{.underline}**
 
 |                  |     |
-|------------------|-----|
+| ---------------- | --- |
 | Temperature      |     |
 | Heart Rate       |     |
 | Respiratory Rate |     |
@@ -569,7 +560,7 @@ Moderate guarding and asymmetry of spinal motion noted.
 **CERVICAL SPINE FLEXION**
 
 |                   |               |               |               |             |
-|-------------------|---------------|---------------|---------------|-------------|
+| ----------------- | ------------- | ------------- | ------------- | ----------- |
 |                   | 1^st^ Measure | 2^nd^ Measure | 3^rd^ Measure | **Average** |
 | Calvarium Angle   |               |               |               |             |
 | T1 Angle          |               |               |               |             |
@@ -578,7 +569,7 @@ Moderate guarding and asymmetry of spinal motion noted.
 **CERVICAL SPINE EXTENSION**
 
 |                     |               |               |               |             |
-|---------------------|---------------|---------------|---------------|-------------|
+| ------------------- | ------------- | ------------- | ------------- | ----------- |
 |                     | 1^st^ Measure | 2^nd^ Measure | 3^rd^ Measure | **Average** |
 | Calvarium Angle     |               |               |               |             |
 | T1 Angle            |               |               |               |             |
@@ -587,7 +578,7 @@ Moderate guarding and asymmetry of spinal motion noted.
 **CERVICAL RIGHT LATERAL BENDING**
 
 |                                 |               |               |               |             |
-|---------------------------------|---------------|---------------|---------------|-------------|
+| ------------------------------- | ------------- | ------------- | ------------- | ----------- |
 |                                 | 1^st^ Measure | 2^nd^ Measure | 3^rd^ Measure | **Average** |
 | Calvarium Angle                 |               |               |               |             |
 | T1 Angle                        |               |               |               |             |
@@ -596,7 +587,7 @@ Moderate guarding and asymmetry of spinal motion noted.
 **CERVICAL LEFT LATERAL BENDING**
 
 |                                |               |               |               |             |
-|--------------------------------|---------------|---------------|---------------|-------------|
+| ------------------------------ | ------------- | ------------- | ------------- | ----------- |
 |                                | 1^st^ Measure | 2^nd^ Measure | 3^rd^ Measure | **Average** |
 | Calvarium Angle                |               |               |               |             |
 | T1 Angle                       |               |               |               |             |
@@ -605,7 +596,7 @@ Moderate guarding and asymmetry of spinal motion noted.
 **CERVICAL ROTATION**
 
 |                          |               |               |               |             |
-|--------------------------|---------------|---------------|---------------|-------------|
+| ------------------------ | ------------- | ------------- | ------------- | ----------- |
 |                          | 1^st^ Measure | 2^nd^ Measure | 3^rd^ Measure | **Average** |
 | **Right Rotation Angle** |               |               |               |             |
 | **Left Rotation Angle**  |               |               |               |             |
@@ -625,14 +616,14 @@ upper arm, forearm or hand compared to opposite extremity.
 **CIRCUMFERENTIAL MEASUREMENTS:**
 
 |                   | **Right** | **Left** |
-|-------------------|-----------|----------|
+| ----------------- | --------- | -------- |
 | **Mid Upper arm** |           |          |
 | **Mid Forearm**   |           |          |
 
 **CERVICAL SPINE SENSORY AND MOTOR**
 
 |     |         |        |       |      |
-|-----|---------|--------|-------|------|
+| --- | ------- | ------ | ----- | ---- |
 |     | SENSORY |        | MOTOR |      |
 |     | RIGHT   | LEFT   | RIGHT | LEFT |
 | C4  | Intact  | Intact | 5     | 5    |
@@ -645,7 +636,7 @@ upper arm, forearm or hand compared to opposite extremity.
 **CERVICAL SPINE REFLEXES**
 
 |                      |       |      |
-|----------------------|-------|------|
+| -------------------- | ----- | ---- |
 |                      | RIGHT | LEFT |
 | C5 (biceps)          | 2+    | 2+   |
 | C6 (brachioradialis) | 2+    | 2+   |
@@ -654,7 +645,7 @@ upper arm, forearm or hand compared to opposite extremity.
 **CERVICAL SPINE SPECIALIZED NEUROLOGIC TESTS**
 
 |                      |          |          |
-|----------------------|----------|----------|
+| -------------------- | -------- | -------- |
 |                      | RIGHT    | LEFT     |
 | Spurling's Test      | Negative | Negative |
 | Wartenberg's Sign    | Negative | Negative |
@@ -675,7 +666,7 @@ Minimal guarding and asymmetry of spinal motion noted.
 **THORACIC SPINE FLEXION**
 
 |                   |               |               |               |             |
-|-------------------|---------------|---------------|---------------|-------------|
+| ----------------- | ------------- | ------------- | ------------- | ----------- |
 |                   | 1^st^ Measure | 2^nd^ Measure | 3^rd^ Measure | **Average** |
 | T1 Angle          |               |               |               |             |
 | T12 Angle         |               |               |               |             |
@@ -684,7 +675,7 @@ Minimal guarding and asymmetry of spinal motion noted.
 **THORACIC SPINE EXTENSION**
 
 |                     |               |               |               |             |
-|---------------------|---------------|---------------|---------------|-------------|
+| ------------------- | ------------- | ------------- | ------------- | ----------- |
 |                     | 1^st^ Measure | 2^nd^ Measure | 3^rd^ Measure | **Average** |
 | T1 Angle            |               |               |               |             |
 | T12 Angle           |               |               |               |             |
@@ -693,7 +684,7 @@ Minimal guarding and asymmetry of spinal motion noted.
 **THORACIC RIGHT LATERAL ROTATION**
 
 |                                  |               |               |               |             |
-|----------------------------------|---------------|---------------|---------------|-------------|
+| -------------------------------- | ------------- | ------------- | ------------- | ----------- |
 |                                  | 1^st^ Measure | 2^nd^ Measure | 3^rd^ Measure | **Average** |
 | T1 Angle                         |               |               |               |             |
 | T12 Angle                        |               |               |               |             |
@@ -702,7 +693,7 @@ Minimal guarding and asymmetry of spinal motion noted.
 **THORACIC LEFT LATERAL ROTATION**
 
 |                                 |               |               |               |             |
-|---------------------------------|---------------|---------------|---------------|-------------|
+| ------------------------------- | ------------- | ------------- | ------------- | ----------- |
 |                                 | 1^st^ Measure | 2^nd^ Measure | 3^rd^ Measure | **Average** |
 | T1 Angle                        |               |               |               |             |
 | T12 Angle                       |               |               |               |             |
@@ -730,7 +721,7 @@ Moderate guarding and asymmetry of spinal motion noted.
 **LUMBAR SPINE FLEXION**
 
 |                   |               |               |               |             |
-|-------------------|---------------|---------------|---------------|-------------|
+| ----------------- | ------------- | ------------- | ------------- | ----------- |
 |                   | 1^st^ Measure | 2^nd^ Measure | 3^rd^ Measure | **Average** |
 | T12 Angle         |               |               |               |             |
 | Sacral Angle      |               |               |               |             |
@@ -739,7 +730,7 @@ Moderate guarding and asymmetry of spinal motion noted.
 **LUMBAR SPINE EXTENSION**
 
 |                     |               |               |               |             |
-|---------------------|---------------|---------------|---------------|-------------|
+| ------------------- | ------------- | ------------- | ------------- | ----------- |
 |                     | 1^st^ Measure | 2^nd^ Measure | 3^rd^ Measure | **Average** |
 | T12 Angle           |               |               |               |             |
 | Sacral Angle        |               |               |               |             |
@@ -748,7 +739,7 @@ Moderate guarding and asymmetry of spinal motion noted.
 **LUMBAR RIGHT LATERAL BENDING**
 
 |                                 |               |               |               |             |
-|---------------------------------|---------------|---------------|---------------|-------------|
+| ------------------------------- | ------------- | ------------- | ------------- | ----------- |
 |                                 | 1^st^ Measure | 2^nd^ Measure | 3^rd^ Measure | **Average** |
 | T12 Angle                       |               |               |               |             |
 | Sacral Angle                    |               |               |               |             |
@@ -757,7 +748,7 @@ Moderate guarding and asymmetry of spinal motion noted.
 **LUMBAR LEFT LATERAL BENDING**
 
 |                                |               |               |               |             |
-|--------------------------------|---------------|---------------|---------------|-------------|
+| ------------------------------ | ------------- | ------------- | ------------- | ----------- |
 |                                | 1^st^ Measure | 2^nd^ Measure | 3^rd^ Measure | **Average** |
 | T12 Angle                      |               |               |               |             |
 | Sacral Angle                   |               |               |               |             |
@@ -805,14 +796,14 @@ above.
 **HIP FLEXION VALIDATION TEST**
 
 |                              |       |      |
-|------------------------------|-------|------|
+| ---------------------------- | ----- | ---- |
 |                              | RIGHT | LEFT |
 | FLEXION (with knee extended) |       |      |
 
 **LUMBAR SPINE SENSORY AND MOTOR**
 
 |     |         |        |       |      |
-|-----|---------|--------|-------|------|
+| --- | ------- | ------ | ----- | ---- |
 |     | SENSORY |        | MOTOR |      |
 |     | RIGHT   | LEFT   | RIGHT | LEFT |
 | L2  | Intact  | Intact | 5     | 5    |
@@ -824,7 +815,7 @@ above.
 **LUMBAR SPINE REFLEXES**
 
 |               |       |      |
-|---------------|-------|------|
+| ------------- | ----- | ---- |
 |               | RIGHT | LEFT |
 | L4 (patellar) | 2+    | 2+   |
 | S1 (achilles) | 2+    | 2+   |
@@ -941,7 +932,7 @@ Full strength in rotator cuff musculature.
 **STRENGTH**: (0-5, Normal 5)
 
 |                    | RIGHT | LEFT |
-|--------------------|-------|------|
+| ------------------ | ----- | ---- |
 | Forward flexion    |       |      |
 | Scapular abduction |       |      |
 | External rotation  |       |      |
@@ -950,7 +941,7 @@ Full strength in rotator cuff musculature.
 **SHOULDER RANGE OF MOTION**
 
 |                            |       |      |
-|----------------------------|-------|------|
+| -------------------------- | ----- | ---- |
 |                            | RIGHT | LEFT |
 | FLEXION (N = 180)          |       |      |
 | EXTENSION (N = 50)         |       |      |
@@ -974,7 +965,7 @@ Sensation is intact to light touch
 **DTR's REFLEXES**
 
 |                 |       |      |
-|-----------------|-------|------|
+| --------------- | ----- | ---- |
 |                 | RIGHT | LEFT |
 | Biceps          | 2+    | 2+   |
 | Brachioradialis | 2+    | 2+   |
@@ -996,7 +987,7 @@ No tenderness to palpation extensor wad
 Cozen test: Positive
 
 Positive tenderness to palpation flexor wad, pain with resisted
-pronation  
+pronation
 
 No tenderness to palpation flexor wad
 
@@ -1032,7 +1023,7 @@ No tenderness to palpation flexor wad
 Cozen test: Positive
 
 Positive tenderness to palpation flexor wad, pain with resisted
-pronation  
+pronation
 
 Negative Tinel's, compression, and scarecrow at the cubital tunnel
 
@@ -1056,14 +1047,14 @@ Radial pulse 2+
 **CIRCUMFERENTIAL MEASUREMENTS:**
 
 |                   | **Right** | **left** |
-|-------------------|-----------|----------|
+| ----------------- | --------- | -------- |
 | **Mid Upper arm** |           |          |
 | **Mid Forearm**   |           |          |
 
 **ELBOW RANGE OF MOTION**
 
 |                   |       |      |
-|-------------------|-------|------|
+| ----------------- | ----- | ---- |
 |                   | RIGHT | LEFT |
 | EXTENSION (N = 0) |       |      |
 | FLEXION (N = 140) |       |      |
@@ -1071,7 +1062,7 @@ Radial pulse 2+
 **FOREARM RANGE OF MOTION**
 
 |                     |       |      |
-|---------------------|-------|------|
+| ------------------- | ----- | ---- |
 |                     | RIGHT | LEFT |
 | SUPINATION (N = 70) |       |      |
 | PRONATION (N = 80)  |       |      |
@@ -1139,7 +1130,7 @@ bilaterally.
 **WRIST RANGE OF MOTION**
 
 |                           |       |      |
-|---------------------------|-------|------|
+| ------------------------- | ----- | ---- |
 |                           | RIGHT | LEFT |
 | EXTENSION (N = 60)        |       |      |
 | FLEXION (N = 60)          |       |      |
@@ -1152,7 +1143,7 @@ obtained and the maximum reported herein.
 **GRIP STRENGTH (lbs)**
 
 |     |       |      |
-|-----|-------|------|
+| --- | ----- | ---- |
 |     | RIGHT | LEFT |
 | 1   |       |      |
 | 2   |       |      |
@@ -1161,13 +1152,13 @@ obtained and the maximum reported herein.
 **2-POINT Discrimination:** Millimeters
 
 | Right volar pad Index finger |     |
-|------------------------------|-----|
+| ---------------------------- | --- |
 | Left volar pad Index finger  |     |
 
 **Digital range of motion**
 
 |       |       |      |
-|-------|-------|------|
+| ----- | ----- | ---- |
 |       | RIGHT | LEFT |
 | Thumb |       |      |
 | MCP   |       |      |
@@ -1236,7 +1227,7 @@ Intact strength in gluteus medius
 **HIP RANGE OF MOTION**
 
 |                                    |       |      |
-|------------------------------------|-------|------|
+| ---------------------------------- | ----- | ---- |
 |                                    | RIGHT | LEFT |
 | FLEXION (w/knee flexed) (N = 100)  |       |      |
 | EXTENSION (N = -10)                |       |      |
@@ -1338,7 +1329,7 @@ Negative McMurray's test medially and laterally for pain with no click
 **KNEE RANGE OF MOTION**
 
 |                   |       |      |
-|-------------------|-------|------|
+| ----------------- | ----- | ---- |
 |                   | RIGHT | LEFT |
 | EXTENSION (N = 0) |       |      |
 | FLEXION (N = 110) |       |      |
@@ -1402,7 +1393,7 @@ Nontender to palpation origin of the plantar fascia
 **FOOT AND ANKLE RANGE OF MOTION**
 
 |                              |       |      |
-|------------------------------|-------|------|
+| ---------------------------- | ----- | ---- |
 |                              | RIGHT | LEFT |
 | PLANTARFLEXION (N = 25)      |       |      |
 | DORSIFLEXION (N = 15)        |       |      |
@@ -1422,14 +1413,14 @@ pulses.
 **DTR'S**
 
 |          |       |      |
-|----------|-------|------|
+| -------- | ----- | ---- |
 |          | RIGHT | LEFT |
 | Patellar | 2+    | 2+   |
 | Achilles | 2+    | 2+   |
 
 **[DIAGNOSTIC IMPRESSION]{.underline}**
 
-1.  
+1.
 
 **[DISCUSSION]{.underline}**
 
@@ -1502,9 +1493,9 @@ I have reviewed the medical evidence presented and considered the
 history obtained from the applicant. It is within reasonable medical
 probability the applicant sustained a continuous trauma to \[body
 part(s)\] which spans the applicant's employment with \*\* from \*\* to
-\*\*. ***CT claims are filed as a span of one year, but it's important
+\*\*. **_CT claims are filed as a span of one year, but it's important
 to explain it was the applicant's entire period of employment that
-contributed to the overall wear and tear sustained.*** [(Provide
+contributed to the overall wear and tear sustained._** [(Provide
 description of daily regular physical demands that would contribute to
 the applicant's current objective findings on examination. If diagnostic
 imaging is provided, note whether or not the daily physical demands
