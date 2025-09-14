@@ -261,8 +261,10 @@ echo "   5) 🧪 Run tests"
 echo "   6) 🔧 Initialize knowledge base with canonical documents"
 echo "   7) 🚀 Quick start (skip health checks)"
 echo "   8) 📚 Process specific documents into knowledge base"
+echo "   9) 🏥 QME workflow validation and testing"
+echo "   10) 📋 QME field extraction testing with PQME files"
 echo ""
-read -p "Choose an option (1-8): " -n 1 -r
+read -p "Choose an option (1-10): " -n 1 -r
 echo
 
 case $REPLY in
@@ -592,6 +594,253 @@ except Exception as e:
                 
                 print_success "Document processing completed"
             fi
+        fi
+        ;;
+    *)
+        echo ""
+        print_status "Starting Streamlit web interface (default)..."
+        echo ""
+        echo "🌐 =============================================="
+        echo "🌐   Document Q&A System Web Interface"
+        echo "🌐 =============================================="
+        echo "🌐"
+        echo "🌐   📍 URL: http://localhost:8501"
+        echo "🌐   📚 Upload documents via the web interface"
+        echo "🌐   🔍 View logs in: logs/"
+        echo "🌐   ⏹️  Press Ctrl+C to stop the server"
+        echo "🌐"
+        echo "🌐 =============================================="
+        echo ""
+        
+        # Set up environment
+        export PYTHONPATH="$PROJECT_ROOT:$PYTHONPATH"
+        
+        # Check if Streamlit is installed
+        if ! $PYTHON_CMD -c "import streamlit" 2>/dev/null; then
+            print_error "Streamlit is not installed"
+            echo "   Installing Streamlit..."
+            pip install streamlit
+        fi
+        
+        echo ""
+        print_status "Launching Streamlit server..."
+        echo "   If the browser doesn't open automatically, visit:"
+        echo "   👉 http://localhost:8501"
+        echo ""
+        
+        # Start Streamlit with better error handling
+        if command -v streamlit >/dev/null 2>&1; then
+            streamlit run src/ui/main_app.py \
+                --server.port=8501 \
+                --server.address=localhost \
+                --server.headless=false \
+                --browser.gatherUsageStats=false \
+                --server.enableCORS=false \
+                --server.enableXsrfProtection=false
+        else
+            print_error "Streamlit command not found"
+            echo "   Trying to run with python -m streamlit..."
+            $PYTHON_CMD -m streamlit run src/ui/main_app.py \
+                --server.port=8501 \
+                --server.address=localhost \
+                --server.headless=false \
+                --browser.gatherUsageStats=false \
+                --server.enableCORS=false \
+                --server.enableXsrfProtection=false
+        fi
+        ;;
+    9)
+        echo ""
+        print_status "Running QME workflow validation and testing..."
+        echo ""
+        echo "🏥 =============================================="
+        echo "🏥   QME Workflow Validation & Testing"
+        echo "🏥 =============================================="
+        echo ""
+        
+        # QME-specific health checks
+        print_status "Running QME-specific health checks..."
+        $PYTHON_CMD -c "
+import sys
+sys.path.append('.')
+
+def test_qme_imports():
+    try:
+        from src.services.comprehensive_qme_field_service import ComprehensiveQMEFieldService
+        from src.services.qme_template_generator import QMETemplateGenerator
+        from src.services.professional_template_assembler import ProfessionalTemplateAssembler
+        from src.ui.qme_template_interface import QMETemplateInterface
+        print('✅ QME service imports successful')
+        return True
+    except ImportError as e:
+        print(f'❌ QME import error: {e}')
+        return False
+
+def test_qme_field_extraction():
+    try:
+        from src.services.comprehensive_qme_field_service import ComprehensiveQMEFieldService
+        service = ComprehensiveQMEFieldService()
+        print('✅ QME field extraction service initialized')
+        return True
+    except Exception as e:
+        print(f'❌ QME field extraction error: {e}')
+        return False
+
+def test_qme_template_generation():
+    try:
+        from src.services.qme_template_generator import QMETemplateGenerator
+        generator = QMETemplateGenerator()
+        print('✅ QME template generator initialized')
+        return True
+    except Exception as e:
+        print(f'❌ QME template generation error: {e}')
+        return False
+
+def test_qme_performance_monitoring():
+    try:
+        from src.services.performance_monitor import get_performance_monitor
+        monitor = get_performance_monitor()
+        stats = monitor.get_current_statistics()
+        print('✅ QME performance monitoring active')
+        return True
+    except Exception as e:
+        print(f'❌ QME performance monitoring error: {e}')
+        return False
+
+print('🔍 Testing QME Components:')
+print('=' * 40)
+
+tests = [
+    ('QME Imports', test_qme_imports),
+    ('Field Extraction', test_qme_field_extraction),
+    ('Template Generation', test_qme_template_generation),
+    ('Performance Monitoring', test_qme_performance_monitoring)
+]
+
+passed = 0
+for name, test_func in tests:
+    print(f'\\n🧪 Testing {name}...')
+    if test_func():
+        passed += 1
+
+print(f'\\n📊 QME Validation Results: {passed}/{len(tests)} tests passed')
+
+if passed == len(tests):
+    print('🎉 QME workflow is fully functional!')
+else:
+    print('⚠️  Some QME components need attention')
+"
+        
+        # Test QME workflow with sample data
+        print_status "Testing QME workflow with sample data..."
+        $PYTHON_CMD test_qme_workflow.py
+        
+        # Run comprehensive QME validation
+        print_status "Running comprehensive QME validation..."
+        $PYTHON_CMD scripts/validate_qme_workflow.py
+        
+        # Test with sample data to prove workflow works
+        print_status "Testing QME workflow with sample data..."
+        $PYTHON_CMD scripts/test_qme_with_sample_data.py
+        
+        print_success "QME workflow validation completed"
+        ;;
+    10)
+        echo ""
+        print_status "Testing QME field extraction with PQME files..."
+        echo ""
+        echo "📋 =============================================="
+        echo "📋   QME Field Extraction Testing"
+        echo "📋 =============================================="
+        echo ""
+        
+        # Check for PQME files
+        PQME_FILES=(
+            "Injured worker-PQME-(09.05.2025)-AA CL-09.09.2025.p5.pdf"
+            "Injured worker-PQME-(09.08.2025)-DA CL-09.09.2025.p4.pdf"
+        )
+        
+        FOUND_PQME=()
+        MISSING_PQME=()
+        
+        for file in "${PQME_FILES[@]}"; do
+            if [ -f "$file" ]; then
+                FOUND_PQME+=("$file")
+                print_success "Found PQME file: $file"
+            else
+                MISSING_PQME+=("$file")
+                print_warning "Missing PQME file: $file"
+            fi
+        done
+        
+        if [ ${#FOUND_PQME[@]} -eq 0 ]; then
+            print_error "No PQME files found for testing"
+            echo ""
+            echo "📋 Expected PQME files:"
+            for file in "${PQME_FILES[@]}"; do
+                echo "   • $file"
+            done
+            echo ""
+            echo "💡 Please place PQME files in the project root directory"
+        else
+            print_status "Testing field extraction with ${#FOUND_PQME[@]} PQME file(s)..."
+            
+            # Test field extraction accuracy
+            for file in "${FOUND_PQME[@]}"; do
+                print_status "Testing field extraction: $file"
+                $PYTHON_CMD -c "
+import sys
+sys.path.append('.')
+import time
+
+try:
+    from src.services.comprehensive_qme_field_service import ComprehensiveQMEFieldService
+    
+    file_path = '$file'
+    print(f'📄 Processing: {file_path}')
+    
+    # Time the extraction
+    start_time = time.time()
+    service = ComprehensiveQMEFieldService()
+    result = service.extract_and_validate_fields(file_path)
+    end_time = time.time()
+    
+    processing_time = end_time - start_time
+    
+    print(f'⏱️  Processing time: {processing_time:.2f} seconds')
+    
+    if result.extraction_result.success:
+        fields = result.extraction_result.extracted_fields
+        print(f'✅ Field extraction successful')
+        print(f'📊 Extracted {len(fields.get_all_fields())} fields')
+        
+        # Show key fields
+        key_fields = ['name', 'age', 'gender', 'case_number', 'injury_date']
+        for field in key_fields:
+            value = getattr(fields, field, 'Not found')
+            status = '✅' if value and value != 'Not found' else '❌'
+            print(f'   {status} {field.title()}: {value}')
+        
+        # Validation results
+        if result.validation_result.is_valid:
+            print(f'✅ Validation passed')
+        else:
+            print(f'⚠️  Validation issues: {len(result.validation_result.validation_errors)}')
+            for error in result.validation_result.validation_errors[:3]:
+                print(f'     - {error}')
+    else:
+        print(f'❌ Field extraction failed: {result.extraction_result.error_message}')
+        
+except Exception as e:
+    print(f'❌ Error testing field extraction: {e}')
+"
+            done
+            
+            # Run comprehensive performance testing
+            print_status "Running comprehensive QME performance testing..."
+            $PYTHON_CMD scripts/test_qme_performance.py
+            
+            print_success "PQME field extraction testing completed"
         fi
         ;;
     *)

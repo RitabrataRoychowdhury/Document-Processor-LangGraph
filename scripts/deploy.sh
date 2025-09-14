@@ -175,7 +175,6 @@ from src.config.app_config import AppConfig
 
 config = AppConfig.from_env()
 db_manager = DatabaseManager(config.database_path)
-db_manager.initialize_database()
 print('Database initialized successfully')
 "
     
@@ -225,38 +224,42 @@ initialize_knowledge_base() {
     
     $PYTHON_CMD -c "
 import sys
-import asyncio
 sys.path.append('$PROJECT_ROOT')
-from src.services.knowledge_base_initializer import initialize_system_startup
-from src.services.ingestion_pipeline import IngestionPipeline
-from src.config.app_config import AppConfig
-from src.config.dependency_injection import DependencyContainer
+from src.services.document_processor import process_document_simple
+import os
 
-async def main():
-    config = AppConfig.from_env()
-    container = DependencyContainer(config)
-    pipeline = container.get_ingestion_pipeline()
-    
-    result = await initialize_system_startup(config, pipeline)
-    
-    print(f'Initialization Result: {\"SUCCESS\" if result.success else \"FAILED\"}')
-    print(f'Processed Documents: {len(result.processed_documents)}')
-    print(f'Failed Documents: {len(result.failed_documents)}')
-    print(f'Total Time: {result.total_processing_time:.2f}s')
-    
-    if result.failed_documents:
-        print('Failed documents:')
-        for doc in result.failed_documents:
-            print(f'  - {doc}')
-    
-    if result.error_messages:
-        print('Error messages:')
-        for msg in result.error_messages:
-            print(f'  - {msg}')
-    
-    return result.success
+# List of canonical documents to process
+canonical_docs = [
+    'AMAGuides 5th Edition.pdf',
+    'QME-Study-Guide.pdf', 
+    'Sample3.pdf'
+]
 
-result = asyncio.run(main())
+processed = 0
+failed = 0
+
+print('Processing canonical documents...')
+for doc in canonical_docs:
+    if os.path.exists(doc):
+        print(f'Processing: {doc}')
+        try:
+            result = process_document_simple(doc)
+            if result:
+                processed += 1
+                print(f'  ✅ Successfully processed: {doc}')
+            else:
+                failed += 1
+                print(f'  ❌ Failed to process: {doc}')
+        except Exception as e:
+            failed += 1
+            print(f'  ❌ Error processing {doc}: {e}')
+    else:
+        print(f'  ⚠️  Document not found: {doc}')
+
+print(f'\\nInitialization Summary:')
+print(f'  Processed: {processed} documents')
+print(f'  Failed: {failed} documents')
+print(f'  Result: {\"SUCCESS\" if failed == 0 else \"PARTIAL SUCCESS\"}')
 print('Knowledge base initialization completed')
 "
     

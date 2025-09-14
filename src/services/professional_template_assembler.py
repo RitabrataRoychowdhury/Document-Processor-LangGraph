@@ -736,7 +736,7 @@ class ProfessionalTemplateAssembler:
             logger.error(f"Error adding document title: {e}")
             raise    
     
-def _add_quality_indicators_section(self, doc: Document, template_data: QMETemplateData) -> None:
+    def _add_quality_indicators_section(self, doc: Document, template_data: QMETemplateData) -> None:
         """Add quality indicators section for draft review."""
         try:
             # Quality assessment header
@@ -835,16 +835,10 @@ def _add_quality_indicators_section(self, doc: Document, template_data: QMETempl
     # value_cell = table.cell(i, 1)
     # value_para = value_cell.paragraphs[0]
     # value_run = value_para.add_run(value)
-    #     # # Highlight missing information
+    # # Highlight missing information
     # if "[" in value and "REQUIRED" in value:
-    # value_run.font.color.rgb = RGBColor(255, 0, 0)  # Red for required missing
-    # elif "[" in value and "OPTIONAL" in value:
-    # value_run.font.color.rgb = RGBColor(255, 165, 0)  # Orange for optional missing
-    #     # doc.add_paragraph()  # Spacing after table
-    #     # except Exception as e:
-    # logger.error(f"Error adding case information table: {e}")
-    # raise    
-    #     def _add_history_sections(self, doc: Document, template_data: QMETemplateData, config: TemplateAssemblyConfig) -> None:
+    
+    def _add_history_sections(self, doc: Document, template_data: QMETemplateData, config: TemplateAssemblyConfig) -> None:
         """Add history sections following gold standard structure."""
         try:
             # History of Present Illness

@@ -17,6 +17,9 @@ from io import BytesIO
 
 from src.services.qme_template_generator import QMETemplateGenerator, QMETemplateData
 from src.services.file_handler import FileUploadHandler
+from src.services.comprehensive_qme_field_service import ComprehensiveQMEFieldService
+# Temporarily disable professional template assembler due to indentation issues
+# from src.services.professional_template_assembler import ProfessionalTemplateAssembler, TemplateAssemblyConfig
 from src.storage.document_storage import DocumentStorage
 from src.models.document import Document
 from src.utils.logging_config import get_logger
@@ -24,6 +27,29 @@ from src.utils.error_handling import format_error_for_ui
 from src.config.app_config import app_config
 
 logger = get_logger(__name__)
+
+
+def render_qme_template_page():
+    """Render the QME template page - main entry point."""
+    try:
+        interface = QMETemplateInterface()
+        interface.render_qme_template_page()
+    except Exception as e:
+        logger.error(f"Error rendering QME template page: {e}")
+        st.error(f"❌ Error loading QME template interface: {format_error_for_ui(e)['user_message']}")
+        
+        # Show error details in expander
+        with st.expander("🔍 Error Details", expanded=False):
+            st.code(str(e))
+        
+        # Provide recovery options
+        st.info("**Recovery Options:**")
+        st.write("1. Refresh the page")
+        st.write("2. Check that all required services are running")
+        st.write("3. Verify document upload permissions")
+        
+        if st.button("🔄 Retry Loading Interface"):
+            st.rerun()
 
 
 class QMETemplateInterface:
@@ -34,6 +60,8 @@ class QMETemplateInterface:
         self.template_generator = QMETemplateGenerator()
         self.file_handler = FileUploadHandler()
         self.storage = DocumentStorage()
+        self.field_service = ComprehensiveQMEFieldService()
+        # self.professional_assembler = ProfessionalTemplateAssembler()
         
         # Initialize session state
         if 'qme_uploaded_files' not in st.session_state:
@@ -48,6 +76,10 @@ class QMETemplateInterface:
             st.session_state.qme_doctor_info = {}
         if 'qme_template_preferences' not in st.session_state:
             st.session_state.qme_template_preferences = {}
+        if 'qme_field_validation' not in st.session_state:
+            st.session_state.qme_field_validation = {}
+        if 'qme_extraction_results' not in st.session_state:
+            st.session_state.qme_extraction_results = {}
     
     def render_qme_template_page(self):
         """Render the main QME template generation page."""
@@ -195,7 +227,7 @@ class QMETemplateInterface:
             self._show_processing_progress()
     
     def _render_review_step(self):
-        """Render the review step for extracted information."""
+        """Render the review step for extracted information with real-time field validation."""
         st.subheader("👀 Step 3: Review Extracted Information")
         
         if not self._has_processed_documents():
@@ -210,20 +242,34 @@ class QMETemplateInterface:
             st.info("Please check that the documents contain patient medical information.")
             return
         
-        # Patient Information Section
+        # Real-time Field Validation Display
+        self._render_field_validation_status()
+        
+        # Patient Information Section with validation indicators
         st.subheader("👤 Patient Information")
         patient_info = extracted_data.get('patient_info', {})
         
         col1, col2 = st.columns(2)
         with col1:
-            st.write(f"**Name:** {patient_info.get('name', 'Not found')}")
-            st.write(f"**Age:** {patient_info.get('age', 'Not found')}")
-            st.write(f"**Gender:** {patient_info.get('gender', 'Not found')}")
+            self._render_field_with_validation("Name", patient_info.get('name', 'Not found'))
+            self._render_field_with_validation("Age", patient_info.get('age', 'Not found'))
+            self._render_field_with_validation("Gender", patient_info.get('gender', 'Not found'))
         
         with col2:
-            st.write(f"**Case Number:** {patient_info.get('case_number', 'Not found')}")
-            st.write(f"**Injury Date:** {patient_info.get('injury_date', 'Not found')}")
-            st.write(f"**Body Parts:** {', '.join(patient_info.get('body_parts', []))}")
+            self._render_field_with_validation("Case Number", patient_info.get('case_number', 'Not found'))
+            self._render_field_with_validation("Claim Number", patient_info.get('claim_number', 'Not found'))
+            self._render_field_with_validation("Injury Date", patient_info.get('injury_date', 'Not found'))
+        
+        # Additional QME-specific fields
+        col3, col4 = st.columns(2)
+        with col3:
+            self._render_field_with_validation("Occupation", patient_info.get('occupation', 'Not found'))
+            self._render_field_with_validation("Employer", patient_info.get('employer', 'Not found'))
+        
+        with col4:
+            body_parts_str = ', '.join(patient_info.get('body_parts', [])) if patient_info.get('body_parts') else 'Not found'
+            self._render_field_with_validation("Body Parts", body_parts_str)
+            self._render_field_with_validation("Exam Date", patient_info.get('exam_date', 'Not found'))
         
         # Medical Findings Section
         st.subheader("🏥 Medical Findings")
@@ -252,6 +298,9 @@ class QMETemplateInterface:
                 for i, study in enumerate(imaging, 1):
                     st.write(f"{i}. {study}")
         
+        # Extraction Confidence and Validation Issues
+        self._render_extraction_summary(extracted_data)
+        
         # Missing Information Alert
         missing_info = extracted_data.get('missing_sections', [])
         if missing_info:
@@ -259,6 +308,9 @@ class QMETemplateInterface:
             for section in missing_info:
                 st.write(f"• {section}")
             st.info("The template will highlight these missing sections for manual completion.")
+        
+        # Manual field correction interface
+        self._render_field_correction_interface(patient_info)
         
         # Accuracy confirmation
         st.subheader("✅ Confirm Information Accuracy")
@@ -270,6 +322,139 @@ class QMETemplateInterface:
         if accuracy_confirmed:
             if st.button("Continue to Customization →", type="primary"):
                 st.session_state.qme_current_step = 'customize'
+                st.rerun()
+    
+    def _render_field_validation_status(self):
+        """Render real-time field validation status dashboard."""
+        st.subheader("📊 Field Extraction Status")
+        
+        # Calculate validation metrics
+        total_required_fields = 10  # Name, Age, Gender, Case#, Claim#, Injury Date, Body Parts, Occupation, Employer, Exam Date
+        extracted_fields = 0
+        validation_issues = 0
+        
+        extracted_data = self._get_extracted_data()
+        patient_info = extracted_data.get('patient_info', {})
+        
+        # Count successfully extracted fields
+        required_fields = ['name', 'age', 'gender', 'case_number', 'claim_number', 'injury_date', 'body_parts', 'occupation', 'employer', 'exam_date']
+        for field in required_fields:
+            value = patient_info.get(field)
+            if value and value != 'Not found' and (not isinstance(value, list) or len(value) > 0):
+                extracted_fields += 1
+        
+        # Count validation issues
+        validation_issues = len(extracted_data.get('validation_issues', []))
+        
+        # Display metrics
+        col1, col2, col3, col4 = st.columns(4)
+        
+        with col1:
+            extraction_rate = (extracted_fields / total_required_fields) * 100
+            st.metric("Extraction Rate", f"{extraction_rate:.0f}%", f"{extracted_fields}/{total_required_fields}")
+        
+        with col2:
+            confidence = extracted_data.get('extraction_confidence', 0) * 100
+            st.metric("Confidence", f"{confidence:.0f}%")
+        
+        with col3:
+            st.metric("Validation Issues", validation_issues)
+        
+        with col4:
+            missing_count = total_required_fields - extracted_fields
+            st.metric("Missing Fields", missing_count)
+        
+        # Progress bar for extraction completeness
+        progress_value = extracted_fields / total_required_fields
+        st.progress(progress_value)
+        
+        if progress_value >= 0.8:
+            st.success("✅ Excellent field extraction - Ready for template generation")
+        elif progress_value >= 0.6:
+            st.warning("⚠️ Good field extraction - Some manual review recommended")
+        else:
+            st.error("❌ Limited field extraction - Manual completion required")
+    
+    def _render_field_with_validation(self, field_name: str, field_value: str):
+        """Render a field with validation status indicator."""
+        if field_value and field_value != 'Not found':
+            st.write(f"✅ **{field_name}:** {field_value}")
+        else:
+            st.write(f"❌ **{field_name}:** {field_value}")
+    
+    def _render_extraction_summary(self, extracted_data: Dict[str, Any]):
+        """Render extraction confidence and validation summary."""
+        with st.expander("📈 Extraction Details", expanded=False):
+            col1, col2 = st.columns(2)
+            
+            with col1:
+                st.write("**Extraction Confidence:**")
+                confidence = extracted_data.get('extraction_confidence', 0)
+                if confidence >= 0.8:
+                    st.success(f"High confidence: {confidence:.1%}")
+                elif confidence >= 0.6:
+                    st.warning(f"Medium confidence: {confidence:.1%}")
+                else:
+                    st.error(f"Low confidence: {confidence:.1%}")
+            
+            with col2:
+                st.write("**Validation Issues:**")
+                issues = extracted_data.get('validation_issues', [])
+                if not issues:
+                    st.success("No validation issues detected")
+                else:
+                    for issue in issues[:3]:  # Show first 3 issues
+                        st.write(f"• {issue}")
+                    if len(issues) > 3:
+                        st.write(f"... and {len(issues) - 3} more issues")
+    
+    def _render_field_correction_interface(self, patient_info: Dict[str, Any]):
+        """Render interface for manual field correction."""
+        with st.expander("✏️ Manual Field Correction", expanded=False):
+            st.info("Correct any inaccurate or missing information below:")
+            
+            col1, col2 = st.columns(2)
+            
+            with col1:
+                corrected_name = st.text_input("Patient Name", value=patient_info.get('name', ''), key="corrected_name")
+                corrected_age = st.text_input("Age", value=str(patient_info.get('age', '')), key="corrected_age")
+                corrected_gender = st.selectbox("Gender", options=["", "Male", "Female", "Other"], 
+                                              index=0 if not patient_info.get('gender') or patient_info.get('gender') == 'Not found' 
+                                              else ["", "Male", "Female", "Other"].index(patient_info.get('gender')) if patient_info.get('gender') in ["Male", "Female", "Other"] else 0,
+                                              key="corrected_gender")
+                corrected_case = st.text_input("Case Number", value=patient_info.get('case_number', ''), key="corrected_case")
+                corrected_claim = st.text_input("Claim Number", value=patient_info.get('claim_number', ''), key="corrected_claim")
+            
+            with col2:
+                corrected_injury_date = st.date_input("Injury Date", key="corrected_injury_date")
+                corrected_occupation = st.text_input("Occupation", value=patient_info.get('occupation', ''), key="corrected_occupation")
+                corrected_employer = st.text_input("Employer", value=patient_info.get('employer', ''), key="corrected_employer")
+                corrected_body_parts = st.text_input("Body Parts (comma-separated)", 
+                                                   value=', '.join(patient_info.get('body_parts', [])) if patient_info.get('body_parts') else '', 
+                                                   key="corrected_body_parts")
+                corrected_exam_date = st.date_input("Scheduled Exam Date", key="corrected_exam_date")
+            
+            if st.button("💾 Apply Corrections", key="apply_corrections"):
+                # Update patient info with corrections
+                corrections = {
+                    'name': corrected_name,
+                    'age': corrected_age,
+                    'gender': corrected_gender,
+                    'case_number': corrected_case,
+                    'claim_number': corrected_claim,
+                    'injury_date': str(corrected_injury_date),
+                    'occupation': corrected_occupation,
+                    'employer': corrected_employer,
+                    'body_parts': [part.strip() for part in corrected_body_parts.split(',') if part.strip()],
+                    'exam_date': str(corrected_exam_date)
+                }
+                
+                # Store corrections in session state
+                if 'qme_field_corrections' not in st.session_state:
+                    st.session_state.qme_field_corrections = {}
+                st.session_state.qme_field_corrections.update(corrections)
+                
+                st.success("✅ Corrections applied successfully!")
                 st.rerun()
     
     def _render_customize_step(self):
@@ -388,10 +573,33 @@ class QMETemplateInterface:
         if st.button("📋 Generate Preview", type="secondary"):
             self._generate_template_preview()
         
+        # Validation before proceeding
+        can_proceed = True
+        error_messages = []
+        
+        # Check required doctor information
+        if not st.session_state.qme_doctor_info.get('name'):
+            can_proceed = False
+            error_messages.append("Doctor name is required")
+        
+        # Check if we have extracted data
+        if not self._has_processed_documents():
+            can_proceed = False
+            error_messages.append("No processed documents found")
+        
+        # Show validation errors
+        if error_messages:
+            st.error("❌ **Cannot proceed to template generation:**")
+            for error in error_messages:
+                st.write(f"• {error}")
+        
         # Continue button
-        if st.button("Generate Template →", type="primary"):
-            st.session_state.qme_current_step = 'download'
-            st.rerun()
+        if can_proceed:
+            if st.button("Generate Template →", type="primary"):
+                st.session_state.qme_current_step = 'download'
+                st.rerun()
+        else:
+            st.button("Generate Template →", type="primary", disabled=True, help="Please resolve the issues above")
     
     def _render_download_step(self):
         """Render the template download step."""
@@ -453,8 +661,12 @@ class QMETemplateInterface:
             if st.button("📧 Email Template"):
                 self._show_email_dialog()
         
+        # Template Quality Metrics
+        st.subheader("📊 Template Quality Metrics")
+        self._show_template_quality_metrics(template_info['data'])
+        
         # Template Analytics
-        st.subheader("📊 Template Analytics")
+        st.subheader("📈 Template Analytics")
         self._show_template_analytics(template_info['data'])
         
         # Save to Gallery
@@ -529,20 +741,33 @@ class QMETemplateInterface:
         with col1:
             # Previous button
             if current_index > 0:
-                if st.button("← Previous Step"):
+                if st.button("← Previous Step", key="nav_prev"):
                     st.session_state.qme_current_step = steps[current_index - 1]
                     st.rerun()
         
         with col3:
             # Next button (context-sensitive)
+            next_enabled = False
+            next_help = ""
+            
             if current_step == 'upload' and st.session_state.qme_uploaded_files:
-                if st.button("Next Step →"):
-                    st.session_state.qme_current_step = 'process'
-                    st.rerun()
+                next_enabled = True
             elif current_step == 'process' and self._has_processed_documents():
-                if st.button("Next Step →"):
-                    st.session_state.qme_current_step = 'review'
-                    st.rerun()
+                next_enabled = True
+            elif current_step == 'review' and st.session_state.get('accuracy_confirmed', False):
+                next_enabled = True
+            elif current_step == 'customize':
+                next_enabled = bool(st.session_state.qme_doctor_info.get('name'))
+                if not next_enabled:
+                    next_help = "Please enter doctor information"
+            
+            if current_index < len(steps) - 1:  # Not on last step
+                if next_enabled:
+                    if st.button("Next Step →", key="nav_next"):
+                        st.session_state.qme_current_step = steps[current_index + 1]
+                        st.rerun()
+                else:
+                    st.button("Next Step →", key="nav_next_disabled", disabled=True, help=next_help or "Complete current step to continue")
     
     def _render_template_gallery(self):
         """Render the template gallery in sidebar."""
@@ -697,7 +922,7 @@ class QMETemplateInterface:
         return keyword_count >= 3  # At least 3 medical keywords
     
     def _process_patient_document(self, file_id: str, file_data: Dict[str, Any]):
-        """Process a patient document to extract medical information."""
+        """Process a patient document to extract medical information using comprehensive field service."""
         try:
             # Update processing status
             file_data['processing_status'] = 'processing'
@@ -712,38 +937,121 @@ class QMETemplateInterface:
             with status_placeholder:
                 st.info(f"🔄 Processing {file_data['filename']}...")
             
-            # Simulate processing steps
+            # Create temporary file for processing
+            temp_file_path = self._create_temp_file(file_data)
+            
+            # Processing steps with real functionality
             steps = [
-                ("Extracting text...", 20),
-                ("Analyzing content...", 40),
-                ("Identifying patient information...", 60),
-                ("Extracting medical findings...", 80),
+                ("Extracting document text...", 20),
+                ("Analyzing medical content...", 40),
+                ("Extracting QME fields...", 60),
+                ("Validating extracted data...", 80),
                 ("Finalizing extraction...", 100)
             ]
             
-            for step_text, progress in steps:
+            extraction_result = None
+            
+            for i, (step_text, progress) in enumerate(steps):
                 status_placeholder.info(f"🔄 {step_text}")
                 progress_bar.progress(progress)
-                time.sleep(0.5)  # Simulate processing time
+                
+                if i == 2:  # Extract QME fields step
+                    try:
+                        extraction_result = self.field_service.extract_and_validate_fields(temp_file_path)
+                    except Exception as e:
+                        logger.error(f"Field extraction failed: {e}")
+                        extraction_result = None
+                
+                time.sleep(0.3)  # Brief pause for UI feedback
             
-            # Extract patient information (simplified for demo)
-            extracted_info = self._extract_patient_information(file_data['extracted_text'])
+            # Process extraction results
+            if extraction_result:
+                extracted_info = self._convert_extraction_to_template_data(extraction_result)
+                
+                # Store extraction results for field validation display
+                st.session_state.qme_extraction_results[file_id] = extraction_result
+                
+                # Update file data
+                file_data.update({
+                    'processing_status': 'completed',
+                    'processed_at': datetime.now(),
+                    'extracted_info': extracted_info,
+                    'extraction_confidence': extraction_result.extraction_result.overall_confidence,
+                    'validation_status': extraction_result.validation_result.is_valid
+                })
+                
+                # Clear progress indicators
+                progress_placeholder.empty()
+                status_placeholder.success(f"✅ Processed {file_data['filename']} (Confidence: {extraction_result.extraction_result.overall_confidence:.1%})")
+            else:
+                # Fallback to basic extraction
+                extracted_info = self._extract_patient_information(file_data['extracted_text'])
+                file_data.update({
+                    'processing_status': 'completed',
+                    'processed_at': datetime.now(),
+                    'extracted_info': extracted_info,
+                    'extraction_confidence': 0.5,
+                    'validation_status': 'needs_review'
+                })
+                
+                progress_placeholder.empty()
+                status_placeholder.warning(f"⚠️ Basic processing completed for {file_data['filename']} - Manual review recommended")
             
-            # Update file data
-            file_data.update({
-                'processing_status': 'completed',
-                'processed_at': datetime.now(),
-                'extracted_info': extracted_info
-            })
-            
-            # Clear progress indicators
-            progress_placeholder.empty()
-            status_placeholder.success(f"✅ Processed {file_data['filename']}")
+            # Clean up temporary file
+            if temp_file_path and os.path.exists(temp_file_path):
+                os.unlink(temp_file_path)
             
         except Exception as e:
             file_data['processing_status'] = 'failed'
             file_data['error'] = str(e)
-            st.error(f"❌ Failed to process {file_data['filename']}: {str(e)}")
+            logger.error(f"Document processing failed: {e}")
+            
+            progress_placeholder.empty()
+            status_placeholder.error(f"❌ Failed to process {file_data['filename']}: {str(e)}")
+    
+    def _create_temp_file(self, file_data: Dict[str, Any]) -> str:
+        """Create a temporary file from uploaded file data."""
+        temp_dir = tempfile.gettempdir()
+        temp_file_path = os.path.join(temp_dir, f"qme_temp_{uuid.uuid4().hex}.txt")
+        
+        with open(temp_file_path, 'w', encoding='utf-8') as f:
+            f.write(file_data['extracted_text'])
+        
+        return temp_file_path
+    
+    def _convert_extraction_to_template_data(self, extraction_result) -> Dict[str, Any]:
+        """Convert comprehensive extraction result to template data format."""
+        field_data = extraction_result.extraction_result.field_data
+        
+        extracted_info = {
+            'patient_info': {
+                'name': field_data.name or 'Not found',
+                'age': field_data.age or 'Not found',
+                'gender': field_data.gender or 'Not found',
+                'case_number': field_data.case_number or 'Not found',
+                'claim_number': field_data.claim_number or 'Not found',
+                'injury_date': field_data.injury_date or 'Not found',
+                'body_parts': field_data.body_parts or [],
+                'occupation': field_data.occupation or 'Not found',
+                'employer': field_data.employer or 'Not found',
+                'exam_date': field_data.scheduled_exam_date or 'Not found'
+            },
+            'medical_findings': {
+                'diagnoses': [],
+                'findings': [],
+                'imaging_studies': []
+            },
+            'missing_sections': [],
+            'extraction_confidence': extraction_result.extraction_result.overall_confidence,
+            'validation_issues': [issue.message for issue in extraction_result.validation_result.issues]
+        }
+        
+        # Add missing sections based on validation
+        for issue in extraction_result.validation_result.issues:
+            if 'missing' in issue.message.lower():
+                extracted_info['missing_sections'].append(issue.field_name)
+        
+        return extracted_info
     
     def _extract_patient_information(self, text: str) -> Dict[str, Any]:
         """Extract patient information from document text (simplified version)."""
@@ -904,17 +1212,28 @@ class QMETemplateInterface:
             """)
     
     def _generate_final_template(self) -> Tuple[str, Any]:
-        """Generate the final QME template."""
-        # Create temporary file for template
-        temp_dir = tempfile.gettempdir()
-        template_path = os.path.join(temp_dir, f"qme_template_{uuid.uuid4().hex}.docx")
-        
-        # Get extracted data
-        extracted_data = self._get_extracted_data()
-        
-        # Use the QME template generator (simplified for demo)
+        """Generate the final QME template using professional template assembler."""
         try:
-            # For demo purposes, create a simple DOCX file
+            # Get extracted data with any corrections applied
+            extracted_data = self._get_extracted_data_with_corrections()
+            
+            # Convert to QMETemplateData format
+            template_data = self._convert_to_qme_template_data(extracted_data)
+            
+            # Fallback to basic template generation for now
+            return self._generate_basic_template(extracted_data)
+            
+        except Exception as e:
+            logger.error(f"Error generating professional template: {e}")
+            # Fallback to basic template generation
+            return self._generate_basic_template(extracted_data)
+    
+    def _generate_basic_template(self, extracted_data: Dict[str, Any]) -> Tuple[str, Any]:
+        """Generate a basic QME template as fallback."""
+        temp_dir = tempfile.gettempdir()
+        template_path = os.path.join(temp_dir, f"qme_basic_template_{uuid.uuid4().hex}.docx")
+        
+        try:
             from docx import Document
             
             doc = Document()
@@ -926,17 +1245,27 @@ class QMETemplateInterface:
             doc.add_heading('PATIENT INFORMATION', level=1)
             patient_info = extracted_data.get('patient_info', {})
             
-            p = doc.add_paragraph()
-            p.add_run('Name: ').bold = True
-            p.add_run(patient_info.get('name', '[MISSING - Patient name not found]'))
+            # Create table for patient information
+            table = doc.add_table(rows=10, cols=2)
+            table.style = 'Table Grid'
             
-            p = doc.add_paragraph()
-            p.add_run('Age: ').bold = True
-            p.add_run(str(patient_info.get('age', '[MISSING - Age not found]')))
+            patient_fields = [
+                ('Name', patient_info.get('name', '[MISSING - Patient name not found]')),
+                ('Age', str(patient_info.get('age', '[MISSING - Age not found]'))),
+                ('Gender', patient_info.get('gender', '[MISSING - Gender not found]')),
+                ('Case Number', patient_info.get('case_number', '[MISSING - Case number not found]')),
+                ('Claim Number', patient_info.get('claim_number', '[MISSING - Claim number not found]')),
+                ('Injury Date', patient_info.get('injury_date', '[MISSING - Injury date not found]')),
+                ('Body Parts', ', '.join(patient_info.get('body_parts', [])) or '[MISSING - Body parts not found]'),
+                ('Occupation', patient_info.get('occupation', '[MISSING - Occupation not found]')),
+                ('Employer', patient_info.get('employer', '[MISSING - Employer not found]')),
+                ('Scheduled Exam Date', patient_info.get('exam_date', '[MISSING - Exam date not found]'))
+            ]
             
-            p = doc.add_paragraph()
-            p.add_run('Case Number: ').bold = True
-            p.add_run(patient_info.get('case_number', '[MISSING - Case number not found]'))
+            for i, (field_name, field_value) in enumerate(patient_fields):
+                table.cell(i, 0).text = field_name
+                table.cell(i, 1).text = str(field_value)
+                table.cell(i, 0).paragraphs[0].runs[0].bold = True
             
             # Add diagnoses
             doc.add_heading('DIAGNOSIS', level=1)
@@ -951,14 +1280,31 @@ class QMETemplateInterface:
             doctor_info = st.session_state.qme_doctor_info
             if doctor_info.get('name'):
                 doc.add_heading('EVALUATING PHYSICIAN', level=1)
-                p = doc.add_paragraph()
-                p.add_run('Name: ').bold = True
-                p.add_run(doctor_info.get('name', ''))
                 
-                if doctor_info.get('license'):
-                    p = doc.add_paragraph()
-                    p.add_run('License: ').bold = True
-                    p.add_run(doctor_info.get('license', ''))
+                doctor_table = doc.add_table(rows=6, cols=2)
+                doctor_table.style = 'Table Grid'
+                
+                doctor_fields = [
+                    ('Name', doctor_info.get('name', '')),
+                    ('Medical License', doctor_info.get('license', '')),
+                    ('Specialty', doctor_info.get('specialty', '')),
+                    ('Clinic/Practice', doctor_info.get('clinic', '')),
+                    ('Address', doctor_info.get('address', '')),
+                    ('Phone', doctor_info.get('phone', ''))
+                ]
+                
+                for i, (field_name, field_value) in enumerate(doctor_fields):
+                    doctor_table.cell(i, 0).text = field_name
+                    doctor_table.cell(i, 1).text = str(field_value)
+                    doctor_table.cell(i, 0).paragraphs[0].runs[0].bold = True
+            
+            # Add missing sections notice
+            missing_sections = extracted_data.get('missing_sections', [])
+            if missing_sections:
+                doc.add_heading('MISSING INFORMATION NOTICE', level=1)
+                doc.add_paragraph('The following sections require manual completion:')
+                for section in missing_sections:
+                    doc.add_paragraph(f"• {section}", style='List Bullet')
             
             # Save document
             doc.save(template_path)
@@ -966,8 +1312,63 @@ class QMETemplateInterface:
             return template_path, extracted_data
             
         except Exception as e:
-            logger.error(f"Error generating template: {e}")
+            logger.error(f"Error generating basic template: {e}")
             raise
+    
+    def _get_extracted_data_with_corrections(self) -> Dict[str, Any]:
+        """Get extracted data with any manual corrections applied."""
+        extracted_data = self._get_extracted_data()
+        
+        # Apply any manual corrections
+        if 'qme_field_corrections' in st.session_state:
+            corrections = st.session_state.qme_field_corrections
+            patient_info = extracted_data.get('patient_info', {})
+            
+            for field, value in corrections.items():
+                if value:  # Only apply non-empty corrections
+                    patient_info[field] = value
+            
+            extracted_data['patient_info'] = patient_info
+        
+        return extracted_data
+    
+    def _convert_to_qme_template_data(self, extracted_data: Dict[str, Any]) -> 'QMETemplateData':
+        """Convert extracted data to QMETemplateData format for professional assembly."""
+        from src.services.qme_template_generator import QMETemplateData, PatientInfo, MedicalFindings
+        
+        patient_info_dict = extracted_data.get('patient_info', {})
+        medical_findings_dict = extracted_data.get('medical_findings', {})
+        
+        # Create PatientInfo object
+        patient_info = PatientInfo(
+            name=patient_info_dict.get('name', ''),
+            age=patient_info_dict.get('age', ''),
+            gender=patient_info_dict.get('gender', ''),
+            case_number=patient_info_dict.get('case_number', ''),
+            claim_number=patient_info_dict.get('claim_number', ''),
+            injury_date=patient_info_dict.get('injury_date', ''),
+            body_parts=patient_info_dict.get('body_parts', []),
+            occupation=patient_info_dict.get('occupation', ''),
+            employer=patient_info_dict.get('employer', ''),
+            exam_date=patient_info_dict.get('exam_date', '')
+        )
+        
+        # Create MedicalFindings object
+        medical_findings = MedicalFindings(
+            diagnoses=medical_findings_dict.get('diagnoses', []),
+            findings=medical_findings_dict.get('findings', []),
+            imaging_studies=medical_findings_dict.get('imaging_studies', [])
+        )
+        
+        # Create QMETemplateData object
+        template_data = QMETemplateData(
+            patient_info=patient_info,
+            medical_findings=medical_findings,
+            doctor_info=st.session_state.qme_doctor_info,
+            template_preferences=st.session_state.qme_template_preferences
+        )
+        
+        return template_data
     
     def _generate_pdf_preview(self, docx_path: str):
         """Generate PDF preview of the template."""
@@ -1128,30 +1529,111 @@ Professional regards,
         # Log email activity
         logger.info(f"Email template request: {email_params['recipient']}")
     
+    def _show_template_quality_metrics(self, template_data: Any):
+        """Show quality metrics from professional template assembly."""
+        if 'qme_template_quality' in st.session_state:
+            quality_info = st.session_state.qme_template_quality
+            
+            # Pre-assembly validation
+            pre_validation = quality_info.get('pre_assembly_validation')
+            if pre_validation:
+                col1, col2, col3 = st.columns(3)
+                
+                with col1:
+                    compliance_status = pre_validation.compliance_status
+                    if compliance_status == 'compliant':
+                        st.success(f"✅ {compliance_status.title()}")
+                    elif compliance_status == 'needs_review':
+                        st.warning(f"⚠️ {compliance_status.replace('_', ' ').title()}")
+                    else:
+                        st.error(f"❌ {compliance_status.replace('_', ' ').title()}")
+                
+                with col2:
+                    quality_score = pre_validation.quality_score
+                    if hasattr(quality_score, 'overall_score'):
+                        score = quality_score.overall_score * 100
+                        st.metric("Quality Score", f"{score:.0f}%")
+                    else:
+                        st.metric("Quality Score", "N/A")
+                
+                with col3:
+                    missing_count = len(pre_validation.missing_sections)
+                    st.metric("Missing Sections", missing_count)
+                
+                # Show validation issues if any
+                if pre_validation.issues:
+                    with st.expander("⚠️ Validation Issues", expanded=False):
+                        for issue in pre_validation.issues[:5]:  # Show first 5 issues
+                            severity_icon = "🔴" if issue.severity == "high" else "🟡" if issue.severity == "medium" else "🟢"
+                            st.write(f"{severity_icon} {issue.message}")
+                        
+                        if len(pre_validation.issues) > 5:
+                            st.write(f"... and {len(pre_validation.issues) - 5} more issues")
+            
+            # Quality report link
+            quality_report_path = quality_info.get('quality_report_path')
+            if quality_report_path and os.path.exists(quality_report_path):
+                with open(quality_report_path, 'rb') as f:
+                    st.download_button(
+                        label="📋 Download Quality Report",
+                        data=f.read(),
+                        file_name="QME_Quality_Report.pdf",
+                        mime="application/pdf"
+                    )
+        else:
+            st.info("Quality metrics will be available when using professional template assembly.")
+    
     def _show_template_analytics(self, template_data: Any):
         """Show analytics for the generated template."""
+        extracted_data = self._get_extracted_data()
+        
+        # Calculate completion metrics
+        total_required_fields = 10
+        completed_fields = 0
+        patient_info = extracted_data.get('patient_info', {})
+        
+        required_fields = ['name', 'age', 'gender', 'case_number', 'claim_number', 'injury_date', 'body_parts', 'occupation', 'employer', 'exam_date']
+        for field in required_fields:
+            value = patient_info.get(field)
+            if value and value != 'Not found' and (not isinstance(value, list) or len(value) > 0):
+                completed_fields += 1
+        
+        missing_count = total_required_fields - completed_fields
+        confidence = extracted_data.get('extraction_confidence', 0) * 100
+        
         col1, col2, col3 = st.columns(3)
         
         with col1:
-            st.metric("Sections Completed", "7/10")
+            st.metric("Sections Completed", f"{completed_fields}/{total_required_fields}")
         
         with col2:
-            st.metric("Missing Information", "3 items")
+            st.metric("Missing Information", f"{missing_count} items")
         
         with col3:
-            st.metric("Confidence Score", "85%")
+            st.metric("Extraction Confidence", f"{confidence:.0f}%")
         
         # Completion details
         with st.expander("📊 Completion Details", expanded=False):
-            st.write("**Completed Sections:**")
-            st.write("✅ Patient Information")
-            st.write("✅ Medical History")
-            st.write("✅ Diagnosis")
+            st.write("**Completed Fields:**")
+            for field in required_fields:
+                value = patient_info.get(field)
+                if value and value != 'Not found' and (not isinstance(value, list) or len(value) > 0):
+                    st.write(f"✅ {field.replace('_', ' ').title()}")
             
-            st.write("**Missing Sections:**")
-            st.write("❌ Physical Examination")
-            st.write("❌ Impairment Rating")
-            st.write("❌ Work Restrictions")
+            st.write("**Missing Fields:**")
+            for field in required_fields:
+                value = patient_info.get(field)
+                if not value or value == 'Not found' or (isinstance(value, list) and len(value) == 0):
+                    st.write(f"❌ {field.replace('_', ' ').title()}")
+            
+            # Validation issues
+            validation_issues = extracted_data.get('validation_issues', [])
+            if validation_issues:
+                st.write("**Validation Issues:**")
+                for issue in validation_issues[:3]:
+                    st.write(f"⚠️ {issue}")
+                if len(validation_issues) > 3:
+                    st.write(f"... and {len(validation_issues) - 3} more issues")
     
     def _save_to_gallery(self, template_info: Dict[str, Any]):
         """Save template to gallery with versioning."""

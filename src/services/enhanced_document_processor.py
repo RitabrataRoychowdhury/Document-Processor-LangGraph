@@ -29,6 +29,7 @@ from ..models.knowledge_graph import (
 )
 from ..repositories.knowledge_graph_repository import KnowledgeGraphRepository, SQLiteKnowledgeGraphRepository
 from ..utils.logging_config import get_logger
+from .comprehensive_qme_field_service import ComprehensiveQMEFieldService
 
 logger = get_logger(__name__)
 
@@ -111,6 +112,9 @@ class EnhancedDocumentProcessor:
         self.spacy_model_name = spacy_model
         self.nlp = None
         self.matcher = None
+        
+        # Initialize QME field extraction service
+        self.qme_field_service = ComprehensiveQMEFieldService()
         
         # Initialize spaCy model and medical patterns
         self._initialize_nlp_model()
@@ -310,6 +314,74 @@ class EnhancedDocumentProcessor:
                    f"{processing_result['total_relationships']} relationships")
         
         return processing_result
+    
+    def extract_qme_template_fields(self, document_path: str) -> Dict[str, Any]:
+        """
+        Extract QME template fields from document using comprehensive extraction service.
+        
+        Args:
+            document_path: Path to the document file
+            
+        Returns:
+            Dictionary containing extracted QME fields and validation results
+        """
+        logger.info(f"Extracting QME template fields from: {document_path}")
+        
+        try:
+            # Use comprehensive QME field service for extraction
+            result = self.qme_field_service.extract_and_validate_fields(document_path)
+            
+            # Convert to dictionary format for compatibility
+            qme_fields = {
+                'name': result.extraction_result.field_data.name,
+                'age': result.extraction_result.field_data.age,
+                'gender': result.extraction_result.field_data.gender,
+                'case_number': result.extraction_result.field_data.case_number,
+                'claim_number': result.extraction_result.field_data.claim_number,
+                'injury_date': result.extraction_result.field_data.injury_date,
+                'body_parts': result.extraction_result.field_data.body_parts,
+                'occupation': result.extraction_result.field_data.occupation,
+                'employer': result.extraction_result.field_data.employer,
+                'scheduled_exam_date': result.extraction_result.field_data.scheduled_exam_date,
+            }
+            
+            # Add extraction metadata
+            extraction_metadata = {
+                'extraction_confidence': result.extraction_result.overall_confidence,
+                'validation_score': result.validation_result.validation_score,
+                'ready_for_template_generation': result.validation_result.ready_for_template_generation,
+                'missing_fields': result.extraction_result.missing_fields,
+                'validation_issues': [
+                    {
+                        'field': issue.field_name,
+                        'severity': issue.severity,
+                        'message': issue.message,
+                        'suggestion': issue.suggested_fix
+                    }
+                    for issue in result.validation_result.issues
+                ],
+                'extraction_methods_used': result.extraction_methods_used,
+                'processing_time': result.processing_time,
+                'document_info': result.document_info
+            }
+            
+            return {
+                'qme_fields': qme_fields,
+                'extraction_metadata': extraction_metadata,
+                'validation_report': self.qme_field_service.generate_comprehensive_report(result),
+                'success': True,
+                'error': None
+            }
+            
+        except Exception as e:
+            logger.error(f"Error extracting QME fields from {document_path}: {e}")
+            return {
+                'qme_fields': {},
+                'extraction_metadata': {},
+                'validation_report': f"Error: {str(e)}",
+                'success': False,
+                'error': str(e)
+            }
     
     def _process_single_document(self, doc_info: Dict[str, Any]) -> Dict[str, Any]:
         """Process a single document through the enhanced pipeline."""

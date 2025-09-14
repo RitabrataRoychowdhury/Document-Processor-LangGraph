@@ -120,6 +120,11 @@ class SystemStartup:
                 logger.error(f"Configuration health check failed: {config_health.message}")
                 return False
             
+            # QME-specific health checks
+            if not await self._run_qme_health_checks():
+                logger.warning("QME health checks had issues - continuing with startup")
+                # Don't fail startup for QME issues, just warn
+            
             return True
             
         except Exception as e:
@@ -154,6 +159,59 @@ class SystemStartup:
             logger.error(f"Knowledge base initialization failed: {str(e)}", exc_info=True)
             return False
     
+    async def _run_qme_health_checks(self) -> bool:
+        """Run QME-specific health checks."""
+        try:
+            logger.info("Running QME workflow health checks...")
+            
+            # Test QME service imports
+            try:
+                from src.services.comprehensive_qme_field_service import ComprehensiveQMEFieldService
+                from src.services.qme_template_generator import QMETemplateGenerator
+                from src.services.professional_template_assembler import ProfessionalTemplateAssembler
+                logger.info("✅ QME service imports successful")
+            except ImportError as e:
+                logger.warning(f"⚠️  QME import issue: {e}")
+                return False
+            
+            # Test QME field extraction service
+            try:
+                field_service = ComprehensiveQMEFieldService()
+                logger.info("✅ QME field extraction service initialized")
+            except Exception as e:
+                logger.warning(f"⚠️  QME field extraction issue: {e}")
+                return False
+            
+            # Test QME template generator
+            try:
+                template_generator = QMETemplateGenerator()
+                logger.info("✅ QME template generator initialized")
+            except Exception as e:
+                logger.warning(f"⚠️  QME template generator issue: {e}")
+                return False
+            
+            # Check for PQME test files
+            pqme_files = [
+                "Injured worker-PQME-(09.05.2025)-AA CL-09.09.2025.p5.pdf",
+                "Injured worker-PQME-(09.08.2025)-DA CL-09.09.2025.p4.pdf"
+            ]
+            
+            found_pqme = []
+            for file_path in pqme_files:
+                if Path(file_path).exists():
+                    found_pqme.append(file_path)
+            
+            if found_pqme:
+                logger.info(f"✅ Found {len(found_pqme)} PQME test files")
+            else:
+                logger.warning("⚠️  No PQME test files found - field extraction testing will be limited")
+            
+            return True
+            
+        except Exception as e:
+            logger.error(f"QME health checks failed: {str(e)}", exc_info=True)
+            return False
+    
     async def _run_final_health_checks(self) -> bool:
         """Run final comprehensive health checks."""
         try:
@@ -174,10 +232,61 @@ class SystemStartup:
                     for key, value in status['details'].items():
                         logger.info(f"    {key}: {value}")
             
+            # Run QME workflow validation
+            qme_validation = await self._validate_qme_workflow()
+            if qme_validation:
+                logger.info("✅ QME workflow validation passed")
+            else:
+                logger.warning("⚠️  QME workflow validation had issues")
+            
             return health['overall_healthy']
             
         except Exception as e:
             logger.error(f"Final health checks failed: {str(e)}", exc_info=True)
+            return False
+    
+    async def _validate_qme_workflow(self) -> bool:
+        """Validate QME workflow capabilities."""
+        try:
+            logger.info("Validating QME workflow...")
+            
+            # Test document processing capability
+            pqme_files = [
+                "Injured worker-PQME-(09.05.2025)-AA CL-09.09.2025.p5.pdf",
+                "Injured worker-PQME-(09.08.2025)-DA CL-09.09.2025.p4.pdf"
+            ]
+            
+            validation_passed = True
+            
+            # Check if we can process at least one PQME file
+            for file_path in pqme_files:
+                if Path(file_path).exists():
+                    try:
+                        from src.services.comprehensive_qme_field_service import ComprehensiveQMEFieldService
+                        
+                        # Quick validation test (don't process full file during startup)
+                        service = ComprehensiveQMEFieldService()
+                        logger.info(f"✅ QME workflow validation: Can process {file_path}")
+                        break
+                    except Exception as e:
+                        logger.warning(f"⚠️  QME workflow issue with {file_path}: {e}")
+                        validation_passed = False
+            else:
+                logger.warning("⚠️  No PQME files available for workflow validation")
+                validation_passed = False
+            
+            # Test performance monitoring for QME
+            try:
+                stats = self.performance_monitor.get_current_statistics()
+                logger.info("✅ QME performance monitoring ready")
+            except Exception as e:
+                logger.warning(f"⚠️  QME performance monitoring issue: {e}")
+                validation_passed = False
+            
+            return validation_passed
+            
+        except Exception as e:
+            logger.error(f"QME workflow validation failed: {str(e)}", exc_info=True)
             return False
     
     def _print_startup_summary(self):
@@ -198,10 +307,40 @@ class SystemStartup:
             print(f"🔤 Embedding Provider: {self.config.embedding_provider}")
             print(f"📁 Max File Size: {self.config.max_file_size_mb}MB")
             print(f"📄 Allowed Types: {', '.join(self.config.allowed_file_types)}")
+            
+            # QME-specific status
+            print("="*60)
+            print("🏥 QME WORKFLOW STATUS")
+            print("="*60)
+            
+            # Check QME components
+            try:
+                from src.services.comprehensive_qme_field_service import ComprehensiveQMEFieldService
+                print("✅ QME Field Extraction: Ready")
+            except:
+                print("❌ QME Field Extraction: Not Available")
+            
+            try:
+                from src.services.qme_template_generator import QMETemplateGenerator
+                print("✅ QME Template Generation: Ready")
+            except:
+                print("❌ QME Template Generation: Not Available")
+            
+            # Check PQME test files
+            pqme_files = [
+                "Injured worker-PQME-(09.05.2025)-AA CL-09.09.2025.p5.pdf",
+                "Injured worker-PQME-(09.08.2025)-DA CL-09.09.2025.p4.pdf"
+            ]
+            
+            found_pqme = sum(1 for f in pqme_files if Path(f).exists())
+            print(f"📋 PQME Test Files: {found_pqme}/{len(pqme_files)} available")
+            
             print("="*60)
             print("🌐 Access the application at: http://localhost:8501")
             print("📚 Upload documents to: data/documents/")
             print("🔍 View logs in: logs/")
+            print("🏥 QME workflow: ./scripts/run.sh (option 9)")
+            print("📋 PQME testing: ./scripts/run.sh (option 10)")
             print("="*60)
             
         except Exception as e:

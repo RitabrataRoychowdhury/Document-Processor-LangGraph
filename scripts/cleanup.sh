@@ -102,6 +102,23 @@ if [ $REMOVED_DB -eq 1 ]; then
     print_warning "All processed documents and Q&A history have been removed"
 fi
 
+# Clean up QME-specific data
+echo ""
+print_status "Cleaning up QME-specific data..."
+safe_remove "data/qme_cache"
+safe_remove "data/qme_templates"
+safe_remove "data/qme_field_extractions"
+safe_remove "data/template_generation_artifacts"
+
+# Clean up QME knowledge graph entities
+if [ -f "data/database/documents.db" ]; then
+    print_status "QME knowledge graph entities will be cleaned with database"
+else
+    print_status "Cleaning QME knowledge graph cache files..."
+    find data -name "*qme*" -type f -delete 2>/dev/null || true
+    find data -name "*template*" -type f -delete 2>/dev/null || true
+fi
+
 # Clean up document storage
 echo ""
 print_status "Cleaning up document storage..."
@@ -154,6 +171,11 @@ safe_remove "test-results.xml"
 # Remove any temporary test files
 find . -name "test_*.tmp" -type f -delete 2>/dev/null || true
 find . -name "*.temp" -type f -delete 2>/dev/null || true
+
+# Clean up QME test artifacts
+find . -name "*qme_test*" -type f -delete 2>/dev/null || true
+find . -name "*template_test*" -type f -delete 2>/dev/null || true
+find . -name "generated_qme_*.docx" -type f -delete 2>/dev/null || true
 
 # Clean up Streamlit cache and config
 echo ""
@@ -228,10 +250,15 @@ echo ""
 echo "📊 Cleanup Summary:"
 echo "   ✅ Database files removed"
 echo "   ✅ Document storage cleared"
+echo "   ✅ QME-specific data cleared"
+echo "   ✅ Template generation artifacts removed"
+echo "   ✅ Field extraction cache cleared"
+echo "   ✅ Knowledge graph QME entities removed"
 echo "   ✅ Performance metrics cleared"
 echo "   ✅ Log files removed"
 echo "   ✅ Python cache cleared"
 echo "   ✅ Test artifacts removed"
+echo "   ✅ QME test files removed"
 echo "   ✅ Streamlit cache cleared"
 echo "   ✅ Temporary files cleared"
 echo "   ✅ Virtual environment deactivated"
@@ -253,9 +280,13 @@ echo "🔧 What was cleaned:"
 echo "   • All processed documents and embeddings"
 echo "   • Q&A session history and interactions"
 echo "   • Knowledge graph data and relationships"
-echo "   • Performance monitoring metrics"
+echo "   • QME field extraction cache and results"
+echo "   • Template generation artifacts and outputs"
+echo "   • QME knowledge graph entities and relationships"
+echo "   • Performance monitoring metrics (including QME-specific)"
 echo "   • System logs and debug information"
 echo "   • Python cache and temporary files"
+echo "   • QME test files and generated templates"
 echo ""
 echo "🛡️  What was preserved:"
 echo "   • Source code and configuration templates"

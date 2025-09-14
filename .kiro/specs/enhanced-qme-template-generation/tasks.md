@@ -1,49 +1,28 @@
 # Implementation Plan
 
-- [x] 1. Implement Enhanced Knowledge Graph-Driven Document Processing Pipeline
+- [x] 1. Fix Critical Data Extraction for QME Template Fields
 
-  - Create `src/services/enhanced_document_processor.py` with intelligent semantic chunking that preserves medical context boundaries
-  - Implement advanced medical entity extraction using spaCy medical models to identify Patient, Diagnosis, ImagingStudy, Findings, Claim, Treatment, and ImpairmentRating entities
-  - Build relationship mapping system that establishes connections between diagnoses, treatments, and impairment ratings with confidence scoring
-  - Create comprehensive provenance tracking system that maintains source document references (doc_id, page, offset, snippet) for all extracted entities
-  - Integrate with existing knowledge graph repository to populate enhanced medical ontology with proper entity deduplication and conflict resolution
-  - Add processing support for the specific PQME files: `Injured worker-PQME-(09.05.2025)-AA CL-09.09.2025.p5.pdf` and `Injured worker-PQME-(09.08.2025)-DA CL-09.09.2025.p4.pdf`
-  - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5_
+  - Enhance document processor to extract specific QME fields: Name, Age, Gender, Case Number, Claim Number, Injury Date, Body Part(s), Occupation, Employer, and Scheduled Exam Date from advocacy letters and PQME documents
+  - Implement robust pattern matching and NLP extraction for the specific data points present in `Injured worker-PQME-(09.05.2025)-AA CL-09.09.2025.p5.pdf` and `Injured worker-PQME-(09.08.2025)-DA CL-09.09.2025.p4.pdf`
+  - Create field validation system that ensures all required QME template fields are populated with extracted data before template generation
+  - Add fallback extraction methods using multiple NLP approaches (regex patterns, spaCy NER, and LLM-based extraction) to maximize field extraction success rate
+  - Test extraction accuracy specifically against the provided sample data: Nick Diaz Jr., 43 years old, Male, WC608-H07190, July 24, 2024 injury date, Left knee, Front-End Supervisor at Costco, September 9, 2025 exam date
+  - _Requirements: 1.1, 1.2, 1.4, 4.2_
 
-- [x] 2. Build Comprehensive AMA Guidelines Integration and Medical Reasoning Engine
+- [x] 2. Fix All UI Buttons and Template Generation Functionality
 
-  - Process and index `AMAGuides 5th Edition.pdf` to extract impairment tables, calculation methods, and rating rules into structured knowledge base
-  - Implement intelligent AMA chapter and method selection (Table vs ROM vs DRE) based on diagnosis patterns and available clinical data
-  - Create Combined Values Chart calculation engine with step-by-step mathematical validation and documentation
-  - Build medical reasoning module that generates coherent narratives from knowledge graph facts, including injury mechanism analysis and symptom progression
-  - Integrate `QME-Study-Guide.pdf` and `Sample3.pdf` as reference materials for report structure patterns and medical reasoning examples
-  - Implement automatic impairment rating calculations with proper AMA table citations and rationale generation
-  - _Requirements: 2.1, 2.2, 2.3, 2.4, 2.5_
-
-- [x] 3. Implement Advanced YAML-Configured Rules Engine with Legal Compliance
-
-  - Enhance `src/rules/rules.yaml` with comprehensive rule definitions covering all gold standard elements from the AI Example QME Report Template
-  - Implement rule execution engine supporting MUST/SHOULD/MAY priority levels with conditional triggers based on document metadata and content analysis
-  - Create mandatory element enforcement including §4062.3 declarations, MLPRR billing verification, ROM table structure validation, and ADL functional capacity grid requirements
-  - Build legal compliance validation system that ensures exact statutory language matching, interpreter requirements, and apportionment analysis with LC 4663/4664 references
-  - Implement comprehensive audit trail system with rule execution logging, provenance tracking, and validation result documentation
-  - _Requirements: 3.1, 3.2, 3.3, 3.4, 3.5_
-
-- [x] 4. Create Intelligent Content Generation Engine with Professional Medical Writing
-
-  - Implement section-by-section content generation using LLM prompts that incorporate knowledge graph facts, AMA guidelines, and legal requirements
-  - Build history of present illness generator that creates coherent narratives from injury mechanism, treatment timeline, and current symptom data
-  - Create physical examination content generator that produces detailed clinical descriptions including ROM measurements, strength testing, and neurological assessments
-  - Implement diagnostic studies integration that incorporates imaging results and laboratory findings with proper medical interpretation
-  - Build causation analysis generator that discusses industrial causation versus pre-existing conditions with reasonable medical probability statements
-  - Add future medical care recommendation engine that suggests appropriate treatments based on diagnosis, prognosis, and AMA guidelines
-  - _Requirements: 5.1, 5.2, 5.3, 5.4, 5.5_
-
-- [x] 5. Develop Professional Template Assembly System with Gold Standard Compliance
-  - Create enhanced template assembler that follows exact section order and formatting from `AI Example QME Report Template.docx`
-  - Implement professional DOCX generation with proper medical formatting including fonts, spacing, table structures, and signature blocks
-  - Build comprehensive validation system that ensures no placeholder text remains and all mandatory sections contain substantive content
-  - Create quality assurance pipeline with pre-assembly validation, post-assembly verification, and final compliance checking
-  - Implement download functionality that generates professional QME reports in DOCX format with proper medical-legal formatting and structure
-  - Add integration with existing UI systems to provide seamless template generation and download capabilities for the specified PQME patient files
+  - Debug and repair all non-functional buttons in the QME template interface including upload, process, generate template, and download buttons
+  - Fix the template generation workflow to properly integrate extracted field data with the gold standard template structure
+  - Implement proper error handling and user feedback for failed extractions or missing required fields
+  - Add real-time field validation display showing which required fields have been successfully extracted vs. missing
+  - Ensure seamless integration between document upload, field extraction, template population, and final DOCX generation with proper formatting
+  - Test complete end-to-end workflow from document upload through final QME report download using the provided PQME files
   - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.5_
+
+- [x] 3. Update and Fix System Scripts for Enhanced QME Workflow
+  - Update `scripts/cleanup.sh` to properly clean QME-specific data including extracted field cache, template generation artifacts, and knowledge graph QME entities
+  - Enhance `scripts/run.sh` to include QME-specific health checks, field extraction validation, and template generation testing
+  - Add QME workflow validation to startup scripts that verifies document processing, field extraction, and template generation capabilities
+  - Include specific testing for the provided PQME files to ensure the enhanced system can process them successfully
+  - Add performance monitoring for QME template generation times and field extraction accuracy rates
+  - _Requirements: 1.5, 4.5_

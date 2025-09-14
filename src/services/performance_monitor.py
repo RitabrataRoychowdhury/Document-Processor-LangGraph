@@ -98,6 +98,34 @@ class PerformanceMonitor:
                 comparison="less_than"
             ),
             PerformanceTarget(
+                name="qme_field_extraction_time",
+                description="QME field extraction should complete within 10 seconds",
+                target_value=10.0,
+                unit="seconds",
+                comparison="less_than"
+            ),
+            PerformanceTarget(
+                name="qme_template_generation_time",
+                description="QME template generation should complete within 30 seconds",
+                target_value=30.0,
+                unit="seconds",
+                comparison="less_than"
+            ),
+            PerformanceTarget(
+                name="qme_end_to_end_workflow_time",
+                description="Complete QME workflow should finish within 60 seconds",
+                target_value=60.0,
+                unit="seconds",
+                comparison="less_than"
+            ),
+            PerformanceTarget(
+                name="qme_field_extraction_accuracy",
+                description="QME field extraction accuracy should be above 90%",
+                target_value=90.0,
+                unit="percent",
+                comparison="greater_than"
+            ),
+            PerformanceTarget(
                 name="kg_population_time",
                 description="Knowledge graph population should complete within 5 seconds",
                 target_value=5.0,
