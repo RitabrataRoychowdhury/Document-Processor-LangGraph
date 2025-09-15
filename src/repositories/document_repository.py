@@ -3,6 +3,7 @@
 from abc import ABC, abstractmethod
 from typing import Dict, Any, List, Optional
 from datetime import datetime
+from pathlib import Path
 import sqlite3
 import json
 import pickle
@@ -134,6 +135,30 @@ class SQLiteDocumentRepository(DocumentRepository):
             logger.error(f"Error finding document {doc_id}: {e}")
             raise
     
+    def find_by_file_path(self, file_path: str) -> Optional[Document]:
+        """Find document by file path (using title as proxy)."""
+        try:
+            with self.db_manager.get_connection() as conn:
+                cursor = conn.cursor()
+                
+                # Use title field as proxy for file path
+                file_name = Path(file_path).name
+                cursor.execute("""
+                    SELECT * FROM documents 
+                    WHERE title = ? OR title LIKE ?
+                """, (file_name, f"%{file_name}%"))
+                
+                row = cursor.fetchone()
+                if row:
+                    doc_dict = dict(row)
+                    return Document.from_dict(doc_dict)
+                
+                return None
+                
+        except Exception as e:
+            logger.error(f"Error finding document by file path {file_path}: {e}")
+            return None
+
     def find_by_criteria(self, criteria: Dict[str, Any]) -> List[Document]:
         """Find documents matching criteria."""
         try:

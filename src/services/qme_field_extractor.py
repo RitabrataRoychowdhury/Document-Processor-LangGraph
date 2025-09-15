@@ -1,17 +1,20 @@
 """
-QME Field Extractor - Specialized extraction for QME template fields.
+QME Field Extractor - Enhanced extraction with confidence scoring and evidence provenance.
 
 This module implements robust pattern matching and NLP extraction for specific
-QME template fields from advocacy letters and PQME documents.
+QME template fields from advocacy letters and PQME documents with confidence
+scoring and evidence tracking.
 """
 
 import re
 import logging
+import json
 from datetime import datetime
-from typing import Dict, Any, List, Optional, Tuple
+from typing import Dict, Any, List, Optional, Tuple, NamedTuple
 from dataclasses import dataclass, field
 import spacy
 from spacy.matcher import Matcher
+from pathlib import Path
 
 from ..utils.logging_config import get_logger
 
@@ -19,8 +22,36 @@ logger = get_logger(__name__)
 
 
 @dataclass
+class DocumentCoordinate:
+    """Represents the location of extracted text within a document."""
+    page_number: int
+    start_char: int
+    end_char: int
+    line_number: Optional[int] = None
+
+
+@dataclass
+class EvidenceSnippet:
+    """Contains evidence text and its source location."""
+    text: str
+    context: str  # Surrounding text for context
+    coordinates: DocumentCoordinate
+    extraction_method: str  # 'regex', 'ner', 'hybrid'
+
+
+@dataclass
+class FieldExtraction:
+    """Result of extracting a single field with confidence and evidence."""
+    value: Any
+    confidence: float
+    evidence: EvidenceSnippet
+    extraction_method: str
+    cross_validation_score: float = 0.0
+
+
+@dataclass
 class QMEFieldData:
-    """Container for extracted QME template field data."""
+    """Container for extracted QME template field data with enhanced metadata."""
     name: Optional[str] = None
     age: Optional[int] = None
     gender: Optional[str] = None
@@ -31,39 +62,50 @@ class QMEFieldData:
     occupation: Optional[str] = None
     employer: Optional[str] = None
     scheduled_exam_date: Optional[str] = None
+    rom_measurements: Dict[str, List[float]] = field(default_factory=dict)
+    ama_table_references: List[str] = field(default_factory=list)
     
-    # Extraction metadata
+    # Enhanced extraction metadata
+    field_extractions: Dict[str, FieldExtraction] = field(default_factory=dict)
     extraction_confidence: Dict[str, float] = field(default_factory=dict)
     extraction_methods: Dict[str, str] = field(default_factory=dict)
     source_snippets: Dict[str, str] = field(default_factory=dict)
+    evidence_provenance: Dict[str, List[EvidenceSnippet]] = field(default_factory=dict)
 
 
 @dataclass
 class ExtractionResult:
-    """Result of field extraction with validation status."""
+    """Enhanced result of field extraction with confidence scoring and evidence."""
     field_data: QMEFieldData
     validation_status: Dict[str, bool]
     missing_fields: List[str]
     extraction_errors: List[str]
     overall_confidence: float
+    confidence_breakdown: Dict[str, float]
+    evidence_completeness: float
+    cross_validation_results: Dict[str, float]
 
 
 class QMEFieldExtractor:
     """
-    Specialized extractor for QME template fields using multiple NLP approaches.
+    Enhanced QME field extractor with confidence scoring and evidence provenance.
     
     Implements:
-    - Regex pattern matching for structured data
-    - spaCy NER for named entities
-    - LLM-based extraction as fallback
-    - Field validation and confidence scoring
+    - Regex pattern matching with confidence scoring
+    - spaCy NER enhancement layer
+    - Cross-document validation
+    - Evidence snippet collection and source tracking
+    - Confidence calculation algorithm (regex: 0.6, NER: 0.3, cross-validation: 0.1)
     """
     
     def __init__(self, spacy_model: str = "en_core_web_sm"):
-        """Initialize the QME field extractor."""
+        """Initialize the enhanced QME field extractor."""
         self.spacy_model_name = spacy_model
         self.nlp = None
         self.matcher = None
+        
+        # Load extraction patterns from legal_patterns.json
+        self.extraction_patterns = self._load_extraction_patterns()
         
         # Initialize NLP components
         self._initialize_nlp()
@@ -72,8 +114,37 @@ class QMEFieldExtractor:
         # Required fields for QME template
         self.required_fields = [
             'name', 'age', 'gender', 'case_number', 'claim_number',
-            'injury_date', 'body_parts', 'occupation', 'employer', 'scheduled_exam_date'
+            'injury_date', 'body_parts', 'occupation', 'employer', 'scheduled_exam_date',
+            'rom_measurements', 'ama_table_references'
         ]
+        
+        # Confidence weights for algorithm (as specified in requirements)
+        self.confidence_weights = {
+            'regex': 0.6,
+            'ner': 0.3,
+            'cross_validation': 0.1
+        }
+        
+        # Confidence thresholds for validation
+        self.confidence_thresholds = {
+            'critical_fields': 0.8,  # Critical fields like name, case_number, injury_date
+            'standard_fields': 0.5,  # Standard fields
+            'flagged_review': 0.5    # Fields below this need human review
+        }
+        
+        # Critical fields that require higher confidence
+        self.critical_fields = ['name', 'case_number', 'injury_date', 'body_parts']
+    
+    def _load_extraction_patterns(self) -> Dict[str, Any]:
+        """Load extraction patterns from legal_patterns.json."""
+        try:
+            patterns_path = Path(__file__).parent.parent.parent / "data" / "qme_references" / "legal_patterns.json"
+            with open(patterns_path, 'r') as f:
+                data = json.load(f)
+                return data.get('extraction_patterns', {})
+        except Exception as e:
+            logger.warning(f"Could not load extraction patterns: {e}")
+            return {}
     
     def _initialize_nlp(self) -> None:
         """Initialize spaCy NLP model."""
@@ -196,20 +267,54 @@ class QMEFieldExtractor:
     
     def extract_qme_fields(self, text: str, doc_id: str = None) -> ExtractionResult:
         """
-        Extract all QME template fields from document text.
+        Extract all QME template fields from document text with enhanced confidence scoring.
         
         Args:
             text: Document text content
             doc_id: Document identifier for tracking
             
         Returns:
-            ExtractionResult with field data and validation status
+            ExtractionResult with enhanced confidence metrics and evidence
         """
         logger.info(f"Extracting QME fields from document {doc_id}")
         
+        # Initialize field data container
         field_data = QMEFieldData()
         
-        # Extract each field type using multiple methods
+        # Use structured extractor for enhanced extraction if available
+        try:
+            from .structured_extractor import StructuredExtractor, ExtractionContext
+            
+            structured_extractor = StructuredExtractor(self.spacy_model_name)
+            context = ExtractionContext(
+                document_id=doc_id or "unknown",
+                document_text=text,
+                page_count=1,
+                source_file=None
+            )
+            
+            # Perform enhanced extraction
+            enhanced_result = structured_extractor.extract_with_confidence(context)
+            
+            # Fallback to legacy extraction for any missing critical fields
+            self._enhance_with_legacy_extraction(enhanced_result.field_data, text)
+            
+            # Re-validate after enhancement
+            validation_result = self._validate_fields(enhanced_result.field_data)
+            
+            # Update result with any legacy enhancements
+            enhanced_result.validation_status = validation_result['validation_status']
+            enhanced_result.missing_fields = validation_result['missing_fields']
+            enhanced_result.extraction_errors = validation_result['extraction_errors']
+            
+            return enhanced_result
+            
+        except ImportError as e:
+            logger.warning(f"Structured extractor not available, using legacy extraction: {e}")
+            # Fall back to legacy extraction
+            pass
+        
+        # Legacy extraction fallback
         field_data.name = self._extract_name(text)
         field_data.age = self._extract_age(text)
         field_data.gender = self._extract_gender(text)
@@ -229,8 +334,45 @@ class QMEFieldExtractor:
             validation_status=validation_result['validation_status'],
             missing_fields=validation_result['missing_fields'],
             extraction_errors=validation_result['extraction_errors'],
-            overall_confidence=validation_result['overall_confidence']
+            overall_confidence=validation_result['overall_confidence'],
+            confidence_breakdown={},
+            evidence_completeness=0.0,
+            cross_validation_results={}
         )
+    
+    def _enhance_with_legacy_extraction(self, field_data: QMEFieldData, text: str) -> None:
+        """Enhance extraction results with legacy methods for missing fields."""
+        # Only use legacy methods for fields that are missing or have low confidence
+        
+        if not field_data.name:
+            field_data.name = self._extract_name(text)
+            
+        if not field_data.age:
+            field_data.age = self._extract_age(text)
+            
+        if not field_data.gender:
+            field_data.gender = self._extract_gender(text)
+            
+        if not field_data.case_number:
+            field_data.case_number = self._extract_case_number(text)
+            
+        if not field_data.claim_number:
+            field_data.claim_number = self._extract_claim_number(text)
+            
+        if not field_data.injury_date:
+            field_data.injury_date = self._extract_injury_date(text)
+            
+        if not field_data.body_parts:
+            field_data.body_parts = self._extract_body_parts(text)
+            
+        if not field_data.occupation:
+            field_data.occupation = self._extract_occupation(text)
+            
+        if not field_data.employer:
+            field_data.employer = self._extract_employer(text)
+            
+        if not field_data.scheduled_exam_date:
+            field_data.scheduled_exam_date = self._extract_exam_date(text)
     
     def _extract_name(self, text: str) -> Optional[str]:
         """Extract patient name using multiple pattern approaches."""
@@ -398,7 +540,7 @@ class QMEFieldExtractor:
         invalid_patterns = [
             r'^\d+',  # Starts with number
             r'[<>@#$%^&*()]',  # Contains special characters
-            r'^(the|and|or|of|in|at|to|for|with|by)$',  # Common words
+            r'^(the|and|or|of|in|at|to|for|with|by)'  # Common words
         ]
         
         for pattern in invalid_patterns:
@@ -440,16 +582,29 @@ class QMEFieldExtractor:
         for field_name in self.required_fields:
             field_value = getattr(field_data, field_name)
             
-            if field_value is None or (isinstance(field_value, list) and not field_value):
+            if field_value is None or (isinstance(field_value, (list, dict)) and not field_value):
                 validation_status[field_name] = False
                 missing_fields.append(field_name)
             else:
                 validation_status[field_name] = True
         
-        # Calculate overall confidence
-        valid_fields = sum(validation_status.values())
-        total_fields = len(self.required_fields)
-        overall_confidence = valid_fields / total_fields if total_fields > 0 else 0.0
+        # Calculate overall confidence using extraction confidence if available
+        if field_data.extraction_confidence:
+            # Use weighted confidence from extractions
+            total_confidence = 0.0
+            confidence_count = 0
+            
+            for field_name in self.required_fields:
+                if field_name in field_data.extraction_confidence:
+                    total_confidence += field_data.extraction_confidence[field_name]
+                    confidence_count += 1
+            
+            overall_confidence = total_confidence / confidence_count if confidence_count > 0 else 0.0
+        else:
+            # Fallback to simple field count ratio
+            valid_fields = sum(validation_status.values())
+            total_fields = len(self.required_fields)
+            overall_confidence = valid_fields / total_fields if total_fields > 0 else 0.0
         
         return {
             'validation_status': validation_status,

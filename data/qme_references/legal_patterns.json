@@ -1,62 +1,398 @@
-[
-  {
-    "requirement_type": "section_4062_3_compliance",
-    "statutory_reference": "Labor Code Section 4062.3",
-    "required_language": "The evaluation shall address each of the issues described in the panel QME's report",
-    "compliance_criteria": [
-      "Address all issues in panel report",
-      "Provide medical opinion on each contested issue",
-      "Include impairment rating if requested"
+{
+  "extraction_patterns": {
+    "case_numbers": [
+      {
+        "pattern": "EAMS\\s+No[.:]?\\s*([A-Z0-9]+)",
+        "confidence": 0.95,
+        "description": "EAMS case number format"
+      },
+      {
+        "pattern": "Case\\s+(?:No|Number)[.:]?\\s*([A-Z0-9-]+)",
+        "confidence": 0.90,
+        "description": "Standard case number format"
+      },
+      {
+        "pattern": "\\b(ADJ\\d{8,})\\b",
+        "confidence": 0.85,
+        "description": "ADJ format case numbers"
+      },
+      {
+        "pattern": "\\b([A-Z]{2,3}\\d{6,})\\b",
+        "confidence": 0.70,
+        "description": "General alphanumeric case format"
+      },
+      {
+        "pattern": "(?:Case|File)\\s+(?:ID|Ref)[.:]?\\s*([A-Z0-9-]+)",
+        "confidence": 0.85,
+        "description": "Case ID or reference format"
+      },
+      {
+        "pattern": "WCB\\s+(?:No|Number)[.:]?\\s*([A-Z0-9-]+)",
+        "confidence": 0.90,
+        "description": "Workers' Compensation Board number"
+      }
     ],
-    "violation_consequences": [
-      "Report may be rejected",
-      "Additional evaluation may be required"
+    "claim_numbers": [
+      {
+        "pattern": "Claim\\s+No[.:]?\\s*([A-Z0-9-]+)",
+        "confidence": 0.95,
+        "description": "Standard claim number format"
+      },
+      {
+        "pattern": "\\b(WC\\d+[A-Z0-9-]*)\\b",
+        "confidence": 0.90,
+        "description": "WC prefixed claim numbers"
+      },
+      {
+        "pattern": "Claim\\s+(?:Number|#)[.:]?\\s*([A-Z0-9-]+)",
+        "confidence": 0.85,
+        "description": "Alternative claim number formats"
+      },
+      {
+        "pattern": "Insurance\\s+Claim[.:]?\\s*([A-Z0-9-]+)",
+        "confidence": 0.80,
+        "description": "Insurance claim reference"
+      },
+      {
+        "pattern": "Policy\\s+(?:No|Number)[.:]?\\s*([A-Z0-9-]+)",
+        "confidence": 0.75,
+        "description": "Policy number as claim identifier"
+      }
     ],
-    "example_implementation": "This evaluation addresses the following issues as described in the panel QME report: [list issues]"
+    "patient_names": [
+      {
+        "pattern": "(?:Applicant|Patient|Name)[.:]?\\s*([A-Z][a-z]+(?:\\s+[A-Z][a-z]*)*(?:\\s+(?:Jr|Sr|III?|IV|V)?\\.?)?)",
+        "confidence": 0.95,
+        "description": "Formal name designation"
+      },
+      {
+        "pattern": "Re:\\s*Applicant[.:]?\\s*([A-Z][a-z]+(?:\\s+[A-Z][a-z]*)*(?:\\s+(?:Jr|Sr|III?|IV|V)?\\.?)?)",
+        "confidence": 0.90,
+        "description": "Re: Applicant format"
+      },
+      {
+        "pattern": "the applicant,?\\s*([A-Z][a-z]+\\s+[A-Z][a-z]+(?:\\s+(?:Jr|Sr|III?|IV|V)?\\.?)?)",
+        "confidence": 0.80,
+        "description": "Contextual applicant reference"
+      },
+      {
+        "pattern": "([A-Z][a-z]+\\s+[A-Z][a-z]+(?:\\s+(?:Jr|Sr|III?|IV|V)?\\.?)?),?\\s*(?:a\\s*)?(\\d{2})[- ]year[- ]old",
+        "confidence": 0.85,
+        "description": "Name with age context"
+      },
+      {
+        "pattern": "(?:Mr|Mrs|Ms|Dr)\\.?\\s+([A-Z][a-z]+(?:\\s+[A-Z][a-z]*)*(?:\\s+(?:Jr|Sr|III?|IV|V)?\\.?)?)",
+        "confidence": 0.88,
+        "description": "Name with title prefix"
+      },
+      {
+        "pattern": "Injured\\s+(?:Worker|Employee)[.:]?\\s*([A-Z][a-z]+(?:\\s+[A-Z][a-z]*)*)",
+        "confidence": 0.82,
+        "description": "Injured worker designation"
+      },
+      {
+        "pattern": "Claimant[.:]?\\s*([A-Z][a-z]+(?:\\s+[A-Z][a-z]*)*(?:\\s+(?:Jr|Sr|III?|IV|V)?\\.?)?)",
+        "confidence": 0.87,
+        "description": "Claimant designation"
+      }
+    ],
+    "ages": [
+      {
+        "pattern": "(\\d{2})[- ]year[- ]old",
+        "confidence": 0.95,
+        "description": "Standard age format with 'year old'"
+      },
+      {
+        "pattern": "(?:age|Age)[.:]?\\s*(\\d{2})",
+        "confidence": 0.90,
+        "description": "Age field designation"
+      },
+      {
+        "pattern": "was\\s+a\\s+(\\d{2})[- ]year[- ]old",
+        "confidence": 0.85,
+        "description": "Past tense age reference"
+      },
+      {
+        "pattern": "(?:born|DOB)[.:]?.*?(\\d{1,2})[/\\-](\\d{1,2})[/\\-](\\d{4})",
+        "confidence": 0.80,
+        "description": "Date of birth for age calculation"
+      },
+      {
+        "pattern": "age\\s+(\\d{2})\\s+at\\s+time\\s+of\\s+(?:injury|accident)",
+        "confidence": 0.92,
+        "description": "Age at time of injury"
+      }
+    ],
+    "genders": [
+      {
+        "pattern": "(?:Gender|Sex)[.:]?\\s*(Male|Female|M|F)",
+        "confidence": 0.95,
+        "description": "Direct gender specification"
+      },
+      {
+        "pattern": "\\b(Mr|Mrs|Ms|Miss)\\.?\\s+[A-Z]",
+        "confidence": 0.80,
+        "description": "Title-based gender inference"
+      },
+      {
+        "pattern": "\\b(he|she|his|her|him)\\b",
+        "confidence": 0.60,
+        "description": "Pronoun-based gender inference"
+      },
+      {
+        "pattern": "(?:male|female)\\s+(?:patient|applicant|worker)",
+        "confidence": 0.85,
+        "description": "Gender with role context"
+      }
+    ],
+    "dates": [
+      {
+        "pattern": "(?:injury|injured)\\s+on\\s+([A-Z][a-z]+\\s+\\d{1,2},\\s+\\d{4})",
+        "confidence": 0.90,
+        "description": "Injury date - full format"
+      },
+      {
+        "pattern": "(?:Date\\s+of\\s+injury|Injury\\s+date)[.:]?\\s*(\\d{1,2}[/\\-]\\d{1,2}[/\\-]\\d{4})",
+        "confidence": 0.95,
+        "description": "Formal injury date designation"
+      },
+      {
+        "pattern": "sustained.*?(?:injury|accident).*?on\\s+([A-Z][a-z]+\\s+\\d{1,2},\\s+\\d{4})",
+        "confidence": 0.80,
+        "description": "Contextual injury date"
+      },
+      {
+        "pattern": "scheduled\\s+to\\s+take\\s+place\\s+on\\s+([A-Z][a-z]+\\s+\\d{1,2},\\s+\\d{4})",
+        "confidence": 0.90,
+        "description": "Exam scheduling date"
+      },
+      {
+        "pattern": "examination.*?scheduled.*?(?:for|on)\\s+([A-Z][a-z]+\\s+\\d{1,2},\\s+\\d{4})",
+        "confidence": 0.85,
+        "description": "Exam date context"
+      },
+      {
+        "pattern": "(?:DOI|Date\\s+of\\s+Incident)[.:]?\\s*(\\d{1,2}[/\\-]\\d{1,2}[/\\-]\\d{4})",
+        "confidence": 0.92,
+        "description": "Date of incident abbreviation"
+      },
+      {
+        "pattern": "accident\\s+(?:occurred|happened)\\s+on\\s+([A-Z][a-z]+\\s+\\d{1,2},\\s+\\d{4})",
+        "confidence": 0.88,
+        "description": "Accident occurrence date"
+      },
+      {
+        "pattern": "(?:Exam|Evaluation)\\s+Date[.:]?\\s*(\\d{1,2}[/\\-]\\d{1,2}[/\\-]\\d{4})",
+        "confidence": 0.93,
+        "description": "Formal exam date designation"
+      },
+      {
+        "pattern": "at\\s+\\d{1,2}:\\d{2}\\s+[ap]\\.?m\\.?\\s+(?:on\\s+)?([A-Z][a-z]+\\s+\\d{1,2},\\s+\\d{4})",
+        "confidence": 0.87,
+        "description": "Date with time specification"
+      }
+    ],
+    "body_parts": [
+      {
+        "pattern": "(?:sustained|suffered).*?((?:left|right|bilateral)?\\s*(?:knee|shoulder|back|neck|ankle|wrist|hand|foot|hip|elbow|spine|lumbar|cervical|thoracic|finger|thumb|toe|jaw|temporomandibular|TMJ))\\s+(?:injury|pain|condition|trauma)",
+        "confidence": 0.90,
+        "description": "Injury context body parts"
+      },
+      {
+        "pattern": "injury\\s+to\\s+(?:the\\s+)?((?:left|right|bilateral)?\\s*(?:knee|shoulder|back|neck|ankle|wrist|hand|foot|hip|elbow|spine|lumbar|cervical|thoracic|finger|thumb|toe|jaw|temporomandibular|TMJ))",
+        "confidence": 0.85,
+        "description": "Direct injury to body part"
+      },
+      {
+        "pattern": "\\b((?:left|right|bilateral)?\\s*(?:knee|shoulder|back|neck|ankle|wrist|hand|foot|hip|elbow|spine|lumbar|cervical|thoracic|finger|thumb|toe|jaw|temporomandibular|TMJ))\\s+(?:pain|symptoms|complaints|dysfunction)",
+        "confidence": 0.75,
+        "description": "Body part with symptoms"
+      },
+      {
+        "pattern": "range\\s+of\\s+motion.*?((?:left|right|bilateral)?\\s*(?:knee|shoulder|back|neck|ankle|wrist|hand|foot|hip|elbow|spine|lumbar|cervical|thoracic|finger|thumb|toe|jaw|temporomandibular|TMJ))",
+        "confidence": 0.80,
+        "description": "ROM measurement context"
+      },
+      {
+        "pattern": "(?:affected|involved)\\s+(?:body\\s+)?(?:part|area|region)[.:]?\\s*((?:left|right|bilateral)?\\s*(?:knee|shoulder|back|neck|ankle|wrist|hand|foot|hip|elbow|spine|lumbar|cervical|thoracic|finger|thumb|toe|jaw|temporomandibular|TMJ))",
+        "confidence": 0.82,
+        "description": "Affected body part designation"
+      },
+      {
+        "pattern": "((?:left|right|bilateral)?\\s*(?:knee|shoulder|back|neck|ankle|wrist|hand|foot|hip|elbow|spine|lumbar|cervical|thoracic|finger|thumb|toe|jaw|temporomandibular|TMJ))\\s+(?:impairment|disability|limitation)",
+        "confidence": 0.88,
+        "description": "Body part with impairment"
+      }
+    ],
+    "rom_measurements": [
+      {
+        "pattern": "((?:left|right|bilateral)?\\s*(?:knee|shoulder|back|neck|ankle|wrist|hand|foot|hip|elbow|finger|thumb|jaw)).*?(?:flexion|extension|abduction|adduction|rotation|dorsiflexion|plantarflexion|inversion|eversion).*?(\\d{1,3})\\s*(?:degrees?|°)",
+        "confidence": 0.95,
+        "description": "Specific ROM measurements with body part"
+      },
+      {
+        "pattern": "range\\s+of\\s+motion.*?(\\d{1,3})\\s*(?:degrees?|°).*?(?:flexion|extension|abduction|adduction|rotation|dorsiflexion|plantarflexion)",
+        "confidence": 0.85,
+        "description": "ROM with degree measurements"
+      },
+      {
+        "pattern": "(?:flexion|extension|abduction|adduction|rotation|dorsiflexion|plantarflexion|inversion|eversion)\\s*[:-]?\\s*(\\d{1,3})\\s*(?:degrees?|°)",
+        "confidence": 0.80,
+        "description": "Movement type with degrees"
+      },
+      {
+        "pattern": "ROM\\s*[:-]?\\s*(?:flexion|extension|abduction|adduction)\\s*(\\d{1,3})\\s*(?:degrees?|°)",
+        "confidence": 0.88,
+        "description": "ROM abbreviation with measurement"
+      },
+      {
+        "pattern": "(?:active|passive)\\s+(?:flexion|extension|abduction|adduction|rotation)\\s*[:-]?\\s*(\\d{1,3})\\s*(?:degrees?|°)",
+        "confidence": 0.92,
+        "description": "Active/passive ROM measurements"
+      },
+      {
+        "pattern": "measured\\s+(?:flexion|extension|abduction|adduction|rotation)\\s+(?:of|at)\\s*(\\d{1,3})\\s*(?:degrees?|°)",
+        "confidence": 0.90,
+        "description": "Measured ROM values"
+      }
+    ],
+    "ama_table_references": [
+      {
+        "pattern": "AMA\\s+Guides?\\s+(?:5th\\s+Edition)?.*?(?:Table|Chapter|Section)\\s+(\\d+[A-Z]?[\\-\\d]*)",
+        "confidence": 0.95,
+        "description": "AMA Guides table/chapter reference"
+      },
+      {
+        "pattern": "(?:Table|Chapter|Section)\\s+(\\d+[A-Z]?[\\-\\d]*).*?AMA\\s+Guides?",
+        "confidence": 0.90,
+        "description": "Table reference with AMA context"
+      },
+      {
+        "pattern": "impairment.*?(?:Table|Chapter|Section)\\s+(\\d+[A-Z]?[\\-\\d]*)",
+        "confidence": 0.80,
+        "description": "Impairment calculation table"
+      },
+      {
+        "pattern": "Combined\\s+Values\\s+Chart",
+        "confidence": 0.95,
+        "description": "Combined Values Chart reference"
+      },
+      {
+        "pattern": "(?:Table|Chapter)\\s+(\\d+[A-Z]?[\\-\\d]*)\\s*[,.]?\\s*(?:page|p\\.)\\s*(\\d+)",
+        "confidence": 0.92,
+        "description": "Table with page reference"
+      },
+      {
+        "pattern": "AMA\\s+(?:Table|Chapter)\\s+(\\d+[A-Z]?[\\-\\d]*)",
+        "confidence": 0.88,
+        "description": "Direct AMA table reference"
+      },
+      {
+        "pattern": "(?:Guides?|AMA).*?(?:Figure|Fig\\.)\\s+(\\d+[A-Z]?[\\-\\d]*)",
+        "confidence": 0.85,
+        "description": "AMA Guides figure reference"
+      }
+    ],
+    "occupations": [
+      {
+        "pattern": "Occupation[.:]?\\s*([A-Z][a-zA-Z\\s\\-&.,]+?)(?:\\s+at|\\s+for|\\s+with|$)",
+        "confidence": 0.95,
+        "description": "Formal occupation designation"
+      },
+      {
+        "pattern": "(?:\\d{2}[- ]year[- ]old\\s+)([a-zA-Z\\-\\s]+?)(?:\\s+for|\\s+at|\\s+with)",
+        "confidence": 0.85,
+        "description": "Occupation with age context"
+      },
+      {
+        "pattern": "(?:worked|employed)\\s+as\\s+(?:a\\s+)?([a-zA-Z\\-\\s]+?)(?:\\s+for|\\s+at|\\s+with)",
+        "confidence": 0.88,
+        "description": "Employment role description"
+      },
+      {
+        "pattern": "Job\\s+(?:Title|Position)[.:]?\\s*([A-Z][a-zA-Z\\s\\-&.,]+)",
+        "confidence": 0.92,
+        "description": "Job title designation"
+      }
+    ],
+    "employers": [
+      {
+        "pattern": "Employer[.:]?\\s*([A-Z][a-zA-Z\\s&.,\\-]+?)(?:\\s+(?:Venue|EAMS|located|in)|$)",
+        "confidence": 0.95,
+        "description": "Formal employer designation"
+      },
+      {
+        "pattern": "(?:worked|employed)\\s+(?:at|for|by)\\s+([A-Z][a-zA-Z\\s&.,\\-]+?)(?:\\s+(?:warehouse|company|corporation|inc|llc)|$)",
+        "confidence": 0.88,
+        "description": "Employment context"
+      },
+      {
+        "pattern": "Company[.:]?\\s*([A-Z][a-zA-Z\\s&.,\\-]+)",
+        "confidence": 0.90,
+        "description": "Company designation"
+      }
+    ]
   },
-  {
-    "requirement_type": "impairment_rating_requirement",
-    "statutory_reference": "Labor Code Section 4660",
-    "required_language": "Permanent disability shall be determined in accordance with the AMA Guides",
-    "compliance_criteria": [
-      "Use AMA Guides 5th Edition",
-      "Provide specific table references",
-      "Show calculation methodology"
-    ],
-    "violation_consequences": [
-      "Rating may be rejected",
-      "Supplemental report required"
-    ],
-    "example_implementation": "The impairment rating is calculated using AMA Guides 5th Edition, Chapter X, Table Y"
-  },
-  {
-    "requirement_type": "causation_analysis",
-    "statutory_reference": "Labor Code Section 3208.3",
-    "required_language": "Industrial causation must be established to a reasonable degree of medical probability",
-    "compliance_criteria": [
-      "State opinion to reasonable medical probability",
-      "Consider alternative causes",
-      "Provide medical rationale"
-    ],
-    "violation_consequences": [
-      "Causation finding may be rejected",
-      "Additional medical evidence required"
-    ],
-    "example_implementation": "It is my opinion to a reasonable degree of medical probability that..."
-  },
-  {
-    "requirement_type": "apportionment_analysis",
-    "statutory_reference": "Labor Code Sections 4663 and 4664",
-    "required_language": "Apportionment shall be based on causation",
-    "compliance_criteria": [
-      "Identify all contributing factors",
-      "Assign percentage to each factor",
-      "Provide medical basis for apportionment"
-    ],
-    "violation_consequences": [
-      "Apportionment may be rejected",
-      "Supplemental analysis required"
-    ],
-    "example_implementation": "Apportionment: X% industrial, Y% non-industrial based on..."
-  }
-]
+  "legal_requirements": [
+    {
+      "requirement_type": "section_4062_3_compliance",
+      "statutory_reference": "Labor Code Section 4062.3",
+      "required_language": "The evaluation shall address each of the issues described in the panel QME's report",
+      "compliance_criteria": [
+        "Address all issues in panel report",
+        "Provide medical opinion on each contested issue",
+        "Include impairment rating if requested"
+      ],
+      "violation_consequences": [
+        "Report may be rejected",
+        "Additional evaluation may be required"
+      ],
+      "example_implementation": "This evaluation addresses the following issues as described in the panel QME report: [list issues]"
+    },
+    {
+      "requirement_type": "impairment_rating_requirement",
+      "statutory_reference": "Labor Code Section 4660",
+      "required_language": "Permanent disability shall be determined in accordance with the AMA Guides",
+      "compliance_criteria": [
+        "Use AMA Guides 5th Edition",
+        "Provide specific table references",
+        "Show calculation methodology"
+      ],
+      "violation_consequences": [
+        "Rating may be rejected",
+        "Supplemental report required"
+      ],
+      "example_implementation": "The impairment rating is calculated using AMA Guides 5th Edition, Chapter X, Table Y"
+    },
+    {
+      "requirement_type": "causation_analysis",
+      "statutory_reference": "Labor Code Section 3208.3",
+      "required_language": "Industrial causation must be established to a reasonable degree of medical probability",
+      "compliance_criteria": [
+        "State opinion to reasonable medical probability",
+        "Consider alternative causes",
+        "Provide medical rationale"
+      ],
+      "violation_consequences": [
+        "Causation finding may be rejected",
+        "Additional medical evidence required"
+      ],
+      "example_implementation": "It is my opinion to a reasonable degree of medical probability that..."
+    },
+    {
+      "requirement_type": "apportionment_analysis",
+      "statutory_reference": "Labor Code Sections 4663 and 4664",
+      "required_language": "Apportionment shall be based on causation",
+      "compliance_criteria": [
+        "Identify all contributing factors",
+        "Assign percentage to each factor",
+        "Provide medical basis for apportionment"
+      ],
+      "violation_consequences": [
+        "Apportionment may be rejected",
+        "Supplemental analysis required"
+      ],
+      "example_implementation": "Apportionment: X% industrial, Y% non-industrial based on..."
+    }
+  ]
+}

@@ -1,241 +1,117 @@
-2025-09-13 19:26:49,486 - __main__ - ERROR - main:55 - Streamlit initialization error: name 'asyncio' is not defined
+2025-09-16 00:26:12,363 - src.services.knowledge_base_initializer - ERROR - get_initialization_progress:982 - Error getting initialization progress: 'SQLiteDocumentRepository' object has no attribute 'find_by_file_path'
 Traceback (most recent call last):
-  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/ui/main_app.py", line 42, in main
-    success = asyncio.run(startup.startup())
-              ^^^^^^^
-NameError: name 'asyncio' is not defined. Did you forget to import 'asyncio'?
-2025-09-13 19:31:32,226 - src.startup - ERROR - _initialize_knowledge_base:154 - Knowledge base initialization failed: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
-Traceback (most recent call last):
-  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/startup.py", line 135, in _initialize_knowledge_base
-    pipeline = self.container.get_ingestion_pipeline()
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-AttributeError: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
-2025-09-13 19:36:43,535 - __main__ - ERROR - main:235 - Page rendering error on Q&A Interface: 'str' object has no attribute 'create_qa_session'
-Traceback (most recent call last):
-  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/ui/main_app.py", line 218, in main
-    render_qa_page()
-    ~~~~~~~~~~~~~~^^
-  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/ui/qa_interface.py", line 341, in render_qa_page
-    qa_interface.render_qa_interface()
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
-  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/ui/qa_interface.py", line 55, in render_qa_interface
-    self._render_qa_session(selected_doc)
-    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
-  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/ui/qa_interface.py", line 127, in _render_qa_session
-    session_id = self._get_or_create_session(document.id)
-  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/ui/qa_interface.py", line 145, in _get_or_create_session
-    session_id = self.qa_engine.create_qa_session(document_id)
-  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/services/qa_engine.py", line 363, in create_qa_session
-    self.storage.create_qa_session(session)
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-AttributeError: 'str' object has no attribute 'create_qa_session'
-2025-09-13 19:39:04,442 - src.startup - ERROR - _initialize_knowledge_base:154 - Knowledge base initialization failed: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
-Traceback (most recent call last):
-  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/startup.py", line 135, in _initialize_knowledge_base
-    pipeline = self.container.get_ingestion_pipeline()
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-AttributeError: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
-2025-09-13 19:43:27,223 - src.services.document_processor - ERROR - process_document_simple:86 - Error processing document AMAGuides 5th Edition.pdf: no such column: file_path
-2025-09-13 19:43:27,269 - src.services.document_processor - ERROR - process_document_simple:86 - Error processing document QME-Study-Guide.pdf: no such column: file_path
-2025-09-13 19:43:27,316 - src.services.document_processor - ERROR - process_document_simple:86 - Error processing document Sample3.pdf: no such column: file_path
-2025-09-13 19:47:40,593 - src.startup - ERROR - _initialize_knowledge_base:154 - Knowledge base initialization failed: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
-Traceback (most recent call last):
-  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/startup.py", line 135, in _initialize_knowledge_base
-    pipeline = self.container.get_ingestion_pipeline()
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-AttributeError: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
-2025-09-13 21:20:23,967 - src.workflow.state.document_state - ERROR - validate_state:68 - Invalid processing_stage: text_extraction_complete
-2025-09-13 21:20:23,967 - src.workflow.state.document_state - ERROR - validate_state:68 - Invalid processing_stage: text_extraction_complete
-2025-09-13 21:44:59,544 - src.workflow.workflow_manager - ERROR - execute_document_processing_graph:162 - Error executing document processing graph: Missing required keys: ['workflow_id', 'status', 'created_at', 'updated_at', 'progress_percentage', 'current_step'] [correlation_id: 68878a6a-0cc9-4031-a5ae-eef2cc38adf1]
-2025-09-13 21:49:37,252 - src.workflow.nodes.kg_population_node - ERROR - execute:138 - KG population failed: 'SQLiteKnowledgeGraphRepository' object has no attribute 'create_node' [correlation_id: 380acc78-6573-435c-a74f-3c0ce309a303]
-2025-09-13 21:49:38,256 - src.workflow.nodes.kg_population_node - ERROR - execute:138 - KG population failed: 'SQLiteKnowledgeGraphRepository' object has no attribute 'create_node' [correlation_id: 380acc78-6573-435c-a74f-3c0ce309a303]
-2025-09-13 21:49:40,260 - src.workflow.nodes.kg_population_node - ERROR - execute:138 - KG population failed: 'SQLiteKnowledgeGraphRepository' object has no attribute 'create_node' [correlation_id: 380acc78-6573-435c-a74f-3c0ce309a303]
-2025-09-13 21:49:40,260 - src.workflow.base.workflow_graph - ERROR - execute:224 - Graph 14d48662-9840-4596-880e-d20a82300cae failed: Node kg_population failed: KG population failed: 'SQLiteKnowledgeGraphRepository' object has no attribute 'create_node' [correlation_id: 380acc78-6573-435c-a74f-3c0ce309a303]
-2025-09-13 21:49:40,260 - src.workflow.base.workflow_graph - ERROR - on_graph_event:363 - Graph 14d48662-9840-4596-880e-d20a82300cae failed: Node kg_population failed: KG population failed: 'SQLiteKnowledgeGraphRepository' object has no attribute 'create_node' [correlation_id: 380acc78-6573-435c-a74f-3c0ce309a303]
-2025-09-13 21:49:40,261 - src.workflow.state.document_state - ERROR - validate_state:52 - Missing document_id in document state
-2025-09-13 21:49:40,262 - src.workflow.state.workflow_state - ERROR - fail_workflow:137 - Failed workflow 33e40b1d-f86d-4164-abd2-b836bb6a2490: Node kg_population failed: KG population failed: 'SQLiteKnowledgeGraphRepository' object has no attribute 'create_node'
-2025-09-13 21:49:40,262 - src.workflow.workflow_manager - ERROR - execute_document_processing_graph:163 - Document processing graph failed: Node kg_population failed: KG population failed: 'SQLiteKnowledgeGraphRepository' object has no attribute 'create_node' [correlation_id: 380acc78-6573-435c-a74f-3c0ce309a303]
-2025-09-13 21:50:03,092 - src.workflow.nodes.kg_population_node - ERROR - execute:138 - KG population failed: 'SQLiteKnowledgeGraphRepository' object has no attribute 'create_node' [correlation_id: 504b7f5b-fd1f-4313-bb12-226fc75b90eb]
-2025-09-13 21:50:04,097 - src.workflow.nodes.kg_population_node - ERROR - execute:138 - KG population failed: 'SQLiteKnowledgeGraphRepository' object has no attribute 'create_node' [correlation_id: 504b7f5b-fd1f-4313-bb12-226fc75b90eb]
-2025-09-13 21:50:06,103 - src.workflow.nodes.kg_population_node - ERROR - execute:138 - KG population failed: 'SQLiteKnowledgeGraphRepository' object has no attribute 'create_node' [correlation_id: 504b7f5b-fd1f-4313-bb12-226fc75b90eb]
-2025-09-13 21:50:06,104 - src.workflow.base.workflow_graph - ERROR - execute:224 - Graph fd1e47e7-1975-4c2a-893c-120db293ed33 failed: Node kg_population failed: KG population failed: 'SQLiteKnowledgeGraphRepository' object has no attribute 'create_node' [correlation_id: 504b7f5b-fd1f-4313-bb12-226fc75b90eb]
-2025-09-13 21:50:06,104 - src.workflow.base.workflow_graph - ERROR - on_graph_event:363 - Graph fd1e47e7-1975-4c2a-893c-120db293ed33 failed: Node kg_population failed: KG population failed: 'SQLiteKnowledgeGraphRepository' object has no attribute 'create_node' [correlation_id: 504b7f5b-fd1f-4313-bb12-226fc75b90eb]
-2025-09-13 21:50:06,106 - src.workflow.state.document_state - ERROR - validate_state:52 - Missing document_id in document state
-2025-09-13 21:50:06,107 - src.workflow.state.workflow_state - ERROR - fail_workflow:137 - Failed workflow 7c5dfe33-715d-4bdb-b479-adf36ad9501f: Node kg_population failed: KG population failed: 'SQLiteKnowledgeGraphRepository' object has no attribute 'create_node'
-2025-09-13 21:50:06,107 - src.workflow.workflow_manager - ERROR - execute_document_processing_graph:163 - Document processing graph failed: Node kg_population failed: KG population failed: 'SQLiteKnowledgeGraphRepository' object has no attribute 'create_node' [correlation_id: 504b7f5b-fd1f-4313-bb12-226fc75b90eb]
-2025-09-13 21:51:15,018 - src.workflow.state.document_state - ERROR - validate_state:68 - Invalid processing_stage: text_extraction_complete
-2025-09-13 21:51:15,018 - src.workflow.state.document_state - ERROR - validate_state:68 - Invalid processing_stage: text_extraction_complete
-2025-09-13 21:53:21,868 - src.startup - ERROR - _initialize_knowledge_base:154 - Knowledge base initialization failed: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
-Traceback (most recent call last):
-  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/startup.py", line 135, in _initialize_knowledge_base
-    pipeline = self.container.get_ingestion_pipeline()
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-AttributeError: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
-2025-09-13 22:41:41,544 - __main__ - ERROR - main:389 - Demo error: Finding.__init__() missing 1 required positional argument: 'page_reference'
-2025-09-13 22:42:44,894 - __main__ - ERROR - main:394 - Demo error: ImpairmentRating.__init__() got an unexpected keyword argument 'ama_table_reference'
-2025-09-13 22:47:53,598 - src.startup - ERROR - _initialize_knowledge_base:154 - Knowledge base initialization failed: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
-Traceback (most recent call last):
-  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/startup.py", line 135, in _initialize_knowledge_base
-    pipeline = self.container.get_ingestion_pipeline()
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-AttributeError: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
-2025-09-13 23:11:00,934 - src.services.advanced_qme_rules_engine - ERROR - _load_rules:577 - Error loading rules file src/rules/rules.yaml: while parsing a block mapping
-  in "src/rules/rules.yaml", line 5, column 1
-expected <block end>, but found '-'
-  in "src/rules/rules.yaml", line 10, column 1
-2025-09-13 23:11:00,935 - src.services.advanced_qme_rules_engine - ERROR - _load_rules:577 - Error loading rules file src/rules/rules.yaml: while parsing a block mapping
-  in "src/rules/rules.yaml", line 5, column 1
-expected <block end>, but found '-'
-  in "src/rules/rules.yaml", line 10, column 1
-2025-09-13 23:12:56,497 - src.services.advanced_qme_rules_engine - ERROR - _execute_single_action:255 - Error executing action {'validate_format': [{'claimant_name': '^[A-Z][a-z]+(\\s+[A-Z][a-z]+)*$'}, {'claim_number': '^[A-Z0-9\\-]{5,20}$'}, {'wcab_number': '^[A-Z0-9\\-]{5,20}$'}, {'dates_of_injury': '^\\d{1,2}/\\d{1,2}/\\d{4}$'}]}: 'list' object has no attribute 'items'
-2025-09-13 23:12:56,498 - src.services.advanced_qme_rules_engine - ERROR - _execute_single_action:255 - Error executing action {'validate_format': [{'claimant_name': '^[A-Z][a-z]+(\\s+[A-Z][a-z]+)*$'}, {'claim_number': '^[A-Z0-9\\-]{5,20}$'}, {'wcab_number': '^[A-Z0-9\\-]{5,20}$'}, {'dates_of_injury': '^\\d{1,2}/\\d{1,2}/\\d{4}$'}]}: 'list' object has no attribute 'items'
-2025-09-13 23:23:07,224 - src.startup - ERROR - _initialize_knowledge_base:154 - Knowledge base initialization failed: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
-Traceback (most recent call last):
-  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/startup.py", line 135, in _initialize_knowledge_base
-    pipeline = self.container.get_ingestion_pipeline()
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-AttributeError: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
-2025-09-14 13:39:14,951 - src.startup - ERROR - _initialize_knowledge_base:154 - Knowledge base initialization failed: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
-Traceback (most recent call last):
-  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/startup.py", line 135, in _initialize_knowledge_base
-    pipeline = self.container.get_ingestion_pipeline()
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-AttributeError: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
-2025-09-14 13:50:18,274 - src.services.enhanced_document_processor - ERROR - _store_in_knowledge_graph:1052 - Error storing in knowledge graph: Mock object has no attribute 'save_section'
-2025-09-14 13:50:18,302 - src.services.enhanced_document_processor - ERROR - _store_in_knowledge_graph:1052 - Error storing in knowledge graph: Mock object has no attribute 'save_section'
-2025-09-14 13:50:18,302 - src.services.enhanced_document_processor - ERROR - process_patient_documents:302 - Error processing document /var/folders/tf/v4z6mt_s343b3c611hlfc_jh0000gn/T/tmp4w5142fv.txt: Mock object has no attribute 'save_section'
-2025-09-14 13:50:18,302 - src.services.enhanced_document_processor - ERROR - _store_in_knowledge_graph:1052 - Error storing in knowledge graph: Mock object has no attribute 'save_section'
-2025-09-14 13:50:18,302 - src.services.enhanced_document_processor - ERROR - process_patient_documents:302 - Error processing document /var/folders/tf/v4z6mt_s343b3c611hlfc_jh0000gn/T/tmpzvwzqjrn.txt: Mock object has no attribute 'save_section'
-2025-09-14 13:50:18,307 - src.services.enhanced_document_processor - ERROR - _store_in_knowledge_graph:1052 - Error storing in knowledge graph: Mock object has no attribute 'save_section'
-2025-09-14 14:28:08,090 - src.services.advanced_qme_rules_engine - ERROR - _execute_single_action:283 - Error executing action {'validate_format': [{'claimant_name': '^[A-Z][a-z]+(\\s+[A-Z][a-z]+)*$'}, {'claim_number': '^[A-Z0-9\\-]{5,20}$'}, {'wcab_number': '^[A-Z0-9\\-]{5,20}$'}, {'dates_of_injury': '^\\d{1,2}/\\d{1,2}/\\d{4}$'}]}: 'list' object has no attribute 'items'
-2025-09-14 14:28:28,944 - src.services.advanced_qme_rules_engine - ERROR - _execute_single_action:283 - Error executing action {'validate_format': [{'claimant_name': '^[A-Z][a-z]+(\\s+[A-Z][a-z]+)*$'}, {'claim_number': '^[A-Z0-9\\-]{5,20}$'}, {'wcab_number': '^[A-Z0-9\\-]{5,20}$'}, {'dates_of_injury': '^\\d{1,2}/\\d{1,2}/\\d{4}$'}]}: 'list' object has no attribute 'items'
-2025-09-14 14:32:04,030 - src.services.advanced_qme_rules_engine - ERROR - _execute_single_action:283 - Error executing action {'validate_format': [{'claimant_name': '^[A-Z][a-z]+(\\s+[A-Z][a-z]+)*$'}, {'claim_number': '^[A-Z0-9\\-]{5,20}$'}, {'wcab_number': '^[A-Z0-9\\-]{5,20}$'}, {'dates_of_injury': '^\\d{1,2}/\\d{1,2}/\\d{4}$'}]}: 'list' object has no attribute 'items'
-2025-09-14 14:34:10,505 - src.services.advanced_qme_rules_engine - ERROR - _execute_single_action:283 - Error executing action {'validate_format': [{'claimant_name': '^[A-Z][a-z]+(\\s+[A-Z][a-z]+)*$'}, {'claim_number': '^[A-Z0-9\\-]{5,20}$'}, {'wcab_number': '^[A-Z0-9\\-]{5,20}$'}, {'dates_of_injury': '^\\d{1,2}/\\d{1,2}/\\d{4}$'}]}: 'list' object has no attribute 'items'
-2025-09-14 14:34:10,507 - src.services.advanced_qme_rules_engine - ERROR - _execute_single_action:283 - Error executing action {'validate_format': [{'claimant_name': '^[A-Z][a-z]+(\\s+[A-Z][a-z]+)*$'}, {'claim_number': '^[A-Z0-9\\-]{5,20}$'}, {'wcab_number': '^[A-Z0-9\\-]{5,20}$'}, {'dates_of_injury': '^\\d{1,2}/\\d{1,2}/\\d{4}$'}]}: 'list' object has no attribute 'items'
-2025-09-14 14:44:23,362 - root - ERROR - generate_content:455 - Error generating diagnostic studies: 'DiagnosticStudiesGenerator' object has no attribute '_get_all_source_entities'
-2025-09-14 15:36:01,115 - src.startup - ERROR - _initialize_knowledge_base:154 - Knowledge base initialization failed: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
-Traceback (most recent call last):
-  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/startup.py", line 135, in _initialize_knowledge_base
-    pipeline = self.container.get_ingestion_pipeline()
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-AttributeError: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
-2025-09-14 16:43:44,872 - src.startup - ERROR - _initialize_knowledge_base:159 - Knowledge base initialization failed: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
-Traceback (most recent call last):
-  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/startup.py", line 140, in _initialize_knowledge_base
-    pipeline = self.container.get_ingestion_pipeline()
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-AttributeError: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
-2025-09-14 16:44:16,401 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'validation_issues'
-2025-09-14 16:44:17,934 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'validation_issues'
-2025-09-14 16:44:21,524 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'validation_issues'
-2025-09-14 16:44:23,059 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'validation_issues'
-2025-09-14 16:44:26,657 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'validation_issues'
-2025-09-14 16:44:28,195 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'validation_issues'
-2025-09-14 16:44:31,790 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'validation_issues'
-2025-09-14 16:44:33,330 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'validation_issues'
-2025-09-14 16:44:36,926 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'validation_issues'
-2025-09-14 16:44:38,464 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'validation_issues'
-2025-09-14 16:44:42,057 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'validation_issues'
-2025-09-14 16:44:43,590 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'validation_issues'
-2025-09-14 16:44:47,186 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'validation_issues'
-2025-09-14 16:44:48,717 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'validation_issues'
-2025-09-14 16:44:52,314 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'validation_issues'
-2025-09-14 16:44:53,842 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'validation_issues'
-2025-09-14 16:44:57,432 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'validation_issues'
-2025-09-14 16:44:58,971 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'validation_issues'
-2025-09-14 16:45:02,570 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'validation_issues'
-2025-09-14 16:45:04,108 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'validation_issues'
-2025-09-14 16:45:07,710 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'validation_issues'
-2025-09-14 16:45:09,247 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'validation_issues'
-2025-09-14 16:45:12,851 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'validation_issues'
-2025-09-14 16:45:14,390 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'validation_issues'
-2025-09-14 16:45:17,984 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'validation_issues'
-2025-09-14 16:45:19,517 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'validation_issues'
-2025-09-14 16:45:23,107 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'validation_issues'
-2025-09-14 16:45:24,640 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'validation_issues'
-2025-09-14 16:45:28,236 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'validation_issues'
-2025-09-14 16:45:29,771 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'validation_issues'
-2025-09-14 16:45:33,374 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'validation_issues'
-2025-09-14 16:45:34,909 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'validation_issues'
-2025-09-14 16:45:38,562 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'validation_issues'
-2025-09-14 16:45:40,090 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'validation_issues'
-2025-09-14 16:45:43,710 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'validation_issues'
-2025-09-14 16:45:45,240 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'validation_issues'
-2025-09-14 16:45:48,839 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'validation_issues'
-2025-09-14 16:45:50,373 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'validation_issues'
-2025-09-14 16:45:53,382 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'validation_issues'
-2025-09-14 16:45:54,919 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'validation_issues'
-2025-09-14 16:45:58,525 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'validation_issues'
-2025-09-14 16:46:00,060 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'validation_issues'
-2025-09-14 16:46:03,657 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'validation_issues'
-2025-09-14 16:46:05,196 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'validation_issues'
-2025-09-14 16:46:08,806 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'validation_issues'
-2025-09-14 16:46:10,337 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'validation_issues'
-2025-09-14 16:58:08,825 - src.startup - ERROR - _initialize_knowledge_base:159 - Knowledge base initialization failed: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
-Traceback (most recent call last):
-  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/startup.py", line 140, in _initialize_knowledge_base
-    pipeline = self.container.get_ingestion_pipeline()
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-AttributeError: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
-2025-09-14 16:59:22,548 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 16:59:24,080 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 16:59:27,682 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 16:59:29,214 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 16:59:32,827 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 16:59:34,362 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 16:59:37,970 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 16:59:39,489 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 16:59:43,109 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 16:59:44,645 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 16:59:48,265 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 16:59:49,797 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 16:59:53,405 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 16:59:54,940 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 16:59:58,554 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 17:00:00,082 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 17:00:03,676 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 17:00:05,216 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 17:00:08,815 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 17:00:10,352 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 17:00:13,950 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 17:00:15,482 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 17:00:19,081 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 17:00:20,615 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 17:00:24,205 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 17:00:25,739 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 17:00:29,354 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 17:00:30,890 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 17:00:34,485 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 17:00:36,015 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 17:00:39,603 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 17:00:41,139 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 17:00:44,742 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 17:00:46,278 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 17:00:49,860 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 17:00:51,389 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 17:00:54,980 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 17:00:56,518 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 17:01:00,107 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 17:01:01,645 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 17:01:05,250 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 17:01:06,785 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 17:01:10,384 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 17:01:11,918 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 17:01:15,533 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 17:01:17,065 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 17:01:20,678 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 17:01:22,222 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 17:01:25,824 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 17:01:27,354 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 17:01:30,961 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 17:01:32,503 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 17:01:36,100 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 17:01:37,629 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 17:01:41,243 - src.ui.qme_template_interface - ERROR - _process_patient_document:1007 - Document processing failed: 'FieldValidationResult' object has no attribute 'overall_status'
-2025-09-14 17:08:50,996 - src.startup - ERROR - _initialize_knowledge_base:159 - Knowledge base initialization failed: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
-Traceback (most recent call last):
-  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/startup.py", line 140, in _initialize_knowledge_base
-    pipeline = self.container.get_ingestion_pipeline()
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-AttributeError: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
-2025-09-14 17:13:17,544 - src.ui.qme_template_interface - ERROR - _generate_final_template:1227 - Error generating professional template: PatientInfo.__init__() got an unexpected keyword argument 'claim_number'. Did you mean 'case_number'?
+  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/services/knowledge_base_initializer.py", line 953, in get_initialization_progress
+    doc = self.doc_repository.find_by_file_path(doc_path)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'SQLiteDocumentRepository' object has no attribute 'find_by_file_path'
+2025-09-16 00:27:28,058 - src.repositories.document_repository - ERROR - find_by_file_path:156 - Error finding document by file path AMAGuides 5th Edition.pdf: no such column: file_path
+2025-09-16 00:27:28,058 - src.repositories.document_repository - ERROR - find_by_file_path:156 - Error finding document by file path QME-Study-Guide.pdf: no such column: file_path
+2025-09-16 00:27:28,058 - src.repositories.document_repository - ERROR - find_by_file_path:156 - Error finding document by file path Sample3.pdf: no such column: file_path
+2025-09-16 00:27:28,059 - src.repositories.document_repository - ERROR - find_by_file_path:156 - Error finding document by file path AMAGuides 5th Edition.pdf: no such column: file_path
+2025-09-16 00:27:28,059 - src.repositories.document_repository - ERROR - find_by_file_path:156 - Error finding document by file path QME-Study-Guide.pdf: no such column: file_path
+2025-09-16 00:27:28,060 - src.repositories.document_repository - ERROR - find_by_file_path:156 - Error finding document by file path Sample3.pdf: no such column: file_path
+2025-09-16 00:27:28,061 - src.services.knowledge_base_initializer - ERROR - _load_ama_guidelines:278 - Error loading AMA table 15-3: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,061 - src.services.knowledge_base_initializer - ERROR - _load_ama_guidelines:278 - Error loading AMA table 15-5: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,061 - src.services.knowledge_base_initializer - ERROR - _load_ama_guidelines:278 - Error loading AMA table 15-7: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,061 - src.services.knowledge_base_initializer - ERROR - _load_ama_guidelines:278 - Error loading AMA table 16-3: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,061 - src.services.knowledge_base_initializer - ERROR - _load_ama_guidelines:278 - Error loading AMA table 17-2: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,061 - src.services.knowledge_base_initializer - ERROR - _load_ama_guidelines:309 - Error loading AMA chapter 15: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,061 - src.services.knowledge_base_initializer - ERROR - _load_ama_guidelines:309 - Error loading AMA chapter 16: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,061 - src.services.knowledge_base_initializer - ERROR - _load_ama_guidelines:309 - Error loading AMA chapter 17: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,061 - src.services.knowledge_base_initializer - ERROR - _load_ama_guidelines:309 - Error loading AMA chapter 13: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,061 - src.services.knowledge_base_initializer - ERROR - _load_ama_guidelines:309 - Error loading AMA chapter 4: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,061 - src.services.knowledge_base_initializer - ERROR - _load_ama_guidelines:309 - Error loading AMA chapter 5: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,062 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,062 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,062 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,062 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,062 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,062 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,062 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,062 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,062 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,062 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,062 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,062 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,062 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,062 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,062 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,062 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,062 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,062 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,062 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,062 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,062 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,062 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,062 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,062 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,062 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,062 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,062 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,062 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,062 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,062 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,062 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,062 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,062 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,063 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,063 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,063 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,063 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,063 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,063 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,063 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,063 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,063 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,063 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,063 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,063 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,063 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,063 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,063 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,063 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,063 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,063 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,063 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,063 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,063 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,063 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,063 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,063 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,063 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,063 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,063 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,063 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,063 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:412 - Error loading legal pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,063 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:435 - Error loading legal requirement: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,063 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:435 - Error loading legal requirement: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,063 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:435 - Error loading legal requirement: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,063 - src.services.knowledge_base_initializer - ERROR - _load_legal_patterns:435 - Error loading legal requirement: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,064 - src.services.knowledge_base_initializer - ERROR - _load_structure_patterns:463 - Error loading structure pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,064 - src.services.knowledge_base_initializer - ERROR - _load_structure_patterns:463 - Error loading structure pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,064 - src.services.knowledge_base_initializer - ERROR - _load_structure_patterns:463 - Error loading structure pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,064 - src.services.knowledge_base_initializer - ERROR - _load_structure_patterns:463 - Error loading structure pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,064 - src.services.knowledge_base_initializer - ERROR - _load_structure_patterns:463 - Error loading structure pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,064 - src.services.knowledge_base_initializer - ERROR - _load_structure_patterns:463 - Error loading structure pattern: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,064 - src.services.knowledge_base_initializer - ERROR - _load_procedural_requirements:486 - Error loading procedural requirement: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,064 - src.services.knowledge_base_initializer - ERROR - _load_procedural_requirements:486 - Error loading procedural requirement: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,064 - src.services.knowledge_base_initializer - ERROR - _load_procedural_requirements:486 - Error loading procedural requirement: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,064 - src.services.knowledge_base_initializer - ERROR - _load_procedural_requirements:486 - Error loading procedural requirement: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,064 - src.services.knowledge_base_initializer - ERROR - _load_quality_standards:509 - Error loading quality standard: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,064 - src.services.knowledge_base_initializer - ERROR - _load_quality_standards:509 - Error loading quality standard: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,064 - src.services.knowledge_base_initializer - ERROR - _load_quality_standards:509 - Error loading quality standard: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,064 - src.services.knowledge_base_initializer - ERROR - _load_quality_standards:509 - Error loading quality standard: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,064 - src.services.knowledge_base_initializer - ERROR - _load_generic_patterns:531 - Error loading generic pattern integrated_patterns: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,064 - src.services.knowledge_base_initializer - ERROR - _load_generic_patterns:531 - Error loading generic pattern reasoning_examples: KnowledgeNode.__init__() missing 1 required positional argument: 'id'
+2025-09-16 00:27:28,066 - src.repositories.document_repository - ERROR - find_by_file_path:156 - Error finding document by file path AMAGuides 5th Edition.pdf: no such column: file_path
+2025-09-16 00:27:28,067 - src.repositories.document_repository - ERROR - find_by_file_path:156 - Error finding document by file path QME-Study-Guide.pdf: no such column: file_path
+2025-09-16 00:27:28,067 - src.repositories.document_repository - ERROR - find_by_file_path:156 - Error finding document by file path Sample3.pdf: no such column: file_path
+2025-09-16 00:27:28,069 - src.repositories.document_repository - ERROR - find_by_file_path:156 - Error finding document by file path AMAGuides 5th Edition.pdf: no such column: file_path
+2025-09-16 00:27:28,069 - src.repositories.document_repository - ERROR - find_by_file_path:156 - Error finding document by file path QME-Study-Guide.pdf: no such column: file_path
+2025-09-16 00:27:28,069 - src.repositories.document_repository - ERROR - find_by_file_path:156 - Error finding document by file path Sample3.pdf: no such column: file_path
+2025-09-16 00:27:28,071 - src.repositories.document_repository - ERROR - find_by_file_path:156 - Error finding document by file path AMAGuides 5th Edition.pdf: no such column: file_path
+2025-09-16 00:27:28,072 - src.repositories.document_repository - ERROR - find_by_file_path:156 - Error finding document by file path QME-Study-Guide.pdf: no such column: file_path
+2025-09-16 00:27:28,072 - src.repositories.document_repository - ERROR - find_by_file_path:156 - Error finding document by file path Sample3.pdf: no such column: file_path
+2025-09-16 00:27:28,077 - src.repositories.document_repository - ERROR - find_by_file_path:156 - Error finding document by file path AMAGuides 5th Edition.pdf: no such column: file_path
+2025-09-16 00:27:28,077 - src.repositories.document_repository - ERROR - find_by_file_path:156 - Error finding document by file path QME-Study-Guide.pdf: no such column: file_path
+2025-09-16 00:27:28,078 - src.repositories.document_repository - ERROR - find_by_file_path:156 - Error finding document by file path Sample3.pdf: no such column: file_path

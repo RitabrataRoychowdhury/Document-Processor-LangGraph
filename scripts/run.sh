@@ -346,8 +346,142 @@ except Exception as e:
         ;;
     2)
         echo ""
-        print_status "Running full deployment with knowledge base initialization..."
-        ./scripts/deploy.sh
+        print_status "Running full deployment with complete knowledge base initialization..."
+        echo ""
+        echo "🚀 =============================================="
+        echo "🚀   Complete Knowledge Base Initialization"
+        echo "🚀 =============================================="
+        echo "🚀"
+        echo "🚀   📚 Processing canonical documents"
+        echo "🚀   📊 Loading AMA Guidelines tables"
+        echo "🚀   ⚖️  Loading QME reference patterns"
+        echo "🚀   🔗 Creating structured entities"
+        echo "🚀   ✅ Validating system readiness"
+        echo "🚀"
+        echo "🚀 =============================================="
+        echo ""
+        
+        # Run complete knowledge base initialization
+        print_status "Starting complete knowledge base initialization..."
+        $PYTHON_CMD -c "
+import sys
+import asyncio
+sys.path.append('.')
+from src.services.knowledge_base_initializer import initialize_complete_system_for_option_2
+from src.services.ingestion_pipeline import IngestionPipeline
+from src.config.app_config import AppConfig
+
+async def main():
+    try:
+        print('🔧 Initializing configuration...')
+        config = AppConfig.from_env()
+        
+        print('🔧 Setting up ingestion pipeline...')
+        from src.services.ingestion_pipeline_factory import IngestionPipelineFactory
+        pipeline = IngestionPipelineFactory.create_default_pipeline()
+        
+        print('🚀 Starting complete knowledge base initialization...')
+        result = await initialize_complete_system_for_option_2(config, pipeline)
+        
+        print('\\n📊 Initialization Results:')
+        print('=' * 50)
+        print(f'Success: {\"✅ YES\" if result.success else \"❌ NO\"}')
+        print(f'Processing Time: {result.total_processing_time:.2f} seconds')
+        print(f'Processed Documents: {len(result.processed_documents)}')
+        print(f'Failed Documents: {len(result.failed_documents)}')
+        print(f'Knowledge Graph Nodes: {result.node_count}')
+        print(f'Knowledge Graph Relationships: {result.relationship_count}')
+        print(f'AMA Tables Loaded: {result.ama_tables_loaded}')
+        print(f'Legal Patterns Loaded: {result.legal_patterns_loaded}')
+        print(f'Validation Passed: {\"✅ YES\" if result.validation_passed else \"❌ NO\"}')
+        print(f'System Ready: {\"✅ YES\" if result.system_ready else \"❌ NO\"}')
+        
+        if result.processed_documents:
+            print(f'\\n📄 Processed Documents:')
+            for doc in result.processed_documents:
+                print(f'  ✅ {doc}')
+        
+        if result.failed_documents:
+            print(f'\\n❌ Failed Documents:')
+            for doc in result.failed_documents:
+                print(f'  ❌ {doc}')
+        
+        if result.error_messages:
+            print(f'\\n⚠️  Issues Found:')
+            for error in result.error_messages:
+                print(f'  - {error}')
+        
+        if result.system_ready:
+            print(f'\\n🎉 System is ready for evidence-first QME processing!')
+            print(f'   📍 You can now use the web interface at http://localhost:8501')
+            print(f'   📚 Knowledge graph contains {result.node_count} nodes and {result.relationship_count} relationships')
+            print(f'   ⚖️  Legal patterns and AMA tables are loaded and accessible')
+        else:
+            print(f'\\n⚠️  System initialization completed with issues.')
+            print(f'   🔧 Please review the issues above and retry if needed.')
+            print(f'   💡 You can still use the system, but some features may be limited.')
+        
+        return result.success
+        
+    except Exception as e:
+        print(f'❌ Critical error during initialization: {e}')
+        import traceback
+        traceback.print_exc()
+        return False
+
+result = asyncio.run(main())
+print('\\n' + '='*50)
+if result:
+    print('🎉 Complete initialization finished successfully!')
+else:
+    print('⚠️  Initialization completed with issues.')
+print('='*50)
+"
+        
+        # Start the web interface after initialization
+        if [ $? -eq 0 ]; then
+            echo ""
+            print_success "Complete initialization finished successfully!"
+            echo ""
+            read -p "❓ Start web interface now? (Y/n): " -n 1 -r
+            echo
+            if [[ ! $REPLY =~ ^[Nn]$ ]]; then
+                print_status "Starting Streamlit web interface..."
+                echo ""
+                echo "🌐 =============================================="
+                echo "🌐   Evidence-First QME System Ready"
+                echo "🌐 =============================================="
+                echo "🌐"
+                echo "🌐   📍 URL: http://localhost:8501"
+                echo "🌐   📚 Complete knowledge base initialized"
+                echo "🌐   ⚖️  Legal patterns and AMA tables loaded"
+                echo "🌐   🔍 Evidence-first processing enabled"
+                echo "🌐   ⏹️  Press Ctrl+C to stop the server"
+                echo "🌐"
+                echo "🌐 =============================================="
+                echo ""
+                
+                # Set up environment
+                export PYTHONPATH="$PROJECT_ROOT:$PYTHONPATH"
+                
+                # Start Streamlit
+                streamlit run src/ui/main_app.py \
+                    --server.port=8501 \
+                    --server.address=localhost \
+                    --server.headless=false \
+                    --browser.gatherUsageStats=false \
+                    --server.enableCORS=false \
+                    --server.enableXsrfProtection=false
+            fi
+        else
+            print_error "Complete initialization failed"
+            echo ""
+            echo "💡 Troubleshooting steps:"
+            echo "   1. Check that canonical documents exist in project root"
+            echo "   2. Verify .env file configuration"
+            echo "   3. Check logs for detailed error messages"
+            echo "   4. Try running option 6 to initialize knowledge base separately"
+        fi
         ;;
     3)
         echo ""
