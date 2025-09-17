@@ -12,7 +12,7 @@ from unittest.mock import Mock, patch
 # Add src directory to path
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
-from src.services.file_handler import FileUploadHandler, FileMetadata
+from src.infrastructure.storage.file_handler import FileUploadHandler, FileMetadata
 
 class TestFileUploadHandler(unittest.TestCase):
     """Test cases for FileUploadHandler"""

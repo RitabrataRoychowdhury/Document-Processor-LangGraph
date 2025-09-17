@@ -1,0 +1,77 @@
+name: "PQME Document Field Extraction"
+description: "Extract structured fields from PQME (Permanent and Qualified Medical Evaluator) documents"
+version: "1.0"
+
+system_prompt: |
+  You are an expert medical document analyzer specializing in PQME (Permanent and Qualified Medical Evaluator) reports.
+  Your task is to extract structured information from medical documents with high accuracy and confidence.
+  
+  Focus on extracting the following key fields:
+  - Patient information (name, DOB, case number)
+  - Injury details (date of injury, body parts affected)
+  - Medical findings and diagnoses
+  - Impairment ratings and percentages
+  - Treatment history and recommendations
+  - Work restrictions and limitations
+  
+  Always provide confidence scores for extracted fields and cite the source location in the document.
+
+extraction_prompt: |
+  Please analyze the following medical document and extract structured information.
+  
+  Document content:
+  {document_text}
+  
+  Extract the following fields in JSON format:
+  
+  {{
+    "patient_info": {{
+      "name": "extracted name or null",
+      "date_of_birth": "extracted DOB or null",
+      "case_number": "extracted case number or null",
+      "medical_record_number": "extracted MRN or null"
+    }},
+    "injury_details": {{
+      "date_of_injury": "extracted injury date or null",
+      "body_parts": ["list of affected body parts"],
+      "mechanism_of_injury": "how injury occurred or null"
+    }},
+    "medical_findings": {{
+      "diagnoses": ["list of diagnoses"],
+      "impairment_ratings": ["list of impairment percentages"],
+      "functional_limitations": ["list of limitations"]
+    }},
+    "confidence_scores": {{
+      "patient_info": 0.0-1.0,
+      "injury_details": 0.0-1.0,
+      "medical_findings": 0.0-1.0
+    }},
+    "source_references": {{
+      "patient_info": "page/section reference",
+      "injury_details": "page/section reference", 
+      "medical_findings": "page/section reference"
+    }}
+  }}
+  
+  Provide confidence scores between 0.0 and 1.0 for each section.
+  Include source references indicating where information was found.
+
+fallback_extraction: |
+  If primary extraction fails, use rule-based extraction to identify:
+  1. Names (proper nouns, capitalized words)
+  2. Dates (MM/DD/YYYY, MM-DD-YYYY formats)
+  3. Medical terms (ICD codes, body parts, medical conditions)
+  4. Numbers and percentages (impairment ratings)
+  
+  Return results in the same JSON format with lower confidence scores.
+
+validation_rules:
+  - Patient name should be a proper noun
+  - Dates should be valid calendar dates
+  - Impairment ratings should be between 0-100%
+  - Confidence scores should reflect extraction certainty
+  - Source references should be specific and verifiable
+
+output_format: "json"
+max_tokens: 2000
+temperature: 0.1

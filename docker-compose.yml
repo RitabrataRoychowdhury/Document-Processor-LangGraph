@@ -1,56 +1,181 @@
-# Docker Compose for Document Q&A System
+# Production-ready Docker Compose for QME System
 version: '3.8'
 
+# Production-ready QME System with comprehensive services
 services:
-  document-qa:
+  # Main QME Application
+  qme-app:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: document-qa-system
-    ports:
-      - "8501:8501"
-    environment:
-      - GEMINI_API_KEY=${GEMINI_API_KEY}
-      - DATABASE_PATH=data/database/documents.db
-      - MAX_FILE_SIZE_MB=10
-      - ALLOWED_FILE_TYPES=pdf,txt,docx
-      - STREAMLIT_PORT=8501
-      - DEBUG_MODE=false
-    volumes:
-      # Persist data and logs
-      - ./data:/app/data
-      - ./logs:/app/logs
-      # Mount .env file for configuration
-      - ./.env:/app/.env:ro
+      target: production
+    container_name: qme-app
     restart: unless-stopped
+    ports:
+      - "${QME_APP_PORT:-8501}:8501"
+      - "${QME_HEALTH_PORT:-8502}:8502"
+    volumes:
+      # Persistent data volumes
+      - qme-data:/app/data
+      - qme-logs:/app/logs
+      - qme-results:/app/results
+      - qme-config:/app/config/secrets
+      # Bind mounts for development (comment out for production)
+      # - ./data:/app/data
+      # - ./logs:/app/logs
+      # - ./results:/app/results
+    environment:
+      - QME_ENVIRONMENT=production
+      - QME_LOG_LEVEL=${QME_LOG_LEVEL:-INFO}
+      - QME_ENABLE_MONITORING=true
+      - QME_ENABLE_HEALTH_CHECKS=true
+      - QME_ENABLE_AUDIT_LOGGING=true
+      - QME_DATABASE_PATH=/app/data/database/documents.db
+      - QME_MAX_FILE_SIZE_MB=${QME_MAX_FILE_SIZE_MB:-50}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+    networks:
+      - qme-network
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8501/_stcore/health"]
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8501/_stcore/health', timeout=10)"]
+      interval: 30s
+      timeout: 15s
+      retries: 3
+      start_period: 90s
+    depends_on:
+      - redis
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+          cpus: '1.0'
+        reservations:
+          memory: 1G
+          cpus: '0.5'
+
+  # Redis for caching and session management
+  redis:
+    image: redis:7-alpine
+    container_name: qme-redis
+    restart: unless-stopped
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    volumes:
+      - qme-redis-data:/data
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+    networks:
+      - qme-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
       interval: 30s
       timeout: 10s
       retries: 3
-      start_period: 60s
+
+  # NGINX Load Balancer and Reverse Proxy
+  nginx:
+    image: nginx:alpine
+    container_name: qme-nginx
+    restart: unless-stopped
+    ports:
+      - "${NGINX_HTTP_PORT:-80}:80"
+      - "${NGINX_HTTPS_PORT:-443}:443"
+    volumes:
+      - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./config/nginx/ssl:/etc/nginx/ssl:ro
+      - qme-logs:/var/log/nginx
     networks:
-      - document-qa-network
+      - qme-network
+    depends_on:
+      - qme-app
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
-  # Optional: Add a reverse proxy for production
-  # nginx:
-  #   image: nginx:alpine
-  #   container_name: document-qa-nginx
-  #   ports:
-  #     - "80:80"
-  #     - "443:443"
-  #   volumes:
-  #     - ./nginx.conf:/etc/nginx/nginx.conf:ro
-  #     - ./ssl:/etc/nginx/ssl:ro
-  #   depends_on:
-  #     - document-qa
-  #   networks:
-  #     - document-qa-network
+  # Prometheus for metrics collection
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: qme-prometheus
+    restart: unless-stopped
+    ports:
+      - "${PROMETHEUS_PORT:-9090}:9090"
+    volumes:
+      - ./config/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - qme-prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=30d'
+      - '--web.enable-lifecycle'
+    networks:
+      - qme-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:9090/-/healthy"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
-networks:
-  document-qa-network:
-    driver: bridge
+  # Grafana for monitoring dashboards
+  grafana:
+    image: grafana/grafana:latest
+    container_name: qme-grafana
+    restart: unless-stopped
+    ports:
+      - "${GRAFANA_PORT:-3000}:3000"
+    volumes:
+      - qme-grafana-data:/var/lib/grafana
+      - ./config/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./config/grafana/dashboards:/var/lib/grafana/dashboards:ro
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD:-admin123}
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_INSTALL_PLUGINS=grafana-piechart-panel
+    networks:
+      - qme-network
+    depends_on:
+      - prometheus
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
+# Named volumes for data persistence
 volumes:
-  document-qa-data:
+  qme-data:
     driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${QME_DATA_PATH:-./data}
+  qme-logs:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${QME_LOGS_PATH:-./logs}
+  qme-results:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${QME_RESULTS_PATH:-./results}
+  qme-config:
+    driver: local
+  qme-redis-data:
+    driver: local
+  qme-prometheus-data:
+    driver: local
+  qme-grafana-data:
+    driver: local
+
+# Network for service communication
+networks:
+  qme-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

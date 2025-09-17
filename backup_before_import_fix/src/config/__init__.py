@@ -1,0 +1,1 @@
+"""Configuration and dependency injection for the document Q&A system."""

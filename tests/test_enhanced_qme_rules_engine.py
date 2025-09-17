@@ -7,20 +7,20 @@ from datetime import datetime
 from typing import Dict, Any
 
 try:
-    from src.services.qme_rules_engine import (
+    from src.core.validation.qme_rules_engine import (
         QMERulesEngine, ValidationIssue, ValidationSeverity, SectionType,
         EvidenceProvenance, ComplianceReport, QualityScore,
         EvidenceFirstValidator, PostGenerationValidator, LegalComplianceEnhanced
     )
-    from src.services.qme_template_generator import QMETemplateData, PatientInfo, MedicalFindings
+    from src.core.generation.qme_template_generator import QMETemplateData, PatientInfo, MedicalFindings
     from src.models.knowledge_graph import Diagnosis, ImpairmentRating
 except ImportError:
-    from services.qme_rules_engine import (
+    from src.core.validation.qme_rules_engine import (
         QMERulesEngine, ValidationIssue, ValidationSeverity, SectionType,
         EvidenceProvenance, ComplianceReport, QualityScore,
         EvidenceFirstValidator, PostGenerationValidator, LegalComplianceEnhanced
     )
-    from services.qme_template_generator import QMETemplateData, PatientInfo, MedicalFindings
+    from src.core.generation.qme_template_generator import QMETemplateData, PatientInfo, MedicalFindings
     from models.knowledge_graph import Diagnosis, ImpairmentRating
 
 

@@ -7,19 +7,19 @@ from datetime import datetime
 from unittest.mock import Mock, patch, MagicMock
 
 try:
-    from src.services.qme_template_generator import (
+    from src.core.generation.qme_template_generator import (
         QMETemplateGenerator, PatientDocumentProcessor, KnowledgeGraphMatcher,
         MissingInformationDetector, PatientInfo, MedicalFindings, QMETemplateData
     )
     from src.models.knowledge_graph import Patient, Diagnosis, Finding, Section, ImpairmentRating
     from src.commands.template_command import TemplateCommand
 except ImportError:
-    from services.qme_template_generator import (
+    from src.core.generation.qme_template_generator import (
         QMETemplateGenerator, PatientDocumentProcessor, KnowledgeGraphMatcher,
         MissingInformationDetector, PatientInfo, MedicalFindings, QMETemplateData
     )
     from models.knowledge_graph import Patient, Diagnosis, Finding, Section, ImpairmentRating
-    from commands.template_command import TemplateCommand
+    from src.commands.template_command import TemplateCommand
 
 
 class TestPatientDocumentProcessor(unittest.TestCase):

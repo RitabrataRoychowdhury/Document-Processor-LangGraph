@@ -17,8 +17,8 @@ from dataclasses import dataclass
 
 # Test imports
 try:
-    from src.services.structured_extractor import StructuredExtractor, ExtractionContext, ConfidenceMetrics
-    from src.services.qme_field_extractor import QMEFieldExtractor, EvidenceSnippet
+    from src.core.extraction.structured_extractor import StructuredExtractor, ExtractionContext, ConfidenceMetrics
+    from tests.unit.core.test_qme_field_extractor import QMEFieldExtractor, EvidenceSnippet
     CONFIDENCE_SCORING_AVAILABLE = True
 except ImportError:
     CONFIDENCE_SCORING_AVAILABLE = False

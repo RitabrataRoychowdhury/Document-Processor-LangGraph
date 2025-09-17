@@ -27,7 +27,7 @@ from src.models.knowledge_graph import KnowledgeNode, KnowledgeRelationship
 
 # Knowledge base initialization imports
 try:
-    from src.services.knowledge_base_initializer import KnowledgeBaseInitializer, InitializationResult
+    from src.infrastructure.knowledge.knowledge_base_initializer import KnowledgeBaseInitializer, InitializationResult
     KNOWLEDGE_BASE_INITIALIZER_AVAILABLE = True
 except ImportError:
     KNOWLEDGE_BASE_INITIALIZER_AVAILABLE = False
@@ -36,7 +36,7 @@ except ImportError:
 
 # AMA Guidelines imports
 try:
-    from src.services.ama_guidelines_engine import AMAGuidelinesEngine
+    from src.infrastructure.knowledge.ama_guidelines_engine import AMAGuidelinesEngine
     AMA_GUIDELINES_AVAILABLE = True
 except ImportError:
     AMA_GUIDELINES_AVAILABLE = False

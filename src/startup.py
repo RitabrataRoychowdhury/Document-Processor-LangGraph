@@ -18,9 +18,9 @@ sys.path.insert(0, str(project_root))
 from src.config.app_config import AppConfig
 from src.config.environment_validator import ensure_environment_ready
 from src.config.dependency_injection import DependencyContainer
-from src.services.health_checker import HealthChecker
-from src.services.knowledge_base_initializer import initialize_system_startup
-from src.services.performance_monitor import get_performance_monitor
+from src.infrastructure.monitoring.health_checker import ComprehensiveHealthChecker
+from src.infrastructure.knowledge.knowledge_base_initializer import initialize_system_startup
+from src.infrastructure.monitoring.performance_monitor import get_performance_monitor
 from src.utils.logging_config import LoggingManager
 
 logger = logging.getLogger(__name__)
@@ -60,7 +60,7 @@ class SystemStartup:
             logger.info("✅ Dependency container initialized")
             
             # Step 5: Initialize health checker
-            self.health_checker = HealthChecker(self.config)
+            self.health_checker = ComprehensiveHealthChecker(self.config)
             logger.info("✅ Health checker initialized")
             
             # Step 6: Initialize performance monitor
@@ -110,15 +110,21 @@ class SystemStartup:
             
             # Check file system health
             fs_health = self.health_checker.check_file_system_health()
-            if not fs_health.is_healthy:
+            if fs_health.is_critical:
                 logger.error(f"File system health check failed: {fs_health.message}")
                 return False
+            elif not fs_health.is_healthy:
+                logger.warning(f"File system health check has warnings: {fs_health.message}")
+                # Continue with warnings
             
             # Check configuration health
             config_health = self.health_checker.check_configuration_health()
-            if not config_health.is_healthy:
+            if config_health.is_critical:
                 logger.error(f"Configuration health check failed: {config_health.message}")
                 return False
+            elif not config_health.is_healthy:
+                logger.warning(f"Configuration health check has warnings: {config_health.message}")
+                # Continue with warnings
             
             # QME-specific health checks
             if not await self._run_qme_health_checks():
@@ -167,8 +173,8 @@ class SystemStartup:
             # Test QME service imports
             try:
                 from src.services.comprehensive_qme_field_service import ComprehensiveQMEFieldService
-                from src.services.qme_template_generator import QMETemplateGenerator
-                from src.services.professional_template_assembler import ProfessionalTemplateAssembler
+                from src.core.generation.qme_template_generator import QMETemplateGenerator
+                from src.services.professional_template_assembler_simple import ProfessionalTemplateAssembler
                 logger.info("✅ QME service imports successful")
             except ImportError as e:
                 logger.warning(f"⚠️  QME import issue: {e}")
@@ -220,16 +226,16 @@ class SystemStartup:
             # Get overall health status
             health = self.health_checker.get_overall_health()
             
-            logger.info(f"Overall system health: {'HEALTHY' if health['overall_healthy'] else 'UNHEALTHY'}")
-            logger.info(f"Healthy components: {health['healthy_components']}/{health['total_components']}")
+            logger.info(f"Overall system health: {'HEALTHY' if health.is_healthy else 'UNHEALTHY'}")
+            logger.info(f"Healthy components: {len(health.healthy_components)}/{len(health.components)}")
             
             # Log individual component status
-            for component, status in health['checks'].items():
-                status_text = 'PASS' if status['healthy'] else 'FAIL'
-                logger.info(f"  {component}: {status_text} - {status['message']}")
+            for component, status in health.components.items():
+                status_text = 'PASS' if status.is_healthy else 'FAIL'
+                logger.info(f"  {component}: {status_text} - {status.message}")
                 
-                if not status['healthy'] and status.get('details'):
-                    for key, value in status['details'].items():
+                if not status.is_healthy and status.details:
+                    for key, value in status.details.items():
                         logger.info(f"    {key}: {value}")
             
             # Run QME workflow validation
@@ -239,7 +245,7 @@ class SystemStartup:
             else:
                 logger.warning("⚠️  QME workflow validation had issues")
             
-            return health['overall_healthy']
+            return health.is_healthy
             
         except Exception as e:
             logger.error(f"Final health checks failed: {str(e)}", exc_info=True)
@@ -299,8 +305,8 @@ class SystemStartup:
             print("\n" + "="*60)
             print("🎉 DOCUMENT Q&A SYSTEM - STARTUP COMPLETE")
             print("="*60)
-            print(f"📊 System Health: {'✅ HEALTHY' if health['overall_healthy'] else '❌ UNHEALTHY'}")
-            print(f"🔧 Components: {health['healthy_components']}/{health['total_components']} healthy")
+            print(f"📊 System Health: {'✅ HEALTHY' if health.is_healthy else '❌ UNHEALTHY'}")
+            print(f"🔧 Components: {len(health.healthy_components)}/{len(health.components)} healthy")
             print(f"📈 Performance Monitor: Active")
             print(f"🗄️  Database: {self.config.database_path}")
             print(f"🤖 QA Provider: {self.config.qa_provider}")
@@ -321,7 +327,7 @@ class SystemStartup:
                 print("❌ QME Field Extraction: Not Available")
             
             try:
-                from src.services.qme_template_generator import QMETemplateGenerator
+                from src.core.generation.qme_template_generator import QMETemplateGenerator
                 print("✅ QME Template Generation: Ready")
             except:
                 print("❌ QME Template Generation: Not Available")
@@ -346,7 +352,7 @@ class SystemStartup:
         except Exception as e:
             logger.error(f"Error printing startup summary: {str(e)}")
     
-    def get_health_checker(self) -> HealthChecker:
+    def get_health_checker(self) -> ComprehensiveHealthChecker:
         """Get health checker instance."""
         return self.health_checker
     
@@ -386,7 +392,7 @@ def main():
                 
                 # Periodic health check
                 health = startup.get_health_checker().get_overall_health()
-                if not health['overall_healthy']:
+                if not health.is_healthy:
                     logger.warning("System health degraded during runtime")
                 
         except KeyboardInterrupt:

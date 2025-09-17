@@ -1,0 +1,51 @@
+# Development Environment Configuration
+
+app:
+  name: "QME System"
+  version: "1.0.0"
+  environment: "development"
+  debug: true
+  log_level: "DEBUG"
+
+database:
+  type: "sqlite"
+  path: "data/database/documents.db"
+  pool_size: 5
+  timeout: 30
+
+api:
+  openrouter:
+    base_url: "https://openrouter.ai/api/v1"
+    timeout: 60
+    max_retries: 3
+    retry_delay: 1
+
+storage:
+  documents_path: "data/documents"
+  results_path: "results"
+  cache_path: "data/cache"
+  exports_path: "data/exports"
+
+knowledge_base:
+  vector_store_path: "data/vector_store"
+  embedding_model: "text-embedding-ada-002"
+  chunk_size: 1000
+  chunk_overlap: 200
+
+monitoring:
+  enable_metrics: true
+  metrics_port: 8001
+  health_check_interval: 30
+  performance_tracking: true
+
+validation:
+  confidence_threshold: 0.8
+  flagged_threshold: 0.5
+  enable_strict_validation: false
+  max_validation_errors: 10
+
+generation:
+  template_cache_size: 100
+  max_content_length: 50000
+  enable_preview: true
+  output_formats: ["docx", "pdf"]

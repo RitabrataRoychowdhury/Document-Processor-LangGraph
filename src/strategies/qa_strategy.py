@@ -693,6 +693,93 @@ Please answer based only on the provided context. Be specific and cite relevant 
             raise Exception(f"Unexpected API response format: {str(e)}")
 
 
+class OpenRouterLLMStrategy(LLMStrategy):
+    """LLM strategy using OpenRouter API for Sonoma Sky."""
+    
+    def __init__(self, api_key: str, model: str = "openrouter/sonoma-sky-alpha"):
+        """
+        Initialize OpenRouter LLM strategy.
+        
+        Args:
+            api_key: OpenRouter API key
+            model: Model to use (default: Sonoma Sky Alpha)
+        """
+        self.api_key = api_key
+        self.model = model
+        self.api_url = "https://openrouter.ai/api/v1/chat/completions"
+        
+        if not api_key:
+            raise ValueError("OpenRouter API key is required for OpenRouterLLMStrategy")
+        
+        logger.info(f"Initialized OpenRouterLLMStrategy with model: {model}")
+    
+    def generate_answer(self, question: str, context: List[RetrievalContext]) -> str:
+        """Generate answer using OpenRouter API with provided context."""
+        if not context:
+            return "I couldn't find relevant information in the document to answer your question."
+        
+        # Prepare context for the prompt
+        context_text = "\n\n".join([
+            f"**{ctx.source}:**\n{ctx.text}"
+            for ctx in context
+        ])
+        
+        messages = [
+            {
+                "role": "system",
+                "content": "You are a helpful assistant that answers questions about documents. Use only the provided context to answer questions. If the context doesn't contain enough information, say so clearly. Be precise and professional in your responses."
+            },
+            {
+                "role": "user",
+                "content": f"""Context from the document:
+{context_text}
+
+Question: {question}
+
+Please answer based only on the provided context. Be specific and cite relevant parts of the context. If the context doesn't contain sufficient information to answer the question, clearly state that."""
+            }
+        ]
+        
+        try:
+            return self._call_openrouter_api(messages)
+        except Exception as e:
+            logger.error(f"Error generating answer with OpenRouter: {e}")
+            return "I'm sorry, I encountered an error while generating the answer. Please try again."
+    
+    def _call_openrouter_api(self, messages: List[Dict[str, str]]) -> str:
+        """Make API call to OpenRouter."""
+        headers = {
+            "Authorization": f"Bearer {self.api_key}",
+            "Content-Type": "application/json",
+            "HTTP-Referer": "https://localhost:8501",  # Required by OpenRouter
+            "X-Title": "QME Document Analysis System"  # Optional but recommended
+        }
+        
+        payload = {
+            "model": self.model,
+            "messages": messages,
+            "max_tokens": 500,
+            "temperature": 0.3
+        }
+        
+        if not REQUESTS_AVAILABLE:
+            raise Exception("requests library is not available. Please install it to use OpenRouter API.")
+        
+        try:
+            response = requests.post(self.api_url, headers=headers, json=payload, timeout=30)
+            response.raise_for_status()
+            
+            result = response.json()
+            return result["choices"][0]["message"]["content"].strip()
+            
+        except requests.exceptions.RequestException as e:
+            logger.error(f"OpenRouter API request failed: {e}")
+            raise Exception(f"OpenRouter API error: {str(e)}")
+        except (KeyError, IndexError) as e:
+            logger.error(f"Unexpected OpenRouter response format: {e}")
+            raise Exception(f"Unexpected API response format: {str(e)}")
+
+
 class HybridQAStrategy(QAStrategy):
     """
     Hybrid Q&A strategy that combines vector search and LLM generation.
@@ -831,8 +918,8 @@ class QAStrategyFactory:
         Create a hybrid Q&A strategy.
         
         Args:
-            retrieval_type: Type of retrieval strategy ('keyword')
-            llm_type: Type of LLM strategy ('gemini' or 'openai')
+            retrieval_type: Type of retrieval strategy ('keyword', 'vector_graph')
+            llm_type: Type of LLM strategy ('gemini', 'openai', or 'openrouter')
             **kwargs: Additional arguments for strategy initialization
             
         Returns:
@@ -841,6 +928,20 @@ class QAStrategyFactory:
         # Create retrieval strategy
         if retrieval_type.lower() == "keyword":
             retrieval_strategy = KeywordRetrievalStrategy()
+        elif retrieval_type.lower() == "vector_graph":
+            # Vector graph retrieval requires additional dependencies
+            vector_store = kwargs.get('vector_store')
+            kg_repository = kwargs.get('kg_repository')
+            embedding_strategy = kwargs.get('embedding_strategy')
+            
+            if not all([vector_store, kg_repository, embedding_strategy]):
+                raise ValueError("vector_store, kg_repository, and embedding_strategy are required for vector_graph retrieval")
+            
+            retrieval_strategy = VectorGraphRetrievalStrategy(
+                vector_store=vector_store,
+                kg_repository=kg_repository,
+                embedding_strategy=embedding_strategy
+            )
         else:
             raise ValueError(f"Unsupported retrieval strategy: {retrieval_type}")
         
@@ -856,7 +957,47 @@ class QAStrategyFactory:
                 raise ValueError("api_key is required for OpenAI LLM strategy")
             model = kwargs.get('model', 'gpt-3.5-turbo')
             llm_strategy = OpenAILLMStrategy(api_key, model)
+        elif llm_type.lower() == "openrouter":
+            api_key = kwargs.get('api_key')
+            if not api_key:
+                raise ValueError("api_key is required for OpenRouter LLM strategy")
+            model = kwargs.get('model', 'openrouter/sonoma-sky-alpha')
+            llm_strategy = OpenRouterLLMStrategy(api_key, model)
         else:
             raise ValueError(f"Unsupported LLM strategy: {llm_type}")
         
         return HybridQAStrategy(retrieval_strategy, llm_strategy)
+    
+    @staticmethod
+    def create_llm_strategy(llm_type: str, api_key: str, model: str = None) -> LLMStrategy:
+        """
+        Create an LLM strategy instance.
+        
+        Args:
+            llm_type: Type of LLM strategy ('gemini', 'openai', or 'openrouter')
+            api_key: API key for the LLM service
+            model: Optional model name (uses defaults if not provided)
+            
+        Returns:
+            LLMStrategy instance
+        """
+        if llm_type.lower() == "gemini":
+            return GeminiLLMStrategy(api_key)
+        elif llm_type.lower() == "openai":
+            model = model or 'gpt-3.5-turbo'
+            return OpenAILLMStrategy(api_key, model)
+        elif llm_type.lower() == "openrouter":
+            model = model or 'openrouter/sonoma-sky-alpha'
+            return OpenRouterLLMStrategy(api_key, model)
+        else:
+            raise ValueError(f"Unsupported LLM strategy: {llm_type}")
+    
+    @staticmethod
+    def get_supported_llm_types() -> List[str]:
+        """Get list of supported LLM types."""
+        return ['gemini', 'openai', 'openrouter']
+    
+    @staticmethod
+    def get_supported_retrieval_types() -> List[str]:
+        """Get list of supported retrieval types."""
+        return ['keyword', 'vector_graph']

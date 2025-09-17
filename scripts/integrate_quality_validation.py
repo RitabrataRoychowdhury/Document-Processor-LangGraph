@@ -13,8 +13,8 @@ from pathlib import Path
 # Add src to path for imports
 sys.path.append(str(Path(__file__).parent.parent))
 
-from src.services.quality_validation_service import QualityValidationService
-from src.services.performance_monitoring_service import PerformanceMonitoringService
+from src.core.validation.quality_validation_service import QualityValidationService
+from src.infrastructure.monitoring.performance_monitoring_service import PerformanceMonitoringService
 
 # Configure logging
 logging.basicConfig(
@@ -78,7 +78,7 @@ def integrate_quality_validation():
         performance_monitor = PerformanceMonitoringService()
         
         # Record a test metric
-        from src.services.performance_monitoring_service import MetricType
+        from src.infrastructure.monitoring.performance_monitoring_service import MetricType
         performance_monitor.record_metric(
             MetricType.PROCESSING_TIME,
             1.5,
@@ -94,7 +94,7 @@ def integrate_quality_validation():
         
         # Test end-to-end quality validation
         print("\n3. Testing End-to-End Quality Validation...")
-        from tests.test_end_to_end_quality_validation import EndToEndQualityTestSuite
+        from tests.end_to_end.test_end_to_end_quality_validation import EndToEndQualityTestSuite
         
         test_suite = EndToEndQualityTestSuite()
         
@@ -189,8 +189,8 @@ def test_integration_with_existing_system():
 def test_openrouter_integration():
     """Test integration with OpenRouter extraction service"""
     try:
-        from src.services.openrouter_extraction_service import OpenRouterExtractionService
-        from src.services.quality_validation_service import QualityValidationService
+        from src.core.extraction.openrouter_extraction_service import OpenRouterExtractionService
+        from src.core.validation.quality_validation_service import QualityValidationService
         
         # This will work even without API key for testing integration
         extraction_service = OpenRouterExtractionService()
@@ -207,8 +207,8 @@ def test_openrouter_integration():
 def test_template_assembly_integration():
     """Test integration with template assembly engine"""
     try:
-        from src.services.professional_template_assembly_engine import ProfessionalTemplateAssemblyEngine
-        from src.services.performance_monitoring_service import PerformanceMonitoringService
+        from tests.test_professional_template_assembly_engine import ProfessionalTemplateAssemblyEngine
+        from src.infrastructure.monitoring.performance_monitoring_service import PerformanceMonitoringService
         
         assembly_engine = ProfessionalTemplateAssemblyEngine()
         performance_monitor = PerformanceMonitoringService()
@@ -223,8 +223,8 @@ def test_template_assembly_integration():
 def test_rag_pipeline_integration():
     """Test integration with RAG pipeline"""
     try:
-        from src.services.enhanced_rag_pipeline import EnhancedRAGPipeline
-        from src.services.quality_validation_service import QualityValidationService
+        from src.infrastructure.knowledge.enhanced_rag_pipeline import EnhancedRAGPipeline
+        from src.core.validation.quality_validation_service import QualityValidationService
         
         # Test that services can coexist
         return True
@@ -238,7 +238,7 @@ def test_field_extraction_integration():
     """Test integration with field extraction services"""
     try:
         from src.services.comprehensive_qme_field_service import ComprehensiveQMEFieldService
-        from src.services.performance_monitoring_service import PerformanceMonitoringService, PerformanceMonitor
+        from src.infrastructure.monitoring.performance_monitoring_service import PerformanceMonitoringService, PerformanceMonitor
         
         field_service = ComprehensiveQMEFieldService()
         performance_monitor = PerformanceMonitoringService()
@@ -278,8 +278,8 @@ def main():
     
     try:
         # Test that the system can start with quality validation
-        from src.services.quality_validation_service import QualityValidationService
-        from src.services.performance_monitoring_service import PerformanceMonitoringService
+        from src.core.validation.quality_validation_service import QualityValidationService
+        from src.infrastructure.monitoring.performance_monitoring_service import PerformanceMonitoringService
         
         validator = QualityValidationService()
         monitor = PerformanceMonitoringService()

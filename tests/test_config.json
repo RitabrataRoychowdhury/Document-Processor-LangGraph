@@ -1,0 +1,86 @@
+{
+  "ui_tests": {
+    "enabled": true,
+    "timeout_seconds": 300,
+    "coverage_threshold": 80,
+    "components_to_test": [
+      "main_app",
+      "upload_interface",
+      "qa_interface_simple",
+      "qme_template_interface",
+      "document_manager",
+      "health_status_adapter"
+    ]
+  },
+  "api_tests": {
+    "enabled": true,
+    "timeout_seconds": 600,
+    "base_url": "http://localhost:8501",
+    "retry_attempts": 3,
+    "endpoints_to_test": [
+      "/health",
+      "/api/upload",
+      "/api/process",
+      "/api/template/generate",
+      "/api/qa/ask",
+      "/api/system/status"
+    ],
+    "test_gemini_integration": true,
+    "test_openrouter_integration": true
+  },
+  "integration_tests": {
+    "enabled": true,
+    "timeout_seconds": 900,
+    "concurrent_users": 5,
+    "session_duration": 30,
+    "workflows_to_test": [
+      "complete_document_processing",
+      "qa_with_document_context",
+      "error_scenarios_and_recovery",
+      "concurrent_user_scenarios"
+    ]
+  },
+  "performance_tests": {
+    "enabled": false,
+    "load_test_users": 10,
+    "load_test_duration": 60,
+    "memory_leak_iterations": 100,
+    "stability_test_minutes": 30,
+    "performance_thresholds": {
+      "max_response_time_ms": 3000,
+      "min_success_rate": 90,
+      "max_memory_growth_mb": 50
+    }
+  },
+  "reporting": {
+    "formats": ["console", "json"],
+    "output_directory": "test_results",
+    "include_detailed_logs": true,
+    "generate_html_report": false,
+    "coverage_report": true,
+    "performance_charts": false
+  },
+  "test_data": {
+    "sample_documents": [
+      "test_pqme_report.pdf",
+      "test_medical_record.pdf",
+      "test_imaging_report.pdf"
+    ],
+    "test_questions": [
+      "What is the patient's primary diagnosis?",
+      "When was the patient injured?",
+      "What treatment was recommended?",
+      "What is the impairment rating?"
+    ],
+    "mock_responses": {
+      "enable_mocking": true,
+      "response_delay_ms": 100
+    }
+  },
+  "environment": {
+    "test_database_path": ":memory:",
+    "mock_api_keys": true,
+    "cleanup_after_tests": true,
+    "preserve_test_data": false
+  }
+}

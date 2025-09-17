@@ -8,23 +8,23 @@ import os
 from unittest.mock import Mock, patch
 
 try:
-    from src.services.ingestion_pipeline import (
+    from src.core.extraction.ingestion_pipeline import (
         IngestionPipeline, MedicalSectionSegmenter, MedicalNERExtractor,
         KnowledgeGraphService, ProcessingResult, ExtractedEntity
     )
-    from src.services.ingestion_pipeline_factory import IngestionPipelineFactory
-    from src.services.vector_store import InMemoryVectorStore
+    from src.core.extraction.ingestion_pipeline_factory import IngestionPipelineFactory
+    from src.infrastructure.storage.vector_store import InMemoryVectorStore
     from src.factories.processor_factory import ProcessorFactory
     from src.strategies.embedding_strategy import LocalEmbeddingStrategy
     from src.repositories.knowledge_graph_repository import SQLiteKnowledgeGraphRepository
     from src.models.knowledge_graph import Section, Diagnosis, Finding
 except ImportError:
-    from services.ingestion_pipeline import (
+    from tests.test_ingestion_pipeline import (
         IngestionPipeline, MedicalSectionSegmenter, MedicalNERExtractor,
         KnowledgeGraphService, ProcessingResult, ExtractedEntity
     )
-    from services.ingestion_pipeline_factory import IngestionPipelineFactory
-    from services.vector_store import InMemoryVectorStore
+    from src.core.extraction.ingestion_pipeline_factory import IngestionPipelineFactory
+    from src.infrastructure.storage.vector_store import InMemoryVectorStore
     from factories.processor_factory import ProcessorFactory
     from strategies.embedding_strategy import LocalEmbeddingStrategy
     from repositories.knowledge_graph_repository import SQLiteKnowledgeGraphRepository

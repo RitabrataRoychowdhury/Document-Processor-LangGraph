@@ -12,26 +12,26 @@ from datetime import datetime
 from unittest.mock import Mock, patch, MagicMock
 
 try:
-    from src.services.professional_template_assembler import (
+    from tests.template.test_enhanced_professional_template_assembler import (
         ProfessionalTemplateAssembler,
         TemplateAssemblyConfig,
         GoldStandardFormatter,
         ContentValidator,
         ProfessionalTemplateResult
     )
-    from src.services.qme_template_generator import QMETemplateData, PatientInfo, MedicalFindings
-    from src.services.qme_rules_engine import ValidationIssue, QualityScore, ValidationSeverity
+    from src.core.generation.qme_template_generator import QMETemplateData, PatientInfo, MedicalFindings
+    from src.core.validation.qme_rules_engine import ValidationIssue, QualityScore, ValidationSeverity
     from src.models.knowledge_graph import Diagnosis, Finding, ImpairmentRating
 except ImportError:
-    from services.professional_template_assembler import (
+    from src.services.professional_template_assembler_simple import (
         ProfessionalTemplateAssembler,
         TemplateAssemblyConfig,
         GoldStandardFormatter,
         ContentValidator,
         ProfessionalTemplateResult
     )
-    from services.qme_template_generator import QMETemplateData, PatientInfo, MedicalFindings
-    from services.qme_rules_engine import ValidationIssue, QualityScore, ValidationSeverity
+    from src.core.generation.qme_template_generator import QMETemplateData, PatientInfo, MedicalFindings
+    from src.core.validation.qme_rules_engine import ValidationIssue, QualityScore, ValidationSeverity
     from models.knowledge_graph import Diagnosis, Finding, ImpairmentRating
 
 

@@ -21,7 +21,7 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).parent.parent))
 
 try:
-    from src.services.professional_template_assembly_engine import (
+    from tests.test_professional_template_assembly_engine import (
         ProfessionalTemplateAssemblyEngine,
         TemplateConfig,
         FormattingRules,
@@ -29,7 +29,7 @@ try:
         AssemblyStatus,
         FallbackStrategy
     )
-    from src.services.qme_template_generator import QMETemplateData, PatientInfo, MedicalFindings
+    from src.core.generation.qme_template_generator import QMETemplateData, PatientInfo, MedicalFindings
     from src.models.knowledge_graph import Diagnosis, ImpairmentRating, Finding
     from src.models.extraction_models import ExtractionResult
 except ImportError as e:

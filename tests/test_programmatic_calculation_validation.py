@@ -17,7 +17,7 @@ from unittest.mock import Mock, patch
 
 # Core calculation imports
 try:
-    from src.services.impairment_calculator import (
+    from src.core.calculation.impairment_calculator import (
         ImpairmentCalculator, ROMMeasurement, CalculationValidationError,
         ProgrammaticCalculationResult, CalculationStep, AMATableReference
     )

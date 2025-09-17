@@ -30,11 +30,11 @@ from src.storage.knowledge_graph_schema import KnowledgeGraphSchemaManager
 # Evidence-first system imports
 try:
     from src.workflow.evidence_first_workflow_manager import EvidenceFirstWorkflowManager
-    from src.services.structured_extractor import StructuredExtractor, ExtractionContext
-    from src.services.qme_field_validator import EvidenceFirstValidator, ValidationReport
-    from src.services.impairment_calculator import ImpairmentCalculator, ROMMeasurement
-    from src.services.evidence_rag_service import EvidenceRAGService
-    from src.services.knowledge_base_initializer import KnowledgeBaseInitializer
+    from src.core.extraction.structured_extractor import StructuredExtractor, ExtractionContext
+    from src.core.validation.qme_field_validator import EvidenceFirstValidator, ValidationReport
+    from src.core.calculation.impairment_calculator import ImpairmentCalculator, ROMMeasurement
+    from src.infrastructure.knowledge.evidence_rag_service import EvidenceRAGService
+    from src.infrastructure.knowledge.knowledge_base_initializer import KnowledgeBaseInitializer
     EVIDENCE_FIRST_AVAILABLE = True
 except ImportError as e:
     EVIDENCE_FIRST_AVAILABLE = False

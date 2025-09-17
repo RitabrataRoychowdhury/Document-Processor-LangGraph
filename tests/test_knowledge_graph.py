@@ -11,7 +11,7 @@ from src.models.knowledge_graph import (
     KnowledgeNode, KnowledgeRelationship
 )
 from src.repositories.knowledge_graph_repository import SQLiteKnowledgeGraphRepository
-from src.services.knowledge_graph_vector_service import KnowledgeGraphVectorService
+from src.infrastructure.knowledge.knowledge_graph_vector_service import KnowledgeGraphVectorService
 from src.storage.database import DatabaseManager
 from src.storage.knowledge_graph_schema import KnowledgeGraphSchemaManager
 

@@ -17,8 +17,8 @@ import argparse
 # Add src to path
 sys.path.append(str(Path(__file__).parent.parent))
 
-from src.services.comprehensive_quality_validation_service import ComprehensiveQualityValidationService
-from src.services.system_performance_monitor import SystemPerformanceMonitor
+from src.core.validation.comprehensive_quality_validation_service import ComprehensiveQualityValidationService
+from src.infrastructure.monitoring.system_performance_monitor import SystemPerformanceMonitor
 
 
 class SystemMigrationManager:

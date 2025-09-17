@@ -21,32 +21,32 @@ import json
 import os
 import yaml
 
-from src.services.results_storage_service import (
+from src.infrastructure.storage.results_storage_service import (
     ResultsStorageService, 
     DocumentMetadata, 
     StorageResult,
     ResultType
 )
-from src.services.comprehensive_logging_service import (
+from src.infrastructure.monitoring.comprehensive_logging_service import (
     ComprehensiveLoggingService,
     ProcessingStage,
     ProcessingMetrics,
     QualityMetrics,
     SystemHealthMetrics
 )
-from src.services.component_manager import (
+from src.infrastructure.monitoring.component_manager import (
     ComponentManager,
     ComponentInfo,
     ComponentType,
     ProcessingPipeline,
     create_default_component_manager
 )
-from src.services.configuration_service import (
+from src.infrastructure.configuration.configuration_service import (
     ConfigurationService,
     Environment,
     ConfigurationError
 )
-from src.services.service_registry import ServiceRegistry, ServiceLifetime
+from src.infrastructure.configuration.service_registry import ServiceRegistry, ServiceLifetime
 
 
 class TestResultsStorageService:

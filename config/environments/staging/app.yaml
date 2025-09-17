@@ -1,0 +1,56 @@
+# Staging Environment Configuration
+
+app:
+  name: "QME System"
+  version: "1.0.0"
+  environment: "staging"
+  debug: false
+  log_level: "INFO"
+
+database:
+  type: "postgresql"
+  host: "${DB_HOST}"
+  port: "${DB_PORT:5432}"
+  database: "${DB_NAME}"
+  username: "${DB_USER}"
+  password: "${DB_PASSWORD}"
+  pool_size: 10
+  timeout: 45
+  ssl_mode: "prefer"
+
+api:
+  openrouter:
+    base_url: "https://openrouter.ai/api/v1"
+    timeout: 90
+    max_retries: 4
+    retry_delay: 1.5
+
+storage:
+  documents_path: "/app/data/documents"
+  results_path: "/app/results"
+  cache_path: "/app/data/cache"
+  exports_path: "/app/data/exports"
+
+knowledge_base:
+  vector_store_path: "/app/data/vector_store"
+  embedding_model: "text-embedding-ada-002"
+  chunk_size: 1000
+  chunk_overlap: 200
+
+monitoring:
+  enable_metrics: true
+  metrics_port: 8001
+  health_check_interval: 20
+  performance_tracking: true
+
+validation:
+  confidence_threshold: 0.8
+  flagged_threshold: 0.5
+  enable_strict_validation: true
+  max_validation_errors: 7
+
+generation:
+  template_cache_size: 200
+  max_content_length: 75000
+  enable_preview: true
+  output_formats: ["docx", "pdf"]

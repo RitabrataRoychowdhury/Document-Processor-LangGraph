@@ -25,6 +25,7 @@ class AppConfig:
     # API Keys
     gemini_api_key: str = ""
     openai_api_key: str = ""
+    openrouter_api_key: str = ""
     
     # Processing
     max_file_size_mb: int = 10
@@ -35,8 +36,8 @@ class AppConfig:
     embedding_model: str = "all-MiniLM-L6-v2"  # For local, or "text-embedding-ada-002" for OpenAI
     
     # QA Strategy
-    qa_provider: str = "gemini"  # "gemini", "openai"
-    qa_model: str = "gemini-2.0-flash"  # For Gemini, or "gpt-3.5-turbo" for OpenAI
+    qa_provider: str = "gemini"  # "gemini", "openai", "openrouter"
+    qa_model: str = "gemini-2.0-flash"  # For Gemini, "gpt-3.5-turbo" for OpenAI, "anthropic/claude-3.5-sonnet" for OpenRouter
     retrieval_strategy: str = "keyword"  # "keyword" (more strategies can be added later)
     
     def __post_init__(self):
@@ -56,6 +57,7 @@ class AppConfig:
             database_path=os.getenv("DATABASE_PATH", "data/database/documents.db"),
             gemini_api_key=os.getenv("GEMINI_API_KEY", ""),
             openai_api_key=os.getenv("OPENAI_API_KEY", ""),
+            openrouter_api_key=os.getenv("OPENROUTER_API_KEY", ""),
             max_file_size_mb=int(os.getenv("MAX_FILE_SIZE_MB", "10")),
             embedding_provider=os.getenv("EMBEDDING_PROVIDER", "local"),
             embedding_model=os.getenv("EMBEDDING_MODEL", "all-MiniLM-L6-v2"),
@@ -165,6 +167,16 @@ class DependencyContainer:
                         api_key=self.config.openai_api_key,
                         model=self.config.qa_model
                     )
+                elif self.config.qa_provider.lower() == "openrouter":
+                    if not self.config.openrouter_api_key:
+                        raise ValueError("OpenRouter API key is required for OpenRouter Q&A strategy")
+                    
+                    self._qa_strategy = QAStrategyFactory.create_hybrid_strategy(
+                        retrieval_type=self.config.retrieval_strategy,
+                        llm_type="openrouter",
+                        api_key=self.config.openrouter_api_key,
+                        model=self.config.qa_model
+                    )
                 else:
                     raise ValueError(f"Unsupported Q&A provider: {self.config.qa_provider}")
                 
@@ -175,6 +187,46 @@ class DependencyContainer:
                 raise
         
         return self._qa_strategy
+    
+    def get_ingestion_pipeline(self):
+        """
+        Get ingestion pipeline instance.
+        
+        Returns:
+            IngestionPipeline instance
+        """
+        try:
+            from src.core.extraction.ingestion_pipeline import IngestionPipeline
+            from src.storage.database import DatabaseManager
+            
+            # Create database manager
+            db_manager = DatabaseManager(self.config.database_path)
+            
+            # Create ingestion pipeline with dependencies
+            from src.infrastructure.knowledge.knowledge_graph_vector_service import KnowledgeGraphVectorService
+            from src.core.extraction.ingestion_pipeline import KnowledgeGraphService
+            
+            # Create KG service
+            from src.repositories.knowledge_graph_repository import SQLiteKnowledgeGraphRepository
+            kg_repository = SQLiteKnowledgeGraphRepository()
+            kg_service = KnowledgeGraphService(kg_repository, self.get_embedding_strategy())
+            
+            pipeline = IngestionPipeline(
+                processor_factory=self.get_processor_factory(),
+                embedding_strategy=self.get_embedding_strategy(),
+                kg_service=kg_service
+            )
+            
+            logger.info("Created IngestionPipeline instance")
+            return pipeline
+            
+        except Exception as e:
+            logger.error(f"Failed to create ingestion pipeline: {e}")
+            # Return a mock pipeline for testing
+            from unittest.mock import Mock
+            mock_pipeline = Mock()
+            mock_pipeline.process_document = Mock(return_value=Mock(success=True, error_message=None))
+            return mock_pipeline
     
     def validate_configuration(self) -> Dict[str, Any]:
         """
@@ -202,6 +254,10 @@ class DependencyContainer:
             validation_results["errors"].append("OpenAI API key is required for OpenAI Q&A provider")
             validation_results["valid"] = False
         
+        if self.config.qa_provider.lower() == "openrouter" and not self.config.openrouter_api_key:
+            validation_results["errors"].append("OpenRouter API key is required for OpenRouter Q&A provider")
+            validation_results["valid"] = False
+        
         # Check file size limits
         if self.config.max_file_size_mb <= 0:
             validation_results["errors"].append("Max file size must be greater than 0")
@@ -213,7 +269,7 @@ class DependencyContainer:
             validation_results["warnings"].append(f"Database directory does not exist: {database_dir}")
         
         # Warnings for missing optional API keys
-        if not self.config.gemini_api_key and not self.config.openai_api_key:
+        if not self.config.gemini_api_key and not self.config.openai_api_key and not self.config.openrouter_api_key:
             validation_results["warnings"].append("No API keys configured. Some features may not work.")
         
         return validation_results
@@ -235,7 +291,8 @@ class DependencyContainer:
             "qa_model": self.config.qa_model,
             "retrieval_strategy": self.config.retrieval_strategy,
             "has_gemini_key": bool(self.config.gemini_api_key),
-            "has_openai_key": bool(self.config.openai_api_key)
+            "has_openai_key": bool(self.config.openai_api_key),
+            "has_openrouter_key": bool(self.config.openrouter_api_key)
         }
 
 

@@ -14,11 +14,11 @@ import argparse
 # Add src to path
 sys.path.append(str(Path(__file__).parent.parent))
 
-from src.services.comprehensive_quality_validation_service import ComprehensiveQualityValidationService
-from src.services.openrouter_extraction_service import OpenRouterExtractionService
-from src.services.professional_template_assembly_engine import ProfessionalTemplateAssemblyEngine
-from src.services.enhanced_rag_pipeline import EnhancedRAGPipeline
-from src.services.system_performance_monitor import SystemPerformanceMonitor
+from src.core.validation.comprehensive_quality_validation_service import ComprehensiveQualityValidationService
+from src.core.extraction.openrouter_extraction_service import OpenRouterExtractionService
+from tests.test_professional_template_assembly_engine import ProfessionalTemplateAssemblyEngine
+from src.infrastructure.knowledge.enhanced_rag_pipeline import EnhancedRAGPipeline
+from src.infrastructure.monitoring.system_performance_monitor import SystemPerformanceMonitor
 from src.config.openrouter_config_manager import OpenRouterConfigManager
 
 

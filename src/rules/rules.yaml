@@ -109,8 +109,8 @@ rules:
         diagnostic_conclusions: true
         impairment_determinations: true
     - add_audit: "Post-generation validation completed"
-        verify_arithmetic: true
-        check_percentage_ranges: true
+    - verify_arithmetic: true
+    - check_percentage_ranges: true
     - validate_citation_accuracy:
         ama_references: true
         legal_citations: true

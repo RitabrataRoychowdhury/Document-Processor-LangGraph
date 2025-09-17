@@ -1,0 +1,3 @@
+[console_scripts]
+qme-cli = src.cli.main:main
+qme-system = src.main:main

@@ -40,7 +40,7 @@ try:
     from tests.test_confidence_scoring_validation import TestConfidenceScoringValidation
     from tests.test_programmatic_calculation_validation import TestProgrammaticCalculationValidation
     from tests.test_knowledge_graph_initialization import TestKnowledgeGraphInitialization
-    from tests.test_evidence_first_integration import TestEvidenceFirstIntegration
+    from tests.integration.services.test_evidence_first_integration import TestEvidenceFirstIntegration
     EVIDENCE_FIRST_TESTS_AVAILABLE = True
 except ImportError as e:
     EVIDENCE_FIRST_TESTS_AVAILABLE = False
@@ -300,8 +300,8 @@ class EvidenceFirstTestRunner:
         
         try:
             # Test basic imports
-            from src.services.structured_extractor import StructuredExtractor
-            from src.services.impairment_calculator import ImpairmentCalculator
+            from src.core.extraction.structured_extractor import StructuredExtractor
+            from src.core.calculation.impairment_calculator import ImpairmentCalculator
             print("✅ Core components import successfully")
             
             # Test basic functionality
@@ -315,7 +315,7 @@ class EvidenceFirstTestRunner:
                 
                 # Test extraction
                 extractor = StructuredExtractor()
-                from src.services.structured_extractor import ExtractionContext
+                from src.core.extraction.structured_extractor import ExtractionContext
                 
                 context = ExtractionContext(
                     document_id="smoke-test-1",

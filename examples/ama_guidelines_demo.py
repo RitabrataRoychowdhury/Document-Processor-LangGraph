@@ -14,10 +14,10 @@ from pathlib import Path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 
 try:
-    from services.comprehensive_ama_integration import (
+    from src.infrastructure.knowledge.comprehensive_ama_integration import (
         ComprehensiveAMAIntegration, ComprehensiveEvaluationData
     )
-    from services.enhanced_impairment_calculator import (
+    from src.core.calculation.enhanced_impairment_calculator import (
         RangeOfMotionMeasurement, StrengthTestResult, FunctionalAssessment
     )
     from models.knowledge_graph import Diagnosis, Finding

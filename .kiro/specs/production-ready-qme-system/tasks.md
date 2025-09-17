@@ -1,0 +1,141 @@
+# Implementation Plan
+
+- [x] 1. Resolve Backend Errors and Consolidate Service Architecture
+
+  - **1.1 Service Consolidation and Cleanup**:
+    - Merge duplicate services: consolidate `document_processor.py`, `enhanced_document_processor.py`, and `refactored_document_processor.py` into single `core/extraction/document_processor.py`
+    - Consolidate QME field services: merge `qme_field_extractor.py`, `comprehensive_qme_field_service.py` into `core/extraction/field_extraction_service.py`
+    - Merge template assemblers: consolidate `professional_template_assembler.py`, `professional_template_assembler_simple.py`, `professional_template_assembly_engine.py` into `core/generation/template_assembly_service.py`
+    - Remove redundant services: eliminate `simple_processor.py`, duplicate monitoring services, and unused legacy components
+  - **1.2 Create Organized Service Structure**:
+    - Create `src/core/` directory with subdirectories: `extraction/`, `validation/`, `generation/`, `calculation/`
+    - Move and refactor services into appropriate core directories with clear interfaces and dependency injection
+    - Create `src/infrastructure/` directory for: `knowledge/`, `storage/`, `monitoring/`, `configuration/`
+    - Implement service registry pattern for dependency management and loose coupling
+  - **1.3 Fix Critical Backend Errors**:
+    - Resolve import errors and circular dependencies by implementing proper dependency injection
+    - Fix database connection issues and implement connection pooling with proper error handling
+    - Resolve API integration errors with OpenRouter and implement proper retry logic with exponential backoff
+    - Fix knowledge graph initialization errors and implement graceful degradation for missing dependencies
+  - **1.4 Implement Comprehensive Error Handling**:
+    - Create centralized error handling with custom exception hierarchy (QMESystemError, ExtractionError, ValidationError, etc.)
+    - Implement circuit breaker pattern for external API calls to prevent cascade failures
+    - Add comprehensive logging with structured logging format and correlation IDs for request tracing
+    - Create error recovery mechanisms with automatic retry and fallback strategies
+  - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6_
+
+- [x] 2. Complete UI Integration with Dual-Pipeline Architecture
+
+  - **2.1 Refactor Main UI Application**:
+    - Update `src/ui/main_app.py` to integrate with consolidated service architecture and workflow manager
+    - Implement real-time progress tracking for Pipeline 1 (extraction/validation) and Pipeline 2 (generation/compliance)
+    - Add comprehensive error handling in UI with user-friendly error messages and recovery suggestions
+    - Create unified navigation with clear workflow steps: Upload → Extract → Validate → Generate → Download
+  - **2.2 Enhance Document Processing UI**:
+    - Update upload interface to support drag-and-drop with file validation and progress indicators
+    - Implement real-time extraction progress with field-by-field confidence score display
+    - Add validation results display showing accepted fields (≥0.8), flagged fields (0.5-0.8), and missing fields (<0.5)
+    - Create evidence snippet viewer showing source document references and extraction context
+  - **2.3 Integrate Template Generation UI**:
+    - Update QME template interface to use consolidated template assembly service
+    - Implement template preview with expandable sections and evidence source citations
+    - Add template customization options: letterhead upload, doctor information, formatting preferences
+    - Create download interface with multiple formats: DOCX, PDF preview, and audit trail reports
+  - **2.4 Enhance Q&A Interface Integration**:
+    - Update Q&A interface to integrate with knowledge graph and evidence-based response generation
+    - Implement context-aware template generation commands within chat interface
+    - Add source citation display with page references and confidence scores for all responses
+    - Create inline template generation with immediate download links and quality assessment
+  - **2.5 Add Workflow Status and Monitoring UI**:
+    - Create workflow status dashboard showing pipeline progress, processing times, and success rates
+    - Implement audit trail viewer with complete evidence traceability and compliance status
+    - Add system health dashboard with service status, performance metrics, and error rates
+    - Create user activity tracking with document processing history and template generation analytics
+  - _Requirements: 2.1, 2.2, 2.3, 2.4, 2.5, 2.6_
+
+- [x] 3. Implement Production-Ready Infrastructure and Monitoring
+
+  - **3.1 Comprehensive Health Check System**:
+    - Enhance `src/infrastructure/monitoring/health_checker.py` with detailed component health validation
+    - Implement dependency health checks: database connectivity, API availability, knowledge graph status, file system access
+    - Add performance health checks: response times, memory usage, disk space, processing queue status
+    - Create health check endpoints for load balancer integration and automated monitoring
+  - **3.2 Advanced Performance Monitoring**:
+    - Consolidate performance monitoring services into `src/infrastructure/monitoring/performance_monitor.py`
+    - Implement comprehensive metrics collection: processing times, success rates, error rates, resource utilization
+    - Add business metrics tracking: document processing throughput, template generation success rates, user activity patterns
+    - Create performance alerting with configurable thresholds and notification channels
+  - **3.3 Production Configuration Management**:
+    - Enhance `src/infrastructure/configuration/config_manager.py` with environment-specific configuration
+    - Implement secure secrets management with encryption for API keys and database credentials
+    - Add feature flag system for gradual rollout and A/B testing capabilities
+    - Create configuration validation with startup checks and runtime configuration updates
+  - **3.4 Comprehensive Logging and Audit System**:
+    - Implement structured logging with JSON format, correlation IDs, and distributed tracing
+    - Create audit trail system with complete evidence traceability and compliance reporting
+    - Add log aggregation and analysis with configurable log levels and filtering
+    - Implement log rotation and archival with configurable retention policies
+  - **3.5 Deployment and Scaling Preparation**:
+    - Create Docker containerization with multi-stage builds and optimized image sizes
+    - Implement database migration system with version control and rollback capabilities
+    - Add horizontal scaling support with stateless service design and shared storage
+    - Create deployment scripts with health checks, rolling updates, and rollback procedures
+  - _Requirements: 3.1, 3.2, 3.3, 3.4, 3.5, 3.6_
+
+- [x] 4. Organize and Clean Project Structure
+
+  - **4.1 Project Root Cleanup**:
+    - Move all test files from project root to appropriate `tests/` subdirectories
+    - Consolidate implementation summary files into `docs/implementation/` directory
+    - Remove duplicate and obsolete files: old demo scripts, temporary test files, unused configuration files
+    - Create clean project root with only essential files: README.md, requirements.txt, .env.example, docker-compose.yml
+  - **4.2 Service Directory Reorganization**:
+    - Implement new service structure: move services from `src/services/` to organized `src/core/` and `src/infrastructure/` directories
+    - Create clear service interfaces with dependency injection and loose coupling
+    - Implement service factory pattern for service instantiation and configuration
+    - Add service documentation with clear API contracts and usage examples
+  - **4.3 Configuration and Data Organization**:
+    - Consolidate configuration files in `config/` directory with environment-specific subdirectories
+    - Organize data files in `data/` with clear subdirectories: `canonical/`, `templates/`, `cache/`, `exports/`
+    - Create results organization with date-based archival and cleanup policies
+    - Implement configuration schema validation with clear error messages for invalid configurations
+  - **4.4 Documentation and Code Quality**:
+    - Create comprehensive API documentation with OpenAPI specifications
+    - Add inline code documentation with type hints and docstrings for all public methods
+    - Implement code quality checks with linting, formatting, and complexity analysis
+    - Create developer documentation with setup guides, architecture overview, and contribution guidelines
+  - **4.5 Testing Organization and Coverage**:
+    - Reorganize test files into logical subdirectories matching source code structure
+    - Implement comprehensive test coverage with unit, integration, and end-to-end tests
+    - Create test data management with fixtures, mocks, and test database setup
+    - Add performance testing and load testing for production readiness validation
+  - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.5, 4.6_
+
+- [x] 5. Validate Knowledge Base Integration and Pipeline Functionality
+
+  - **5.1 Knowledge Base Validation and Optimization**:
+    - Validate complete knowledge base initialization with all canonical documents (AMA Guides, QME Study Guide, Sample reports)
+    - Implement knowledge graph validation with minimum node counts (≥1000), relationship counts (≥500), and entity type coverage
+    - Add knowledge base performance optimization with indexing, caching, and query optimization
+    - Create knowledge base health monitoring with data integrity checks and update tracking
+  - **5.2 Pipeline Integration Testing**:
+    - Implement comprehensive Pipeline 1 testing: document ingestion → extraction → validation → knowledge graph population
+    - Create Pipeline 2 testing: validated evidence → content generation → template assembly → compliance validation
+    - Add end-to-end workflow testing with real PQME documents and expected output validation
+    - Implement pipeline performance testing with processing time benchmarks and throughput validation
+  - **5.3 Evidence-First Validation System**:
+    - Validate confidence scoring system with ≥95% precision for critical fields and ≥90% overall field coverage
+    - Test evidence validation thresholds with accepted fields (≥0.8), flagged fields (0.5-0.8), and missing field detection
+    - Implement cross-document validation and consistency checking across multiple patient documents
+    - Add evidence provenance tracking with complete audit trails and source document references
+  - **5.4 Programmatic Calculation Validation**:
+    - Validate AMA table-based calculations with zero LLM involvement and complete programmatic implementation
+    - Test ROM measurement averaging, impairment percentage calculation, and Combined Values Chart application
+    - Implement calculation audit trails with step-by-step documentation and AMA table citations
+    - Add calculation validation against known test cases and edge case handling
+  - **5.5 Compliance and Quality Assurance**:
+    - Validate legal compliance checking with Labor Code 4062.3 declaration, mandatory sections, and signature blocks
+    - Test template quality assurance with professional formatting, evidence citations, and completeness validation
+    - Implement compliance reporting with pass/fail status, remediation steps, and audit trail generation
+    - Add final quality gates with comprehensive validation before template generation and download
+  - _Requirements: 5.1, 5.2, 5.3, 5.4, 5.5, 5.6_

@@ -19,8 +19,8 @@ from typing import Dict, Any
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 try:
-    from src.services.advanced_qme_rules_engine import AdvancedQMERulesEngine, ProvenanceReference
-    from src.services.qme_template_generator import QMETemplateData, PatientInfo, MedicalFindings
+    from src.core.validation.advanced_qme_rules_engine import AdvancedQMERulesEngine, ProvenanceReference
+    from src.core.generation.qme_template_generator import QMETemplateData, PatientInfo, MedicalFindings
     from src.models.knowledge_graph import Finding, Diagnosis
     from src.utils.logging_config import get_logger
 except ImportError as e:

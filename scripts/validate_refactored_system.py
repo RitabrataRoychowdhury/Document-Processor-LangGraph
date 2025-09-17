@@ -15,9 +15,9 @@ import json
 # Add src to path for imports
 sys.path.append(str(Path(__file__).parent.parent))
 
-from src.services.quality_validation_service import QualityValidationService
-from src.services.performance_monitoring_service import PerformanceMonitoringService, PerformanceMonitor
-from tests.test_end_to_end_quality_validation import EndToEndQualityTestSuite
+from src.core.validation.quality_validation_service import QualityValidationService
+from src.infrastructure.monitoring.performance_monitoring_service import PerformanceMonitoringService, PerformanceMonitor
+from tests.end_to_end.test_end_to_end_quality_validation import EndToEndQualityTestSuite
 
 # Configure logging
 logging.basicConfig(

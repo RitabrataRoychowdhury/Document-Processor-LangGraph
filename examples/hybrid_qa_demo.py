@@ -7,10 +7,10 @@ import os
 import sys
 sys.path.append('../src')
 
-from services.qa_engine import create_hybrid_qa_engine
+from src.infrastructure.knowledge.qa_engine import create_hybrid_qa_engine
 from storage.document_storage import DocumentStorage
 from repositories.knowledge_graph_repository import SQLiteKnowledgeGraphRepository
-from services.knowledge_graph_vector_service import create_kg_vector_service
+from src.infrastructure.knowledge.knowledge_graph_vector_service import create_kg_vector_service
 
 
 def demo_hybrid_qa():

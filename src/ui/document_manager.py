@@ -6,14 +6,24 @@ from typing import List, Optional, Dict, Any
 
 from src.storage.document_storage import DocumentStorage
 from src.models.document import Document, ProcessingJob
-from src.ui.qa_interface import render_qa_for_document
+from src.ui.qa_interface_simple import render_qa_for_document
+from src.infrastructure.monitoring.ui_error_handler import (
+    enhanced_ui_error_boundary, handle_component_failure
+)
+from src.utils.logging_config import get_logger
+
+logger = get_logger(__name__)
 
 
 class DocumentManager:
     """Document management interface for Streamlit."""
     
     def __init__(self):
-        self.storage = DocumentStorage()
+        try:
+            self.storage = DocumentStorage()
+        except Exception as e:
+            logger.error(f"Error initializing document storage: {e}")
+            self.storage = None
         
         # Initialize session state
         if 'selected_doc_for_qa' not in st.session_state:
@@ -21,22 +31,83 @@ class DocumentManager:
         if 'show_delete_confirmation' not in st.session_state:
             st.session_state.show_delete_confirmation = {}
     
+    @enhanced_ui_error_boundary(
+        page="document_management",
+        component="document_manager",
+        show_fallback=True,
+        show_recovery=True
+    )
     def render_document_management(self) -> None:
-        """Render the main document management interface."""
-        st.subheader("📚 Document Management")
-        
-        # Get all documents
-        documents = self.storage.list_documents()
-        
-        if not documents:
-            st.info("📄 No documents found. Upload some documents to get started!")
-            return
-        
-        # Document statistics
-        self._render_document_stats(documents)
-        
-        # Document list
-        self._render_document_list(documents)
+        """Render the main document management interface with comprehensive error handling."""
+        try:
+            st.subheader("📚 Document Management")
+            
+            # Check if storage is available
+            if not self.storage:
+                handle_component_failure(
+                    component_name="document_storage",
+                    error=Exception("Document storage not available"),
+                    context={'page': 'document_management', 'component': 'storage_init'},
+                    show_fallback=True,
+                    show_recovery=True
+                )
+                return
+            
+            # Get all documents with error handling
+            try:
+                documents = self.storage.list_documents()
+            except Exception as storage_error:
+                handle_component_failure(
+                    component_name="document_list",
+                    error=storage_error,
+                    context={'page': 'document_management', 'component': 'document_listing'},
+                    show_fallback=True,
+                    show_recovery=True
+                )
+                return
+            
+            if not documents:
+                st.info("📄 No documents found. Upload some documents to get started!")
+                
+                # Show helpful actions
+                col1, col2 = st.columns(2)
+                with col1:
+                    if st.button("📤 Upload Documents"):
+                        st.session_state.current_page = "Upload Documents"
+                        st.rerun()
+                with col2:
+                    if st.button("🔄 Refresh"):
+                        st.rerun()
+                return
+            
+            # Document statistics with error handling
+            try:
+                self._render_document_stats(documents)
+            except Exception as stats_error:
+                logger.error(f"Error rendering document stats: {stats_error}")
+                st.warning("⚠️ Unable to load document statistics")
+            
+            # Document list with error handling
+            try:
+                self._render_document_list(documents)
+            except Exception as list_error:
+                handle_component_failure(
+                    component_name="document_list_renderer",
+                    error=list_error,
+                    context={'page': 'document_management', 'component': 'document_list'},
+                    show_fallback=True,
+                    show_recovery=True
+                )
+                
+        except Exception as e:
+            logger.error(f"Error in document management rendering: {e}", exc_info=True)
+            handle_component_failure(
+                component_name="document_management",
+                error=e,
+                context={'page': 'document_management', 'component': 'main_interface'},
+                show_fallback=True,
+                show_recovery=True
+            )
     
     def _render_document_stats(self, documents: List[Document]) -> None:
         """Render document statistics."""
@@ -385,3 +456,66 @@ def render_document_management_page(document_id: Optional[str] = None):
         doc_manager.render_qa_mode()
     else:
         doc_manager.render_document_management()
+
+
+def render_document_management_page(document_id: Optional[str] = None):
+    """Render the document management page with comprehensive error handling."""
+    try:
+        manager = DocumentManager()
+        
+        if document_id:
+            # Show specific document
+            st.subheader(f"📄 Document: {document_id}")
+            
+            # Try to get document details
+            try:
+                if manager.storage:
+                    document = manager.storage.get_document(document_id)
+                    if document:
+                        # Show document details
+                        st.write(f"**Filename:** {document.filename}")
+                        st.write(f"**Status:** {document.processing_status}")
+                        st.write(f"**Uploaded:** {document.created_at}")
+                        
+                        # Action buttons
+                        col1, col2, col3 = st.columns(3)
+                        
+                        with col1:
+                            if st.button("💬 Ask Questions"):
+                                render_qa_for_document(document_id)
+                        
+                        with col2:
+                            if st.button("📋 Generate Template"):
+                                st.session_state.template_document_id = document_id
+                                st.session_state.current_page = "Generate QME Template"
+                                st.rerun()
+                        
+                        with col3:
+                            if st.button("📚 Back to All Documents"):
+                                st.rerun()
+                    else:
+                        st.error(f"❌ Document {document_id} not found")
+                else:
+                    st.error("❌ Document storage not available")
+                    
+            except Exception as doc_error:
+                handle_component_failure(
+                    component_name="document_details",
+                    error=doc_error,
+                    context={'page': 'document_management', 'component': 'document_details', 'document_id': document_id},
+                    show_fallback=True,
+                    show_recovery=True
+                )
+        else:
+            # Show all documents
+            manager.render_document_management()
+            
+    except Exception as e:
+        logger.error(f"Error rendering document management page: {e}", exc_info=True)
+        handle_component_failure(
+            component_name="document_management_page",
+            error=e,
+            context={'page': 'document_management', 'component': 'page_render', 'document_id': document_id},
+            show_fallback=True,
+            show_recovery=True
+        )

@@ -15,7 +15,7 @@ from pathlib import Path
 # Add src to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from src.services.openrouter_extraction_service import OpenRouterExtractionService
+from src.core.extraction.openrouter_extraction_service import OpenRouterExtractionService
 from src.models.extraction_models import ExtractionConfig
 from src.config.openrouter_config_manager import OpenRouterConfigManager
 

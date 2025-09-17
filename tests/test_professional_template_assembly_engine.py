@@ -13,7 +13,7 @@ from datetime import datetime
 from unittest.mock import Mock, patch, MagicMock
 
 try:
-    from src.services.professional_template_assembly_engine import (
+    from tests.test_professional_template_assembly_engine import (
         ProfessionalTemplateAssemblyEngine,
         TemplateConfig,
         FormattingRules,
@@ -26,12 +26,12 @@ try:
         ProfessionalFormatter,
         ErrorRecoveryManager
     )
-    from src.services.qme_template_generator import QMETemplateData, PatientInfo, MedicalFindings
+    from src.core.generation.qme_template_generator import QMETemplateData, PatientInfo, MedicalFindings
     from src.models.knowledge_graph import Diagnosis, ImpairmentRating, Finding
-    from src.services.qme_rules_engine import ValidationIssue, QualityScore, ValidationSeverity
+    from src.core.validation.qme_rules_engine import ValidationIssue, QualityScore, ValidationSeverity
     from src.models.extraction_models import ExtractionResult
 except ImportError:
-    from services.professional_template_assembly_engine import (
+    from src.core.generation.template_assembly_service import (
         ProfessionalTemplateAssemblyEngine,
         TemplateConfig,
         FormattingRules,
@@ -44,9 +44,9 @@ except ImportError:
         ProfessionalFormatter,
         ErrorRecoveryManager
     )
-    from services.qme_template_generator import QMETemplateData, PatientInfo, MedicalFindings
+    from src.core.generation.qme_template_generator import QMETemplateData, PatientInfo, MedicalFindings
     from models.knowledge_graph import Diagnosis, ImpairmentRating, Finding
-    from services.qme_rules_engine import ValidationIssue, QualityScore, ValidationSeverity
+    from src.core.validation.qme_rules_engine import ValidationIssue, QualityScore, ValidationSeverity
     from models.extraction_models import ExtractionResult
 
 

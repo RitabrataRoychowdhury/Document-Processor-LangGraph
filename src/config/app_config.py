@@ -1,6 +1,9 @@
 """
 Application configuration management using environment variables for API keys and provider selection.
 Supports backward compatibility with existing configuration while adding new knowledge graph features.
+
+This module now integrates with the centralized configuration manager for consistent
+environment variable loading across all components.
 """
 
 import os
@@ -8,13 +11,19 @@ from typing import List, Optional, Dict, Any
 from dataclasses import dataclass, field
 from enum import Enum
 
-# Try to load dotenv if available
+# Load environment variables using centralized configuration manager
 try:
-    from dotenv import load_dotenv
-    load_dotenv()
+    from src.infrastructure.configuration.centralized_config_manager import config_manager
+    _centralized_config_available = True
 except ImportError:
-    # dotenv not available, will use system environment variables
-    pass
+    _centralized_config_available = False
+    # Fallback to direct dotenv loading
+    try:
+        from dotenv import load_dotenv
+        load_dotenv()
+    except ImportError:
+        # dotenv not available, will use system environment variables
+        pass
 
 
 class EmbeddingProvider(Enum):
@@ -27,6 +36,7 @@ class QAProvider(Enum):
     """Supported QA providers."""
     GEMINI = "gemini"
     OPENAI = "openai"
+    OPENROUTER = "openrouter"
     LOCAL = "local"
 
 
@@ -40,6 +50,7 @@ class AppConfig:
     # API Keys
     gemini_api_key: str = field(default_factory=lambda: os.getenv("GEMINI_API_KEY", ""))
     openai_api_key: str = field(default_factory=lambda: os.getenv("OPENAI_API_KEY", ""))
+    openrouter_api_key: str = field(default_factory=lambda: os.getenv("OPENROUTER_API_KEY", ""))
     
     # File Processing Configuration
     max_file_size_mb: int = field(default_factory=lambda: int(os.getenv("MAX_FILE_SIZE_MB", "10")))
@@ -137,12 +148,26 @@ class AppConfig:
         """Validate configuration and return list of errors."""
         errors = []
         
+        # Use centralized validation if available
+        if _centralized_config_available:
+            try:
+                validation_result = config_manager.validate_configuration()
+                if not validation_result.is_valid:
+                    errors.extend(validation_result.errors)
+                return errors
+            except Exception as e:
+                errors.append(f"Centralized validation failed: {str(e)}")
+        
+        # Fallback to local validation
         # Validate API keys based on provider selection
         if self.qa_provider == QAProvider.GEMINI.value and not self.gemini_api_key:
             errors.append("GEMINI_API_KEY is required when using Gemini as QA provider")
         
         if self.qa_provider == QAProvider.OPENAI.value and not self.openai_api_key:
             errors.append("OPENAI_API_KEY is required when using OpenAI as QA provider")
+        
+        if self.qa_provider == QAProvider.OPENROUTER.value and not self.openrouter_api_key:
+            errors.append("OPENROUTER_API_KEY is required when using OpenRouter as QA provider")
         
         if self.embedding_provider == EmbeddingProvider.OPENAI.value and not self.openai_api_key:
             errors.append("OPENAI_API_KEY is required when using OpenAI as embedding provider")
@@ -186,6 +211,8 @@ class AppConfig:
             return self.gemini_api_key if self.gemini_api_key else None
         elif provider == QAProvider.OPENAI.value:
             return self.openai_api_key if self.openai_api_key else None
+        elif provider == QAProvider.OPENROUTER.value:
+            return self.openrouter_api_key if self.openrouter_api_key else None
         return None
     
     def is_api_configured(self) -> bool:
@@ -194,6 +221,8 @@ class AppConfig:
             return bool(self.gemini_api_key)
         elif self.qa_provider == QAProvider.OPENAI.value:
             return bool(self.openai_api_key)
+        elif self.qa_provider == QAProvider.OPENROUTER.value:
+            return bool(self.openrouter_api_key)
         elif self.qa_provider == QAProvider.LOCAL.value:
             return True  # Local provider doesn't need API key
         return False
@@ -220,6 +249,8 @@ class AppConfig:
             config['api_key'] = self.gemini_api_key
         elif self.qa_provider == QAProvider.OPENAI.value:
             config['api_key'] = self.openai_api_key
+        elif self.qa_provider == QAProvider.OPENROUTER.value:
+            config['api_key'] = self.openrouter_api_key
         
         return config
     
@@ -229,6 +260,7 @@ class AppConfig:
             'database_path': self.database_path,
             'gemini_api_key': '***' if self.gemini_api_key else '',
             'openai_api_key': '***' if self.openai_api_key else '',
+            'openrouter_api_key': '***' if self.openrouter_api_key else '',
             'max_file_size_mb': self.max_file_size_mb,
             'allowed_file_types': self.allowed_file_types,
             'max_processing_jobs': self.max_processing_jobs,
@@ -248,7 +280,7 @@ class AppConfig:
     
     def get_status_info(self) -> Dict[str, Any]:
         """Get configuration status information for system health checks."""
-        return {
+        status_info = {
             'api_key_configured': self.is_api_configured(),
             'embedding_provider': self.embedding_provider,
             'qa_provider': self.qa_provider,
@@ -258,6 +290,29 @@ class AppConfig:
             'debug_mode': self.debug_mode,
             'legacy_config_loaded': self._legacy_config_loaded
         }
+        
+        # Add centralized configuration status if available
+        if _centralized_config_available:
+            try:
+                validation_result = config_manager.validate_configuration()
+                status_info.update({
+                    'centralized_config_available': True,
+                    'configuration_valid': validation_result.is_valid,
+                    'validation_errors': len(validation_result.errors),
+                    'validation_warnings': len(validation_result.warnings),
+                    'gemini_configured': config_manager.is_api_configured('gemini'),
+                    'openrouter_configured': config_manager.is_api_configured('openrouter'),
+                    'openai_configured': config_manager.is_api_configured('openai')
+                })
+            except Exception as e:
+                status_info.update({
+                    'centralized_config_available': False,
+                    'centralized_config_error': str(e)
+                })
+        else:
+            status_info['centralized_config_available'] = False
+        
+        return status_info
 
 
 # Global configuration instance

@@ -15,10 +15,10 @@ sys.path.append(str(Path(__file__).parent.parent))
 # Set test API key
 os.environ['OPENROUTER_API_KEY'] = 'test-key-for-integration-test'
 
-from src.services.comprehensive_quality_validation_service import ComprehensiveQualityValidationService
-from src.services.system_performance_monitor import SystemPerformanceMonitor
+from src.core.validation.comprehensive_quality_validation_service import ComprehensiveQualityValidationService
+from src.infrastructure.monitoring.system_performance_monitor import SystemPerformanceMonitor
 from src.models.extraction_models import ExtractionResult, ExtractedField, QualityAssessment, ProcessingMetadata
-from tests.test_end_to_end_system_comparison import SystemComparisonTestSuite
+from tests.end_to_end.test_end_to_end_system_comparison import SystemComparisonTestSuite
 
 
 def test_comprehensive_quality_validation():

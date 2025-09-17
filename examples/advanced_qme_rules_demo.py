@@ -14,11 +14,11 @@ from typing import List, Dict, Any
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src'))
 
 try:
-    from src.services.advanced_qme_rules_engine import (
+    from src.core.validation.advanced_qme_rules_engine import (
         AdvancedQMERulesEngine, ValidationContext, AuditEntry, ProvenanceReference, RulePriority
     )
-    from src.services.qme_template_generator import QMETemplateData, PatientInfo, MedicalFindings
-    from src.services.qme_rules_engine import ValidationSeverity
+    from src.core.generation.qme_template_generator import QMETemplateData, PatientInfo, MedicalFindings
+    from src.core.validation.qme_rules_engine import ValidationSeverity
     from src.models.knowledge_graph import Diagnosis, Finding, ImpairmentRating
     from src.utils.logging_config import get_logger
 except ImportError as e:

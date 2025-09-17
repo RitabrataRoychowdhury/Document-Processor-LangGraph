@@ -139,7 +139,7 @@ Qualified Medical Evaluator
         
         # Test template generation
         print("📝 Testing Template Generation...")
-        from src.services.qme_template_generator import QMETemplateGenerator
+        from src.core.generation.qme_template_generator import QMETemplateGenerator
         
         generator = QMETemplateGenerator()
         print("✅ QME template generator initialized successfully")

@@ -13,8 +13,8 @@ import sys
 # Add project root to path for imports
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
-from src.services.ingestion_pipeline_factory import IngestionPipelineFactory
-from src.services.vector_store import vector_store_manager
+from src.core.extraction.ingestion_pipeline_factory import IngestionPipelineFactory
+from src.infrastructure.storage.vector_store import vector_store_manager
 
 
 def main():

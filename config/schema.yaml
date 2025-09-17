@@ -1,0 +1,234 @@
+# Configuration Schema Definition
+# This file defines the expected structure and validation rules for configuration files
+
+schema_version: "1.0"
+
+app:
+  type: object
+  required: [name, version, environment]
+  properties:
+    name:
+      type: string
+      minLength: 1
+    version:
+      type: string
+      pattern: "^\\d+\\.\\d+\\.\\d+$"
+    environment:
+      type: string
+      enum: [development, staging, production]
+    debug:
+      type: boolean
+      default: false
+    log_level:
+      type: string
+      enum: [DEBUG, INFO, WARNING, ERROR, CRITICAL]
+      default: INFO
+
+database:
+  type: object
+  required: [type]
+  properties:
+    type:
+      type: string
+      enum: [sqlite, postgresql, mysql]
+    host:
+      type: string
+      format: hostname
+    port:
+      type: integer
+      minimum: 1
+      maximum: 65535
+    database:
+      type: string
+      minLength: 1
+    username:
+      type: string
+      minLength: 1
+    password:
+      type: string
+      minLength: 1
+    path:
+      type: string
+      description: "Path for SQLite database"
+    pool_size:
+      type: integer
+      minimum: 1
+      maximum: 100
+      default: 10
+    timeout:
+      type: integer
+      minimum: 1
+      maximum: 300
+      default: 30
+
+api:
+  type: object
+  properties:
+    openrouter:
+      type: object
+      required: [base_url]
+      properties:
+        base_url:
+          type: string
+          format: uri
+        timeout:
+          type: integer
+          minimum: 10
+          maximum: 300
+          default: 60
+        max_retries:
+          type: integer
+          minimum: 0
+          maximum: 10
+          default: 3
+        retry_delay:
+          type: number
+          minimum: 0.1
+          maximum: 10
+          default: 1
+        rate_limit:
+          type: integer
+          minimum: 1
+          maximum: 1000
+          default: 50
+
+storage:
+  type: object
+  required: [documents_path, results_path]
+  properties:
+    documents_path:
+      type: string
+      minLength: 1
+    results_path:
+      type: string
+      minLength: 1
+    cache_path:
+      type: string
+      minLength: 1
+    exports_path:
+      type: string
+      minLength: 1
+    backup_path:
+      type: string
+      minLength: 1
+
+knowledge_base:
+  type: object
+  properties:
+    vector_store_path:
+      type: string
+      minLength: 1
+    embedding_model:
+      type: string
+      minLength: 1
+    chunk_size:
+      type: integer
+      minimum: 100
+      maximum: 5000
+      default: 1000
+    chunk_overlap:
+      type: integer
+      minimum: 0
+      maximum: 1000
+      default: 200
+    cache_embeddings:
+      type: boolean
+      default: false
+
+monitoring:
+  type: object
+  properties:
+    enable_metrics:
+      type: boolean
+      default: true
+    metrics_port:
+      type: integer
+      minimum: 1024
+      maximum: 65535
+      default: 8001
+    health_check_interval:
+      type: integer
+      minimum: 5
+      maximum: 300
+      default: 30
+    performance_tracking:
+      type: boolean
+      default: true
+    alerting_enabled:
+      type: boolean
+      default: false
+    log_aggregation:
+      type: boolean
+      default: false
+
+validation:
+  type: object
+  properties:
+    confidence_threshold:
+      type: number
+      minimum: 0.0
+      maximum: 1.0
+      default: 0.8
+    flagged_threshold:
+      type: number
+      minimum: 0.0
+      maximum: 1.0
+      default: 0.5
+    enable_strict_validation:
+      type: boolean
+      default: false
+    max_validation_errors:
+      type: integer
+      minimum: 1
+      maximum: 100
+      default: 10
+    audit_trail_required:
+      type: boolean
+      default: false
+
+generation:
+  type: object
+  properties:
+    template_cache_size:
+      type: integer
+      minimum: 10
+      maximum: 1000
+      default: 100
+    max_content_length:
+      type: integer
+      minimum: 1000
+      maximum: 1000000
+      default: 50000
+    enable_preview:
+      type: boolean
+      default: true
+    output_formats:
+      type: array
+      items:
+        type: string
+        enum: [docx, pdf, html, txt]
+      default: [docx]
+    quality_gates_enabled:
+      type: boolean
+      default: false
+
+security:
+  type: object
+  properties:
+    enable_encryption:
+      type: boolean
+      default: false
+    api_key_rotation_days:
+      type: integer
+      minimum: 1
+      maximum: 365
+      default: 90
+    session_timeout:
+      type: integer
+      minimum: 300
+      maximum: 86400
+      default: 3600
+    max_file_size:
+      type: string
+      pattern: "^\\d+[KMGT]?B$"
+      default: "10MB"

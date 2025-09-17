@@ -9,7 +9,7 @@ from datetime import datetime
 # Add the src directory to path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 
-from services.knowledge_base_initializer import KnowledgeBaseInitializer
+from src.infrastructure.knowledge.knowledge_base_initializer import KnowledgeBaseInitializer
 from utils.logging_config import get_logger
 
 logger = get_logger(__name__)

@@ -10,7 +10,7 @@ from datetime import datetime
 from unittest.mock import Mock, MagicMock
 import logging
 
-from src.services.intelligent_content_generator import (
+from src.core.generation.intelligent_content_generator import (
     IntelligentContentGenerator,
     HistoryOfPresentIllnessGenerator,
     PhysicalExaminationGenerator,
@@ -26,7 +26,7 @@ from src.models.knowledge_graph import (
     ProvenanceReference,
     ValidationStatus
 )
-from src.services.ama_guidelines_engine import AMAGuidelinesEngine
+from src.infrastructure.knowledge.ama_guidelines_engine import AMAGuidelinesEngine
 from src.config.qme_gold_standard_config import QMEGoldStandardConfig
 
 

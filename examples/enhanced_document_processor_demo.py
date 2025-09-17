@@ -14,7 +14,7 @@ from pathlib import Path
 # Add the project root to the Python path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from src.services.enhanced_document_processor import create_enhanced_document_processor
+from tests.unit.core.test_enhanced_document_processor import create_enhanced_document_processor
 from src.repositories.knowledge_graph_repository import SQLiteKnowledgeGraphRepository
 from src.utils.logging_config import get_logger
 

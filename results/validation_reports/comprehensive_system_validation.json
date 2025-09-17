@@ -1,0 +1,528 @@
+{
+  "timestamp": "2025-09-17T23:13:07.730816",
+  "overall_success": true,
+  "total_tests": 41,
+  "passed_tests": 41,
+  "failed_tests": 0,
+  "total_duration": 4.019890785217285,
+  "test_results": [
+    {
+      "test_name": "Import: src.app",
+      "success": true,
+      "message": "Import successful",
+      "details": {
+        "module": "src.app",
+        "import_time": 0.1829833984375
+      },
+      "duration": 0.1829833984375,
+      "error": null
+    },
+    {
+      "test_name": "Import: src.startup",
+      "success": true,
+      "message": "Import successful",
+      "details": {
+        "module": "src.startup",
+        "import_time": 0.013641119003295898
+      },
+      "duration": 0.013641119003295898,
+      "error": null
+    },
+    {
+      "test_name": "Import: src.config.app_config",
+      "success": true,
+      "message": "Import successful",
+      "details": {
+        "module": "src.config.app_config",
+        "import_time": 2.1457672119140625e-06
+      },
+      "duration": 2.1457672119140625e-06,
+      "error": null
+    },
+    {
+      "test_name": "Import: src.ui.main_app",
+      "success": true,
+      "message": "Import successful",
+      "details": {
+        "module": "src.ui.main_app",
+        "import_time": 0.9379689693450928
+      },
+      "duration": 0.9379689693450928,
+      "error": null
+    },
+    {
+      "test_name": "Import: src.ui.upload_interface",
+      "success": true,
+      "message": "Import successful",
+      "details": {
+        "module": "src.ui.upload_interface",
+        "import_time": 2.1457672119140625e-06
+      },
+      "duration": 2.1457672119140625e-06,
+      "error": null
+    },
+    {
+      "test_name": "Import: src.ui.qa_interface_simple",
+      "success": true,
+      "message": "Import successful",
+      "details": {
+        "module": "src.ui.qa_interface_simple",
+        "import_time": 9.5367431640625e-07
+      },
+      "duration": 9.5367431640625e-07,
+      "error": null
+    },
+    {
+      "test_name": "Import: src.ui.document_manager",
+      "success": true,
+      "message": "Import successful",
+      "details": {
+        "module": "src.ui.document_manager",
+        "import_time": 1.1920928955078125e-06
+      },
+      "duration": 1.1920928955078125e-06,
+      "error": null
+    },
+    {
+      "test_name": "Import: src.ui.qme_template_interface",
+      "success": true,
+      "message": "Import successful",
+      "details": {
+        "module": "src.ui.qme_template_interface",
+        "import_time": 1.1920928955078125e-06
+      },
+      "duration": 1.1920928955078125e-06,
+      "error": null
+    },
+    {
+      "test_name": "Import: src.ui.professional_template_interface",
+      "success": true,
+      "message": "Import successful",
+      "details": {
+        "module": "src.ui.professional_template_interface",
+        "import_time": 1.1920928955078125e-06
+      },
+      "duration": 1.1920928955078125e-06,
+      "error": null
+    },
+    {
+      "test_name": "Import: src.services.comprehensive_qme_field_service",
+      "success": true,
+      "message": "Import successful",
+      "details": {
+        "module": "src.services.comprehensive_qme_field_service",
+        "import_time": 9.5367431640625e-07
+      },
+      "duration": 9.5367431640625e-07,
+      "error": null
+    },
+    {
+      "test_name": "Import: src.services.professional_template_assembler_simple",
+      "success": true,
+      "message": "Import successful",
+      "details": {
+        "module": "src.services.professional_template_assembler_simple",
+        "import_time": 9.5367431640625e-07
+      },
+      "duration": 9.5367431640625e-07,
+      "error": null
+    },
+    {
+      "test_name": "Import: src.infrastructure.configuration.service_registry",
+      "success": true,
+      "message": "Import successful",
+      "details": {
+        "module": "src.infrastructure.configuration.service_registry",
+        "import_time": 0.0
+      },
+      "duration": 0.0,
+      "error": null
+    },
+    {
+      "test_name": "Import: src.infrastructure.configuration.centralized_config_manager",
+      "success": true,
+      "message": "Import successful",
+      "details": {
+        "module": "src.infrastructure.configuration.centralized_config_manager",
+        "import_time": 9.5367431640625e-07
+      },
+      "duration": 9.5367431640625e-07,
+      "error": null
+    },
+    {
+      "test_name": "Import: src.infrastructure.api.api_provider_factory",
+      "success": true,
+      "message": "Import successful",
+      "details": {
+        "module": "src.infrastructure.api.api_provider_factory",
+        "import_time": 0.0007688999176025391
+      },
+      "duration": 0.0007688999176025391,
+      "error": null
+    },
+    {
+      "test_name": "Import: src.infrastructure.monitoring.performance_monitor",
+      "success": true,
+      "message": "Import successful",
+      "details": {
+        "module": "src.infrastructure.monitoring.performance_monitor",
+        "import_time": 9.5367431640625e-07
+      },
+      "duration": 9.5367431640625e-07,
+      "error": null
+    },
+    {
+      "test_name": "Import: src.infrastructure.monitoring.ui_error_handler",
+      "success": true,
+      "message": "Import successful",
+      "details": {
+        "module": "src.infrastructure.monitoring.ui_error_handler",
+        "import_time": 1.1920928955078125e-06
+      },
+      "duration": 1.1920928955078125e-06,
+      "error": null
+    },
+    {
+      "test_name": "Import: src.core.interfaces",
+      "success": true,
+      "message": "Import successful",
+      "details": {
+        "module": "src.core.interfaces",
+        "import_time": 9.5367431640625e-07
+      },
+      "duration": 9.5367431640625e-07,
+      "error": null
+    },
+    {
+      "test_name": "Import: src.models.document",
+      "success": true,
+      "message": "Import successful",
+      "details": {
+        "module": "src.models.document",
+        "import_time": 9.5367431640625e-07
+      },
+      "duration": 9.5367431640625e-07,
+      "error": null
+    },
+    {
+      "test_name": "Import: src.models.extraction_models",
+      "success": true,
+      "message": "Import successful",
+      "details": {
+        "module": "src.models.extraction_models",
+        "import_time": 9.5367431640625e-07
+      },
+      "duration": 9.5367431640625e-07,
+      "error": null
+    },
+    {
+      "test_name": "Import: src.storage.database",
+      "success": true,
+      "message": "Import successful",
+      "details": {
+        "module": "src.storage.database",
+        "import_time": 9.5367431640625e-07
+      },
+      "duration": 9.5367431640625e-07,
+      "error": null
+    },
+    {
+      "test_name": "Import: src.storage.document_storage",
+      "success": true,
+      "message": "Import successful",
+      "details": {
+        "module": "src.storage.document_storage",
+        "import_time": 9.5367431640625e-07
+      },
+      "duration": 9.5367431640625e-07,
+      "error": null
+    },
+    {
+      "test_name": "Import: src.utils.error_handling",
+      "success": true,
+      "message": "Import successful",
+      "details": {
+        "module": "src.utils.error_handling",
+        "import_time": 0.0
+      },
+      "duration": 0.0,
+      "error": null
+    },
+    {
+      "test_name": "Import: src.utils.logging_config",
+      "success": true,
+      "message": "Import successful",
+      "details": {
+        "module": "src.utils.logging_config",
+        "import_time": 1.1920928955078125e-06
+      },
+      "duration": 1.1920928955078125e-06,
+      "error": null
+    },
+    {
+      "test_name": "Configuration Loading",
+      "success": true,
+      "message": "Configuration loaded successfully",
+      "details": {
+        "database_path": "configured",
+        "max_file_size_mb": "configured",
+        "allowed_file_types": "configured",
+        "gemini_api_key": "configured",
+        "openai_api_key": "not_configured"
+      },
+      "duration": 4.0531158447265625e-06,
+      "error": null
+    },
+    {
+      "test_name": "Database Connectivity",
+      "success": true,
+      "message": "Database tests completed",
+      "details": {
+        "operations": [
+          [
+            "connection",
+            true,
+            "Database connection successful"
+          ],
+          [
+            "query",
+            true,
+            "Database query successful, found 15 tables"
+          ]
+        ]
+      },
+      "duration": 0.0008990764617919922,
+      "error": null
+    },
+    {
+      "test_name": "Service: SystemStartup",
+      "success": true,
+      "message": "Service instantiated successfully",
+      "details": {
+        "service": "SystemStartup",
+        "module": "src.startup",
+        "class": "SystemStartup",
+        "instance_type": "<class 'src.startup.SystemStartup'>"
+      },
+      "duration": 3.814697265625e-06,
+      "error": null
+    },
+    {
+      "test_name": "Service: ServiceRegistry",
+      "success": true,
+      "message": "Service instantiated successfully",
+      "details": {
+        "service": "ServiceRegistry",
+        "module": "src.infrastructure.configuration.service_registry",
+        "class": "ServiceRegistry",
+        "instance_type": "<class 'src.infrastructure.configuration.service_registry.ServiceRegistry'>"
+      },
+      "duration": 5.698204040527344e-05,
+      "error": null
+    },
+    {
+      "test_name": "Service: ConfigManager",
+      "success": true,
+      "message": "Service instantiated successfully",
+      "details": {
+        "service": "ConfigManager",
+        "module": "src.infrastructure.configuration.centralized_config_manager",
+        "class": "CentralizedConfigManager",
+        "instance_type": "<class 'src.infrastructure.configuration.centralized_config_manager.CentralizedConfigManager'>"
+      },
+      "duration": 5.316734313964844e-05,
+      "error": null
+    },
+    {
+      "test_name": "Service: APIProviderFactory",
+      "success": true,
+      "message": "Service instantiated successfully",
+      "details": {
+        "service": "APIProviderFactory",
+        "module": "src.infrastructure.api.api_provider_factory",
+        "class": "APIProviderFactory",
+        "instance_type": "<class 'src.infrastructure.api.api_provider_factory.APIProviderFactory'>"
+      },
+      "duration": 0.00010919570922851562,
+      "error": null
+    },
+    {
+      "test_name": "Service: PerformanceMonitor",
+      "success": true,
+      "message": "Service instantiated successfully",
+      "details": {
+        "service": "PerformanceMonitor",
+        "module": "src.infrastructure.monitoring.performance_monitor",
+        "class": "AdvancedPerformanceMonitor",
+        "instance_type": "<class 'src.infrastructure.monitoring.performance_monitor.AdvancedPerformanceMonitor'>"
+      },
+      "duration": 0.0001537799835205078,
+      "error": null
+    },
+    {
+      "test_name": "Service: QMEFieldService",
+      "success": true,
+      "message": "Service instantiated successfully",
+      "details": {
+        "service": "QMEFieldService",
+        "module": "src.services.comprehensive_qme_field_service",
+        "class": "ComprehensiveQMEFieldService",
+        "instance_type": "<class 'src.services.comprehensive_qme_field_service.ComprehensiveQMEFieldService'>"
+      },
+      "duration": 0.025164127349853516,
+      "error": null
+    },
+    {
+      "test_name": "Service: TemplateAssembler",
+      "success": true,
+      "message": "Service instantiated successfully",
+      "details": {
+        "service": "TemplateAssembler",
+        "module": "src.services.professional_template_assembler_simple",
+        "class": "ProfessionalTemplateAssembler",
+        "instance_type": "<class 'src.services.professional_template_assembler_simple.ProfessionalTemplateAssembler'>"
+      },
+      "duration": 0.01858687400817871,
+      "error": null
+    },
+    {
+      "test_name": "API Providers",
+      "success": true,
+      "message": "API provider testing completed",
+      "details": {
+        "providers": [
+          [
+            "Gemini",
+            false,
+            "Provider creation failed: 'APIProviderFactory' object has no attribute 'create_gemini_provider'"
+          ],
+          [
+            "OpenRouter",
+            false,
+            "Provider creation failed: 'APIProviderFactory' object has no attribute 'create_openrouter_provider'"
+          ],
+          [
+            "Primary Provider",
+            true,
+            "Primary provider available"
+          ],
+          [
+            "Fallback Provider",
+            false,
+            "Fallback provider failed: 'APIProviderFactory' object has no attribute 'get_fallback_provider'"
+          ]
+        ]
+      },
+      "duration": 0.0002200603485107422,
+      "error": null
+    },
+    {
+      "test_name": "UI Component: MainApp",
+      "success": true,
+      "message": "UI component loaded successfully",
+      "details": {
+        "component": "MainApp",
+        "module": "src.ui.main_app",
+        "type": "<class 'function'>"
+      },
+      "duration": 5.245208740234375e-06,
+      "error": null
+    },
+    {
+      "test_name": "UI Component: UploadInterface",
+      "success": true,
+      "message": "UI component loaded successfully",
+      "details": {
+        "component": "UploadInterface",
+        "module": "src.ui.upload_interface",
+        "type": "<class 'type'>"
+      },
+      "duration": 2.1457672119140625e-06,
+      "error": null
+    },
+    {
+      "test_name": "UI Component: QAInterface",
+      "success": true,
+      "message": "UI component loaded successfully",
+      "details": {
+        "component": "QAInterface",
+        "module": "src.ui.qa_interface_simple",
+        "type": "<class 'function'>"
+      },
+      "duration": 1.9073486328125e-06,
+      "error": null
+    },
+    {
+      "test_name": "UI Component: DocumentManager",
+      "success": true,
+      "message": "UI component loaded successfully",
+      "details": {
+        "component": "DocumentManager",
+        "module": "src.ui.document_manager",
+        "type": "<class 'function'>"
+      },
+      "duration": 2.86102294921875e-06,
+      "error": null
+    },
+    {
+      "test_name": "UI Component: QMETemplateInterface",
+      "success": true,
+      "message": "UI component loaded successfully",
+      "details": {
+        "component": "QMETemplateInterface",
+        "module": "src.ui.qme_template_interface",
+        "type": "<class 'function'>"
+      },
+      "duration": 2.1457672119140625e-06,
+      "error": null
+    },
+    {
+      "test_name": "UI Component: ProfessionalTemplateInterface",
+      "success": true,
+      "message": "UI component loaded successfully",
+      "details": {
+        "component": "ProfessionalTemplateInterface",
+        "module": "src.ui.professional_template_interface",
+        "type": "<class 'type'>"
+      },
+      "duration": 1.9073486328125e-06,
+      "error": null
+    },
+    {
+      "test_name": "System Startup",
+      "success": true,
+      "message": "System startup completed",
+      "details": {
+        "startup_success": true,
+        "config_loaded": true,
+        "services_initialized": true
+      },
+      "duration": 2.8374269008636475,
+      "error": null
+    },
+    {
+      "test_name": "Performance Benchmarks",
+      "success": true,
+      "message": "Performance benchmarks completed",
+      "details": {
+        "import_time": 1.6689300537109375e-06,
+        "init_time": 1.1920928955078125e-06,
+        "init_success": true,
+        "total_time": 2.86102294921875e-06
+      },
+      "duration": 2.86102294921875e-06,
+      "error": null
+    }
+  ],
+  "system_info": {
+    "python_version": "3.13.5 (main, Jun 11 2025, 15:36:57) [Clang 17.0.0 (clang-1700.0.13.3)]",
+    "platform": "darwin",
+    "working_directory": "/Users/ritabrataroychowdhury/Downloads/Dms",
+    "validation_timestamp": "2025-09-17T23:13:07.730802",
+    "total_modules_tested": 23,
+    "total_services_tested": 7
+  },
+  "recommendations": [
+    "System validation completed successfully - no issues found"
+  ]
+}

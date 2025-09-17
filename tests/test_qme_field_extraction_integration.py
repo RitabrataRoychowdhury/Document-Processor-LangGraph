@@ -11,7 +11,7 @@ Tests the complete implementation against the task requirements:
 import pytest
 from pathlib import Path
 
-from src.services.enhanced_document_processor import EnhancedDocumentProcessor
+from tests.unit.core.test_enhanced_document_processor import EnhancedDocumentProcessor
 from src.services.comprehensive_qme_field_service import ComprehensiveQMEFieldService
 
 

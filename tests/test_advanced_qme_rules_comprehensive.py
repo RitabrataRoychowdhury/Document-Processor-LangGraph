@@ -10,20 +10,20 @@ from datetime import datetime
 from typing import Dict, Any, List
 
 try:
-    from src.services.advanced_qme_rules_engine import (
+    from src.core.validation.advanced_qme_rules_engine import (
         AdvancedQMERulesEngine, ValidationContext, RuleDefinition, 
         RulePriority, AuditEntry, ProvenanceReference
     )
-    from src.services.qme_rules_engine import ValidationIssue, QualityScore, ValidationSeverity, SectionType
-    from src.services.qme_template_generator import QMETemplateData, PatientInfo, MedicalFindings
+    from src.core.validation.qme_rules_engine import ValidationIssue, QualityScore, ValidationSeverity, SectionType
+    from src.core.generation.qme_template_generator import QMETemplateData, PatientInfo, MedicalFindings
     from src.models.knowledge_graph import Diagnosis, Finding
 except ImportError:
-    from services.advanced_qme_rules_engine import (
+    from src.core.validation.advanced_qme_rules_engine import (
         AdvancedQMERulesEngine, ValidationContext, RuleDefinition, 
         RulePriority, AuditEntry, ProvenanceReference
     )
-    from services.qme_rules_engine import ValidationIssue, QualityScore, ValidationSeverity, SectionType
-    from services.qme_template_generator import QMETemplateData, PatientInfo, MedicalFindings
+    from src.core.validation.qme_rules_engine import ValidationIssue, QualityScore, ValidationSeverity, SectionType
+    from src.core.generation.qme_template_generator import QMETemplateData, PatientInfo, MedicalFindings
     from models.knowledge_graph import Diagnosis, Finding
 
 

@@ -89,7 +89,7 @@ class QMEPerformanceTester:
     def test_template_generation_performance(self, extracted_fields) -> Tuple[float, bool, str]:
         """Test template generation performance."""
         try:
-            from src.services.qme_template_generator import QMETemplateGenerator, QMETemplateData, PatientInfo, MedicalFindings
+            from src.core.generation.qme_template_generator import QMETemplateGenerator, QMETemplateData, PatientInfo, MedicalFindings
             
             # Create template data from extracted fields
             patient_info = PatientInfo(

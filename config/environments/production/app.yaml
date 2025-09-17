@@ -1,0 +1,69 @@
+# Production Environment Configuration
+
+app:
+  name: "QME System"
+  version: "1.0.0"
+  environment: "production"
+  debug: false
+  log_level: "INFO"
+
+database:
+  type: "postgresql"
+  host: "${DB_HOST}"
+  port: "${DB_PORT:5432}"
+  database: "${DB_NAME}"
+  username: "${DB_USER}"
+  password: "${DB_PASSWORD}"
+  pool_size: 20
+  timeout: 60
+  ssl_mode: "require"
+
+api:
+  openrouter:
+    base_url: "https://openrouter.ai/api/v1"
+    timeout: 120
+    max_retries: 5
+    retry_delay: 2
+    rate_limit: 100
+
+storage:
+  documents_path: "/app/data/documents"
+  results_path: "/app/results"
+  cache_path: "/app/data/cache"
+  exports_path: "/app/data/exports"
+  backup_path: "/app/backups"
+
+knowledge_base:
+  vector_store_path: "/app/data/vector_store"
+  embedding_model: "text-embedding-ada-002"
+  chunk_size: 1000
+  chunk_overlap: 200
+  cache_embeddings: true
+
+monitoring:
+  enable_metrics: true
+  metrics_port: 8001
+  health_check_interval: 10
+  performance_tracking: true
+  alerting_enabled: true
+  log_aggregation: true
+
+validation:
+  confidence_threshold: 0.8
+  flagged_threshold: 0.5
+  enable_strict_validation: true
+  max_validation_errors: 5
+  audit_trail_required: true
+
+generation:
+  template_cache_size: 500
+  max_content_length: 100000
+  enable_preview: false
+  output_formats: ["docx", "pdf"]
+  quality_gates_enabled: true
+
+security:
+  enable_encryption: true
+  api_key_rotation_days: 90
+  session_timeout: 3600
+  max_file_size: 50MB

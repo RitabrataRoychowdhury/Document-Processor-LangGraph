@@ -22,7 +22,7 @@ from src.utils.logging_config import get_logger
 
 # Conditional imports for services that may have external dependencies
 try:
-    from src.services.structured_extractor import StructuredExtractor, ExtractionContext
+    from src.core.extraction.structured_extractor import StructuredExtractor, ExtractionContext
     STRUCTURED_EXTRACTOR_AVAILABLE = True
 except ImportError:
     STRUCTURED_EXTRACTOR_AVAILABLE = False
@@ -30,7 +30,7 @@ except ImportError:
     ExtractionContext = None
 
 try:
-    from src.services.qme_field_validator import EvidenceFirstValidator, ValidationReport, ConfidenceThresholds
+    from src.core.validation.qme_field_validator import EvidenceFirstValidator, ValidationReport, ConfidenceThresholds
     FIELD_VALIDATOR_AVAILABLE = True
 except ImportError:
     FIELD_VALIDATOR_AVAILABLE = False
@@ -39,7 +39,7 @@ except ImportError:
     ConfidenceThresholds = None
 
 try:
-    from src.services.impairment_calculator import ImpairmentCalculator, ProgrammaticCalculationResult
+    from src.core.calculation.impairment_calculator import ImpairmentCalculator, ProgrammaticCalculationResult
     IMPAIRMENT_CALCULATOR_AVAILABLE = True
 except ImportError:
     IMPAIRMENT_CALCULATOR_AVAILABLE = False
@@ -47,28 +47,28 @@ except ImportError:
     ProgrammaticCalculationResult = None
 
 try:
-    from src.services.intelligent_content_generator import IntelligentContentGenerator
+    from src.core.generation.intelligent_content_generator import IntelligentContentGenerator
     CONTENT_GENERATOR_AVAILABLE = True
 except ImportError:
     CONTENT_GENERATOR_AVAILABLE = False
     IntelligentContentGenerator = None
 
 try:
-    from src.services.professional_template_assembler import ProfessionalTemplateAssembler
+    from src.services.professional_template_assembler_simple import ProfessionalTemplateAssembler
     TEMPLATE_ASSEMBLER_AVAILABLE = True
 except ImportError:
     TEMPLATE_ASSEMBLER_AVAILABLE = False
     ProfessionalTemplateAssembler = None
 
 try:
-    from src.services.qme_rules_engine import QMERulesEngine
+    from src.core.validation.qme_rules_engine import QMERulesEngine
     RULES_ENGINE_AVAILABLE = True
 except ImportError:
     RULES_ENGINE_AVAILABLE = False
     QMERulesEngine = None
 
 try:
-    from src.services.knowledge_base_initializer import KnowledgeBaseInitializer
+    from src.infrastructure.knowledge.knowledge_base_initializer import KnowledgeBaseInitializer
     KNOWLEDGE_INITIALIZER_AVAILABLE = True
 except ImportError:
     KNOWLEDGE_INITIALIZER_AVAILABLE = False
@@ -210,11 +210,13 @@ class EvidenceFirstWorkflowManager:
         # Initialize content generator with required dependencies
         if CONTENT_GENERATOR_AVAILABLE:
             try:
-                from src.services.ama_guidelines_engine import AMAGuidelinesEngine
+                from src.infrastructure.knowledge.ama_guidelines_engine import AMAGuidelinesEngine
                 from src.config.qme_gold_standard_config import QMEGoldStandardConfig
+                from src.models.knowledge_graph import KnowledgeGraph
                 ama_engine = AMAGuidelinesEngine()
                 config = QMEGoldStandardConfig()
-                self.content_generator = IntelligentContentGenerator(ama_engine, config, logger)
+                knowledge_graph = KnowledgeGraph()
+                self.content_generator = IntelligentContentGenerator(ama_engine, knowledge_graph, config, logger)
             except ImportError as e:
                 logger.warning(f"Could not initialize IntelligentContentGenerator: {e}")
                 self.content_generator = None
@@ -228,10 +230,10 @@ class EvidenceFirstWorkflowManager:
         if KNOWLEDGE_INITIALIZER_AVAILABLE:
             try:
                 from src.config.app_config import AppConfig
-                from src.services.ingestion_pipeline import IngestionPipeline
+                from src.core.extraction.ingestion_pipeline import IngestionPipeline
                 from src.factories.processor_factory import ProcessorFactory
                 from src.strategies.embedding_strategy import LocalEmbeddingStrategy
-                from src.services.knowledge_graph_vector_service import KnowledgeGraphVectorService
+                from src.infrastructure.knowledge.knowledge_graph_vector_service import KnowledgeGraphVectorService
                 
                 config = AppConfig()
                 processor_factory = ProcessorFactory()
@@ -850,7 +852,7 @@ class EvidenceFirstWorkflowManager:
     
     def _convert_rom_data_to_measurements(self, rom_data: Dict[str, Any]) -> List:
         """Convert ROM data dictionary to measurement objects."""
-        from src.services.impairment_calculator import ROMMeasurement
+        from src.core.calculation.impairment_calculator import ROMMeasurement
         
         measurements = []
         

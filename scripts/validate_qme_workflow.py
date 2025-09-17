@@ -36,8 +36,8 @@ class QMEWorkflowValidator:
         """Validate QME service imports."""
         try:
             from src.services.comprehensive_qme_field_service import ComprehensiveQMEFieldService
-            from src.services.qme_template_generator import QMETemplateGenerator
-            from src.services.professional_template_assembler import ProfessionalTemplateAssembler
+            from src.core.generation.qme_template_generator import QMETemplateGenerator
+            from tests.template.test_enhanced_professional_template_assembler import ProfessionalTemplateAssembler
             from src.ui.qme_template_interface import QMETemplateInterface
             
             print("✅ QME service imports successful")
@@ -126,7 +126,7 @@ class QMEWorkflowValidator:
     def validate_qme_template_generation(self) -> bool:
         """Validate QME template generation."""
         try:
-            from src.services.qme_template_generator import QMETemplateGenerator, QMETemplateData, PatientInfo, MedicalFindings
+            from src.core.generation.qme_template_generator import QMETemplateGenerator, QMETemplateData, PatientInfo, MedicalFindings
             
             generator = QMETemplateGenerator()
             print("✅ QME template generator initialized")
@@ -182,7 +182,7 @@ class QMEWorkflowValidator:
     def validate_qme_performance_monitoring(self) -> bool:
         """Validate QME performance monitoring."""
         try:
-            from src.services.performance_monitor import get_performance_monitor
+            from src.infrastructure.monitoring.performance_monitor import get_performance_monitor
             
             monitor = get_performance_monitor()
             stats = monitor.get_current_statistics()
@@ -236,14 +236,14 @@ class QMEWorkflowValidator:
             print("✅ Step 1: Field extraction completed")
             
             # Step 2: Template generation (using extracted fields)
-            from src.services.qme_template_generator import QMETemplateGenerator, QMETemplateData
+            from src.core.generation.qme_template_generator import QMETemplateGenerator, QMETemplateData
             
             # Convert extracted fields to template data
             fields = extraction_result.extraction_result.field_data
             
             # Create template data from extracted fields
             # (This is a simplified conversion for testing)
-            from src.services.qme_template_generator import PatientInfo, MedicalFindings
+            from src.core.generation.qme_template_generator import PatientInfo, MedicalFindings
             
             patient_info = PatientInfo(
                 name=getattr(fields, 'name', 'Unknown'),

@@ -1,0 +1,146 @@
+{
+  "timestamp": "2025-09-17T09:12:45.943386",
+  "test_summary": {
+    "total_tests_run": 8,
+    "successful_tests": 7,
+    "failed_tests": 1,
+    "overall_quality_improvement": false,
+    "critical_issues_found": 0,
+    "recommendations_count": 0
+  },
+  "template_comparison_results": {
+    "total_templates_tested": 6,
+    "successful_comparisons": 5,
+    "quality_improvements": [],
+    "quality_regressions": [],
+    "average_quality_scores": {
+      "average_existing_score": 0.7050000000000001,
+      "average_new_score": 0.0,
+      "average_improvement": 0.0
+    },
+    "detailed_comparisons": [
+      {
+        "template_id": "existing_QME_Report_Unknown_20250916_221526",
+        "existing_score": 0.7050000000000001,
+        "new_score": 0.0,
+        "quality_improved": false,
+        "quality_regressed": false,
+        "score_difference": 0.0,
+        "issue_comparison": {}
+      },
+      {
+        "template_id": "existing_QME_Report_John Doe_20250916_221527",
+        "existing_score": 0.7050000000000001,
+        "new_score": 0.0,
+        "quality_improved": false,
+        "quality_regressed": false,
+        "score_difference": 0.0,
+        "issue_comparison": {}
+      },
+      {
+        "template_id": "existing_QME_Report_John Doe_20250916_221526",
+        "existing_score": 0.7050000000000001,
+        "new_score": 0.0,
+        "quality_improved": false,
+        "quality_regressed": false,
+        "score_difference": 0.0,
+        "issue_comparison": {}
+      },
+      {
+        "template_id": "existing_QME_Report_John Doe_20250916_221441",
+        "existing_score": 0.7050000000000001,
+        "new_score": 0.0,
+        "quality_improved": false,
+        "quality_regressed": false,
+        "score_difference": 0.0,
+        "issue_comparison": {}
+      },
+      {
+        "template_id": "existing_QME_Report_20250916_225531",
+        "existing_score": 0.7050000000000001,
+        "new_score": 0.0,
+        "quality_improved": false,
+        "quality_regressed": false,
+        "score_difference": 0.0,
+        "issue_comparison": {}
+      }
+    ]
+  },
+  "real_document_validation_results": {
+    "total_documents_tested": 2,
+    "successful_validations": 2,
+    "quality_assessments": [
+      {
+        "document": "Injured worker-PQME-(09.05.2025)-AA CL-09.09.2025.p5.pdf",
+        "assessment": "QualityAssessment(document_id='Injured worker-PQME-(09.05.2025)-AA CL-09.09.2025.p5', assessment_timestamp='2025-09-17T09:12:45.944833', metrics=QualityMetrics(completeness_score=0.0, accuracy_score=1.0, consistency_score=0.9, compliance_score=0.9, readability_score=1.0, professional_formatting_score=0.49999999999999994), issues=[ValidationIssue(issue_id='missing_section_patient_information', severity=<ValidationSeverity.HIGH: 'high'>, category='completeness', description=\"Required section 'patient_information' is missing\", location=None, suggestion=\"Add the 'patient_information' section to the document\", compliance_standard=None, confidence=1.0), ValidationIssue(issue_id='missing_section_history_of_present_illness', severity=<ValidationSeverity.HIGH: 'high'>, category='completeness', description=\"Required section 'history_of_present_illness' is missing\", location=None, suggestion=\"Add the 'history_of_present_illness' section to the document\", compliance_standard=None, confidence=1.0), ValidationIssue(issue_id='missing_section_physical_examination', severity=<ValidationSeverity.HIGH: 'high'>, category='completeness', description=\"Required section 'physical_examination' is missing\", location=None, suggestion=\"Add the 'physical_examination' section to the document\", compliance_standard=None, confidence=1.0), ValidationIssue(issue_id='missing_section_medical_findings', severity=<ValidationSeverity.HIGH: 'high'>, category='completeness', description=\"Required section 'medical_findings' is missing\", location=None, suggestion=\"Add the 'medical_findings' section to the document\", compliance_standard=None, confidence=1.0), ValidationIssue(issue_id='missing_section_diagnosis', severity=<ValidationSeverity.HIGH: 'high'>, category='completeness', description=\"Required section 'diagnosis' is missing\", location=None, suggestion=\"Add the 'diagnosis' section to the document\", compliance_standard=None, confidence=1.0), ValidationIssue(issue_id='missing_section_impairment_rating', severity=<ValidationSeverity.HIGH: 'high'>, category='completeness', description=\"Required section 'impairment_rating' is missing\", location=None, suggestion=\"Add the 'impairment_rating' section to the document\", compliance_standard=None, confidence=1.0), ValidationIssue(issue_id='missing_section_recommendations', severity=<ValidationSeverity.HIGH: 'high'>, category='completeness', description=\"Required section 'recommendations' is missing\", location=None, suggestion=\"Add the 'recommendations' section to the document\", compliance_standard=None, confidence=1.0), ValidationIssue(issue_id='missing_section_physician_signature', severity=<ValidationSeverity.HIGH: 'high'>, category='completeness', description=\"Required section 'physician_signature' is missing\", location=None, suggestion=\"Add the 'physician_signature' section to the document\", compliance_standard=None, confidence=1.0), ValidationIssue(issue_id='missing_field_patient_information_name', severity=<ValidationSeverity.MEDIUM: 'medium'>, category='completeness', description=\"Required field 'name' missing in section 'patient_information'\", location=None, suggestion=\"Ensure 'name' is properly extracted and included\", compliance_standard=None, confidence=1.0), ValidationIssue(issue_id='missing_field_patient_information_date_of_birth', severity=<ValidationSeverity.MEDIUM: 'medium'>, category='completeness', description=\"Required field 'date_of_birth' missing in section 'patient_information'\", location=None, suggestion=\"Ensure 'date_of_birth' is properly extracted and included\", compliance_standard=None, confidence=1.0), ValidationIssue(issue_id='missing_field_patient_information_date_of_injury', severity=<ValidationSeverity.MEDIUM: 'medium'>, category='completeness', description=\"Required field 'date_of_injury' missing in section 'patient_information'\", location=None, suggestion=\"Ensure 'date_of_injury' is properly extracted and included\", compliance_standard=None, confidence=1.0), ValidationIssue(issue_id='missing_field_patient_information_claim_number', severity=<ValidationSeverity.MEDIUM: 'medium'>, category='completeness', description=\"Required field 'claim_number' missing in section 'patient_information'\", location=None, suggestion=\"Ensure 'claim_number' is properly extracted and included\", compliance_standard=None, confidence=1.0), ValidationIssue(issue_id='missing_field_patient_information_employer', severity=<ValidationSeverity.MEDIUM: 'medium'>, category='completeness', description=\"Required field 'employer' missing in section 'patient_information'\", location=None, suggestion=\"Ensure 'employer' is properly extracted and included\", compliance_standard=None, confidence=1.0), ValidationIssue(issue_id='missing_field_impairment_rating_percentage', severity=<ValidationSeverity.MEDIUM: 'medium'>, category='completeness', description=\"Required field 'percentage' missing in section 'impairment_rating'\", location=None, suggestion=\"Ensure 'percentage' is properly extracted and included\", compliance_standard=None, confidence=1.0), ValidationIssue(issue_id='missing_field_impairment_rating_body_part', severity=<ValidationSeverity.MEDIUM: 'medium'>, category='completeness', description=\"Required field 'body_part' missing in section 'impairment_rating'\", location=None, suggestion=\"Ensure 'body_part' is properly extracted and included\", compliance_standard=None, confidence=1.0), ValidationIssue(issue_id='missing_field_impairment_rating_ama_table_reference', severity=<ValidationSeverity.MEDIUM: 'medium'>, category='completeness', description=\"Required field 'ama_table_reference' missing in section 'impairment_rating'\", location=None, suggestion=\"Ensure 'ama_table_reference' is properly extracted and included\", compliance_standard=None, confidence=1.0), ValidationIssue(issue_id='missing_field_impairment_rating_calculation_method', severity=<ValidationSeverity.MEDIUM: 'medium'>, category='completeness', description=\"Required field 'calculation_method' missing in section 'impairment_rating'\", location=None, suggestion=\"Ensure 'calculation_method' is properly extracted and included\", compliance_standard=None, confidence=1.0), ValidationIssue(issue_id='missing_field_physician_signature_physician_name', severity=<ValidationSeverity.MEDIUM: 'medium'>, category='completeness', description=\"Required field 'physician_name' missing in section 'physician_signature'\", location=None, suggestion=\"Ensure 'physician_name' is properly extracted and included\", compliance_standard=None, confidence=1.0), ValidationIssue(issue_id='missing_field_physician_signature_license_number', severity=<ValidationSeverity.MEDIUM: 'medium'>, category='completeness', description=\"Required field 'license_number' missing in section 'physician_signature'\", location=None, suggestion=\"Ensure 'license_number' is properly extracted and included\", compliance_standard=None, confidence=1.0), ValidationIssue(issue_id='missing_field_physician_signature_signature_date', severity=<ValidationSeverity.MEDIUM: 'medium'>, category='completeness', description=\"Required field 'signature_date' missing in section 'physician_signature'\", location=None, suggestion=\"Ensure 'signature_date' is properly extracted and included\", compliance_standard=None, confidence=1.0), ValidationIssue(issue_id='inconsistent_formatting', severity=<ValidationSeverity.LOW: 'low'>, category='consistency', description='Inconsistent formatting detected', location=None, suggestion='Apply consistent formatting throughout the document', compliance_standard=None, confidence=1.0), ValidationIssue(issue_id='missing_professional_header', severity=<ValidationSeverity.MEDIUM: 'medium'>, category='formatting', description='Document lacks professional header format', location=None, suggestion='Add proper professional header with QME identification', compliance_standard=None, confidence=1.0), ValidationIssue(issue_id='unclear_section_breaks', severity=<ValidationSeverity.LOW: 'low'>, category='formatting', description='Section breaks are not clearly defined', location=None, suggestion='Use consistent section headers and formatting', compliance_standard=None, confidence=1.0)], recommendations=['Review document completeness - ensure all required sections are present', 'Document requires significant improvement before professional use'], compliance_status={<ComplianceStandard.AMA_GUIDELINES: 'ama_guidelines'>: True, <ComplianceStandard.QME_REGULATIONS: 'qme_regulations'>: True, <ComplianceStandard.PROFESSIONAL_STANDARDS: 'professional_standards'>: True, <ComplianceStandard.LEGAL_REQUIREMENTS: 'legal_requirements'>: True}, processing_metadata={})",
+        "processing_time": 1e-06
+      },
+      {
+        "document": "Injured worker-PQME-(09.08.2025)-DA CL-09.09.2025.p4.pdf",
+        "assessment": "QualityAssessment(document_id='Injured worker-PQME-(09.08.2025)-DA CL-09.09.2025.p4', assessment_timestamp='2025-09-17T09:12:45.944971', metrics=QualityMetrics(completeness_score=0.0, accuracy_score=1.0, consistency_score=0.9, compliance_score=0.9, readability_score=1.0, professional_formatting_score=0.49999999999999994), issues=[ValidationIssue(issue_id='missing_section_patient_information', severity=<ValidationSeverity.HIGH: 'high'>, category='completeness', description=\"Required section 'patient_information' is missing\", location=None, suggestion=\"Add the 'patient_information' section to the document\", compliance_standard=None, confidence=1.0), ValidationIssue(issue_id='missing_section_history_of_present_illness', severity=<ValidationSeverity.HIGH: 'high'>, category='completeness', description=\"Required section 'history_of_present_illness' is missing\", location=None, suggestion=\"Add the 'history_of_present_illness' section to the document\", compliance_standard=None, confidence=1.0), ValidationIssue(issue_id='missing_section_physical_examination', severity=<ValidationSeverity.HIGH: 'high'>, category='completeness', description=\"Required section 'physical_examination' is missing\", location=None, suggestion=\"Add the 'physical_examination' section to the document\", compliance_standard=None, confidence=1.0), ValidationIssue(issue_id='missing_section_medical_findings', severity=<ValidationSeverity.HIGH: 'high'>, category='completeness', description=\"Required section 'medical_findings' is missing\", location=None, suggestion=\"Add the 'medical_findings' section to the document\", compliance_standard=None, confidence=1.0), ValidationIssue(issue_id='missing_section_diagnosis', severity=<ValidationSeverity.HIGH: 'high'>, category='completeness', description=\"Required section 'diagnosis' is missing\", location=None, suggestion=\"Add the 'diagnosis' section to the document\", compliance_standard=None, confidence=1.0), ValidationIssue(issue_id='missing_section_impairment_rating', severity=<ValidationSeverity.HIGH: 'high'>, category='completeness', description=\"Required section 'impairment_rating' is missing\", location=None, suggestion=\"Add the 'impairment_rating' section to the document\", compliance_standard=None, confidence=1.0), ValidationIssue(issue_id='missing_section_recommendations', severity=<ValidationSeverity.HIGH: 'high'>, category='completeness', description=\"Required section 'recommendations' is missing\", location=None, suggestion=\"Add the 'recommendations' section to the document\", compliance_standard=None, confidence=1.0), ValidationIssue(issue_id='missing_section_physician_signature', severity=<ValidationSeverity.HIGH: 'high'>, category='completeness', description=\"Required section 'physician_signature' is missing\", location=None, suggestion=\"Add the 'physician_signature' section to the document\", compliance_standard=None, confidence=1.0), ValidationIssue(issue_id='missing_field_patient_information_name', severity=<ValidationSeverity.MEDIUM: 'medium'>, category='completeness', description=\"Required field 'name' missing in section 'patient_information'\", location=None, suggestion=\"Ensure 'name' is properly extracted and included\", compliance_standard=None, confidence=1.0), ValidationIssue(issue_id='missing_field_patient_information_date_of_birth', severity=<ValidationSeverity.MEDIUM: 'medium'>, category='completeness', description=\"Required field 'date_of_birth' missing in section 'patient_information'\", location=None, suggestion=\"Ensure 'date_of_birth' is properly extracted and included\", compliance_standard=None, confidence=1.0), ValidationIssue(issue_id='missing_field_patient_information_date_of_injury', severity=<ValidationSeverity.MEDIUM: 'medium'>, category='completeness', description=\"Required field 'date_of_injury' missing in section 'patient_information'\", location=None, suggestion=\"Ensure 'date_of_injury' is properly extracted and included\", compliance_standard=None, confidence=1.0), ValidationIssue(issue_id='missing_field_patient_information_claim_number', severity=<ValidationSeverity.MEDIUM: 'medium'>, category='completeness', description=\"Required field 'claim_number' missing in section 'patient_information'\", location=None, suggestion=\"Ensure 'claim_number' is properly extracted and included\", compliance_standard=None, confidence=1.0), ValidationIssue(issue_id='missing_field_patient_information_employer', severity=<ValidationSeverity.MEDIUM: 'medium'>, category='completeness', description=\"Required field 'employer' missing in section 'patient_information'\", location=None, suggestion=\"Ensure 'employer' is properly extracted and included\", compliance_standard=None, confidence=1.0), ValidationIssue(issue_id='missing_field_impairment_rating_percentage', severity=<ValidationSeverity.MEDIUM: 'medium'>, category='completeness', description=\"Required field 'percentage' missing in section 'impairment_rating'\", location=None, suggestion=\"Ensure 'percentage' is properly extracted and included\", compliance_standard=None, confidence=1.0), ValidationIssue(issue_id='missing_field_impairment_rating_body_part', severity=<ValidationSeverity.MEDIUM: 'medium'>, category='completeness', description=\"Required field 'body_part' missing in section 'impairment_rating'\", location=None, suggestion=\"Ensure 'body_part' is properly extracted and included\", compliance_standard=None, confidence=1.0), ValidationIssue(issue_id='missing_field_impairment_rating_ama_table_reference', severity=<ValidationSeverity.MEDIUM: 'medium'>, category='completeness', description=\"Required field 'ama_table_reference' missing in section 'impairment_rating'\", location=None, suggestion=\"Ensure 'ama_table_reference' is properly extracted and included\", compliance_standard=None, confidence=1.0), ValidationIssue(issue_id='missing_field_impairment_rating_calculation_method', severity=<ValidationSeverity.MEDIUM: 'medium'>, category='completeness', description=\"Required field 'calculation_method' missing in section 'impairment_rating'\", location=None, suggestion=\"Ensure 'calculation_method' is properly extracted and included\", compliance_standard=None, confidence=1.0), ValidationIssue(issue_id='missing_field_physician_signature_physician_name', severity=<ValidationSeverity.MEDIUM: 'medium'>, category='completeness', description=\"Required field 'physician_name' missing in section 'physician_signature'\", location=None, suggestion=\"Ensure 'physician_name' is properly extracted and included\", compliance_standard=None, confidence=1.0), ValidationIssue(issue_id='missing_field_physician_signature_license_number', severity=<ValidationSeverity.MEDIUM: 'medium'>, category='completeness', description=\"Required field 'license_number' missing in section 'physician_signature'\", location=None, suggestion=\"Ensure 'license_number' is properly extracted and included\", compliance_standard=None, confidence=1.0), ValidationIssue(issue_id='missing_field_physician_signature_signature_date', severity=<ValidationSeverity.MEDIUM: 'medium'>, category='completeness', description=\"Required field 'signature_date' missing in section 'physician_signature'\", location=None, suggestion=\"Ensure 'signature_date' is properly extracted and included\", compliance_standard=None, confidence=1.0), ValidationIssue(issue_id='inconsistent_formatting', severity=<ValidationSeverity.LOW: 'low'>, category='consistency', description='Inconsistent formatting detected', location=None, suggestion='Apply consistent formatting throughout the document', compliance_standard=None, confidence=1.0), ValidationIssue(issue_id='missing_professional_header', severity=<ValidationSeverity.MEDIUM: 'medium'>, category='formatting', description='Document lacks professional header format', location=None, suggestion='Add proper professional header with QME identification', compliance_standard=None, confidence=1.0), ValidationIssue(issue_id='unclear_section_breaks', severity=<ValidationSeverity.LOW: 'low'>, category='formatting', description='Section breaks are not clearly defined', location=None, suggestion='Use consistent section headers and formatting', compliance_standard=None, confidence=1.0)], recommendations=['Review document completeness - ensure all required sections are present', 'Document requires significant improvement before professional use'], compliance_status={<ComplianceStandard.AMA_GUIDELINES: 'ama_guidelines'>: True, <ComplianceStandard.QME_REGULATIONS: 'qme_regulations'>: True, <ComplianceStandard.PROFESSIONAL_STANDARDS: 'professional_standards'>: True, <ComplianceStandard.LEGAL_REQUIREMENTS: 'legal_requirements'>: True}, processing_metadata={})",
+        "processing_time": 1e-06
+      }
+    ],
+    "common_issues": {
+      "completeness_high": 16,
+      "completeness_medium": 24,
+      "consistency_low": 2,
+      "formatting_medium": 2,
+      "formatting_low": 2
+    },
+    "compliance_status": {
+      "ama_guidelines": {
+        "average_compliance": 1.0,
+        "total_documents": 2
+      },
+      "qme_regulations": {
+        "average_compliance": 1.0,
+        "total_documents": 2
+      },
+      "professional_standards": {
+        "average_compliance": 1.0,
+        "total_documents": 2
+      },
+      "legal_requirements": {
+        "average_compliance": 1.0,
+        "total_documents": 2
+      }
+    },
+    "performance_metrics": {}
+  },
+  "performance_metrics": {
+    "validation_performance": {
+      "validation_time_seconds": 0.000185,
+      "issues_detected": 10,
+      "overall_quality_score": 0.8200000000000001
+    },
+    "memory_usage": {},
+    "error_handling": {
+      "handles_empty_content": true
+    },
+    "scalability_metrics": {
+      "time_for_10_documents": 0.000727,
+      "average_time_per_document": 7.27e-05
+    }
+  },
+  "quality_trends": {
+    "quality_score_trends": {
+      "overall_score_trend": "improving",
+      "accuracy_trend": "stable",
+      "compliance_trend": "improving"
+    },
+    "common_issue_trends": {},
+    "compliance_trends": {},
+    "improvement_areas": [
+      "Consistency in medical terminology",
+      "Professional formatting standards",
+      "Completeness of required sections"
+    ]
+  },
+  "recommendations": [
+    "Focus on resolving completeness_medium issues (found 24 times)",
+    "Improve Consistency in medical terminology",
+    "Improve Professional formatting standards",
+    "Improve Completeness of required sections"
+  ]
+}

@@ -24,23 +24,23 @@ import json
 # Add src to path for imports
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 
-from services.results_storage_service import (
+from src.infrastructure.storage.results_storage_service import (
     ResultsStorageService, 
     DocumentMetadata, 
     ResultType
 )
-from services.comprehensive_logging_service import (
+from src.infrastructure.monitoring.comprehensive_logging_service import (
     ComprehensiveLoggingService,
     ProcessingStage,
     QualityMetrics,
     SystemHealthMetrics
 )
-from services.component_manager import (
+from src.infrastructure.monitoring.component_manager import (
     create_default_component_manager,
     ComponentInfo,
     ComponentType
 )
-from services.configuration_service import (
+from src.infrastructure.configuration.configuration_service import (
     ConfigurationService,
     get_config_service,
     initialize_configuration

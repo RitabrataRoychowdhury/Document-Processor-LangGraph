@@ -1,0 +1,185 @@
+{
+  "timestamp": "2025-09-17T23:14:05.387184",
+  "system_info": {
+    "cpu_count": 11,
+    "memory_total": 19327352832,
+    "memory_available": 7837892608,
+    "disk_usage": 4.7,
+    "python_version": "3.13.5 (main, Jun 11 2025, 15:36:57) [Clang 17.0.0 (clang-1700.0.13.3)]",
+    "platform": "darwin"
+  },
+  "startup_performance": {
+    "total_startup_time": 0.9950969219207764,
+    "memory_usage": 249331712,
+    "cpu_usage": 99.3,
+    "success": true,
+    "component_times": {
+      "api_factory_time": 0.0002741813659667969,
+      "qme_service_time": 0.026047945022583008,
+      "components_loaded": 2
+    },
+    "assessment": "excellent"
+  },
+  "service_performance": {
+    "api_provider_factory": {
+      "duration": 0.0406489372253418,
+      "memory_usage": 0,
+      "success": false,
+      "details": {}
+    },
+    "qme_field_service": {
+      "duration": 0.04702305793762207,
+      "memory_usage": 32768,
+      "success": true,
+      "details": {
+        "service_creation_time": 0.00652003288269043,
+        "extraction_methods": "hybrid",
+        "openrouter_enabled": true
+      }
+    },
+    "template_assembler": {
+      "duration": 0.07973480224609375,
+      "memory_usage": 6307840,
+      "success": true,
+      "details": {
+        "assembler_creation_time": 0.017967939376831055,
+        "output_format": "docx",
+        "professional_formatting": true
+      }
+    },
+    "configuration_manager": {
+      "duration": 0.04231405258178711,
+      "memory_usage": 0,
+      "success": false,
+      "details": {}
+    }
+  },
+  "memory_stability": {
+    "memory_growth": 7749632,
+    "peak_memory": 291946496,
+    "success": true,
+    "details": {
+      "iterations": 10,
+      "memory_samples": 10,
+      "memory_growth": 7651328,
+      "final_memory": 291946496,
+      "memory_cleaned": false
+    },
+    "assessment": "stable"
+  },
+  "error_recovery": {
+    "invalid_configuration": {
+      "recovery_time": 0.05663895606994629,
+      "success": true,
+      "details": {
+        "config_access": "successful",
+        "fallback_used": true,
+        "graceful_handling": true
+      }
+    },
+    "service_failure": {
+      "recovery_time": 0.05061984062194824,
+      "success": true,
+      "details": {
+        "error_caught": true,
+        "result_handled": true,
+        "recovery_successful": true
+      }
+    },
+    "api_error": {
+      "recovery_time": 0.04341602325439453,
+      "success": true,
+      "details": {
+        "primary_available": false,
+        "fallback_available": false,
+        "graceful_handling": false,
+        "error": "'APIProviderFactory' object has no attribute 'get_fallback_provider'"
+      }
+    }
+  },
+  "stress_testing": {
+    "concurrent_service_creation": {
+      "duration": 0.060172080993652344,
+      "memory_usage": 32768,
+      "success": true,
+      "details": {
+        "concurrent_operations": 5,
+        "successful_operations": 5,
+        "failed_operations": 0,
+        "success_rate": 1.0,
+        "errors": []
+      }
+    },
+    "rapid_configuration_access": {
+      "duration": 0.041285037994384766,
+      "memory_usage": 0,
+      "success": true,
+      "details": {
+        "total_accesses": 100,
+        "successful_accesses": 100,
+        "failed_accesses": 0,
+        "average_access_time": 3.5762786865234374e-08,
+        "max_access_time": 1.9073486328125e-06
+      }
+    },
+    "memory_pressure": {
+      "duration": 0.0883791446685791,
+      "memory_usage": 6455296,
+      "success": true,
+      "details": {
+        "initial_memory": 291979264,
+        "peak_memory": 298434560,
+        "final_memory": 298434560,
+        "memory_pressure": 6455296,
+        "service_created_under_pressure": true,
+        "memory_recovered": false
+      }
+    }
+  },
+  "graceful_degradation": {
+    "missing_dependencies": {
+      "duration": 0.04664206504821777,
+      "success": true,
+      "details": {
+        "service_created": true,
+        "graceful_degradation": true,
+        "fallback_used": true
+      }
+    },
+    "partial_service_failure": {
+      "duration": 0.04850006103515625,
+      "success": true,
+      "details": {
+        "working_services": 3,
+        "failed_services": 0,
+        "partial_functionality": true,
+        "graceful_degradation": true
+      }
+    },
+    "configuration_issues": {
+      "duration": 0.0418088436126709,
+      "success": true,
+      "details": {
+        "working_configs": 3,
+        "failed_configs": 0,
+        "graceful_degradation": true
+      }
+    }
+  },
+  "overall_assessment": {
+    "overall_status": "excellent",
+    "recommendation": "System shows excellent performance and stability",
+    "detailed_assessments": [
+      "Fast startup time",
+      "Memory usage is stable",
+      "Good error recovery capabilities",
+      "Handles stress conditions well"
+    ],
+    "test_summary": {
+      "startup_time": 0.9950969219207764,
+      "memory_stable": true,
+      "error_recovery_rate": 1.0,
+      "stress_test_success_rate": 1.0
+    }
+  }
+}

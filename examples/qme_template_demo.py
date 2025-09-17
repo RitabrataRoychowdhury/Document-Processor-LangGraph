@@ -18,14 +18,14 @@ from datetime import datetime
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 
 try:
-    from services.qme_template_generator import (
+    from src.core.generation.qme_template_generator import (
         QMETemplateGenerator, PatientInfo, MedicalFindings, QMETemplateData,
         PatientDocumentProcessor, KnowledgeGraphMatcher, MissingInformationDetector
     )
     from models.knowledge_graph import Patient, Diagnosis, Finding, Section, ImpairmentRating
     from repositories.patient_repository import SQLitePatientRepository
     from repositories.knowledge_graph_repository import SQLiteKnowledgeGraphRepository
-    from commands.template_command import TemplateCommand
+    from src.commands.template_command import TemplateCommand
     from utils.logging_config import get_logger
 except ImportError as e:
     print(f"Import error: {e}")

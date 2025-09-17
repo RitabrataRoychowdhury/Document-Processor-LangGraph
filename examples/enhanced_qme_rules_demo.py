@@ -17,10 +17,10 @@ from typing import Dict, Any
 sys.path.append(str(Path(__file__).parent.parent))
 
 try:
-    from src.services.qme_rules_engine import (
+    from src.core.validation.qme_rules_engine import (
         QMERulesEngine, ValidationSeverity, EvidenceProvenance
     )
-    from src.services.qme_template_generator import QMETemplateData, PatientInfo, MedicalFindings
+    from src.core.generation.qme_template_generator import QMETemplateData, PatientInfo, MedicalFindings
     from src.models.knowledge_graph import Diagnosis, ImpairmentRating
     from src.utils.logging_config import get_logger
 except ImportError as e:

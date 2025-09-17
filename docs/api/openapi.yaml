@@ -1,0 +1,641 @@
+openapi: 3.0.3
+info:
+  title: QME System API
+  description: |
+    Qualified Medical Evaluator (QME) System API for document processing,
+    evidence extraction, validation, and professional report generation.
+    
+    This API provides endpoints for the complete QME workflow:
+    - Document upload and processing
+    - Field extraction with confidence scoring
+    - Evidence validation and compliance checking
+    - Professional template generation
+    - Audit trail and quality assurance
+  version: 1.0.0
+  contact:
+    name: QME System Support
+    email: support@qmesystem.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  - url: http://localhost:8000
+    description: Development server
+  - url: https://staging.qmesystem.com
+    description: Staging server
+  - url: https://api.qmesystem.com
+    description: Production server
+
+paths:
+  /health:
+    get:
+      summary: Health check endpoint
+      description: Check the health status of the QME system and its dependencies
+      operationId: healthCheck
+      tags:
+        - System
+      responses:
+        '200':
+          description: System is healthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthStatus'
+        '503':
+          description: System is unhealthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthStatus'
+
+  /documents:
+    post:
+      summary: Upload and process a document
+      description: Upload a patient document for processing through Pipeline 1 (extraction/validation)
+      operationId: uploadDocument
+      tags:
+        - Documents
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: The document file to process
+                metadata:
+                  $ref: '#/components/schemas/DocumentMetadata'
+      responses:
+        '201':
+          description: Document uploaded and processing started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessingResponse'
+        '400':
+          description: Invalid request or file format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '413':
+          description: File too large
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /documents/{documentId}/status:
+    get:
+      summary: Get document processing status
+      description: Get the current processing status and results for a document
+      operationId: getDocumentStatus
+      tags:
+        - Documents
+      parameters:
+        - name: documentId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The document ID
+      responses:
+        '200':
+          description: Processing status retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessingStatus'
+        '404':
+          description: Document not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /documents/{documentId}/extraction:
+    get:
+      summary: Get extraction results
+      description: Get the field extraction results with confidence scores and evidence
+      operationId: getExtractionResults
+      tags:
+        - Extraction
+      parameters:
+        - name: documentId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The document ID
+      responses:
+        '200':
+          description: Extraction results retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExtractionResults'
+        '404':
+          description: Document or results not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /documents/{documentId}/validation:
+    get:
+      summary: Get validation results
+      description: Get the validation results showing accepted, flagged, and missing fields
+      operationId: getValidationResults
+      tags:
+        - Validation
+      parameters:
+        - name: documentId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The document ID
+      responses:
+        '200':
+          description: Validation results retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationResults'
+        '404':
+          description: Document or results not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /templates:
+    post:
+      summary: Generate QME template
+      description: Generate a professional QME report template from validated evidence
+      operationId: generateTemplate
+      tags:
+        - Templates
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TemplateGenerationRequest'
+      responses:
+        '201':
+          description: Template generation started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessingResponse'
+        '400':
+          description: Invalid request data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /templates/{templateId}/download:
+    get:
+      summary: Download generated template
+      description: Download the generated QME template document
+      operationId: downloadTemplate
+      tags:
+        - Templates
+      parameters:
+        - name: templateId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The template ID
+        - name: format
+          in: query
+          schema:
+            type: string
+            enum: [docx, pdf]
+            default: docx
+          description: The output format
+      responses:
+        '200':
+          description: Template file
+          content:
+            application/vnd.openxmlformats-officedocument.wordprocessingml.document:
+              schema:
+                type: string
+                format: binary
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: Template not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /qa/query:
+    post:
+      summary: Query knowledge base
+      description: Query the QME knowledge base for information and guidance
+      operationId: queryKnowledgeBase
+      tags:
+        - Knowledge Base
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QueryRequest'
+      responses:
+        '200':
+          description: Query response with sources
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryResponse'
+        '400':
+          description: Invalid query
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /audit/{processId}:
+    get:
+      summary: Get audit trail
+      description: Get the complete audit trail for a processing workflow
+      operationId: getAuditTrail
+      tags:
+        - Audit
+      parameters:
+        - name: processId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The process ID
+      responses:
+        '200':
+          description: Audit trail retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuditTrail'
+        '404':
+          description: Process not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [healthy, unhealthy, degraded]
+        timestamp:
+          type: string
+          format: date-time
+        version:
+          type: string
+        services:
+          type: object
+          additionalProperties:
+            type: object
+            properties:
+              status:
+                type: string
+                enum: [up, down, degraded]
+              response_time_ms:
+                type: number
+              last_check:
+                type: string
+                format: date-time
+              error:
+                type: string
+
+    DocumentMetadata:
+      type: object
+      properties:
+        patient_name:
+          type: string
+          description: Patient name (optional)
+        document_type:
+          type: string
+          enum: [pqme, medical_record, report]
+          description: Type of document
+        tags:
+          type: array
+          items:
+            type: string
+          description: Optional tags for categorization
+
+    ProcessingResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the processing job
+        status:
+          type: string
+          enum: [pending, processing, completed, failed]
+        created_at:
+          type: string
+          format: date-time
+        estimated_completion:
+          type: string
+          format: date-time
+          description: Estimated completion time
+
+    ProcessingStatus:
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          type: string
+          enum: [pending, processing, completed, failed]
+        progress:
+          type: number
+          minimum: 0
+          maximum: 100
+          description: Processing progress percentage
+        current_stage:
+          type: string
+          description: Current processing stage
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        completed_at:
+          type: string
+          format: date-time
+        error_message:
+          type: string
+          description: Error message if processing failed
+        results:
+          type: object
+          description: Processing results (if completed)
+
+    ExtractionResults:
+      type: object
+      properties:
+        document_id:
+          type: string
+        extracted_fields:
+          type: object
+          additionalProperties: true
+          description: Extracted field values
+        confidence_scores:
+          type: object
+          additionalProperties:
+            type: number
+            minimum: 0
+            maximum: 1
+          description: Confidence scores for each field
+        evidence_snippets:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          description: Evidence snippets for each field
+        processing_time:
+          type: number
+          description: Processing time in seconds
+        extraction_metadata:
+          type: object
+          properties:
+            total_fields:
+              type: integer
+            high_confidence_fields:
+              type: integer
+            flagged_fields:
+              type: integer
+            missing_fields:
+              type: integer
+
+    ValidationResults:
+      type: object
+      properties:
+        document_id:
+          type: string
+        is_valid:
+          type: boolean
+        accepted_fields:
+          type: object
+          additionalProperties: true
+          description: Fields that passed validation (confidence >= 0.8)
+        flagged_fields:
+          type: object
+          additionalProperties: true
+          description: Fields that need review (0.5 <= confidence < 0.8)
+        missing_fields:
+          type: array
+          items:
+            type: string
+          description: Required fields that are missing
+        validation_errors:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+              error:
+                type: string
+              severity:
+                type: string
+                enum: [error, warning, info]
+        compliance_status:
+          type: object
+          properties:
+            legal_compliance:
+              type: boolean
+            ama_compliance:
+              type: boolean
+            quality_score:
+              type: number
+              minimum: 0
+              maximum: 1
+
+    TemplateGenerationRequest:
+      type: object
+      required:
+        - document_id
+      properties:
+        document_id:
+          type: string
+          description: ID of the validated document
+        template_config:
+          type: object
+          properties:
+            doctor_info:
+              type: object
+              properties:
+                name:
+                  type: string
+                license_number:
+                  type: string
+                address:
+                  type: string
+                phone:
+                  type: string
+                email:
+                  type: string
+            letterhead:
+              type: string
+              format: binary
+              description: Custom letterhead image
+            formatting_preferences:
+              type: object
+              properties:
+                font_family:
+                  type: string
+                  default: "Times New Roman"
+                font_size:
+                  type: integer
+                  default: 12
+                line_spacing:
+                  type: number
+                  default: 1.5
+        customizations:
+          type: object
+          description: Additional customizations for the template
+
+    QueryRequest:
+      type: object
+      required:
+        - query
+      properties:
+        query:
+          type: string
+          description: The question or search query
+        context:
+          type: object
+          properties:
+            document_id:
+              type: string
+              description: Optional document context
+            topic:
+              type: string
+              description: Optional topic filter
+        max_results:
+          type: integer
+          minimum: 1
+          maximum: 50
+          default: 10
+
+    QueryResponse:
+      type: object
+      properties:
+        query:
+          type: string
+        answer:
+          type: string
+          description: Generated answer based on knowledge base
+        sources:
+          type: array
+          items:
+            type: object
+            properties:
+              title:
+                type: string
+              content:
+                type: string
+              page:
+                type: integer
+              confidence:
+                type: number
+                minimum: 0
+                maximum: 1
+              document_type:
+                type: string
+        response_time:
+          type: number
+          description: Response time in seconds
+
+    AuditTrail:
+      type: object
+      properties:
+        process_id:
+          type: string
+        events:
+          type: array
+          items:
+            type: object
+            properties:
+              timestamp:
+                type: string
+                format: date-time
+              event_type:
+                type: string
+              description:
+                type: string
+              user_id:
+                type: string
+              data:
+                type: object
+              metadata:
+                type: object
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error type
+        message:
+          type: string
+          description: Human-readable error message
+        details:
+          type: object
+          description: Additional error details
+        timestamp:
+          type: string
+          format: date-time
+        request_id:
+          type: string
+          description: Unique request identifier for tracking
+
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+security:
+  - ApiKeyAuth: []
+  - BearerAuth: []
+
+tags:
+  - name: System
+    description: System health and status endpoints
+  - name: Documents
+    description: Document upload and processing
+  - name: Extraction
+    description: Field extraction and evidence collection
+  - name: Validation
+    description: Evidence validation and compliance checking
+  - name: Templates
+    description: QME template generation and download
+  - name: Knowledge Base
+    description: Knowledge base queries and Q&A
+  - name: Audit
+    description: Audit trails and compliance reporting

@@ -5,7 +5,7 @@ from unittest.mock import Mock, patch, MagicMock
 import json
 from datetime import datetime
 
-from src.services.qa_engine import QAEngine
+from src.infrastructure.knowledge.qa_engine import QAEngine
 from src.models.document import Document
 from src.storage.document_storage import DocumentStorage
 

@@ -13,11 +13,11 @@ import os
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 try:
-    from src.services.impairment_calculator import (
+    from src.core.calculation.impairment_calculator import (
         ImpairmentCalculator, ROMMeasurement, CalculationValidationError
     )
 except ImportError:
-    from services.impairment_calculator import (
+    from src.core.calculation.impairment_calculator import (
         ImpairmentCalculator, ROMMeasurement, CalculationValidationError
     )
 

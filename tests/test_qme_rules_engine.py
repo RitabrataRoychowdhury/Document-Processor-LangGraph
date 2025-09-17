@@ -16,11 +16,11 @@ from typing import List, Dict, Any
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src'))
 
 try:
-    from src.services.qme_rules_engine import (
+    from src.core.validation.qme_rules_engine import (
         QMERulesEngine, ValidationIssue, QualityScore, ValidationSeverity, SectionType
     )
-    from src.services.qme_template_generator import QMETemplateData, PatientInfo, MedicalFindings
-    from src.services.enhanced_qme_generator import EnhancedQMETemplateGenerator
+    from src.core.generation.qme_template_generator import QMETemplateData, PatientInfo, MedicalFindings
+    from src.core.generation.enhanced_qme_generator import EnhancedQMETemplateGenerator
     from src.models.knowledge_graph import Diagnosis, Finding, ImpairmentRating
     from src.config.qme_gold_standard_config import qme_config
 except ImportError as e:
@@ -252,7 +252,7 @@ class TestQMERulesEngine(unittest.TestCase):
             self.assertIsNotNone(self.enhanced_generator.rules_engine)
             
             # Test quality summary generation
-            from src.services.enhanced_qme_generator import EnhancedQMEResult
+            from src.core.generation.enhanced_qme_generator import EnhancedQMEResult
             
             # Create mock result for testing
             mock_result = EnhancedQMEResult(

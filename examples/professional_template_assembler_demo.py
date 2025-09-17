@@ -14,11 +14,11 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).parent.parent / "src"))
 
 try:
-    from services.professional_template_assembler import (
+    from src.services.professional_template_assembler_simple import (
         ProfessionalTemplateAssembler,
         TemplateAssemblyConfig
     )
-    from services.qme_template_generator import QMETemplateData, PatientInfo, MedicalFindings
+    from src.core.generation.qme_template_generator import QMETemplateData, PatientInfo, MedicalFindings
     from models.knowledge_graph import Diagnosis, Finding, ImpairmentRating
     from utils.logging_config import get_logger
 except ImportError as e:
@@ -318,7 +318,7 @@ def demonstrate_draft_mode_assembly():
             print(f"\n⚠️  Validation Issues Found ({len(all_issues)} total):")
             
             # Group by severity
-            from services.qme_rules_engine import ValidationSeverity
+            from src.core.validation.qme_rules_engine import ValidationSeverity
             
             critical = [i for i in all_issues if i.severity == ValidationSeverity.CRITICAL]
             high = [i for i in all_issues if i.severity == ValidationSeverity.HIGH]

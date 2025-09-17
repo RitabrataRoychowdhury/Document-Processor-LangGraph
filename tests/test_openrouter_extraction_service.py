@@ -14,7 +14,7 @@ from unittest.mock import Mock, patch, MagicMock
 from pathlib import Path
 from datetime import datetime
 
-from src.services.openrouter_extraction_service import (
+from src.core.extraction.openrouter_extraction_service import (
     OpenRouterExtractionService,
     OpenRouterAPIError
 )

@@ -21,8 +21,8 @@ import argparse
 # Add src to path for imports
 sys.path.append(str(Path(__file__).parent.parent))
 
-from src.services.quality_validation_service import QualityValidationService
-from src.services.performance_monitoring_service import PerformanceMonitoringService
+from src.core.validation.quality_validation_service import QualityValidationService
+from src.infrastructure.monitoring.performance_monitoring_service import PerformanceMonitoringService
 
 # Configure logging
 logging.basicConfig(
