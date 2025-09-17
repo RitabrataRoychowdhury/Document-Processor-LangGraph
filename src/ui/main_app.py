@@ -296,6 +296,12 @@ def main():
         if 'session_id' not in st.session_state:
             st.session_state.session_id = f"session_{int(datetime.now().timestamp() * 1000)}"
         
+        # Initialize error handler session state
+        if 'ui_errors' not in st.session_state:
+            st.session_state.ui_errors = []
+        if 'error_notifications' not in st.session_state:
+            st.session_state.error_notifications = []
+        
     except Exception as e:
         handle_ui_error(
             error=e,
@@ -430,13 +436,16 @@ def main():
             st.warning("🟡 System Status Unknown")
     
     # Initialize upload interface
-    try:
-        upload_interface = UploadInterface()
-    except Exception as e:
-        error_info = format_error_for_ui(e)
-        st.error(f"Failed to initialize upload interface: {error_info['user_message']}")
-        logger.error(f"Upload interface error: {e}", exc_info=True)
-        upload_interface = None
+    if 'upload_interface' not in st.session_state:
+        try:
+            st.session_state.upload_interface = UploadInterface()
+        except Exception as e:
+            error_info = format_error_for_ui(e)
+            st.error(f"Failed to initialize upload interface: {error_info['user_message']}")
+            logger.error(f"Upload interface error: {e}", exc_info=True)
+            st.session_state.upload_interface = None
+    
+    upload_interface = st.session_state.upload_interface
     
     # Enhanced sidebar navigation with unified workflow
     with st.sidebar:

@@ -59,6 +59,10 @@ class UIErrorHandler:
         self.error_counts: Dict[str, int] = {}
         
         # Initialize session state for error tracking
+        self._ensure_session_state_initialized()
+    
+    def _ensure_session_state_initialized(self):
+        """Ensure session state variables are initialized."""
         if 'ui_errors' not in st.session_state:
             st.session_state.ui_errors = []
         if 'error_notifications' not in st.session_state:
@@ -116,6 +120,7 @@ class UIErrorHandler:
             self._display_error_to_user(error_record)
         
         # Store in session state for error analytics
+        self._ensure_session_state_initialized()
         st.session_state.ui_errors.append(error_record)
         
         return error_record
@@ -152,6 +157,9 @@ class UIErrorHandler:
     
     def _display_error_to_user(self, error_record: Dict[str, Any]) -> None:
         """Display error to user with appropriate styling and enhanced recovery options."""
+        # Ensure session state is initialized
+        self._ensure_session_state_initialized()
+        
         severity = error_record["severity"]
         user_message = error_record["user_message"]
         recovery_suggestions = error_record["recovery_suggestions"]
@@ -248,6 +256,7 @@ class UIErrorHandler:
     
     def render_error_notifications(self) -> None:
         """Render persistent error notifications."""
+        self._ensure_session_state_initialized()
         if not st.session_state.error_notifications:
             return
         
@@ -333,6 +342,7 @@ class UIErrorHandler:
     
     def clear_error_history(self) -> None:
         """Clear error history and notifications."""
+        self._ensure_session_state_initialized()
         self.error_history.clear()
         self.error_counts.clear()
         st.session_state.ui_errors.clear()
@@ -340,6 +350,7 @@ class UIErrorHandler:
     
     def export_error_report(self) -> Dict[str, Any]:
         """Export comprehensive error report."""
+        self._ensure_session_state_initialized()
         return {
             "export_timestamp": datetime.now().isoformat(),
             "statistics": self.get_error_statistics(),

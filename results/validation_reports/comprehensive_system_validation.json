@@ -1,10 +1,10 @@
 {
-  "timestamp": "2025-09-17T23:13:07.730816",
+  "timestamp": "2025-09-18T00:05:34.370652",
   "overall_success": true,
   "total_tests": 41,
   "passed_tests": 41,
   "failed_tests": 0,
-  "total_duration": 4.019890785217285,
+  "total_duration": 4.391596078872681,
   "test_results": [
     {
       "test_name": "Import: src.app",
@@ -12,9 +12,9 @@
       "message": "Import successful",
       "details": {
         "module": "src.app",
-        "import_time": 0.1829833984375
+        "import_time": 0.1804957389831543
       },
-      "duration": 0.1829833984375,
+      "duration": 0.1804957389831543,
       "error": null
     },
     {
@@ -23,9 +23,9 @@
       "message": "Import successful",
       "details": {
         "module": "src.startup",
-        "import_time": 0.013641119003295898
+        "import_time": 0.019865036010742188
       },
-      "duration": 0.013641119003295898,
+      "duration": 0.019865036010742188,
       "error": null
     },
     {
@@ -34,9 +34,9 @@
       "message": "Import successful",
       "details": {
         "module": "src.config.app_config",
-        "import_time": 2.1457672119140625e-06
+        "import_time": 1.6689300537109375e-06
       },
-      "duration": 2.1457672119140625e-06,
+      "duration": 1.6689300537109375e-06,
       "error": null
     },
     {
@@ -45,9 +45,9 @@
       "message": "Import successful",
       "details": {
         "module": "src.ui.main_app",
-        "import_time": 0.9379689693450928
+        "import_time": 1.1598896980285645
       },
-      "duration": 0.9379689693450928,
+      "duration": 1.1598896980285645,
       "error": null
     },
     {
@@ -56,9 +56,9 @@
       "message": "Import successful",
       "details": {
         "module": "src.ui.upload_interface",
-        "import_time": 2.1457672119140625e-06
+        "import_time": 1.9073486328125e-06
       },
-      "duration": 2.1457672119140625e-06,
+      "duration": 1.9073486328125e-06,
       "error": null
     },
     {
@@ -78,9 +78,9 @@
       "message": "Import successful",
       "details": {
         "module": "src.ui.document_manager",
-        "import_time": 1.1920928955078125e-06
+        "import_time": 9.5367431640625e-07
       },
-      "duration": 1.1920928955078125e-06,
+      "duration": 9.5367431640625e-07,
       "error": null
     },
     {
@@ -89,9 +89,9 @@
       "message": "Import successful",
       "details": {
         "module": "src.ui.qme_template_interface",
-        "import_time": 1.1920928955078125e-06
+        "import_time": 2.1457672119140625e-06
       },
-      "duration": 1.1920928955078125e-06,
+      "duration": 2.1457672119140625e-06,
       "error": null
     },
     {
@@ -100,9 +100,9 @@
       "message": "Import successful",
       "details": {
         "module": "src.ui.professional_template_interface",
-        "import_time": 1.1920928955078125e-06
+        "import_time": 1.9073486328125e-06
       },
-      "duration": 1.1920928955078125e-06,
+      "duration": 1.9073486328125e-06,
       "error": null
     },
     {
@@ -111,9 +111,9 @@
       "message": "Import successful",
       "details": {
         "module": "src.services.comprehensive_qme_field_service",
-        "import_time": 9.5367431640625e-07
+        "import_time": 1.9073486328125e-06
       },
-      "duration": 9.5367431640625e-07,
+      "duration": 1.9073486328125e-06,
       "error": null
     },
     {
@@ -144,9 +144,9 @@
       "message": "Import successful",
       "details": {
         "module": "src.infrastructure.configuration.centralized_config_manager",
-        "import_time": 9.5367431640625e-07
+        "import_time": 1.1920928955078125e-06
       },
-      "duration": 9.5367431640625e-07,
+      "duration": 1.1920928955078125e-06,
       "error": null
     },
     {
@@ -155,9 +155,9 @@
       "message": "Import successful",
       "details": {
         "module": "src.infrastructure.api.api_provider_factory",
-        "import_time": 0.0007688999176025391
+        "import_time": 0.0007350444793701172
       },
-      "duration": 0.0007688999176025391,
+      "duration": 0.0007350444793701172,
       "error": null
     },
     {
@@ -166,9 +166,9 @@
       "message": "Import successful",
       "details": {
         "module": "src.infrastructure.monitoring.performance_monitor",
-        "import_time": 9.5367431640625e-07
+        "import_time": 7.152557373046875e-07
       },
-      "duration": 9.5367431640625e-07,
+      "duration": 7.152557373046875e-07,
       "error": null
     },
     {
@@ -177,9 +177,9 @@
       "message": "Import successful",
       "details": {
         "module": "src.infrastructure.monitoring.ui_error_handler",
-        "import_time": 1.1920928955078125e-06
+        "import_time": 0.0
       },
-      "duration": 1.1920928955078125e-06,
+      "duration": 0.0,
       "error": null
     },
     {
@@ -199,9 +199,9 @@
       "message": "Import successful",
       "details": {
         "module": "src.models.document",
-        "import_time": 9.5367431640625e-07
+        "import_time": 1.1920928955078125e-06
       },
-      "duration": 9.5367431640625e-07,
+      "duration": 1.1920928955078125e-06,
       "error": null
     },
     {
@@ -232,9 +232,9 @@
       "message": "Import successful",
       "details": {
         "module": "src.storage.document_storage",
-        "import_time": 9.5367431640625e-07
+        "import_time": 0.0
       },
-      "duration": 9.5367431640625e-07,
+      "duration": 0.0,
       "error": null
     },
     {
@@ -243,9 +243,9 @@
       "message": "Import successful",
       "details": {
         "module": "src.utils.error_handling",
-        "import_time": 0.0
+        "import_time": 9.5367431640625e-07
       },
-      "duration": 0.0,
+      "duration": 9.5367431640625e-07,
       "error": null
     },
     {
@@ -291,7 +291,7 @@
           ]
         ]
       },
-      "duration": 0.0008990764617919922,
+      "duration": 0.0009090900421142578,
       "error": null
     },
     {
@@ -304,7 +304,7 @@
         "class": "SystemStartup",
         "instance_type": "<class 'src.startup.SystemStartup'>"
       },
-      "duration": 3.814697265625e-06,
+      "duration": 2.86102294921875e-06,
       "error": null
     },
     {
@@ -317,7 +317,7 @@
         "class": "ServiceRegistry",
         "instance_type": "<class 'src.infrastructure.configuration.service_registry.ServiceRegistry'>"
       },
-      "duration": 5.698204040527344e-05,
+      "duration": 5.507469177246094e-05,
       "error": null
     },
     {
@@ -330,7 +330,7 @@
         "class": "CentralizedConfigManager",
         "instance_type": "<class 'src.infrastructure.configuration.centralized_config_manager.CentralizedConfigManager'>"
       },
-      "duration": 5.316734313964844e-05,
+      "duration": 5.221366882324219e-05,
       "error": null
     },
     {
@@ -343,7 +343,7 @@
         "class": "APIProviderFactory",
         "instance_type": "<class 'src.infrastructure.api.api_provider_factory.APIProviderFactory'>"
       },
-      "duration": 0.00010919570922851562,
+      "duration": 0.00010967254638671875,
       "error": null
     },
     {
@@ -356,7 +356,7 @@
         "class": "AdvancedPerformanceMonitor",
         "instance_type": "<class 'src.infrastructure.monitoring.performance_monitor.AdvancedPerformanceMonitor'>"
       },
-      "duration": 0.0001537799835205078,
+      "duration": 0.00013375282287597656,
       "error": null
     },
     {
@@ -369,7 +369,7 @@
         "class": "ComprehensiveQMEFieldService",
         "instance_type": "<class 'src.services.comprehensive_qme_field_service.ComprehensiveQMEFieldService'>"
       },
-      "duration": 0.025164127349853516,
+      "duration": 0.034705162048339844,
       "error": null
     },
     {
@@ -382,7 +382,7 @@
         "class": "ProfessionalTemplateAssembler",
         "instance_type": "<class 'src.services.professional_template_assembler_simple.ProfessionalTemplateAssembler'>"
       },
-      "duration": 0.01858687400817871,
+      "duration": 0.018610000610351562,
       "error": null
     },
     {
@@ -413,7 +413,7 @@
           ]
         ]
       },
-      "duration": 0.0002200603485107422,
+      "duration": 0.0001442432403564453,
       "error": null
     },
     {
@@ -425,7 +425,7 @@
         "module": "src.ui.main_app",
         "type": "<class 'function'>"
       },
-      "duration": 5.245208740234375e-06,
+      "duration": 4.0531158447265625e-06,
       "error": null
     },
     {
@@ -449,7 +449,7 @@
         "module": "src.ui.qa_interface_simple",
         "type": "<class 'function'>"
       },
-      "duration": 1.9073486328125e-06,
+      "duration": 9.5367431640625e-07,
       "error": null
     },
     {
@@ -461,7 +461,7 @@
         "module": "src.ui.document_manager",
         "type": "<class 'function'>"
       },
-      "duration": 2.86102294921875e-06,
+      "duration": 1.9073486328125e-06,
       "error": null
     },
     {
@@ -473,7 +473,7 @@
         "module": "src.ui.qme_template_interface",
         "type": "<class 'function'>"
       },
-      "duration": 2.1457672119140625e-06,
+      "duration": 1.9073486328125e-06,
       "error": null
     },
     {
@@ -485,7 +485,7 @@
         "module": "src.ui.professional_template_interface",
         "type": "<class 'type'>"
       },
-      "duration": 1.9073486328125e-06,
+      "duration": 2.1457672119140625e-06,
       "error": null
     },
     {
@@ -497,7 +497,7 @@
         "config_loaded": true,
         "services_initialized": true
       },
-      "duration": 2.8374269008636475,
+      "duration": 2.974153995513916,
       "error": null
     },
     {
@@ -505,12 +505,12 @@
       "success": true,
       "message": "Performance benchmarks completed",
       "details": {
-        "import_time": 1.6689300537109375e-06,
-        "init_time": 1.1920928955078125e-06,
+        "import_time": 2.1457672119140625e-06,
+        "init_time": 9.5367431640625e-07,
         "init_success": true,
-        "total_time": 2.86102294921875e-06
+        "total_time": 3.814697265625e-06
       },
-      "duration": 2.86102294921875e-06,
+      "duration": 3.814697265625e-06,
       "error": null
     }
   ],
@@ -518,7 +518,7 @@
     "python_version": "3.13.5 (main, Jun 11 2025, 15:36:57) [Clang 17.0.0 (clang-1700.0.13.3)]",
     "platform": "darwin",
     "working_directory": "/Users/ritabrataroychowdhury/Downloads/Dms",
-    "validation_timestamp": "2025-09-17T23:13:07.730802",
+    "validation_timestamp": "2025-09-18T00:05:34.370631",
     "total_modules_tested": 23,
     "total_services_tested": 7
   },

@@ -209,7 +209,7 @@ class DependencyContainer:
             # Create KG service
             from src.repositories.knowledge_graph_repository import SQLiteKnowledgeGraphRepository
             kg_repository = SQLiteKnowledgeGraphRepository()
-            kg_service = KnowledgeGraphService(kg_repository, self.get_embedding_strategy())
+            kg_service = KnowledgeGraphService(kg_repository)
             
             pipeline = IngestionPipeline(
                 processor_factory=self.get_processor_factory(),

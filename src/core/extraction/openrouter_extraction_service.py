@@ -632,33 +632,69 @@ class OpenRouterExtractionService:
             # Try to parse as JSON first
             try:
                 extracted_json = json.loads(content)
-            except json.JSONDecodeError:
+                # Ensure we have a dictionary, not a list or other type
+                if not isinstance(extracted_json, dict):
+                    logger.warning(f"API returned non-dict response: {type(extracted_json)}")
+                    if isinstance(extracted_json, list) and len(extracted_json) > 0:
+                        # If it's a list, try to use the first item if it's a dict
+                        if isinstance(extracted_json[0], dict):
+                            extracted_json = extracted_json[0]
+                            logger.info("Using first dictionary item from list response")
+                        else:
+                            # Convert list to dict with indexed keys
+                            extracted_json = {f"item_{i}": item for i, item in enumerate(extracted_json)}
+                            logger.info("Converted list response to indexed dictionary")
+                    else:
+                        # Convert other types to a simple structure
+                        extracted_json = {"raw_content": str(extracted_json)}
+                        logger.info("Converted non-dict response to simple structure")
+            except json.JSONDecodeError as e:
                 # If not JSON, create a simple structure
+                logger.warning(f"Failed to parse JSON response: {e}")
                 extracted_json = {"raw_content": content}
                 
             extracted_fields = {}
             
-            for field_name, field_value in extracted_json.items():
-                if isinstance(field_value, dict):
-                    # Structured field with metadata
-                    extracted_fields[field_name] = ExtractedField(
-                        name=field_name,
-                        value=field_value.get('value', ''),
-                        confidence=field_value.get('confidence', 0.5),
-                        source_location=field_value.get('source_location', ''),
-                        validation_status='pending',
-                        notes=field_value.get('notes', '')
-                    )
-                else:
-                    # Simple field value
-                    extracted_fields[field_name] = ExtractedField(
-                        name=field_name,
-                        value=str(field_value),
-                        confidence=0.8,  # Default confidence
+            # Add additional safety check
+            if not isinstance(extracted_json, dict):
+                logger.error(f"extracted_json is still not a dict: {type(extracted_json)}")
+                extracted_json = {"error": "Invalid response format", "raw_content": str(extracted_json)}
+            
+            try:
+                for field_name, field_value in extracted_json.items():
+                    if isinstance(field_value, dict):
+                        # Structured field with metadata
+                        extracted_fields[field_name] = ExtractedField(
+                            name=field_name,
+                            value=field_value.get('value', ''),
+                            confidence=field_value.get('confidence', 0.5),
+                            source_location=field_value.get('source_location', ''),
+                            validation_status='pending',
+                            notes=field_value.get('notes', '')
+                        )
+                    else:
+                        # Simple field value
+                        extracted_fields[field_name] = ExtractedField(
+                            name=field_name,
+                            value=str(field_value),
+                            confidence=0.8,  # Default confidence
+                            source_location='',
+                            validation_status='pending',
+                            notes=''
+                        )
+            except AttributeError as e:
+                logger.error(f"Error iterating over extracted_json: {e}, type: {type(extracted_json)}")
+                # Create a fallback field with the raw content
+                extracted_fields = {
+                    "raw_extraction": ExtractedField(
+                        name="raw_extraction",
+                        value=str(extracted_json),
+                        confidence=0.1,
                         source_location='',
-                        validation_status='pending',
-                        notes=''
+                        validation_status='error',
+                        notes=f'Failed to parse response: {str(e)}'
                     )
+                }
                     
             return extracted_fields
             

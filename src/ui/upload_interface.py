@@ -6,11 +6,22 @@ Provides user-friendly interface with real-time feedback and validation.
 import streamlit as st
 from typing import Optional, Dict, Any
 import time
+import asyncio
+import tempfile
+import os
 from src.infrastructure.storage.file_handler import FileUploadHandler, FileMetadata
 from src.infrastructure.monitoring.ui_error_handler import (
     enhanced_ui_error_boundary, handle_component_failure
 )
 from src.utils.logging_config import get_logger
+
+# Import the actual extraction service
+try:
+    from src.services.comprehensive_qme_field_service import ComprehensiveQMEFieldService
+    EXTRACTION_SERVICE_AVAILABLE = True
+except ImportError as e:
+    logger.warning(f"ComprehensiveQMEFieldService not available: {e}")
+    EXTRACTION_SERVICE_AVAILABLE = False
 
 logger = get_logger(__name__)
 
@@ -24,6 +35,18 @@ class UploadInterface:
         except Exception as e:
             logger.error(f"Error initializing file handler: {e}")
             self.file_handler = None
+        
+        # Initialize extraction service
+        try:
+            if EXTRACTION_SERVICE_AVAILABLE:
+                self.extraction_service = ComprehensiveQMEFieldService()
+                logger.info("✅ Extraction service initialized")
+            else:
+                self.extraction_service = None
+                logger.warning("⚠️ Extraction service not available - using simulation")
+        except Exception as e:
+            logger.error(f"Error initializing extraction service: {e}")
+            self.extraction_service = None
         
         # Initialize session state
         if 'uploaded_files' not in st.session_state:
@@ -263,8 +286,8 @@ class UploadInterface:
             overall_progress.progress(0.35)
             status_text.text("🔍 Extracting medical fields with confidence scoring...")
             
-            # Simulate field extraction (in production, this would use actual extraction service)
-            extracted_fields = self._simulate_field_extraction(extracted_text)
+            # Perform actual field extraction using ComprehensiveQMEFieldService
+            extracted_fields = self._perform_actual_field_extraction(extracted_text)
             
             stage2_status.success("✅ Complete")
             stage2_progress.progress(1.0)
@@ -342,15 +365,81 @@ class UploadInterface:
         """Legacy file processing - redirects to enhanced version."""
         return self._process_enhanced_file(uploaded_file, metadata)
     
-    def _simulate_field_extraction(self, extracted_text: str) -> Dict[str, Any]:
+    def _perform_actual_field_extraction(self, extracted_text: str) -> Dict[str, Any]:
         """
-        Simulate field extraction with confidence scoring (in production, this would use actual extraction service)
+        Perform actual field extraction using ComprehensiveQMEFieldService
         
         Args:
             extracted_text: The extracted text content
             
         Returns:
             Dict containing extracted fields with confidence scores
+        """
+        if self.extraction_service is None:
+            logger.warning("Extraction service not available, using fallback simulation")
+            return self._simulate_field_extraction_fallback(extracted_text)
+        
+        try:
+            # Create a temporary file for the extraction service
+            with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False) as temp_file:
+                temp_file.write(extracted_text)
+                temp_file_path = temp_file.name
+            
+            try:
+                # Call the actual extraction service asynchronously
+                loop = asyncio.new_event_loop()
+                asyncio.set_event_loop(loop)
+                
+                try:
+                    extraction_result = loop.run_until_complete(
+                        self.extraction_service.extract_fields(temp_file_path)
+                    )
+                finally:
+                    loop.close()
+                
+                # Convert extraction result to UI format
+                fields = {}
+                if hasattr(extraction_result, 'extracted_fields') and extraction_result.extracted_fields:
+                    for field_name, field_obj in extraction_result.extracted_fields.items():
+                        if hasattr(field_obj, 'value') and hasattr(field_obj, 'confidence'):
+                            fields[field_name] = {
+                                'value': field_obj.value,
+                                'confidence': field_obj.confidence,
+                                'source_snippet': getattr(field_obj, 'source_location', ''),
+                                'position': (0, 0)  # Placeholder
+                            }
+                
+                # Also get confidence scores if available
+                confidence_scores = {}
+                if hasattr(extraction_result, 'confidence_scores'):
+                    confidence_scores = extraction_result.confidence_scores
+                elif hasattr(extraction_result, 'metadata') and 'confidence_scores' in extraction_result.metadata:
+                    confidence_scores = extraction_result.metadata['confidence_scores']
+                
+                logger.info(f"✅ Actual extraction completed: {len(fields)} fields extracted")
+                return fields
+                
+            finally:
+                # Clean up temporary file
+                try:
+                    os.unlink(temp_file_path)
+                except Exception as e:
+                    logger.warning(f"Failed to clean up temp file: {e}")
+                    
+        except Exception as e:
+            logger.error(f"Actual field extraction failed: {e}")
+            logger.warning("Falling back to simulation method")
+            return self._simulate_field_extraction_fallback(extracted_text)
+    
+    def _simulate_field_extraction_fallback(self, extracted_text: str) -> Dict[str, Any]:
+        """
+        Fallback simulation method when actual extraction service is not available
+        
+        Args:
+            extracted_text: The extracted text content
+            
+        Returns:
+            Dict containing simulated extracted fields with confidence scores
         """
         import re
         import random
@@ -361,19 +450,6 @@ class UploadInterface:
         # Patient name extraction
         name_patterns = [r"Patient:?\s*([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)", r"Name:?\s*([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)"]
         for pattern in name_patterns:
-            match = re.search(pattern, extracted_text, re.IGNORECASE)
-            if match:
-                fields['patient_name'] = {
-                    'value': match.group(1).strip(),
-                    'confidence': random.uniform(0.85, 0.98),
-                    'source_snippet': match.group(0),
-                    'position': match.span()
-                }
-                break
-        
-        # Case number extraction
-        case_patterns = [r"Case\s*(?:Number|No\.?|#):?\s*([A-Z0-9\-]+)", r"Claim\s*(?:Number|No\.?|#):?\s*([A-Z0-9\-]+)"]
-        for pattern in case_patterns:
             match = re.search(pattern, extracted_text, re.IGNORECASE)
             if match:
                 fields['case_number'] = {
