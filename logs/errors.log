@@ -115,3 +115,300 @@ AttributeError: 'SQLiteDocumentRepository' object has no attribute 'find_by_file
 2025-09-16 00:27:28,077 - src.repositories.document_repository - ERROR - find_by_file_path:156 - Error finding document by file path AMAGuides 5th Edition.pdf: no such column: file_path
 2025-09-16 00:27:28,077 - src.repositories.document_repository - ERROR - find_by_file_path:156 - Error finding document by file path QME-Study-Guide.pdf: no such column: file_path
 2025-09-16 00:27:28,078 - src.repositories.document_repository - ERROR - find_by_file_path:156 - Error finding document by file path Sample3.pdf: no such column: file_path
+2025-09-16 22:09:52,035 - src.services.qme_rules_engine - ERROR - _load_rules_config:836 - Error loading rules config: while parsing a block mapping
+  in "src/rules/rules.yaml", line 111, column 7
+expected <block end>, but found '<block mapping start>'
+  in "src/rules/rules.yaml", line 112, column 9
+2025-09-16 22:09:52,035 - src.services.professional_template_assembler - ERROR - integrate_validation_results:713 - Error integrating validation results: QMETemplateData.__init__() missing 2 required positional arguments: 'patient_info' and 'medical_findings'
+2025-09-16 22:09:52,036 - src.services.qme_rules_engine - ERROR - validate_qme_report:899 - Error in QME report validation: QMERulesEngine._calculate_quality_score() takes 3 positional arguments but 4 were given
+2025-09-16 22:09:52,036 - src.services.professional_template_assembler - ERROR - validate_pre_assembly:416 - Error in pre-assembly validation: too many values to unpack (expected 2)
+2025-09-16 22:09:52,036 - src.services.professional_template_assembler - ERROR - assemble_professional_template:996 - Error assembling professional template: QualityScore.__init__() missing 1 required positional argument: 'evidence_confidence_score'
+2025-09-16 22:09:52,041 - src.services.qme_rules_engine - ERROR - _load_rules_config:836 - Error loading rules config: while parsing a block mapping
+  in "src/rules/rules.yaml", line 111, column 7
+expected <block end>, but found '<block mapping start>'
+  in "src/rules/rules.yaml", line 112, column 9
+2025-09-16 22:09:52,041 - src.services.professional_template_assembler - ERROR - integrate_validation_results:713 - Error integrating validation results: QMETemplateData.__init__() missing 2 required positional arguments: 'patient_info' and 'medical_findings'
+2025-09-16 22:09:52,041 - src.services.qme_rules_engine - ERROR - validate_qme_report:899 - Error in QME report validation: QMERulesEngine._calculate_quality_score() takes 3 positional arguments but 4 were given
+2025-09-16 22:09:52,041 - src.services.professional_template_assembler - ERROR - validate_pre_assembly:416 - Error in pre-assembly validation: too many values to unpack (expected 2)
+2025-09-16 22:09:52,041 - src.services.professional_template_assembler - ERROR - assemble_professional_template:996 - Error assembling professional template: QualityScore.__init__() missing 1 required positional argument: 'evidence_confidence_score'
+2025-09-16 22:09:52,045 - src.services.qme_rules_engine - ERROR - _load_rules_config:836 - Error loading rules config: while parsing a block mapping
+  in "src/rules/rules.yaml", line 111, column 7
+expected <block end>, but found '<block mapping start>'
+  in "src/rules/rules.yaml", line 112, column 9
+2025-09-16 22:09:52,045 - src.services.professional_template_assembler - ERROR - integrate_validation_results:713 - Error integrating validation results: QMETemplateData.__init__() missing 2 required positional arguments: 'patient_info' and 'medical_findings'
+2025-09-16 22:09:52,045 - src.services.qme_rules_engine - ERROR - validate_qme_report:899 - Error in QME report validation: QMERulesEngine._calculate_quality_score() takes 3 positional arguments but 4 were given
+2025-09-16 22:09:52,045 - src.services.professional_template_assembler - ERROR - validate_pre_assembly:416 - Error in pre-assembly validation: too many values to unpack (expected 2)
+2025-09-16 22:09:52,045 - src.services.professional_template_assembler - ERROR - assemble_professional_template:996 - Error assembling professional template: QualityScore.__init__() missing 1 required positional argument: 'evidence_confidence_score'
+2025-09-16 22:11:39,655 - src.services.qme_rules_engine - ERROR - _load_rules_config:836 - Error loading rules config: while parsing a block mapping
+  in "src/rules/rules.yaml", line 111, column 7
+expected <block end>, but found '<block mapping start>'
+  in "src/rules/rules.yaml", line 112, column 9
+2025-09-16 22:11:39,656 - src.services.qme_rules_engine - ERROR - validate_qme_report:899 - Error in QME report validation: QMERulesEngine._calculate_quality_score() takes 3 positional arguments but 4 were given
+2025-09-16 22:11:39,656 - src.services.professional_template_assembler - ERROR - validate_pre_assembly:416 - Error in pre-assembly validation: too many values to unpack (expected 2)
+2025-09-16 22:11:39,675 - src.services.professional_template_assembler - ERROR - _add_case_information_table_with_evidence:1218 - Error adding case information table with evidence: list index out of range
+2025-09-16 22:11:39,675 - src.services.professional_template_assembler - ERROR - _add_patient_identification_section_with_evidence:1160 - Error adding patient identification section with evidence: list index out of range
+2025-09-16 22:11:39,675 - src.services.professional_template_assembler - ERROR - _create_professional_document_with_evidence:1057 - Error creating professional document with evidence: list index out of range
+2025-09-16 22:11:39,675 - src.services.professional_template_assembler - ERROR - assemble_professional_template:1001 - Error assembling professional template: list index out of range
+2025-09-16 22:11:39,680 - src.services.qme_rules_engine - ERROR - _load_rules_config:836 - Error loading rules config: while parsing a block mapping
+  in "src/rules/rules.yaml", line 111, column 7
+expected <block end>, but found '<block mapping start>'
+  in "src/rules/rules.yaml", line 112, column 9
+2025-09-16 22:11:39,680 - src.services.qme_rules_engine - ERROR - validate_qme_report:899 - Error in QME report validation: QMERulesEngine._calculate_quality_score() takes 3 positional arguments but 4 were given
+2025-09-16 22:11:39,680 - src.services.professional_template_assembler - ERROR - validate_pre_assembly:416 - Error in pre-assembly validation: too many values to unpack (expected 2)
+2025-09-16 22:11:39,694 - src.services.professional_template_assembler - ERROR - _add_case_information_table_with_evidence:1218 - Error adding case information table with evidence: list index out of range
+2025-09-16 22:11:39,694 - src.services.professional_template_assembler - ERROR - _add_patient_identification_section_with_evidence:1160 - Error adding patient identification section with evidence: list index out of range
+2025-09-16 22:11:39,695 - src.services.professional_template_assembler - ERROR - _create_professional_document_with_evidence:1057 - Error creating professional document with evidence: list index out of range
+2025-09-16 22:11:39,695 - src.services.professional_template_assembler - ERROR - assemble_professional_template:1001 - Error assembling professional template: list index out of range
+2025-09-16 22:11:39,699 - src.services.qme_rules_engine - ERROR - _load_rules_config:836 - Error loading rules config: while parsing a block mapping
+  in "src/rules/rules.yaml", line 111, column 7
+expected <block end>, but found '<block mapping start>'
+  in "src/rules/rules.yaml", line 112, column 9
+2025-09-16 22:11:39,699 - src.services.qme_rules_engine - ERROR - validate_qme_report:899 - Error in QME report validation: QMERulesEngine._calculate_quality_score() takes 3 positional arguments but 4 were given
+2025-09-16 22:11:39,699 - src.services.professional_template_assembler - ERROR - validate_pre_assembly:416 - Error in pre-assembly validation: too many values to unpack (expected 2)
+2025-09-16 22:11:39,713 - src.services.professional_template_assembler - ERROR - _add_case_information_table_with_evidence:1218 - Error adding case information table with evidence: list index out of range
+2025-09-16 22:11:39,713 - src.services.professional_template_assembler - ERROR - _add_patient_identification_section_with_evidence:1160 - Error adding patient identification section with evidence: list index out of range
+2025-09-16 22:11:39,713 - src.services.professional_template_assembler - ERROR - _create_professional_document_with_evidence:1057 - Error creating professional document with evidence: list index out of range
+2025-09-16 22:11:39,713 - src.services.professional_template_assembler - ERROR - assemble_professional_template:1001 - Error assembling professional template: list index out of range
+2025-09-16 22:12:14,966 - src.services.qme_rules_engine - ERROR - _load_rules_config:836 - Error loading rules config: while parsing a block mapping
+  in "src/rules/rules.yaml", line 111, column 7
+expected <block end>, but found '<block mapping start>'
+  in "src/rules/rules.yaml", line 112, column 9
+2025-09-16 22:12:14,967 - src.services.qme_rules_engine - ERROR - validate_qme_report:899 - Error in QME report validation: QMERulesEngine._calculate_quality_score() takes 3 positional arguments but 4 were given
+2025-09-16 22:12:14,967 - src.services.professional_template_assembler - ERROR - validate_pre_assembly:416 - Error in pre-assembly validation: too many values to unpack (expected 2)
+2025-09-16 22:12:14,985 - src.services.professional_template_assembler - ERROR - _generate_history_content:1898 - Error generating history content: 'str' object has no attribute 'description'
+2025-09-16 22:12:14,985 - src.services.professional_template_assembler - ERROR - _add_history_sections:1868 - Error adding history sections: 'str' object has no attribute 'description'
+2025-09-16 22:12:14,985 - src.services.professional_template_assembler - ERROR - _create_professional_document_with_evidence:1057 - Error creating professional document with evidence: 'str' object has no attribute 'description'
+2025-09-16 22:12:14,985 - src.services.professional_template_assembler - ERROR - assemble_professional_template:1001 - Error assembling professional template: 'str' object has no attribute 'description'
+2025-09-16 22:12:14,990 - src.services.qme_rules_engine - ERROR - _load_rules_config:836 - Error loading rules config: while parsing a block mapping
+  in "src/rules/rules.yaml", line 111, column 7
+expected <block end>, but found '<block mapping start>'
+  in "src/rules/rules.yaml", line 112, column 9
+2025-09-16 22:12:14,991 - src.services.qme_rules_engine - ERROR - validate_qme_report:899 - Error in QME report validation: QMERulesEngine._calculate_quality_score() takes 3 positional arguments but 4 were given
+2025-09-16 22:12:14,991 - src.services.professional_template_assembler - ERROR - validate_pre_assembly:416 - Error in pre-assembly validation: too many values to unpack (expected 2)
+2025-09-16 22:12:15,008 - src.services.professional_template_assembler - ERROR - _generate_history_content:1898 - Error generating history content: 'str' object has no attribute 'description'
+2025-09-16 22:12:15,008 - src.services.professional_template_assembler - ERROR - _add_history_sections:1868 - Error adding history sections: 'str' object has no attribute 'description'
+2025-09-16 22:12:15,009 - src.services.professional_template_assembler - ERROR - _create_professional_document_with_evidence:1057 - Error creating professional document with evidence: 'str' object has no attribute 'description'
+2025-09-16 22:12:15,009 - src.services.professional_template_assembler - ERROR - assemble_professional_template:1001 - Error assembling professional template: 'str' object has no attribute 'description'
+2025-09-16 22:12:15,013 - src.services.qme_rules_engine - ERROR - _load_rules_config:836 - Error loading rules config: while parsing a block mapping
+  in "src/rules/rules.yaml", line 111, column 7
+expected <block end>, but found '<block mapping start>'
+  in "src/rules/rules.yaml", line 112, column 9
+2025-09-16 22:12:15,013 - src.services.qme_rules_engine - ERROR - validate_qme_report:899 - Error in QME report validation: QMERulesEngine._calculate_quality_score() takes 3 positional arguments but 4 were given
+2025-09-16 22:12:15,013 - src.services.professional_template_assembler - ERROR - validate_pre_assembly:416 - Error in pre-assembly validation: too many values to unpack (expected 2)
+2025-09-16 22:12:15,029 - src.services.professional_template_assembler - ERROR - _generate_history_content:1898 - Error generating history content: 'str' object has no attribute 'description'
+2025-09-16 22:12:15,030 - src.services.professional_template_assembler - ERROR - _add_history_sections:1868 - Error adding history sections: 'str' object has no attribute 'description'
+2025-09-16 22:12:15,030 - src.services.professional_template_assembler - ERROR - _create_professional_document_with_evidence:1057 - Error creating professional document with evidence: 'str' object has no attribute 'description'
+2025-09-16 22:12:15,030 - src.services.professional_template_assembler - ERROR - assemble_professional_template:1001 - Error assembling professional template: 'str' object has no attribute 'description'
+2025-09-16 22:13:03,280 - src.services.qme_rules_engine - ERROR - _load_rules_config:836 - Error loading rules config: while parsing a block mapping
+  in "src/rules/rules.yaml", line 111, column 7
+expected <block end>, but found '<block mapping start>'
+  in "src/rules/rules.yaml", line 112, column 9
+2025-09-16 22:13:03,281 - src.services.qme_rules_engine - ERROR - validate_qme_report:899 - Error in QME report validation: QMERulesEngine._calculate_quality_score() takes 3 positional arguments but 4 were given
+2025-09-16 22:13:03,281 - src.services.professional_template_assembler - ERROR - validate_pre_assembly:416 - Error in pre-assembly validation: too many values to unpack (expected 2)
+2025-09-16 22:13:03,362 - src.services.professional_template_assembler - ERROR - _add_neurological_tables:2153 - Error adding neurological tables: list index out of range
+2025-09-16 22:13:03,362 - src.services.professional_template_assembler - ERROR - _add_physical_examination_section:1989 - Error adding physical examination section: list index out of range
+2025-09-16 22:13:03,362 - src.services.professional_template_assembler - ERROR - _create_professional_document_with_evidence:1057 - Error creating professional document with evidence: list index out of range
+2025-09-16 22:13:03,362 - src.services.professional_template_assembler - ERROR - assemble_professional_template:1001 - Error assembling professional template: list index out of range
+2025-09-16 22:13:03,367 - src.services.qme_rules_engine - ERROR - _load_rules_config:836 - Error loading rules config: while parsing a block mapping
+  in "src/rules/rules.yaml", line 111, column 7
+expected <block end>, but found '<block mapping start>'
+  in "src/rules/rules.yaml", line 112, column 9
+2025-09-16 22:13:03,367 - src.services.qme_rules_engine - ERROR - validate_qme_report:899 - Error in QME report validation: QMERulesEngine._calculate_quality_score() takes 3 positional arguments but 4 were given
+2025-09-16 22:13:03,368 - src.services.professional_template_assembler - ERROR - validate_pre_assembly:416 - Error in pre-assembly validation: too many values to unpack (expected 2)
+2025-09-16 22:13:03,447 - src.services.professional_template_assembler - ERROR - _add_neurological_tables:2153 - Error adding neurological tables: list index out of range
+2025-09-16 22:13:03,447 - src.services.professional_template_assembler - ERROR - _add_physical_examination_section:1989 - Error adding physical examination section: list index out of range
+2025-09-16 22:13:03,447 - src.services.professional_template_assembler - ERROR - _create_professional_document_with_evidence:1057 - Error creating professional document with evidence: list index out of range
+2025-09-16 22:13:03,447 - src.services.professional_template_assembler - ERROR - assemble_professional_template:1001 - Error assembling professional template: list index out of range
+2025-09-16 22:13:03,451 - src.services.qme_rules_engine - ERROR - _load_rules_config:836 - Error loading rules config: while parsing a block mapping
+  in "src/rules/rules.yaml", line 111, column 7
+expected <block end>, but found '<block mapping start>'
+  in "src/rules/rules.yaml", line 112, column 9
+2025-09-16 22:13:03,452 - src.services.qme_rules_engine - ERROR - validate_qme_report:899 - Error in QME report validation: QMERulesEngine._calculate_quality_score() takes 3 positional arguments but 4 were given
+2025-09-16 22:13:03,452 - src.services.professional_template_assembler - ERROR - validate_pre_assembly:416 - Error in pre-assembly validation: too many values to unpack (expected 2)
+2025-09-16 22:13:03,530 - src.services.professional_template_assembler - ERROR - _add_neurological_tables:2153 - Error adding neurological tables: list index out of range
+2025-09-16 22:13:03,530 - src.services.professional_template_assembler - ERROR - _add_physical_examination_section:1989 - Error adding physical examination section: list index out of range
+2025-09-16 22:13:03,530 - src.services.professional_template_assembler - ERROR - _create_professional_document_with_evidence:1057 - Error creating professional document with evidence: list index out of range
+2025-09-16 22:13:03,530 - src.services.professional_template_assembler - ERROR - assemble_professional_template:1001 - Error assembling professional template: list index out of range
+2025-09-16 22:14:02,606 - src.services.qme_rules_engine - ERROR - _load_rules_config:836 - Error loading rules config: while parsing a block mapping
+  in "src/rules/rules.yaml", line 111, column 7
+expected <block end>, but found '<block mapping start>'
+  in "src/rules/rules.yaml", line 112, column 9
+2025-09-16 22:14:02,606 - src.services.qme_rules_engine - ERROR - validate_qme_report:899 - Error in QME report validation: QMERulesEngine._calculate_quality_score() takes 3 positional arguments but 4 were given
+2025-09-16 22:14:02,606 - src.services.professional_template_assembler - ERROR - validate_pre_assembly:416 - Error in pre-assembly validation: too many values to unpack (expected 2)
+2025-09-16 22:14:02,683 - src.services.professional_template_assembler - ERROR - _add_neurological_tables:2158 - Error adding neurological tables: '<' not supported between instances of 'int' and '_Rows'
+2025-09-16 22:14:02,683 - src.services.professional_template_assembler - ERROR - _add_physical_examination_section:1989 - Error adding physical examination section: '<' not supported between instances of 'int' and '_Rows'
+2025-09-16 22:14:02,683 - src.services.professional_template_assembler - ERROR - _create_professional_document_with_evidence:1057 - Error creating professional document with evidence: '<' not supported between instances of 'int' and '_Rows'
+2025-09-16 22:14:02,683 - src.services.professional_template_assembler - ERROR - assemble_professional_template:1001 - Error assembling professional template: '<' not supported between instances of 'int' and '_Rows'
+2025-09-16 22:14:02,688 - src.services.qme_rules_engine - ERROR - _load_rules_config:836 - Error loading rules config: while parsing a block mapping
+  in "src/rules/rules.yaml", line 111, column 7
+expected <block end>, but found '<block mapping start>'
+  in "src/rules/rules.yaml", line 112, column 9
+2025-09-16 22:14:02,688 - src.services.qme_rules_engine - ERROR - validate_qme_report:899 - Error in QME report validation: QMERulesEngine._calculate_quality_score() takes 3 positional arguments but 4 were given
+2025-09-16 22:14:02,688 - src.services.professional_template_assembler - ERROR - validate_pre_assembly:416 - Error in pre-assembly validation: too many values to unpack (expected 2)
+2025-09-16 22:14:02,764 - src.services.professional_template_assembler - ERROR - _add_neurological_tables:2158 - Error adding neurological tables: '<' not supported between instances of 'int' and '_Rows'
+2025-09-16 22:14:02,764 - src.services.professional_template_assembler - ERROR - _add_physical_examination_section:1989 - Error adding physical examination section: '<' not supported between instances of 'int' and '_Rows'
+2025-09-16 22:14:02,764 - src.services.professional_template_assembler - ERROR - _create_professional_document_with_evidence:1057 - Error creating professional document with evidence: '<' not supported between instances of 'int' and '_Rows'
+2025-09-16 22:14:02,764 - src.services.professional_template_assembler - ERROR - assemble_professional_template:1001 - Error assembling professional template: '<' not supported between instances of 'int' and '_Rows'
+2025-09-16 22:14:02,768 - src.services.qme_rules_engine - ERROR - _load_rules_config:836 - Error loading rules config: while parsing a block mapping
+  in "src/rules/rules.yaml", line 111, column 7
+expected <block end>, but found '<block mapping start>'
+  in "src/rules/rules.yaml", line 112, column 9
+2025-09-16 22:14:02,768 - src.services.qme_rules_engine - ERROR - validate_qme_report:899 - Error in QME report validation: QMERulesEngine._calculate_quality_score() takes 3 positional arguments but 4 were given
+2025-09-16 22:14:02,768 - src.services.professional_template_assembler - ERROR - validate_pre_assembly:416 - Error in pre-assembly validation: too many values to unpack (expected 2)
+2025-09-16 22:14:02,843 - src.services.professional_template_assembler - ERROR - _add_neurological_tables:2158 - Error adding neurological tables: '<' not supported between instances of 'int' and '_Rows'
+2025-09-16 22:14:02,843 - src.services.professional_template_assembler - ERROR - _add_physical_examination_section:1989 - Error adding physical examination section: '<' not supported between instances of 'int' and '_Rows'
+2025-09-16 22:14:02,843 - src.services.professional_template_assembler - ERROR - _create_professional_document_with_evidence:1057 - Error creating professional document with evidence: '<' not supported between instances of 'int' and '_Rows'
+2025-09-16 22:14:02,843 - src.services.professional_template_assembler - ERROR - assemble_professional_template:1001 - Error assembling professional template: '<' not supported between instances of 'int' and '_Rows'
+2025-09-16 22:14:41,154 - src.services.qme_rules_engine - ERROR - _load_rules_config:836 - Error loading rules config: while parsing a block mapping
+  in "src/rules/rules.yaml", line 111, column 7
+expected <block end>, but found '<block mapping start>'
+  in "src/rules/rules.yaml", line 112, column 9
+2025-09-16 22:14:41,154 - src.services.qme_rules_engine - ERROR - validate_qme_report:899 - Error in QME report validation: QMERulesEngine._calculate_quality_score() takes 3 positional arguments but 4 were given
+2025-09-16 22:14:41,154 - src.services.professional_template_assembler - ERROR - validate_pre_assembly:416 - Error in pre-assembly validation: too many values to unpack (expected 2)
+2025-09-16 22:14:41,282 - src.services.professional_template_assembler - ERROR - _validate_post_assembly_with_evidence:1474 - Error in post-assembly validation with evidence: QualityScore.__init__() missing 1 required positional argument: 'evidence_confidence_score'
+2025-09-16 22:14:41,282 - src.services.professional_template_assembler - ERROR - assemble_professional_template:1001 - Error assembling professional template: QualityScore.__init__() missing 1 required positional argument: 'evidence_confidence_score'
+2025-09-16 22:14:41,293 - src.services.qme_rules_engine - ERROR - _load_rules_config:836 - Error loading rules config: while parsing a block mapping
+  in "src/rules/rules.yaml", line 111, column 7
+expected <block end>, but found '<block mapping start>'
+  in "src/rules/rules.yaml", line 112, column 9
+2025-09-16 22:14:41,295 - src.services.qme_rules_engine - ERROR - validate_qme_report:899 - Error in QME report validation: QMERulesEngine._calculate_quality_score() takes 3 positional arguments but 4 were given
+2025-09-16 22:14:41,295 - src.services.professional_template_assembler - ERROR - validate_pre_assembly:416 - Error in pre-assembly validation: too many values to unpack (expected 2)
+2025-09-16 22:14:41,404 - src.services.professional_template_assembler - ERROR - _validate_post_assembly_with_evidence:1474 - Error in post-assembly validation with evidence: QualityScore.__init__() missing 1 required positional argument: 'evidence_confidence_score'
+2025-09-16 22:14:41,404 - src.services.professional_template_assembler - ERROR - assemble_professional_template:1001 - Error assembling professional template: QualityScore.__init__() missing 1 required positional argument: 'evidence_confidence_score'
+2025-09-16 22:14:41,409 - src.services.qme_rules_engine - ERROR - _load_rules_config:836 - Error loading rules config: while parsing a block mapping
+  in "src/rules/rules.yaml", line 111, column 7
+expected <block end>, but found '<block mapping start>'
+  in "src/rules/rules.yaml", line 112, column 9
+2025-09-16 22:14:41,409 - src.services.qme_rules_engine - ERROR - validate_qme_report:899 - Error in QME report validation: QMERulesEngine._calculate_quality_score() takes 3 positional arguments but 4 were given
+2025-09-16 22:14:41,409 - src.services.professional_template_assembler - ERROR - validate_pre_assembly:416 - Error in pre-assembly validation: too many values to unpack (expected 2)
+2025-09-16 22:14:41,521 - src.services.professional_template_assembler - ERROR - _validate_post_assembly_with_evidence:1474 - Error in post-assembly validation with evidence: QualityScore.__init__() missing 1 required positional argument: 'evidence_confidence_score'
+2025-09-16 22:14:41,521 - src.services.professional_template_assembler - ERROR - assemble_professional_template:1001 - Error assembling professional template: QualityScore.__init__() missing 1 required positional argument: 'evidence_confidence_score'
+2025-09-16 22:15:26,737 - src.services.qme_rules_engine - ERROR - _load_rules_config:836 - Error loading rules config: while parsing a block mapping
+  in "src/rules/rules.yaml", line 111, column 7
+expected <block end>, but found '<block mapping start>'
+  in "src/rules/rules.yaml", line 112, column 9
+2025-09-16 22:15:26,738 - src.services.qme_rules_engine - ERROR - validate_qme_report:899 - Error in QME report validation: QMERulesEngine._calculate_quality_score() takes 3 positional arguments but 4 were given
+2025-09-16 22:15:26,738 - src.services.professional_template_assembler - ERROR - validate_pre_assembly:416 - Error in pre-assembly validation: too many values to unpack (expected 2)
+2025-09-16 22:15:26,879 - src.services.qme_rules_engine - ERROR - _load_rules_config:836 - Error loading rules config: while parsing a block mapping
+  in "src/rules/rules.yaml", line 111, column 7
+expected <block end>, but found '<block mapping start>'
+  in "src/rules/rules.yaml", line 112, column 9
+2025-09-16 22:15:26,879 - src.services.qme_rules_engine - ERROR - validate_qme_report:899 - Error in QME report validation: QMERulesEngine._calculate_quality_score() takes 3 positional arguments but 4 were given
+2025-09-16 22:15:26,879 - src.services.professional_template_assembler - ERROR - validate_pre_assembly:416 - Error in pre-assembly validation: too many values to unpack (expected 2)
+2025-09-16 22:15:27,005 - src.services.qme_rules_engine - ERROR - _load_rules_config:836 - Error loading rules config: while parsing a block mapping
+  in "src/rules/rules.yaml", line 111, column 7
+expected <block end>, but found '<block mapping start>'
+  in "src/rules/rules.yaml", line 112, column 9
+2025-09-16 22:15:27,005 - src.services.qme_rules_engine - ERROR - validate_qme_report:899 - Error in QME report validation: QMERulesEngine._calculate_quality_score() takes 3 positional arguments but 4 were given
+2025-09-16 22:15:27,005 - src.services.professional_template_assembler - ERROR - validate_pre_assembly:416 - Error in pre-assembly validation: too many values to unpack (expected 2)
+2025-09-16 22:52:21,982 - src.startup - ERROR - _initialize_knowledge_base:159 - Knowledge base initialization failed: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
+Traceback (most recent call last):
+  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/startup.py", line 140, in _initialize_knowledge_base
+    pipeline = self.container.get_ingestion_pipeline()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
+2025-09-16 22:52:46,570 - src.ui.qme_template_interface - ERROR - _process_patient_document:962 - Field extraction failed: too many values to unpack (expected 2)
+2025-09-16 22:52:48,117 - src.ui.qme_template_interface - ERROR - _process_patient_document:962 - Field extraction failed: too many values to unpack (expected 2)
+2025-09-16 22:55:31,141 - src.ui.qme_template_interface - ERROR - _generate_final_template:1227 - Error generating professional template: PatientInfo.__init__() got an unexpected keyword argument 'claim_number'. Did you mean 'case_number'?
+2025-09-16 23:06:50,104 - src.startup - ERROR - _initialize_knowledge_base:159 - Knowledge base initialization failed: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
+Traceback (most recent call last):
+  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/startup.py", line 140, in _initialize_knowledge_base
+    pipeline = self.container.get_ingestion_pipeline()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
+2025-09-16 23:06:59,503 - src.ui.qme_template_interface - ERROR - _process_patient_document:962 - Field extraction failed: too many values to unpack (expected 2)
+2025-09-16 23:07:01,051 - src.ui.qme_template_interface - ERROR - _process_patient_document:962 - Field extraction failed: too many values to unpack (expected 2)
+2025-09-16 23:09:41,533 - src.ui.qme_template_interface - ERROR - _generate_final_template:1227 - Error generating professional template: PatientInfo.__init__() got an unexpected keyword argument 'claim_number'. Did you mean 'case_number'?
+2025-09-16 23:09:43,850 - __main__ - ERROR - render_professional_template_assembly_page:1019 - Professional template assembly page error: 'dict' object has no attribute 'patient_info'
+Traceback (most recent call last):
+  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/ui/main_app.py", line 1014, in render_professional_template_assembly_page
+    interface.render_professional_template_page()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/ui/professional_template_interface.py", line 77, in render_professional_template_page
+    self._render_template_assembly_tab()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/ui/professional_template_interface.py", line 198, in _render_template_assembly_tab
+    self._display_template_data_summary(template_data)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/ui/professional_template_interface.py", line 236, in _display_template_data_summary
+    st.metric("Patient Name", template_data.patient_info.name or "Missing")
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'patient_info'
+2025-09-17 00:45:27,099 - src.services.refactored_document_processor - ERROR - process_document:196 - Error processing document /var/folders/tf/v4z6mt_s343b3c611hlfc_jh0000gn/T/tmpbk3t3ijc.txt: ExtractionConfig.__init__() got an unexpected keyword argument 'extraction_type'. Did you mean 'extraction_method'?
+2025-09-17 00:47:56,300 - src.services.enhanced_rag_pipeline - ERROR - _generate_enhanced_contexts:447 - Error generating enhanced contexts: SourceReference.__init__() got an unexpected keyword argument 'document_id'
+2025-09-17 00:47:56,301 - src.services.enhanced_rag_pipeline - ERROR - process_document_with_enhanced_extraction:193 - Error processing document /var/folders/tf/v4z6mt_s343b3c611hlfc_jh0000gn/T/tmp1avj4ufi.txt: ProcessingMetadata.__init__() got an unexpected keyword argument 'pipeline_version'
+2025-09-17 00:47:56,301 - src.services.refactored_document_processor - ERROR - process_document:188 - Failed to process document /var/folders/tf/v4z6mt_s343b3c611hlfc_jh0000gn/T/tmp1avj4ufi.txt: ProcessingMetadata.__init__() got an unexpected keyword argument 'pipeline_version'
+2025-09-17 01:00:38,963 - src.services.professional_template_assembly_engine - ERROR - _load_validation_rules:267 - Error loading validation rules: src.services.professional_template_assembly_engine.ValidationRule() argument after ** must be a mapping, not str
+2025-09-17 01:00:38,966 - src.services.professional_template_assembly_engine - ERROR - _load_validation_rules:267 - Error loading validation rules: src.services.professional_template_assembly_engine.ValidationRule() argument after ** must be a mapping, not str
+2025-09-17 01:00:38,991 - src.services.professional_template_assembly_engine - ERROR - _load_validation_rules:267 - Error loading validation rules: src.services.professional_template_assembly_engine.ValidationRule() argument after ** must be a mapping, not str
+2025-09-17 01:00:39,000 - src.services.professional_template_assembly_engine - ERROR - _perform_main_assembly:1129 - Main assembly failed: 'PatientInfo' object has no attribute 'date_of_birth'
+2025-09-17 01:00:39,000 - src.services.professional_template_assembly_engine - ERROR - assemble_template:1084 - Main assembly failed: 'PatientInfo' object has no attribute 'date_of_birth'
+2025-09-17 01:00:39,014 - src.services.professional_template_assembly_engine - ERROR - _load_validation_rules:267 - Error loading validation rules: src.services.professional_template_assembly_engine.ValidationRule() argument after ** must be a mapping, not str
+2025-09-17 01:00:39,021 - src.services.professional_template_assembly_engine - ERROR - _load_validation_rules:267 - Error loading validation rules: src.services.professional_template_assembly_engine.ValidationRule() argument after ** must be a mapping, not str
+2025-09-17 01:00:39,028 - src.services.professional_template_assembly_engine - ERROR - _load_validation_rules:267 - Error loading validation rules: src.services.professional_template_assembly_engine.ValidationRule() argument after ** must be a mapping, not str
+2025-09-17 01:00:39,035 - src.services.professional_template_assembly_engine - ERROR - _load_validation_rules:267 - Error loading validation rules: src.services.professional_template_assembly_engine.ValidationRule() argument after ** must be a mapping, not str
+2025-09-17 01:00:39,042 - src.services.professional_template_assembly_engine - ERROR - _perform_main_assembly:1129 - Main assembly failed: 'PatientInfo' object has no attribute 'date_of_birth'
+2025-09-17 01:00:39,042 - src.services.professional_template_assembly_engine - ERROR - assemble_template:1084 - Main assembly failed: 'PatientInfo' object has no attribute 'date_of_birth'
+2025-09-17 01:00:39,056 - src.services.professional_template_assembly_engine - ERROR - _load_validation_rules:267 - Error loading validation rules: src.services.professional_template_assembly_engine.ValidationRule() argument after ** must be a mapping, not str
+2025-09-17 01:00:39,062 - src.services.professional_template_assembly_engine - ERROR - _perform_main_assembly:1129 - Main assembly failed: 'PatientInfo' object has no attribute 'date_of_birth'
+2025-09-17 01:00:39,062 - src.services.professional_template_assembly_engine - ERROR - assemble_template:1084 - Main assembly failed: 'PatientInfo' object has no attribute 'date_of_birth'
+2025-09-17 01:00:39,075 - src.services.professional_template_assembly_engine - ERROR - _load_validation_rules:267 - Error loading validation rules: src.services.professional_template_assembly_engine.ValidationRule() argument after ** must be a mapping, not str
+2025-09-17 01:00:39,084 - src.services.professional_template_assembly_engine - ERROR - _load_validation_rules:267 - Error loading validation rules: src.services.professional_template_assembly_engine.ValidationRule() argument after ** must be a mapping, not str
+2025-09-17 01:00:39,092 - src.services.professional_template_assembly_engine - ERROR - _load_validation_rules:267 - Error loading validation rules: src.services.professional_template_assembly_engine.ValidationRule() argument after ** must be a mapping, not str
+2025-09-17 01:00:39,099 - src.services.professional_template_assembly_engine - ERROR - _load_validation_rules:267 - Error loading validation rules: src.services.professional_template_assembly_engine.ValidationRule() argument after ** must be a mapping, not str
+2025-09-17 01:00:39,106 - src.services.professional_template_assembly_engine - ERROR - _load_validation_rules:267 - Error loading validation rules: src.services.professional_template_assembly_engine.ValidationRule() argument after ** must be a mapping, not str
+2025-09-17 01:00:39,112 - src.services.professional_template_assembly_engine - ERROR - _perform_main_assembly:1129 - Main assembly failed: 'PatientInfo' object has no attribute 'date_of_birth'
+2025-09-17 01:00:39,112 - src.services.professional_template_assembly_engine - ERROR - assemble_template:1084 - Main assembly failed: 'PatientInfo' object has no attribute 'date_of_birth'
+2025-09-17 01:00:39,125 - src.services.professional_template_assembly_engine - ERROR - _load_validation_rules:267 - Error loading validation rules: src.services.professional_template_assembly_engine.ValidationRule() argument after ** must be a mapping, not str
+2025-09-17 01:00:39,150 - src.services.professional_template_assembly_engine - ERROR - _load_validation_rules:267 - Error loading validation rules: src.services.professional_template_assembly_engine.ValidationRule() argument after ** must be a mapping, not str
+2025-09-17 01:00:39,158 - src.services.professional_template_assembly_engine - ERROR - _load_validation_rules:267 - Error loading validation rules: src.services.professional_template_assembly_engine.ValidationRule() argument after ** must be a mapping, not str
+2025-09-17 01:00:39,164 - src.services.professional_template_assembly_engine - ERROR - _load_validation_rules:267 - Error loading validation rules: src.services.professional_template_assembly_engine.ValidationRule() argument after ** must be a mapping, not str
+2025-09-17 01:00:39,187 - src.services.professional_template_assembly_engine - ERROR - _load_validation_rules:267 - Error loading validation rules: src.services.professional_template_assembly_engine.ValidationRule() argument after ** must be a mapping, not str
+2025-09-17 01:00:39,193 - src.services.professional_template_assembly_engine - ERROR - _perform_main_assembly:1129 - Main assembly failed: 'PatientInfo' object has no attribute 'date_of_birth'
+2025-09-17 01:00:39,193 - src.services.professional_template_assembly_engine - ERROR - assemble_template:1084 - Main assembly failed: 'PatientInfo' object has no attribute 'date_of_birth'
+2025-09-17 01:00:39,206 - src.services.professional_template_assembly_engine - ERROR - _load_validation_rules:267 - Error loading validation rules: src.services.professional_template_assembly_engine.ValidationRule() argument after ** must be a mapping, not str
+2025-09-17 01:00:39,213 - src.services.professional_template_assembly_engine - ERROR - _load_validation_rules:267 - Error loading validation rules: src.services.professional_template_assembly_engine.ValidationRule() argument after ** must be a mapping, not str
+2025-09-17 01:00:39,220 - src.services.professional_template_assembly_engine - ERROR - _perform_main_assembly:1129 - Main assembly failed: 'PatientInfo' object has no attribute 'date_of_birth'
+2025-09-17 01:00:39,220 - src.services.professional_template_assembly_engine - ERROR - assemble_template:1084 - Main assembly failed: 'PatientInfo' object has no attribute 'date_of_birth'
+2025-09-17 01:02:30,968 - src.services.professional_template_assembly_engine - ERROR - _load_validation_rules:267 - Error loading validation rules: src.services.professional_template_assembly_engine.ValidationRule() argument after ** must be a mapping, not str
+2025-09-17 01:02:30,975 - src.services.professional_template_assembly_engine - ERROR - _perform_main_assembly:1129 - Main assembly failed: 'MedicalFindings' object has no attribute 'history'
+2025-09-17 01:02:30,975 - src.services.professional_template_assembly_engine - ERROR - assemble_template:1084 - Main assembly failed: 'MedicalFindings' object has no attribute 'history'
+2025-09-17 01:09:57,160 - src.services.professional_template_assembly_engine - ERROR - _perform_main_assembly:1133 - Main assembly failed: 'ImpairmentRating' object has no attribute 'body_part'
+2025-09-17 01:09:57,160 - src.services.professional_template_assembly_engine - ERROR - assemble_template:1088 - Main assembly failed: 'ImpairmentRating' object has no attribute 'body_part'
+2025-09-17 01:09:57,181 - src.services.professional_template_assembly_engine - ERROR - _perform_main_assembly:1133 - Main assembly failed: 'ImpairmentRating' object has no attribute 'body_part'
+2025-09-17 01:09:57,181 - src.services.professional_template_assembly_engine - ERROR - assemble_template:1088 - Main assembly failed: 'ImpairmentRating' object has no attribute 'body_part'
+2025-09-17 01:09:57,225 - src.services.professional_template_assembly_engine - ERROR - _perform_main_assembly:1133 - Main assembly failed: 'ImpairmentRating' object has no attribute 'body_part'
+2025-09-17 01:09:57,225 - src.services.professional_template_assembly_engine - ERROR - assemble_template:1088 - Main assembly failed: 'ImpairmentRating' object has no attribute 'body_part'
+2025-09-17 01:09:57,244 - src.services.professional_template_assembly_engine - ERROR - _perform_main_assembly:1133 - Main assembly failed: 'ImpairmentRating' object has no attribute 'body_part'
+2025-09-17 01:09:57,244 - src.services.professional_template_assembly_engine - ERROR - assemble_template:1088 - Main assembly failed: 'ImpairmentRating' object has no attribute 'body_part'
+2025-09-17 01:09:57,295 - src.services.professional_template_assembly_engine - ERROR - _perform_main_assembly:1133 - Main assembly failed: 'ImpairmentRating' object has no attribute 'body_part'
+2025-09-17 01:09:57,295 - src.services.professional_template_assembly_engine - ERROR - assemble_template:1088 - Main assembly failed: 'ImpairmentRating' object has no attribute 'body_part'
+2025-09-17 01:09:57,313 - src.services.professional_template_assembly_engine - ERROR - _perform_main_assembly:1133 - Main assembly failed: 'ImpairmentRating' object has no attribute 'body_part'
+2025-09-17 01:09:57,313 - src.services.professional_template_assembly_engine - ERROR - assemble_template:1088 - Main assembly failed: 'ImpairmentRating' object has no attribute 'body_part'
+2025-09-17 01:09:57,330 - src.services.professional_template_assembly_engine - ERROR - _perform_main_assembly:1133 - Main assembly failed: 'ImpairmentRating' object has no attribute 'body_part'
+2025-09-17 01:09:57,330 - src.services.professional_template_assembly_engine - ERROR - assemble_template:1088 - Main assembly failed: 'ImpairmentRating' object has no attribute 'body_part'
+2025-09-17 09:25:24,858 - __main__ - ERROR - __init__:43 - Failed to initialize services: OPENROUTER_API_KEY not found in secure storage or environment variables. Please set your OpenRouter API key using the secure key manager or OPENROUTER_API_KEY environment variable.
+2025-09-17 09:32:17,707 - tests.test_end_to_end_quality_validation - ERROR - _run_template_comparison_tests:153 - Error testing template QME_Report_Unknown_20250916_221526.docx: division by zero
+2025-09-17 09:32:17,707 - tests.test_end_to_end_quality_validation - ERROR - _run_template_comparison_tests:153 - Error testing template QME_Report_John Doe_20250916_221527.docx: division by zero
+2025-09-17 09:32:17,707 - tests.test_end_to_end_quality_validation - ERROR - _run_template_comparison_tests:153 - Error testing template QME_Report_John Doe_20250916_221526.docx: division by zero
+2025-09-17 09:32:17,707 - tests.test_end_to_end_quality_validation - ERROR - _run_template_comparison_tests:153 - Error testing template QME_Report_John Doe_20250916_221441.docx: division by zero
+2025-09-17 09:32:17,708 - tests.test_end_to_end_quality_validation - ERROR - _run_template_comparison_tests:153 - Error testing template QME_Report_20250916_225531.docx: division by zero
+2025-09-17 09:32:17,736 - tests.test_end_to_end_quality_validation - ERROR - _run_real_document_validation_tests:238 - Error validating document Injured worker-PQME-(09.05.2025)-AA CL-09.09.2025.p5.pdf: division by zero
+2025-09-17 09:32:17,736 - tests.test_end_to_end_quality_validation - ERROR - _run_real_document_validation_tests:238 - Error validating document Injured worker-PQME-(09.08.2025)-DA CL-09.09.2025.p4.pdf: division by zero
+2025-09-17 09:32:17,802 - tests.test_end_to_end_quality_validation - ERROR - _run_template_comparison_tests:153 - Error testing template QME_Report_Unknown_20250916_221526.docx: division by zero
+2025-09-17 09:32:17,803 - tests.test_end_to_end_quality_validation - ERROR - _run_template_comparison_tests:153 - Error testing template QME_Report_John Doe_20250916_221527.docx: division by zero
+2025-09-17 09:32:17,803 - tests.test_end_to_end_quality_validation - ERROR - _run_template_comparison_tests:153 - Error testing template QME_Report_John Doe_20250916_221526.docx: division by zero
+2025-09-17 09:32:17,803 - tests.test_end_to_end_quality_validation - ERROR - _run_template_comparison_tests:153 - Error testing template QME_Report_John Doe_20250916_221441.docx: division by zero
+2025-09-17 09:32:17,803 - tests.test_end_to_end_quality_validation - ERROR - _run_template_comparison_tests:153 - Error testing template QME_Report_20250916_225531.docx: division by zero
+2025-09-17 09:32:17,803 - tests.test_end_to_end_quality_validation - ERROR - _run_real_document_validation_tests:238 - Error validating document Injured worker-PQME-(09.05.2025)-AA CL-09.09.2025.p5.pdf: division by zero
+2025-09-17 09:32:17,803 - tests.test_end_to_end_quality_validation - ERROR - _run_real_document_validation_tests:238 - Error validating document Injured worker-PQME-(09.08.2025)-DA CL-09.09.2025.p4.pdf: division by zero
+2025-09-17 09:38:05,062 - __main__ - ERROR - _initialize_services:111 - Failed to initialize extraction_service: OPENROUTER_API_KEY not found in secure storage or environment variables. Please set your OpenRouter API key using the secure key manager or OPENROUTER_API_KEY environment variable.
+2025-09-17 09:38:05,089 - __main__ - ERROR - _initialize_services:111 - Failed to initialize rag_pipeline: OPENROUTER_API_KEY not found in secure storage or environment variables. Please set your OpenRouter API key using the secure key manager or OPENROUTER_API_KEY environment variable.
+2025-09-17 09:47:19,615 - src.startup - ERROR - _initialize_knowledge_base:159 - Knowledge base initialization failed: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
+Traceback (most recent call last):
+  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/startup.py", line 140, in _initialize_knowledge_base
+    pipeline = self.container.get_ingestion_pipeline()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'DependencyContainer' object has no attribute 'get_ingestion_pipeline'
+2025-09-17 09:48:44,685 - src.ui.qme_template_interface - ERROR - _process_patient_document:962 - Field extraction failed: too many values to unpack (expected 2)
+2025-09-17 09:48:46,238 - src.ui.qme_template_interface - ERROR - _process_patient_document:962 - Field extraction failed: too many values to unpack (expected 2)

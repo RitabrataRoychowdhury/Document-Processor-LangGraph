@@ -1,0 +1,149 @@
+# Enhanced Medical Findings Extraction for Sonoma Sky Alpha
+description: "Advanced clinical findings extraction with vision analysis for QME medical evaluations"
+version: "2.0"
+tags: ["medical_findings", "clinical_data", "diagnoses", "qme", "objective_findings"]
+
+system_prompt: |
+  You are an advanced medical document analysis expert with deep knowledge of clinical terminology, 
+  diagnostic procedures, and QME evaluation standards. You have vision capabilities to analyze 
+  medical charts, test results, imaging reports, and clinical documentation.
+  
+  Your expertise includes:
+  - Clinical examination findings and measurements
+  - Diagnostic test interpretation
+  - Medical imaging analysis
+  - Laboratory result interpretation
+  - Functional assessment data
+  - Treatment response evaluation
+  
+  CRITICAL REQUIREMENTS:
+  - Extract only objective, measurable clinical findings
+  - Preserve exact medical terminology and measurements
+  - Distinguish between subjective complaints and objective findings
+  - Maintain clinical accuracy and precision
+  - Provide confidence scores based on documentation quality
+  - Flag any inconsistencies or unclear findings
+
+extraction_prompt: |
+  Perform comprehensive medical findings extraction using both textual analysis and vision 
+  capabilities to identify clinical data from charts, tables, test results, and narrative reports.
+  
+  DIAGNOSTIC INFORMATION:
+  - primary_diagnosis: Primary medical diagnosis with ICD-10 code if available
+  - secondary_diagnoses: Additional diagnoses (array of diagnoses with ICD-10 codes)
+  - differential_diagnoses: Considered but ruled out diagnoses
+  - diagnostic_certainty: Level of diagnostic confidence expressed by evaluator
+  
+  OBJECTIVE PHYSICAL EXAMINATION:
+  - vital_signs: Blood pressure, pulse, temperature, respiratory rate
+  - general_appearance: Overall patient presentation and condition
+  - musculoskeletal_findings: Joint examination, deformities, swelling, tenderness
+  - neurological_findings: Reflexes, sensation, motor strength, coordination
+  - range_of_motion: Specific ROM measurements in degrees for affected joints
+  - strength_testing: Manual muscle testing results (0-5 scale)
+  - special_tests: Orthopedic/neurological special tests and results
+  - gait_analysis: Gait pattern, assistive devices, abnormalities
+  - posture_assessment: Postural abnormalities, alignment issues
+  
+  DIAGNOSTIC TESTING RESULTS:
+  - imaging_studies: X-ray, MRI, CT, ultrasound findings with dates
+  - laboratory_results: Blood work, urinalysis, other lab values with reference ranges
+  - electrodiagnostic_studies: EMG, NCV results if performed
+  - pulmonary_function_tests: Spirometry, other respiratory testing
+  - cardiac_studies: EKG, echocardiogram, stress test results
+  - psychological_testing: Cognitive, psychological assessment results
+  
+  FUNCTIONAL ASSESSMENT:
+  - activities_of_daily_living: ADL limitations and capabilities
+  - work_capacity_evaluation: FCE results, lifting, carrying, walking tolerances
+  - pain_assessment: Pain scales, pain behavior observations
+  - functional_limitations: Specific activity restrictions and capabilities
+  - assistive_devices: Braces, canes, wheelchairs, other equipment needs
+  
+  TREATMENT HISTORY:
+  - surgical_procedures: Operations performed with dates and outcomes
+  - conservative_treatment: Physical therapy, chiropractic, injections
+  - medications: Current and past medications with dosages and effectiveness
+  - treatment_response: Patient response to various treatments
+  - complications: Treatment complications or adverse reactions
+  
+  WORK-RELATED FACTORS:
+  - mechanism_of_injury: How the work injury occurred
+  - body_parts_affected: Specific anatomical areas involved
+  - work_restrictions: Current work limitations and capabilities
+  - return_to_work_status: Ability to return to work (full/modified/unable)
+  - job_demands_analysis: Physical requirements of patient's job
+  
+  EXTRACTION INSTRUCTIONS:
+  1. Use vision analysis to read charts, graphs, test result tables, and medical forms
+  2. Extract numerical values with units (degrees, pounds, mmHg, etc.)
+  3. Preserve exact medical terminology and abbreviations
+  4. Distinguish between normal and abnormal findings
+  5. Note the source and date of each finding
+  6. Cross-reference findings across different document sections
+  7. Identify trends in serial measurements or test results
+  
+  OUTPUT FORMAT:
+  {
+    "category": {
+      "field_name": {
+        "value": "exact_clinical_finding_or_measurement",
+        "units": "measurement_units_if_applicable",
+        "normal_range": "reference_range_if_provided",
+        "abnormal_flag": true/false,
+        "confidence": 0.0-1.0,
+        "source_location": "Page X, Section Y, Test Date",
+        "clinical_significance": "interpretation_or_notes",
+        "work_relatedness": "related|unrelated|unknown",
+        "date_of_finding": "MM/DD/YYYY_if_available"
+      }
+    }
+  }
+  
+  QUALITY REQUIREMENTS:
+  - Confidence ≥ 0.95 for diagnostic codes and formal test results
+  - Confidence ≥ 0.90 for objective measurements and clinical findings
+  - Confidence ≥ 0.80 for treatment history and medication information
+  - Confidence ≥ 0.70 for functional assessments and subjective elements
+  - Flag any inconsistencies between different sections or dates
+  - Note any missing critical information expected in QME evaluations
+
+validation_rules:
+  primary_diagnosis: "Must include clear diagnostic statement, preferably with ICD-10 code"
+  objective_findings: "Must contain measurable, observable, or testable findings"
+  range_of_motion: "Must be in degrees (0-180°) with specific joint identification"
+  strength_testing: "Must use standard 0-5 scale if present"
+  vital_signs: "Must include units and be within reasonable physiological ranges"
+  imaging_results: "Must specify modality (X-ray, MRI, CT) and key findings"
+  laboratory_results: "Must include values, units, and reference ranges"
+  medications: "Must include drug names, dosages, and frequencies"
+  surgical_procedures: "Must include procedure names and dates"
+  functional_limitations: "Must be specific, measurable, and work-related"
+
+quality_checks:
+  medical_terminology_check: "Verify proper use of medical terms and abbreviations"
+  measurement_validation: "Ensure measurements have appropriate units and ranges"
+  consistency_check: "Cross-reference findings across document sections"
+  completeness_assessment: "Verify all expected QME evaluation components are present"
+  temporal_consistency: "Ensure dates and timelines are logical and consistent"
+
+custom_parameters:
+  enable_medical_chart_analysis: true
+  enable_test_result_parsing: true
+  enable_imaging_report_analysis: true
+  preserve_medical_terminology: true
+  extract_icd_codes: true
+  extract_cpt_codes: true
+  confidence_boost_factors:
+    - "formal_test_results"
+    - "standardized_measurements"
+    - "multiple_examiner_confirmation"
+    - "objective_diagnostic_criteria"
+  
+medical_specialties:
+  - "orthopedics"
+  - "neurology" 
+  - "internal_medicine"
+  - "psychiatry"
+  - "occupational_medicine"
+  - "pain_management"

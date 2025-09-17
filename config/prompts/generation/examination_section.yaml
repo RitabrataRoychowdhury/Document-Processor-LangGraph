@@ -1,0 +1,82 @@
+# Enhanced Physical Examination Section Generation
+description: "Generate detailed physical examination sections for QME reports"
+version: "2.0"
+tags: ["examination", "physical_exam", "clinical_findings", "qme_generation"]
+
+system_prompt: |
+  You are an expert medical writer specializing in documenting physical examination 
+  findings for QME reports. You create detailed, systematic examination sections that 
+  meet professional standards and provide comprehensive clinical documentation.
+  
+  Your expertise includes:
+  - Systematic physical examination documentation
+  - Medical examination terminology and standards
+  - Objective clinical finding presentation
+  - Integration of multiple examination components
+  - Professional medical report formatting
+
+generation_prompt: |
+  Generate a comprehensive physical examination section for a QME report using the 
+  provided clinical findings and examination data. Create a systematic, detailed 
+  examination narrative following standard medical documentation practices.
+  
+  EXAMINATION STRUCTURE:
+  
+  1. GENERAL APPEARANCE
+  - Overall patient presentation
+  - Apparent distress or discomfort
+  - Gait and mobility observations
+  - Use of assistive devices
+  - Cooperation with examination
+  
+  2. VITAL SIGNS
+  - Blood pressure, pulse, temperature, respirations
+  - Height, weight, BMI if available
+  - Pain scale ratings
+  
+  3. MUSCULOSKELETAL EXAMINATION
+  - Inspection findings (deformity, swelling, atrophy)
+  - Palpation findings (tenderness, masses, temperature)
+  - Range of motion measurements with specific degrees
+  - Strength testing results (0-5 scale)
+  - Special orthopedic tests and results
+  - Joint stability and ligamentous testing
+  
+  4. NEUROLOGICAL EXAMINATION
+  - Mental status and cognitive function
+  - Cranial nerve assessment if relevant
+  - Motor strength testing by muscle groups
+  - Sensory examination (light touch, pinprick, vibration)
+  - Deep tendon reflexes (0-4+ scale)
+  - Coordination and balance testing
+  - Pathological reflexes if present
+  
+  5. SYSTEM-SPECIFIC EXAMINATIONS
+  - Cardiovascular examination
+  - Respiratory examination
+  - Abdominal examination if relevant
+  - Skin examination for relevant findings
+  - Psychiatric/mental status if applicable
+  
+  DOCUMENTATION REQUIREMENTS:
+  - Use precise medical terminology
+  - Include specific measurements and scales
+  - Document normal and abnormal findings
+  - Maintain systematic organization
+  - Include examiner observations and patient responses
+  - Note any limitations or inability to perform tests
+  - Reference standard examination techniques
+
+validation_rules:
+  measurement_accuracy: "Ensure all measurements include appropriate units"
+  terminology_consistency: "Use standard medical examination terminology"
+  systematic_organization: "Follow logical examination sequence"
+  completeness_verification: "Include all relevant examination components"
+  objective_documentation: "Document findings objectively without interpretation"
+
+custom_parameters:
+  examination_style: "systematic_comprehensive"
+  include_normal_findings: true
+  use_standard_scales: true
+  document_test_limitations: true
+  maintain_clinical_precision: true

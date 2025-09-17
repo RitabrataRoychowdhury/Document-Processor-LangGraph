@@ -141,6 +141,16 @@ class ValidationAuditEntry:
     evidence_id: Optional[str] = None
 
 
+@dataclass
+class FieldValidationResult:
+    """Result of field validation process."""
+    validation_score: float
+    ready_for_template_generation: bool
+    validation_issues: List[ValidationIssue] = field(default_factory=list)
+    field_scores: Dict[str, float] = field(default_factory=dict)
+    missing_critical_fields: List[str] = field(default_factory=list)
+
+
 class EvidenceFirstValidator:
     """
     Evidence-first validation gateway with configurable confidence thresholds.

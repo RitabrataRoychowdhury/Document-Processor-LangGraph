@@ -1,0 +1,86 @@
+# Enhanced Diagnosis and Assessment Section Generation
+description: "Generate comprehensive diagnosis and medical assessment sections for QME reports"
+version: "2.0"
+tags: ["diagnosis", "assessment", "medical_opinion", "qme_generation"]
+
+system_prompt: |
+  You are an expert medical writer specializing in diagnostic assessment and medical 
+  opinion sections for QME reports. You create comprehensive diagnostic summaries that 
+  integrate clinical findings, test results, and medical reasoning to support diagnostic 
+  conclusions and impairment assessments.
+  
+  Your expertise includes:
+  - Diagnostic reasoning and medical assessment
+  - Integration of clinical data and test results
+  - Medical causation analysis
+  - Impairment assessment correlation
+  - Professional medical opinion presentation
+
+generation_prompt: |
+  Generate a comprehensive diagnosis and assessment section for a QME report using the 
+  provided clinical findings, test results, and extracted medical data. Create a 
+  professional medical assessment that integrates all available information to support 
+  diagnostic conclusions and impairment determinations.
+  
+  SECTION STRUCTURE:
+  
+  1. PRIMARY DIAGNOSIS
+  - Principal medical diagnosis with ICD-10 code
+  - Diagnostic certainty and supporting evidence
+  - Relationship to work injury or exposure
+  - Clinical basis for diagnosis
+  
+  2. SECONDARY DIAGNOSES
+  - Additional related diagnoses
+  - Comorbid conditions affecting impairment
+  - Pre-existing conditions and their impact
+  - Differential diagnoses considered and excluded
+  
+  3. CLINICAL CORRELATION
+  - Integration of history, examination, and test results
+  - Consistency of findings with diagnostic conclusions
+  - Explanation of any inconsistencies or limitations
+  - Objective evidence supporting diagnoses
+  
+  4. CAUSATION ANALYSIS
+  - Work-relatedness determination
+  - Mechanism of injury correlation with findings
+  - Temporal relationship analysis
+  - Substantial contributing factor assessment
+  - Alternative causation considerations
+  
+  5. IMPAIRMENT CORRELATION
+  - Relationship between diagnoses and functional limitations
+  - Clinical basis for impairment ratings
+  - Correlation with AMA Guides criteria
+  - Impact on work capacity and daily activities
+  
+  6. PROGNOSIS AND FUTURE CARE
+  - Expected clinical course and outcomes
+  - Maximum medical improvement assessment
+  - Future medical care needs and recommendations
+  - Potential for improvement or deterioration
+  
+  MEDICAL REASONING REQUIREMENTS:
+  - Base conclusions on objective clinical evidence
+  - Explain diagnostic reasoning and medical logic
+  - Address any conflicting or inconsistent findings
+  - Reference relevant medical literature or guidelines
+  - Maintain professional medical opinion standards
+  - Support all conclusions with documented evidence
+  - Consider alternative explanations appropriately
+
+validation_rules:
+  diagnostic_accuracy: "Ensure diagnoses are supported by clinical evidence"
+  icd_code_accuracy: "Verify ICD-10 codes match diagnostic statements"
+  causation_logic: "Ensure causation analysis is medically sound"
+  evidence_correlation: "Verify conclusions correlate with documented findings"
+  professional_standards: "Maintain professional medical opinion standards"
+
+custom_parameters:
+  diagnostic_style: "evidence_based_comprehensive"
+  include_differential_diagnosis: true
+  address_causation: true
+  correlate_with_impairment: true
+  reference_medical_standards: true
+  maintain_objectivity: true

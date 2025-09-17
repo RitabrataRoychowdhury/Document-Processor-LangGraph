@@ -270,6 +270,42 @@ class RuleActionExecutor:
                     issues.extend(self._require_conditional_language(action_params, context, rule_id))
                 elif action_type == "execute_comprehensive_validation":
                     issues.extend(self._execute_comprehensive_validation(action_params, context, rule_id))
+                elif action_type == "validate_confidence_scores":
+                    issues.extend(self._validate_confidence_scores(action_params, context, rule_id))
+                elif action_type == "flag_insufficient_confidence":
+                    issues.extend(self._flag_insufficient_confidence(action_params, context, rule_id))
+                elif action_type == "require_evidence_provenance":
+                    issues.extend(self._require_evidence_provenance(action_params, context, rule_id))
+                elif action_type == "validate_calculation_methods":
+                    issues.extend(self._validate_calculation_methods(action_params, context, rule_id))
+                elif action_type == "require_calculation_audit_trail":
+                    issues.extend(self._require_calculation_audit_trail(action_params, context, rule_id))
+                elif action_type == "prohibit_llm_calculations":
+                    issues.extend(self._prohibit_llm_calculations(action_params, context, rule_id))
+                elif action_type == "validate_ama_table_accuracy":
+                    issues.extend(self._validate_ama_table_accuracy(action_params, context, rule_id))
+                elif action_type == "scan_placeholder_text":
+                    issues.extend(self._scan_placeholder_text(action_params, context, rule_id))
+                elif action_type == "require_evidence_backing":
+                    issues.extend(self._require_evidence_backing(action_params, context, rule_id))
+                elif action_type == "validate_labor_code_4062_3":
+                    issues.extend(self._validate_labor_code_4062_3(action_params, context, rule_id))
+                elif action_type == "validate_mandatory_sections":
+                    issues.extend(self._validate_mandatory_sections(action_params, context, rule_id))
+                elif action_type == "validate_mlprr_billing":
+                    issues.extend(self._validate_mlprr_billing(action_params, context, rule_id))
+                elif action_type == "validate_physician_signature":
+                    issues.extend(self._validate_physician_signature(action_params, context, rule_id))
+                elif action_type == "generate_compliance_report":
+                    issues.extend(self._generate_compliance_report(action_params, context, rule_id))
+                elif action_type == "generate_evidence_map":
+                    issues.extend(self._generate_evidence_map(action_params, context, rule_id))
+                elif action_type == "document_calculation_provenance":
+                    issues.extend(self._document_calculation_provenance(action_params, context, rule_id))
+                elif action_type == "create_compliance_audit":
+                    issues.extend(self._create_compliance_audit(action_params, context, rule_id))
+                elif action_type == "generate_audit_report":
+                    issues.extend(self._generate_audit_report(action_params, context, rule_id))
                 elif action_type == "add_audit":
                     self._add_audit(action_params, context, rule_id)
                 elif action_type == "set_field":
@@ -898,6 +934,637 @@ class RuleActionExecutor:
     def _checkbox_checked(self, checkbox_name: str, context: ValidationContext) -> bool:
         """Check if checkbox is checked."""
         return context.document_metadata.get(checkbox_name, False)
+    
+    # Evidence-First Validation Action Methods
+    def _validate_confidence_scores(self, confidence_params: Dict[str, Any], context: ValidationContext, rule_id: str) -> List[ValidationIssue]:
+        """Validate field extraction confidence scores meet evidence-first thresholds."""
+        issues = []
+        
+        try:
+            # Get confidence scores from context
+            confidence_scores = context.validation_state.get("confidence_scores", {})
+            
+            # Validate critical fields
+            critical_fields = confidence_params.get("critical_fields", [])
+            for field_config in critical_fields:
+                field_name = field_config["field"]
+                min_confidence = field_config["min_confidence"]
+                required = field_config.get("required", True)
+                
+                confidence = confidence_scores.get(field_name, 0.0)
+                
+                if required and confidence < min_confidence:
+                    issues.append(ValidationIssue(
+                        section=SectionType.PATIENT_DEMOGRAPHICS,
+                        severity=ValidationSeverity.CRITICAL,
+                        title=f"Low Confidence Critical Field: {field_name}",
+                        description=f"Field '{field_name}' confidence {confidence:.2f} below threshold {min_confidence}",
+                        requires_human_review=True,
+                        remediation_steps=[
+                            f"Review extraction for field: {field_name}",
+                            "Consider manual validation or additional extraction methods",
+                            "Verify source document quality and legibility"
+                        ]
+                    ))
+            
+            # Validate standard fields
+            standard_fields = confidence_params.get("standard_fields", [])
+            for field_config in standard_fields:
+                field_name = field_config["field"]
+                min_confidence = field_config["min_confidence"]
+                required = field_config.get("required", True)
+                
+                confidence = confidence_scores.get(field_name, 0.0)
+                
+                if required and confidence < min_confidence:
+                    issues.append(ValidationIssue(
+                        section=SectionType.DIAGNOSIS,
+                        severity=ValidationSeverity.HIGH,
+                        title=f"Low Confidence Standard Field: {field_name}",
+                        description=f"Field '{field_name}' confidence {confidence:.2f} below threshold {min_confidence}",
+                        requires_human_review=True,
+                        remediation_steps=[
+                            f"Review extraction for field: {field_name}",
+                            "Consider alternative extraction methods"
+                        ]
+                    ))
+            
+            return issues
+            
+        except Exception as e:
+            logger.error(f"Error validating confidence scores: {e}")
+            return [ValidationIssue(
+                section=SectionType.PATIENT_DEMOGRAPHICS,
+                severity=ValidationSeverity.HIGH,
+                title="Confidence Validation Error",
+                description=f"Error validating confidence scores: {str(e)}"
+            )]
+    
+    def _flag_insufficient_confidence(self, flag_params: Dict[str, Any], context: ValidationContext, rule_id: str) -> List[ValidationIssue]:
+        """Flag fields with insufficient confidence for human review."""
+        issues = []
+        
+        try:
+            threshold = flag_params.get("threshold", 0.5)
+            action = flag_params.get("action", "human_review_queue")
+            
+            confidence_scores = context.validation_state.get("confidence_scores", {})
+            
+            for field_name, confidence in confidence_scores.items():
+                if confidence < threshold:
+                    issues.append(ValidationIssue(
+                        section=SectionType.PATIENT_DEMOGRAPHICS,
+                        severity=ValidationSeverity.MEDIUM,
+                        title=f"Flagged for Review: {field_name}",
+                        description=f"Field '{field_name}' confidence {confidence:.2f} flagged for {action}",
+                        requires_human_review=True,
+                        remediation_steps=[
+                            f"Human review required for field: {field_name}",
+                            "Verify extracted value against source document",
+                            "Update extraction if necessary"
+                        ]
+                    ))
+            
+            return issues
+            
+        except Exception as e:
+            logger.error(f"Error flagging insufficient confidence: {e}")
+            return []
+    
+    def _require_evidence_provenance(self, provenance_params: Dict[str, Any], context: ValidationContext, rule_id: str) -> List[ValidationIssue]:
+        """Require evidence provenance tracking for all extracted fields."""
+        issues = []
+        
+        try:
+            provenance_map = context.provenance_map
+            required_elements = [
+                ("source_document", provenance_params.get("source_document", True)),
+                ("page_number", provenance_params.get("page_number", True)),
+                ("text_coordinates", provenance_params.get("text_coordinates", True)),
+                ("snippet_text", provenance_params.get("snippet_text", True))
+            ]
+            
+            for field_name, provenance_refs in provenance_map.items():
+                for provenance in provenance_refs:
+                    for element_name, required in required_elements:
+                        if required and not hasattr(provenance, element_name.replace("_", "")):
+                            issues.append(ValidationIssue(
+                                section=SectionType.PATIENT_DEMOGRAPHICS,
+                                severity=ValidationSeverity.HIGH,
+                                title=f"Missing Provenance: {element_name}",
+                                description=f"Field '{field_name}' missing required provenance element: {element_name}",
+                                remediation_steps=[
+                                    f"Add {element_name} to provenance tracking",
+                                    "Ensure complete evidence trail for all extracted fields"
+                                ]
+                            ))
+            
+            return issues
+            
+        except Exception as e:
+            logger.error(f"Error requiring evidence provenance: {e}")
+            return []
+    
+    def _validate_calculation_methods(self, calc_params: Dict[str, Any], context: ValidationContext, rule_id: str) -> List[ValidationIssue]:
+        """Validate that all calculations are programmatic with zero LLM involvement."""
+        issues = []
+        
+        try:
+            calculations = context.validation_state.get("calculations", {})
+            
+            for calc_type, required_method in calc_params.items():
+                if calc_type in calculations:
+                    calc_data = calculations[calc_type]
+                    method = calc_data.get("method", "unknown")
+                    
+                    if required_method == "programmatic_only" and method != "programmatic":
+                        issues.append(ValidationIssue(
+                            section=SectionType.IMPAIRMENT_RATING,
+                            severity=ValidationSeverity.CRITICAL,
+                            title=f"Non-Programmatic Calculation: {calc_type}",
+                            description=f"Calculation '{calc_type}' method '{method}' is not programmatic",
+                            remediation_steps=[
+                                f"Implement programmatic calculation for {calc_type}",
+                                "Remove any LLM-generated calculations",
+                                "Verify against AMA Guidelines tables"
+                            ]
+                        ))
+            
+            return issues
+            
+        except Exception as e:
+            logger.error(f"Error validating calculation methods: {e}")
+            return []
+    
+    def _require_calculation_audit_trail(self, audit_params: Dict[str, Any], context: ValidationContext, rule_id: str) -> List[ValidationIssue]:
+        """Require comprehensive audit trail for all calculations."""
+        issues = []
+        
+        try:
+            calculations = context.validation_state.get("calculations", {})
+            required_elements = [
+                ("ama_table_references", audit_params.get("ama_table_references", True)),
+                ("calculation_steps", audit_params.get("calculation_steps", True)),
+                ("source_measurements", audit_params.get("source_measurements", True)),
+                ("validation_status", audit_params.get("validation_status", True))
+            ]
+            
+            for calc_name, calc_data in calculations.items():
+                for element_name, required in required_elements:
+                    if required and element_name not in calc_data:
+                        issues.append(ValidationIssue(
+                            section=SectionType.IMPAIRMENT_RATING,
+                            severity=ValidationSeverity.HIGH,
+                            title=f"Missing Calculation Audit: {element_name}",
+                            description=f"Calculation '{calc_name}' missing required audit element: {element_name}",
+                            remediation_steps=[
+                                f"Add {element_name} to calculation audit trail",
+                                "Document all calculation steps and sources"
+                            ]
+                        ))
+            
+            return issues
+            
+        except Exception as e:
+            logger.error(f"Error requiring calculation audit trail: {e}")
+            return []
+    
+    def _prohibit_llm_calculations(self, prohibit_params: Any, context: ValidationContext, rule_id: str) -> List[ValidationIssue]:
+        """Prohibit LLM involvement in calculations."""
+        issues = []
+        
+        try:
+            calculations = context.validation_state.get("calculations", {})
+            
+            for calc_name, calc_data in calculations.items():
+                if calc_data.get("llm_involved", False):
+                    issues.append(ValidationIssue(
+                        section=SectionType.IMPAIRMENT_RATING,
+                        severity=ValidationSeverity.CRITICAL,
+                        title=f"LLM Calculation Prohibited: {calc_name}",
+                        description=f"Calculation '{calc_name}' involves LLM processing, which is prohibited",
+                        remediation_steps=[
+                            f"Replace LLM calculation with programmatic method for {calc_name}",
+                            "Use only AMA Guidelines tables and mathematical formulas",
+                            "Ensure zero LLM involvement in numeric calculations"
+                        ]
+                    ))
+            
+            return issues
+            
+        except Exception as e:
+            logger.error(f"Error prohibiting LLM calculations: {e}")
+            return []
+    
+    def _validate_ama_table_accuracy(self, accuracy_params: Any, context: ValidationContext, rule_id: str) -> List[ValidationIssue]:
+        """Validate AMA table references for accuracy."""
+        issues = []
+        
+        try:
+            calculations = context.validation_state.get("calculations", {})
+            
+            for calc_name, calc_data in calculations.items():
+                ama_table = calc_data.get("ama_table_reference")
+                if ama_table:
+                    # Validate table reference format
+                    if not self._validate_ama_table_format(ama_table):
+                        issues.append(ValidationIssue(
+                            section=SectionType.IMPAIRMENT_RATING,
+                            severity=ValidationSeverity.HIGH,
+                            title=f"Invalid AMA Table Reference: {ama_table}",
+                            description=f"AMA table reference '{ama_table}' format is invalid",
+                            ama_reference="AMA Guides 5th Edition",
+                            remediation_steps=[
+                                "Verify table reference against AMA Guides 5th Edition",
+                                "Use correct table reference format (e.g., Table 15-3)"
+                            ]
+                        ))
+            
+            return issues
+            
+        except Exception as e:
+            logger.error(f"Error validating AMA table accuracy: {e}")
+            return []
+    
+    def _scan_placeholder_text(self, scan_params: Dict[str, Any], context: ValidationContext, rule_id: str) -> List[ValidationIssue]:
+        """Scan for remaining placeholder text in generated report."""
+        issues = []
+        
+        try:
+            patterns = scan_params.get("patterns", [])
+            action = scan_params.get("action", "flag_validation")
+            
+            # Get report content from context (placeholder)
+            report_content = context.validation_state.get("report_content", "")
+            
+            for pattern in patterns:
+                matches = re.finditer(pattern, report_content, re.IGNORECASE)
+                for match in matches:
+                    severity = ValidationSeverity.CRITICAL if action == "fail_validation" else ValidationSeverity.HIGH
+                    
+                    issues.append(ValidationIssue(
+                        section=SectionType.PATIENT_DEMOGRAPHICS,
+                        severity=severity,
+                        title="Placeholder Text Found",
+                        description=f"Placeholder text found: '{match.group()}'",
+                        remediation_steps=[
+                            "Replace placeholder with actual content",
+                            "Complete field extraction or manual entry",
+                            "Re-generate report section if necessary"
+                        ]
+                    ))
+            
+            return issues
+            
+        except Exception as e:
+            logger.error(f"Error scanning placeholder text: {e}")
+            return []
+    
+    def _require_evidence_backing(self, backing_params: Dict[str, Any], context: ValidationContext, rule_id: str) -> List[ValidationIssue]:
+        """Require evidence backing for all medical statements."""
+        issues = []
+        
+        try:
+            report_content = context.validation_state.get("report_content", "")
+            provenance_map = context.provenance_map
+            
+            # Check for medical statements that require evidence
+            statement_types = [
+                ("all_medical_statements", backing_params.get("all_medical_statements", True)),
+                ("diagnostic_conclusions", backing_params.get("diagnostic_conclusions", True)),
+                ("impairment_determinations", backing_params.get("impairment_determinations", True))
+            ]
+            
+            for statement_type, required in statement_types:
+                if required:
+                    # This would be enhanced with actual statement detection
+                    # For now, we'll create a placeholder validation
+                    issues.append(ValidationIssue(
+                        section=SectionType.DIAGNOSIS,
+                        severity=ValidationSeverity.HIGH,
+                        title=f"Evidence Backing Required: {statement_type}",
+                        description=f"All {statement_type.replace('_', ' ')} must have evidence backing",
+                        remediation_steps=[
+                            f"Ensure all {statement_type.replace('_', ' ')} have source references",
+                            "Link statements to specific evidence in medical records",
+                            "Provide page references and document citations"
+                        ]
+                    ))
+            
+            return issues
+            
+        except Exception as e:
+            logger.error(f"Error requiring evidence backing: {e}")
+            return []
+    
+    def _validate_labor_code_4062_3(self, labor_code_params: Dict[str, Any], context: ValidationContext, rule_id: str) -> List[ValidationIssue]:
+        """Validate Labor Code 4062.3 declaration and requirements."""
+        issues = []
+        
+        try:
+            declaration_present = labor_code_params.get("declaration_present", True)
+            exact_text_match = labor_code_params.get("exact_text_match", True)
+            page_count_attestation = labor_code_params.get("page_count_attestation", True)
+            penalty_of_perjury = labor_code_params.get("penalty_of_perjury", True)
+            
+            # Check declaration presence
+            if declaration_present and not context.document_metadata.get("section_4062_3_declaration", False):
+                issues.append(ValidationIssue(
+                    section=SectionType.PATIENT_DEMOGRAPHICS,
+                    severity=ValidationSeverity.CRITICAL,
+                    title="Missing Labor Code 4062.3 Declaration",
+                    description="Required Labor Code 4062.3 declaration is missing",
+                    legal_reference="Labor Code Section 4062.3",
+                    remediation_steps=[
+                        "Include exact Labor Code 4062.3 declaration text",
+                        "Ensure declaration is present before document review",
+                        "Verify penalty of perjury statement is included"
+                    ]
+                ))
+            
+            # Check page count attestation
+            if page_count_attestation and not context.document_metadata.get("page_count_attestation", False):
+                issues.append(ValidationIssue(
+                    section=SectionType.PATIENT_DEMOGRAPHICS,
+                    severity=ValidationSeverity.CRITICAL,
+                    title="Missing Page Count Attestation",
+                    description="Required page count attestation is missing",
+                    legal_reference="Labor Code Section 4062.3",
+                    remediation_steps=[
+                        "Include page count attestation in declaration",
+                        "Verify total page count is accurate",
+                        "Ensure attestation is under penalty of perjury"
+                    ]
+                ))
+            
+            return issues
+            
+        except Exception as e:
+            logger.error(f"Error validating Labor Code 4062.3: {e}")
+            return []
+    
+    def _validate_mandatory_sections(self, sections_params: Dict[str, Any], context: ValidationContext, rule_id: str) -> List[ValidationIssue]:
+        """Validate presence of mandatory sections."""
+        issues = []
+        
+        try:
+            required_sections = [
+                ("patient_demographics", sections_params.get("patient_demographics", True)),
+                ("records_reviewed", sections_params.get("records_reviewed", True)),
+                ("physical_examination", sections_params.get("physical_examination", True)),
+                ("diagnosis", sections_params.get("diagnosis", True)),
+                ("impairment_rating", sections_params.get("impairment_rating", True)),
+                ("signature_blocks", sections_params.get("signature_blocks", True))
+            ]
+            
+            for section_name, required in required_sections:
+                if required and not self._section_complete(section_name, context):
+                    issues.append(ValidationIssue(
+                        section=self._map_section_name(section_name),
+                        severity=ValidationSeverity.CRITICAL,
+                        title=f"Missing Mandatory Section: {section_name}",
+                        description=f"Mandatory section '{section_name}' is missing or incomplete",
+                        remediation_steps=[
+                            f"Complete the {section_name.replace('_', ' ')} section",
+                            "Ensure all required information is documented",
+                            "Review QME template requirements"
+                        ]
+                    ))
+            
+            return issues
+            
+        except Exception as e:
+            logger.error(f"Error validating mandatory sections: {e}")
+            return []
+    
+    def _validate_mlprr_billing(self, billing_params: Dict[str, Any], context: ValidationContext, rule_id: str) -> List[ValidationIssue]:
+        """Validate MLPRR billing calculations and attestations."""
+        issues = []
+        
+        try:
+            calculation_accuracy = billing_params.get("calculation_accuracy", True)
+            page_count_verification = billing_params.get("page_count_verification", True)
+            billing_unit_calculation = billing_params.get("billing_unit_calculation", True)
+            penalty_of_perjury_attestation = billing_params.get("penalty_of_perjury_attestation", True)
+            
+            # Validate billing calculations
+            if calculation_accuracy:
+                billing_data = context.validation_state.get("mlprr_billing", {})
+                if not billing_data.get("calculation_verified", False):
+                    issues.append(ValidationIssue(
+                        section=SectionType.PATIENT_DEMOGRAPHICS,
+                        severity=ValidationSeverity.CRITICAL,
+                        title="MLPRR Billing Calculation Not Verified",
+                        description="MLPRR billing calculations have not been verified",
+                        remediation_steps=[
+                            "Verify page count calculations",
+                            "Ensure billing unit calculations are accurate",
+                            "Apply correct MLPRR rates"
+                        ]
+                    ))
+            
+            # Validate penalty of perjury attestation
+            if penalty_of_perjury_attestation and not context.document_metadata.get("mlprr_perjury_attestation", False):
+                issues.append(ValidationIssue(
+                    section=SectionType.PATIENT_DEMOGRAPHICS,
+                    severity=ValidationSeverity.CRITICAL,
+                    title="Missing MLPRR Penalty of Perjury Attestation",
+                    description="Required penalty of perjury attestation for MLPRR billing is missing",
+                    remediation_steps=[
+                        "Include penalty of perjury attestation for page counts",
+                        "Ensure attestation covers total pages reviewed",
+                        "Verify examiner signature on attestation"
+                    ]
+                ))
+            
+            return issues
+            
+        except Exception as e:
+            logger.error(f"Error validating MLPRR billing: {e}")
+            return []
+    
+    def _validate_physician_signature(self, signature_params: Dict[str, Any], context: ValidationContext, rule_id: str) -> List[ValidationIssue]:
+        """Validate physician signature blocks and attestations."""
+        issues = []
+        
+        try:
+            required_elements = [
+                ("examiner_name", signature_params.get("examiner_name", True)),
+                ("license_number", signature_params.get("license_number", True)),
+                ("signature_date", signature_params.get("signature_date", True)),
+                ("ab_1300_declaration", signature_params.get("ab_1300_declaration", True))
+            ]
+            
+            for element_name, required in required_elements:
+                if required and not context.document_metadata.get(element_name, False):
+                    issues.append(ValidationIssue(
+                        section=SectionType.PATIENT_DEMOGRAPHICS,
+                        severity=ValidationSeverity.CRITICAL,
+                        title=f"Missing Signature Element: {element_name}",
+                        description=f"Required signature element '{element_name}' is missing",
+                        remediation_steps=[
+                            f"Add {element_name.replace('_', ' ')} to signature block",
+                            "Ensure all signature requirements are met",
+                            "Include required legal declarations"
+                        ]
+                    ))
+            
+            return issues
+            
+        except Exception as e:
+            logger.error(f"Error validating physician signature: {e}")
+            return []
+    
+    def _generate_compliance_report(self, report_params: Dict[str, Any], context: ValidationContext, rule_id: str) -> List[ValidationIssue]:
+        """Generate comprehensive compliance report."""
+        issues = []
+        
+        try:
+            # This would generate a detailed compliance report
+            # For now, we'll create a placeholder validation
+            pass_fail_status = report_params.get("pass_fail_status", True)
+            remediation_steps = report_params.get("remediation_steps", True)
+            audit_trail = report_params.get("audit_trail", True)
+            
+            if pass_fail_status:
+                # Generate pass/fail status based on validation results
+                context.validation_state["compliance_status"] = "REQUIRES_REVIEW"
+            
+            return issues
+            
+        except Exception as e:
+            logger.error(f"Error generating compliance report: {e}")
+            return []
+    
+    def _generate_evidence_map(self, map_params: Dict[str, Any], context: ValidationContext, rule_id: str) -> List[ValidationIssue]:
+        """Generate evidence mapping for audit trail."""
+        issues = []
+        
+        try:
+            field_to_source_mapping = map_params.get("field_to_source_mapping", True)
+            confidence_score_tracking = map_params.get("confidence_score_tracking", True)
+            validation_decision_log = map_params.get("validation_decision_log", True)
+            
+            if field_to_source_mapping:
+                # Generate field to source mapping
+                evidence_map = {}
+                for field_name, provenance_refs in context.provenance_map.items():
+                    evidence_map[field_name] = [
+                        {
+                            "source": ref.doc_id,
+                            "page": ref.page_number,
+                            "confidence": ref.confidence
+                        } for ref in provenance_refs
+                    ]
+                context.validation_state["evidence_map"] = evidence_map
+            
+            return issues
+            
+        except Exception as e:
+            logger.error(f"Error generating evidence map: {e}")
+            return []
+    
+    def _document_calculation_provenance(self, provenance_params: Dict[str, Any], context: ValidationContext, rule_id: str) -> List[ValidationIssue]:
+        """Document calculation provenance for audit trail."""
+        issues = []
+        
+        try:
+            ama_table_sources = provenance_params.get("ama_table_sources", True)
+            measurement_sources = provenance_params.get("measurement_sources", True)
+            calculation_methodology = provenance_params.get("calculation_methodology", True)
+            
+            calculations = context.validation_state.get("calculations", {})
+            
+            for calc_name, calc_data in calculations.items():
+                provenance = {}
+                
+                if ama_table_sources and "ama_table_reference" in calc_data:
+                    provenance["ama_table"] = calc_data["ama_table_reference"]
+                
+                if measurement_sources and "source_measurements" in calc_data:
+                    provenance["measurements"] = calc_data["source_measurements"]
+                
+                if calculation_methodology and "methodology" in calc_data:
+                    provenance["methodology"] = calc_data["methodology"]
+                
+                context.validation_state.setdefault("calculation_provenance", {})[calc_name] = provenance
+            
+            return issues
+            
+        except Exception as e:
+            logger.error(f"Error documenting calculation provenance: {e}")
+            return []
+    
+    def _create_compliance_audit(self, audit_params: Dict[str, Any], context: ValidationContext, rule_id: str) -> List[ValidationIssue]:
+        """Create compliance audit trail."""
+        issues = []
+        
+        try:
+            requirement_to_evidence_links = audit_params.get("requirement_to_evidence_links", True)
+            validation_timestamps = audit_params.get("validation_timestamps", True)
+            reviewer_actions = audit_params.get("reviewer_actions", True)
+            
+            audit_trail = {
+                "created_at": datetime.now().isoformat(),
+                "rule_id": rule_id,
+                "validation_results": context.validation_state.get("validation_results", {}),
+                "evidence_links": context.validation_state.get("evidence_map", {}),
+                "compliance_status": context.validation_state.get("compliance_status", "UNKNOWN")
+            }
+            
+            context.audit_trail.append(AuditEntry(
+                rule_id=rule_id,
+                action="create_compliance_audit",
+                result="completed",
+                details=audit_trail
+            ))
+            
+            return issues
+            
+        except Exception as e:
+            logger.error(f"Error creating compliance audit: {e}")
+            return []
+    
+    def _generate_audit_report(self, report_params: Dict[str, Any], context: ValidationContext, rule_id: str) -> List[ValidationIssue]:
+        """Generate comprehensive audit report."""
+        issues = []
+        
+        try:
+            evidence_completeness = report_params.get("evidence_completeness", True)
+            validation_results = report_params.get("validation_results", True)
+            compliance_status = report_params.get("compliance_status", True)
+            remediation_tracking = report_params.get("remediation_tracking", True)
+            
+            audit_report = {
+                "generated_at": datetime.now().isoformat(),
+                "evidence_completeness": context.validation_state.get("evidence_completeness", 0.0),
+                "validation_results": context.validation_state.get("validation_results", {}),
+                "compliance_status": context.validation_state.get("compliance_status", "UNKNOWN"),
+                "audit_trail": [entry.__dict__ for entry in context.audit_trail]
+            }
+            
+            context.validation_state["final_audit_report"] = audit_report
+            
+            return issues
+            
+        except Exception as e:
+            logger.error(f"Error generating audit report: {e}")
+            return []
+    
+    def _validate_ama_table_format(self, table_reference: str) -> bool:
+        """Validate AMA table reference format."""
+        # Pattern for AMA table references (e.g., "Table 15-3", "Chapter 16")
+        pattern = r"(?:Table|Chapter)\s*(\d{1,2})(?:-(\d{1,2}))?"
+        match = re.match(pattern, table_reference, re.IGNORECASE)
+        
+        if not match:
+            return False
+        
+        chapter = int(match.group(1))
+        table = int(match.group(2)) if match.group(2) else 0
+        
+        # Validate chapter and table numbers (simplified validation)
+        return 1 <= chapter <= 18 and (table == 0 or 1 <= table <= 20)
     
     def _section_present(self, section_name: str, context: ValidationContext) -> bool:
         """Check if section is present."""

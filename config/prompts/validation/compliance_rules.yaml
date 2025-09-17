@@ -1,0 +1,168 @@
+# Enhanced QME Compliance Rules and Regulatory Validation
+description: "Comprehensive compliance validation for QME reports and documentation"
+version: "2.0"
+tags: ["compliance", "regulatory", "qme_standards", "legal_requirements"]
+
+system_prompt: |
+  You are a compliance validation expert specializing in QME report requirements, 
+  California workers' compensation regulations, and medical-legal documentation standards. 
+  You ensure all extracted data and generated content meets regulatory requirements and 
+  professional standards.
+  
+  Your expertise includes:
+  - California Labor Code requirements for QME reports
+  - AMA Guides compliance standards
+  - Medical-legal documentation requirements
+  - Professional medical evaluation standards
+  - Regulatory compliance verification
+
+compliance_prompt: |
+  Perform comprehensive compliance validation against QME regulatory requirements and 
+  professional standards. Verify all mandatory elements are present and properly 
+  documented according to California workers' compensation regulations.
+  
+  MANDATORY QME REPORT ELEMENTS:
+  
+  1. PATIENT IDENTIFICATION
+  - Full legal name and demographic information
+  - Date of birth and age verification
+  - Social Security Number (if required)
+  - Claim number and case identification
+  - Date of injury and mechanism
+  
+  2. EVALUATION DETAILS
+  - Date of QME evaluation
+  - Evaluator qualifications and credentials
+  - Evaluation location and circumstances
+  - Records reviewed and sources
+  - Parties present during evaluation
+  
+  3. MEDICAL HISTORY DOCUMENTATION
+  - Comprehensive injury history
+  - Pre-existing condition assessment
+  - Treatment history with providers and dates
+  - Current symptom status
+  - Occupational history and job demands
+  
+  4. PHYSICAL EXAMINATION
+  - Systematic examination findings
+  - Objective measurements and test results
+  - Range of motion with specific degrees
+  - Strength testing with standardized scales
+  - Neurological assessment if applicable
+  
+  5. DIAGNOSTIC ASSESSMENT
+  - Primary and secondary diagnoses with ICD-10 codes
+  - Diagnostic reasoning and clinical correlation
+  - Review of diagnostic studies and results
+  - Differential diagnosis consideration
+  
+  6. CAUSATION ANALYSIS
+  - Work-relatedness determination
+  - Substantial contributing factor analysis
+  - Mechanism of injury correlation
+  - Alternative causation consideration
+  - Medical probability statements
+  
+  7. IMPAIRMENT RATING
+  - Whole person impairment percentage
+  - AMA Guides edition and methodology
+  - Specific table and page references
+  - Calculation worksheets and combining formulas
+  - Body part specific ratings
+  
+  8. APPORTIONMENT ANALYSIS
+  - Total impairment breakdown
+  - Work-related vs. non-work-related percentages
+  - Pre-existing condition impact assessment
+  - Apportionment rationale and methodology
+  
+  9. WORK STATUS ASSESSMENT
+  - Return to work capacity determination
+  - Specific work restrictions and limitations
+  - Temporary vs. permanent restrictions
+  - Job accommodation recommendations
+  
+  10. FUTURE MEDICAL CARE
+  - Ongoing treatment needs assessment
+  - Specific medical care recommendations
+  - Frequency and duration of care
+  - Medical necessity justification
+  
+  REGULATORY COMPLIANCE CHECKS:
+  
+  California Labor Code Section 4628 Requirements:
+  - Comprehensive medical evaluation performed
+  - All relevant medical records reviewed
+  - Appropriate diagnostic studies considered
+  - Professional medical opinion provided
+  
+  AMA Guides Compliance:
+  - Correct edition used (5th for California)
+  - Proper methodology application
+  - Accurate table references and calculations
+  - Appropriate combining formulas used
+  
+  Professional Standards:
+  - Medical terminology used appropriately
+  - Objective vs. subjective findings distinguished
+  - Clinical reasoning clearly documented
+  - Professional presentation and formatting
+  
+  VALIDATION OUTPUT FORMAT:
+  {
+    "compliance_status": "compliant|non_compliant|needs_review",
+    "overall_compliance_score": 0-100,
+    "mandatory_elements": {
+      "element_name": {
+        "present": true/false,
+        "complete": true/false,
+        "compliant": true/false,
+        "issues": ["issue1", "issue2"],
+        "recommendations": ["rec1", "rec2"]
+      }
+    },
+    "regulatory_compliance": {
+      "california_labor_code": {
+        "compliant": true/false,
+        "violations": ["violation1", "violation2"]
+      },
+      "ama_guides_compliance": {
+        "compliant": true/false,
+        "methodology_issues": ["issue1", "issue2"]
+      },
+      "professional_standards": {
+        "compliant": true/false,
+        "standard_violations": ["violation1", "violation2"]
+      }
+    },
+    "critical_deficiencies": ["deficiency1", "deficiency2"],
+    "compliance_recommendations": ["rec1", "rec2", "rec3"],
+    "legal_risk_assessment": "low|medium|high",
+    "requires_correction": true/false
+  }
+
+validation_rules:
+  mandatory_element_threshold: "All mandatory elements must be present and complete"
+  regulatory_compliance_threshold: "Must meet 100% of applicable regulatory requirements"
+  professional_standard_threshold: "Must meet professional medical evaluation standards"
+  documentation_quality_threshold: "Documentation must be clear, complete, and accurate"
+
+custom_parameters:
+  california_specific_requirements: true
+  ama_guides_5th_edition: true
+  workers_compensation_focus: true
+  medical_legal_standards: true
+  
+  critical_compliance_areas:
+    - "causation_analysis"
+    - "impairment_rating_methodology"
+    - "apportionment_analysis"
+    - "work_restrictions_assessment"
+    - "future_medical_care_determination"
+  
+  regulatory_references:
+    - "California_Labor_Code_Section_4628"
+    - "California_Code_of_Regulations_Title_8"
+    - "AMA_Guides_5th_Edition_Requirements"
+    - "QME_Regulations_Section_31_et_seq"

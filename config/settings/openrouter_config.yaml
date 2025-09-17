@@ -1,0 +1,76 @@
+# OpenRouter Configuration for QME System Refactor
+api:
+  base_url: "https://openrouter.ai/api/v1"
+  model: "openrouter/sonoma-sky-alpha"  # Sonoma Sky Alpha - OpenRouter's vision-capable model
+  timeout: 120  # Increased for complex document processing
+  max_retries: 5  # Enhanced retry logic
+  retry_delay: 3
+  rate_limit_buffer: 1.5  # Buffer for rate limiting
+
+extraction:
+  max_tokens: 8000  # Increased for comprehensive extraction
+  temperature: 0.05  # Lower for more consistent extraction
+  top_p: 0.95
+  presence_penalty: 0.1
+  frequency_penalty: 0.1
+  # Sonoma Sky Alpha specific parameters
+  vision_enabled: true
+  structured_output: true
+  confidence_scoring: true
+
+quality_thresholds:
+  minimum_confidence: 0.75  # Raised for better quality
+  extraction_completeness: 0.85
+  field_accuracy: 0.90
+  consistency_threshold: 0.80
+  compliance_threshold: 0.85
+  # Quality gates for different extraction types
+  patient_info_threshold: 0.90
+  medical_findings_threshold: 0.85
+  impairment_rating_threshold: 0.95
+
+vision:
+  enabled: true
+  max_image_size: 20971520  # 20MB for high-quality medical documents
+  supported_formats: ["pdf", "png", "jpg", "jpeg", "tiff", "bmp"]
+  dpi: 300
+  # Enhanced vision processing for medical documents
+  preprocessing:
+    enhance_contrast: true
+    noise_reduction: true
+    text_enhancement: true
+  # Vision-specific quality thresholds
+  vision_confidence_threshold: 0.80
+  ocr_confidence_threshold: 0.85
+# Enhanced error handling and recovery
+error_handling:
+  enable_fallback_extraction: true
+  fallback_methods: ["rule_based", "template_matching"]
+  max_fallback_attempts: 2
+  error_reporting: true
+  detailed_logging: true
+
+# Performance monitoring
+performance:
+  enable_monitoring: true
+  track_response_times: true
+  track_token_usage: true
+  track_quality_metrics: true
+  performance_alerts: true
+  slow_request_threshold: 30  # seconds
+
+# Security settings
+security:
+  api_key_rotation: false
+  request_signing: false
+  data_encryption: true
+  audit_logging: true
+  pii_detection: true
+  pii_masking: false  # Keep original for medical accuracy
+
+# Caching configuration
+caching:
+  enable_prompt_caching: true
+  enable_response_caching: false  # Disabled for medical accuracy
+  cache_ttl: 3600  # 1 hour for prompts
+  max_cache_size: 100  # MB

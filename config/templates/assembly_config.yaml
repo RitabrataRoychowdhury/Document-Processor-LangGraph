@@ -1,0 +1,224 @@
+# Professional Template Assembly Configuration
+# Configuration for the Professional Template Assembly Engine
+
+# Template Assembly Settings
+template_assembly:
+  # Default template configuration
+  default_template:
+    output_format: "docx"
+    apply_professional_formatting: true
+    validate_before_assembly: true
+    validate_after_assembly: true
+    enable_error_recovery: true
+    quality_threshold: 70.0
+    max_retry_attempts: 3
+  
+  # Fallback strategies in order of preference
+  fallback_strategies:
+    - "simplified_template"
+    - "placeholder_template"
+    - "minimal_template"
+    - "text_only"
+
+# Professional Formatting Rules
+formatting_rules:
+  # Typography settings
+  typography:
+    font_family: "Times New Roman"
+    font_size: 12
+    header_font_size: 14
+    line_spacing: 1.15
+    paragraph_spacing: 6
+  
+  # Document structure
+  document_structure:
+    margins:
+      top: 1.0
+      bottom: 1.0
+      left: 1.0
+      right: 1.0
+    
+    section_spacing:
+      before: 12
+      after: 6
+  
+  # Standards compliance
+  standards:
+    apply_ama_standards: true
+    apply_qme_standards: true
+    enforce_professional_formatting: true
+
+# Quality Requirements
+quality_requirements:
+  # Minimum scores (0-100)
+  minimum_scores:
+    completeness: 80.0
+    accuracy: 85.0
+    compliance: 90.0
+    formatting: 95.0
+  
+  # Issue thresholds
+  max_issues:
+    critical: 0
+    high: 2
+    medium: 5
+    low: 10
+  
+  # Required sections
+  required_sections:
+    - "patient_identification"
+    - "history_of_present_illness"
+    - "physical_examination"
+    - "diagnosis"
+    - "impairment_rating"
+  
+  # Required fields
+  required_fields:
+    patient_info:
+      - "name"
+      - "case_number"
+      - "injury_date"
+    medical_findings:
+      - "diagnoses"
+      - "impairment_ratings"
+
+# Validation Rules
+validation_rules:
+  - name: "patient_name_required"
+    description: "Patient name must be present"
+    severity: "CRITICAL"
+    check_function: "_check_patient_name"
+    auto_fixable: false
+  
+  - name: "case_number_required"
+    description: "Case number must be present"
+    severity: "HIGH"
+    check_function: "_check_case_number"
+    auto_fixable: false
+  
+  - name: "diagnosis_required"
+    description: "At least one diagnosis must be present"
+    severity: "CRITICAL"
+    check_function: "_check_diagnoses"
+    auto_fixable: false
+  
+  - name: "impairment_rating_required"
+    description: "Impairment rating must be present"
+    severity: "HIGH"
+    check_function: "_check_impairment_rating"
+    auto_fixable: false
+  
+  - name: "injury_date_format"
+    description: "Injury date must be in valid format"
+    severity: "MEDIUM"
+    check_function: "_check_injury_date_format"
+    auto_fixable: true
+    fix_function: "_fix_injury_date_format"
+  
+  - name: "consistent_formatting"
+    description: "Document formatting must be consistent"
+    severity: "LOW"
+    check_function: "_check_formatting_consistency"
+    auto_fixable: true
+    fix_function: "_fix_formatting_consistency"
+
+# Output Organization
+output_organization:
+  # Directory structure
+  directories:
+    base: "results"
+    generated_documents: "results/generated_documents"
+    templates_archive: "results/templates_archive"
+    quality_reports: "results/quality_reports"
+    processing_logs: "results/processing_logs"
+  
+  # File naming conventions
+  naming_conventions:
+    template_file: "QME_Report_{patient_name}_{timestamp}.{format}"
+    quality_report: "Quality_Report_{patient_name}_{timestamp}.json"
+    processing_log: "Processing_Log_{timestamp}.log"
+  
+  # Archive settings
+  archive:
+    preserve_successful_templates: true
+    create_date_folders: true
+    compress_old_files: false
+    retention_days: 365
+
+# Error Recovery Settings
+error_recovery:
+  # Recovery strategies configuration
+  strategies:
+    simplified_template:
+      enabled: true
+      description: "Create simplified template with basic formatting"
+      quality_threshold: 60.0
+    
+    placeholder_template:
+      enabled: true
+      description: "Create template with placeholders for missing data"
+      quality_threshold: 50.0
+    
+    minimal_template:
+      enabled: true
+      description: "Create minimal template with only essential information"
+      quality_threshold: 40.0
+    
+    text_only:
+      enabled: true
+      description: "Create text-only template as last resort"
+      quality_threshold: 30.0
+  
+  # Recovery settings
+  max_recovery_attempts: 3
+  log_recovery_attempts: true
+  notify_on_recovery: true
+
+# Performance Settings
+performance:
+  # Processing limits
+  max_processing_time_seconds: 300
+  max_file_size_mb: 50
+  max_concurrent_assemblies: 5
+  
+  # Caching
+  enable_template_caching: true
+  cache_duration_minutes: 60
+  
+  # Monitoring
+  track_assembly_metrics: true
+  log_performance_data: true
+
+# Integration Settings
+integration:
+  # OpenRouter integration
+  openrouter:
+    use_for_quality_assessment: true
+    confidence_threshold: 0.8
+  
+  # RAG pipeline integration
+  rag_pipeline:
+    use_enhanced_context: true
+    validate_against_sources: true
+  
+  # Knowledge graph integration
+  knowledge_graph:
+    use_for_validation: true
+    check_consistency: true
+
+# Logging Configuration
+logging:
+  # Log levels
+  assembly_engine: "INFO"
+  validator: "INFO"
+  formatter: "INFO"
+  error_recovery: "INFO"
+  
+  # Log destinations
+  log_to_file: true
+  log_to_console: true
+  
+  # Log format
+  include_timestamps: true
+  include_component_names: true
+  include_performance_metrics: true

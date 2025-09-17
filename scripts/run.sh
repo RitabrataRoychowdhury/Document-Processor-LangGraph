@@ -361,8 +361,8 @@ except Exception as e:
         echo "🚀 =============================================="
         echo ""
         
-        # Run complete knowledge base initialization
-        print_status "Starting complete knowledge base initialization..."
+        # Run enhanced complete knowledge base initialization with progress tracking
+        print_status "Starting enhanced complete knowledge base initialization..."
         $PYTHON_CMD -c "
 import sys
 import asyncio
@@ -380,24 +380,32 @@ async def main():
         from src.services.ingestion_pipeline_factory import IngestionPipelineFactory
         pipeline = IngestionPipelineFactory.create_default_pipeline()
         
-        print('🚀 Starting complete knowledge base initialization...')
+        print('\\n🚀 Starting enhanced complete knowledge base initialization...')
+        print('   This process includes:')
+        print('   • Pre-initialization checks for canonical documents and system readiness')
+        print('   • Real-time progress tracking with completion percentage reporting')
+        print('   • Post-initialization validation tests for extraction patterns and calculation tables')
+        print('   • Comprehensive error handling with detailed remediation recommendations')
+        print('')
+        
         result = await initialize_complete_system_for_option_2(config, pipeline)
         
-        print('\\n📊 Initialization Results:')
-        print('=' * 50)
-        print(f'Success: {\"✅ YES\" if result.success else \"❌ NO\"}')
+        print('\\n' + '='*60)
+        print('📊 FINAL INITIALIZATION RESULTS')
+        print('='*60)
+        print(f'Overall Success: {\"🎉 YES\" if result.success else \"❌ NO\"}')
         print(f'Processing Time: {result.total_processing_time:.2f} seconds')
         print(f'Processed Documents: {len(result.processed_documents)}')
         print(f'Failed Documents: {len(result.failed_documents)}')
-        print(f'Knowledge Graph Nodes: {result.node_count}')
-        print(f'Knowledge Graph Relationships: {result.relationship_count}')
+        print(f'Knowledge Graph Nodes: {result.node_count:,}')
+        print(f'Knowledge Graph Relationships: {result.relationship_count:,}')
         print(f'AMA Tables Loaded: {result.ama_tables_loaded}')
         print(f'Legal Patterns Loaded: {result.legal_patterns_loaded}')
         print(f'Validation Passed: {\"✅ YES\" if result.validation_passed else \"❌ NO\"}')
-        print(f'System Ready: {\"✅ YES\" if result.system_ready else \"❌ NO\"}')
+        print(f'System Ready: {\"🎯 YES\" if result.system_ready else \"⚠️  NO\"}')
         
         if result.processed_documents:
-            print(f'\\n📄 Processed Documents:')
+            print(f'\\n📄 Successfully Processed Documents:')
             for doc in result.processed_documents:
                 print(f'  ✅ {doc}')
         
@@ -407,35 +415,92 @@ async def main():
                 print(f'  ❌ {doc}')
         
         if result.error_messages:
-            print(f'\\n⚠️  Issues Found:')
-            for error in result.error_messages:
-                print(f'  - {error}')
+            print(f'\\n⚠️  Issues and Errors Found:')
+            for i, error in enumerate(result.error_messages, 1):
+                print(f'  {i}. {error}')
         
         if result.system_ready:
-            print(f'\\n🎉 System is ready for evidence-first QME processing!')
-            print(f'   📍 You can now use the web interface at http://localhost:8501')
-            print(f'   📚 Knowledge graph contains {result.node_count} nodes and {result.relationship_count} relationships')
-            print(f'   ⚖️  Legal patterns and AMA tables are loaded and accessible')
+            print(f'\\n🎉 SYSTEM FULLY READY FOR EVIDENCE-FIRST QME PROCESSING!')
+            print(f'   📍 Web interface available at: http://localhost:8501')
+            print(f'   📚 Knowledge graph: {result.node_count:,} nodes, {result.relationship_count:,} relationships')
+            print(f'   ⚖️  Legal patterns and AMA calculation tables are loaded and accessible')
+            print(f'   🔍 Extraction patterns ready for high-confidence field extraction')
+            print(f'   📊 Programmatic impairment calculations enabled')
+            print(f'   ✅ All validation tests passed - system is production-ready')
         else:
-            print(f'\\n⚠️  System initialization completed with issues.')
-            print(f'   🔧 Please review the issues above and retry if needed.')
-            print(f'   💡 You can still use the system, but some features may be limited.')
+            print(f'\\n⚠️  SYSTEM INITIALIZATION COMPLETED WITH LIMITATIONS')
+            print(f'   🔧 Some components may not function optimally')
+            print(f'   💡 Review the issues above for specific remediation steps')
+            print(f'   🔄 You can retry initialization after addressing the issues')
+            print(f'   📍 Basic functionality may still be available at: http://localhost:8501')
+            
+            # Provide specific remediation recommendations
+            print(f'\\n💡 REMEDIATION RECOMMENDATIONS:')
+            if len(result.failed_documents) > 0:
+                print(f'   📚 Document Processing Issues:')
+                print(f'      • Ensure canonical documents exist in project root')
+                print(f'      • Check file permissions and accessibility')
+                print(f'      • Verify document formats are supported (PDF, DOCX)')
+            
+            if result.node_count < 1000:
+                print(f'   📊 Knowledge Graph Issues:')
+                print(f'      • Current nodes: {result.node_count:,} (minimum: 1,000)')
+                print(f'      • Process more canonical documents')
+                print(f'      • Check AMA Guidelines and QME reference files')
+            
+            if result.ama_tables_loaded == 0:
+                print(f'   📋 AMA Guidelines Issues:')
+                print(f'      • No AMA calculation tables loaded')
+                print(f'      • Check data/ama_guidelines/tables.json exists')
+                print(f'      • Verify file format and content structure')
+            
+            if result.legal_patterns_loaded == 0:
+                print(f'   ⚖️  Legal Patterns Issues:')
+                print(f'      • No legal extraction patterns loaded')
+                print(f'      • Check data/qme_references/ directory exists')
+                print(f'      • Verify legal_patterns.json and related files')
+            
+            print(f'\\n🔄 To retry initialization:')
+            print(f'   1. Address the issues listed above')
+            print(f'   2. Run this script again and select option 2')
+            print(f'   3. Or use option 6 to initialize knowledge base separately')
         
+        print('='*60)
         return result.success
         
     except Exception as e:
-        print(f'❌ Critical error during initialization: {e}')
+        print(f'\\n❌ CRITICAL ERROR DURING INITIALIZATION')
+        print(f'Error: {e}')
+        print(f'\\n🔧 TROUBLESHOOTING STEPS:')
+        print(f'   1. Check that all required files exist:')
+        print(f'      • AMAGuides 5th Edition.pdf')
+        print(f'      • QME-Study-Guide.pdf')
+        print(f'      • Sample3.pdf')
+        print(f'      • data/ama_guidelines/tables.json')
+        print(f'      • data/qme_references/legal_patterns.json')
+        print(f'   2. Verify .env file configuration')
+        print(f'   3. Check database permissions and connectivity')
+        print(f'   4. Ensure sufficient disk space and memory')
+        print(f'   5. Check logs/errors.log for detailed error information')
+        print(f'\\n💡 ALTERNATIVE OPTIONS:')
+        print(f'   • Try option 6 to initialize knowledge base with available documents')
+        print(f'   • Try option 1 to start with basic functionality')
+        print(f'   • Check system health with option 3')
+        
         import traceback
+        print(f'\\n🔍 DETAILED ERROR TRACE:')
         traceback.print_exc()
         return False
 
 result = asyncio.run(main())
-print('\\n' + '='*50)
+print('\\n' + '='*60)
 if result:
-    print('🎉 Complete initialization finished successfully!')
+    print('🎉 ENHANCED INITIALIZATION COMPLETED SUCCESSFULLY!')
+    print('   System is ready for evidence-first QME processing')
 else:
-    print('⚠️  Initialization completed with issues.')
-print('='*50)
+    print('⚠️  INITIALIZATION COMPLETED WITH ISSUES')
+    print('   Review the recommendations above and retry if needed')
+print('='*60)
 "
         
         # Start the web interface after initialization

@@ -1,0 +1,172 @@
+# Enhanced Impairment Rating Extraction for Sonoma Sky Alpha
+description: "Advanced impairment rating extraction with AMA Guides methodology analysis"
+version: "2.0"
+tags: ["impairment_rating", "ama_guides", "disability", "qme", "apportionment"]
+
+system_prompt: |
+  You are a highly specialized expert in disability evaluation and impairment rating methodology, 
+  with comprehensive knowledge of:
+  
+  - AMA Guides to the Evaluation of Permanent Impairment (5th and 6th editions)
+  - California workers' compensation impairment rating procedures
+  - QME evaluation standards and requirements
+  - Apportionment analysis and methodology
+  - Combining multiple impairment ratings
+  - Work-relatedness determinations
+  
+  You have vision capabilities to analyze impairment rating tables, calculation worksheets, 
+  and complex medical evaluation forms. Your task is to extract precise impairment ratings 
+  with complete methodology documentation.
+  
+  CRITICAL REQUIREMENTS:
+  - Extract exact percentage ratings with supporting methodology
+  - Identify specific AMA Guides references (edition, chapter, table, page)
+  - Document apportionment calculations and rationale
+  - Preserve all calculation steps and combining formulas
+  - Maintain precision in medical and legal terminology
+  - Flag any inconsistencies in calculations or methodology
+
+extraction_prompt: |
+  Perform comprehensive impairment rating extraction using vision analysis to read rating tables, 
+  calculation worksheets, and methodology documentation. Extract all rating components with 
+  complete AMA Guides references and calculation methodology.
+  
+  OVERALL IMPAIRMENT RATING:
+  - final_whole_person_impairment: Final WPI percentage (0-100%)
+  - combined_rating_formula: Formula used to combine multiple impairments
+  - ama_guides_edition: Specific edition used (5th, 6th, etc.)
+  - rating_date: Date impairment rating was determined
+  - evaluator_qualifications: QME credentials and specialization
+  
+  BODY PART/SYSTEM SPECIFIC RATINGS:
+  - spine_impairment: Cervical, thoracic, lumbar spine ratings
+  - extremity_impairment: Upper/lower extremity ratings with conversion factors
+  - neurological_impairment: Central/peripheral nervous system ratings
+  - mental_behavioral_impairment: Psychiatric/psychological impairment ratings
+  - organ_system_impairment: Cardiovascular, respiratory, other organ systems
+  - pain_impairment: Chronic pain ratings if applicable
+  
+  AMA GUIDES METHODOLOGY:
+  - specific_tables_used: Exact table numbers and page references
+  - chapter_references: Relevant chapters and sections
+  - methodology_description: Step-by-step rating methodology
+  - adjustment_factors: Any adjustment factors applied
+  - conversion_formulas: Formulas for converting regional to whole person
+  - combining_calculations: Mathematical combining of multiple ratings
+  
+  APPORTIONMENT ANALYSIS:
+  - total_impairment_percentage: Total impairment before apportionment
+  - work_related_percentage: Portion attributable to work injury
+  - non_work_related_percentage: Portion due to pre-existing conditions
+  - apportionment_rationale: Medical/legal basis for apportionment
+  - substantial_contributing_factor: Analysis of work as substantial factor
+  - pre_existing_conditions: Detailed description of non-work conditions
+  
+  MAXIMUM MEDICAL IMPROVEMENT:
+  - mmi_date: Date MMI was reached
+  - mmi_rationale: Medical basis for MMI determination
+  - ongoing_treatment_needs: Future medical care requirements
+  - treatment_to_mmi: Summary of treatment provided to reach MMI
+  
+  WORK STATUS AND RESTRICTIONS:
+  - return_to_work_capacity: Full/modified/unable to return
+  - permanent_restrictions: Specific work limitations
+  - temporary_restrictions: Time-limited work modifications
+  - job_accommodation_needs: Required workplace accommodations
+  - vocational_rehabilitation: Need for retraining or job placement
+  
+  FUNCTIONAL CAPACITY:
+  - lifting_capacity: Maximum lifting weights (occasional/frequent)
+  - carrying_capacity: Maximum carrying distances and weights
+  - walking_standing_tolerance: Time limitations for ambulation
+  - sitting_tolerance: Maximum sitting duration
+  - climbing_balancing: Limitations on postural activities
+  - reaching_handling: Upper extremity functional limitations
+  
+  CALCULATION WORKSHEETS:
+  - rating_calculations: Step-by-step calculation documentation
+  - table_lookups: Specific values from AMA Guides tables
+  - conversion_steps: Regional to whole person conversion calculations
+  - combining_steps: Multiple impairment combining calculations
+  - verification_checks: Cross-checks and validation of calculations
+  
+  EXTRACTION INSTRUCTIONS:
+  1. Use vision analysis to read impairment rating tables and calculation sheets
+  2. Extract exact percentages, table references, and page numbers
+  3. Document all mathematical calculations and formulas used
+  4. Identify any discrepancies between stated ratings and calculations
+  5. Cross-reference methodology with appropriate AMA Guides sections
+  6. Note any deviations from standard rating procedures
+  7. Extract supporting clinical data that justifies the ratings
+  
+  OUTPUT FORMAT:
+  {
+    "category": {
+      "field_name": {
+        "percentage": "exact_percentage_value",
+        "body_part": "specific_anatomical_region",
+        "ama_guides_reference": "Edition_Chapter_Table_Page",
+        "methodology": "detailed_calculation_method",
+        "clinical_basis": "supporting_medical_findings",
+        "confidence": 0.0-1.0,
+        "source_location": "Page_Section_Table",
+        "calculation_steps": ["step1", "step2", "step3"],
+        "verification_status": "verified|needs_review|discrepancy_noted"
+      }
+    }
+  }
+  
+  QUALITY REQUIREMENTS:
+  - Confidence ≥ 0.98 for final WPI ratings and AMA Guides references
+  - Confidence ≥ 0.95 for body part specific ratings and calculations
+  - Confidence ≥ 0.90 for apportionment percentages and rationale
+  - Confidence ≥ 0.85 for work restrictions and functional capacity
+  - Flag any mathematical discrepancies or methodology inconsistencies
+  - Verify all calculations against AMA Guides standards
+
+validation_rules:
+  final_whole_person_impairment: "Must be percentage 0-100%, mathematically consistent with component ratings"
+  ama_guides_edition: "Must specify exact edition (5th, 6th) with publication year"
+  methodology_reference: "Must include specific chapter, table, and page references"
+  mmi_date: "Must be valid date, not in future, consistent with treatment timeline"
+  apportionment: "Work-related + non-work-related must equal total impairment"
+  combining_calculations: "Must follow AMA Guides combining formula: A+B(1-A)"
+  body_part_ratings: "Must specify exact anatomical region and rating methodology"
+  work_restrictions: "Must be specific, measurable, and related to impairment findings"
+  clinical_correlation: "Impairment ratings must correlate with objective clinical findings"
+
+mathematical_validation:
+  combining_formula_check: "Verify proper use of AMA Guides combining tables"
+  conversion_factor_check: "Validate regional to whole person conversion factors"
+  apportionment_math_check: "Ensure apportionment percentages add to 100%"
+  table_lookup_verification: "Cross-reference table values with AMA Guides"
+
+quality_checks:
+  methodology_consistency: "Ensure consistent use of AMA Guides methodology throughout"
+  calculation_accuracy: "Verify all mathematical calculations are correct"
+  clinical_correlation: "Confirm ratings correlate with documented clinical findings"
+  legal_compliance: "Ensure compliance with California workers' compensation requirements"
+  documentation_completeness: "Verify all required rating components are documented"
+
+custom_parameters:
+  enable_calculation_verification: true
+  enable_ama_guides_cross_reference: true
+  enable_apportionment_analysis: true
+  require_methodology_documentation: true
+  validate_combining_formulas: true
+  
+  ama_guides_editions:
+    - "5th_edition_2001"
+    - "6th_edition_2008"
+  
+  california_specific_requirements:
+    - "substantial_contributing_factor_analysis"
+    - "apportionment_methodology"
+    - "work_relatedness_determination"
+  
+  confidence_boost_factors:
+    - "detailed_calculation_worksheets"
+    - "specific_ama_guides_references"
+    - "mathematical_verification"
+    - "clinical_correlation_documented"
+    - "qme_specialist_evaluation"

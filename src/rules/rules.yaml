@@ -1,12 +1,248 @@
 # QME Gold Standard Rules Configuration
 # Based on AI Example QME Report Template analysis
 # Priority levels: MUST (critical/legal), SHOULD (best practice), MAY (suggestions)
+# Enhanced with Evidence-First Validation Rules
 
-version: "1.0"
-description: "Comprehensive QME report validation rules based on gold standard template"
-last_updated: "2025-09-13"
+version: "2.0"
+description: "Evidence-first QME report validation rules with confidence thresholds and legal compliance"
+last_updated: "2025-09-16"
+
+# Evidence-First Configuration
+evidence_first:
+  confidence_thresholds:
+    critical_fields: 0.8  # patient_name, case_number, injury_date
+    standard_fields: 0.5  # other required fields
+    flagged_range: [0.5, 0.8]  # fields requiring human review
+  
+  validation_gates:
+    extraction_completeness: 0.9  # 90% of required fields must be extracted
+    evidence_sufficiency: 0.8    # 80% of critical fields must meet confidence threshold
+    legal_compliance: 1.0        # 100% compliance required for legal requirements
+  
+  audit_requirements:
+    evidence_provenance: true    # track source document, page, coordinates
+    calculation_steps: true      # document all programmatic calculations
+    validation_trail: true       # record all validation decisions
+    compliance_status: true      # track legal compliance checks
 
 rules:
+# EVIDENCE-FIRST VALIDATION RULES
+- id: R200_evidence_confidence_validation
+  priority: MUST
+  description: "Validate field extraction confidence scores meet evidence-first thresholds"
+  section: "evidence_validation"
+  when:
+    - pipeline.extraction_complete: true
+  then:
+    - validate_confidence_scores:
+        critical_fields:
+          - field: "patient_name"
+            min_confidence: 0.8
+            required: true
+          - field: "case_number" 
+            min_confidence: 0.8
+            required: true
+          - field: "injury_date"
+            min_confidence: 0.8
+            required: true
+          - field: "employer_name"
+            min_confidence: 0.8
+            required: true
+        standard_fields:
+          - field: "diagnosis"
+            min_confidence: 0.5
+            required: true
+          - field: "impairment_percentage"
+            min_confidence: 0.5
+            required: true
+    - flag_insufficient_confidence:
+        threshold: 0.5
+        action: "human_review_queue"
+    - require_evidence_provenance:
+        source_document: true
+        page_number: true
+        text_coordinates: true
+        snippet_text: true
+    - add_audit: "Evidence confidence validation completed"
+
+- id: R201_programmatic_calculation_validation
+  priority: MUST
+  description: "Ensure all calculations are programmatic with zero LLM involvement"
+  section: "calculations"
+  when:
+    - template.assembling: true
+  then:
+    - validate_calculation_methods:
+        impairment_ratings: "programmatic_only"
+        rom_averages: "programmatic_only"
+        combined_values: "programmatic_only"
+        billing_calculations: "programmatic_only"
+    - require_calculation_audit_trail:
+        ama_table_references: true
+        calculation_steps: true
+        source_measurements: true
+        validation_status: true
+    - prohibit_llm_calculations: true
+    - validate_ama_table_accuracy: true
+    - add_audit: "Programmatic calculation validation completed"
+
+- id: R202_post_generation_validation
+  priority: MUST
+  description: "Comprehensive post-generation validation for placeholder text and accuracy"
+  section: "post_generation"
+  when:
+    - template.generated: true
+  then:
+    - scan_placeholder_text:
+        patterns: ["{{.*}}", "{.*}", "[.*]", "TODO", "TBD", "PLACEHOLDER", "XXX", "___+"]
+        action: "fail_validation"
+    - validate_calculation_accuracy:
+        cross_reference_ama_tables: true
+        verify_arithmetic: true
+        check_percentage_ranges: true
+    - validate_citation_accuracy:
+        ama_references: true
+        legal_citations: true
+        case_law_references: true
+    - require_evidence_backing:
+        all_medical_statements: true
+        diagnostic_conclusions: true
+        impairment_determinations: true
+    - add_audit: "Post-generation validation completed"
+        verify_arithmetic: true
+        check_percentage_ranges: true
+    - validate_citation_accuracy:
+        ama_references: true
+        legal_citations: true
+        case_law_references: true
+    - require_evidence_backing:
+        all_medical_statements: true
+        diagnostic_conclusions: true
+        impairment_determinations: true
+    - add_audit: "Post-generation validation completed"
+
+- id: R203_legal_compliance_comprehensive
+  priority: MUST
+  description: "Comprehensive legal compliance validation with detailed reporting"
+  section: "legal_compliance"
+  when:
+    - template.ready_for_review: true
+  then:
+    - validate_labor_code_4062_3:
+        declaration_present: true
+        exact_text_match: true
+        page_count_attestation: true
+        penalty_of_perjury: true
+    - validate_mandatory_sections:
+        patient_demographics: true
+        records_reviewed: true
+        physical_examination: true
+        diagnosis: true
+        impairment_rating: true
+        signature_blocks: true
+    - validate_mlprr_billing:
+        calculation_accuracy: true
+        page_count_verification: true
+        billing_unit_calculation: true
+        penalty_of_perjury_attestation: true
+    - validate_physician_signature:
+        examiner_name: true
+        license_number: true
+        signature_date: true
+        ab_1300_declaration: true
+    - generate_compliance_report:
+        pass_fail_status: true
+        remediation_steps: true
+        audit_trail: true
+    - add_audit: "Legal compliance validation completed"
+
+- id: R204_evidence_audit_trail
+  priority: MUST
+  description: "Generate comprehensive audit trail linking requirements to evidence sources"
+  section: "audit_trail"
+  when:
+    - validation.complete: true
+  then:
+    - generate_evidence_map:
+        field_to_source_mapping: true
+        confidence_score_tracking: true
+        validation_decision_log: true
+    - document_calculation_provenance:
+        ama_table_sources: true
+        measurement_sources: true
+        calculation_methodology: true
+    - create_compliance_audit:
+        requirement_to_evidence_links: true
+        validation_timestamps: true
+        reviewer_actions: true
+    - generate_audit_report:
+        evidence_completeness: true
+        validation_results: true
+        compliance_status: true
+        remediation_tracking: true
+    - add_audit: "Evidence audit trail generated"
+
+- id: R205_signature_block_validation
+  priority: MUST
+  description: "Comprehensive legal compliance validation with detailed reporting"
+  section: "legal_compliance"
+  when:
+    - template.ready_for_review: true
+  then:
+    - validate_labor_code_4062_3:
+        declaration_present: true
+        exact_text_match: true
+        page_count_attestation: true
+        penalty_of_perjury: true
+    - validate_mandatory_sections:
+        patient_demographics: true
+        records_reviewed: true
+        physical_examination: true
+        diagnosis: true
+        impairment_rating: true
+        signature_blocks: true
+    - validate_mlprr_billing:
+        calculation_accuracy: true
+        page_count_verification: true
+        billing_unit_calculation: true
+        penalty_of_perjury_attestation: true
+    - validate_physician_signature:
+        examiner_name: true
+        license_number: true
+        signature_date: true
+        ab_1300_declaration: true
+    - generate_compliance_report:
+        pass_fail_status: true
+        remediation_steps: true
+        audit_trail: true
+    - add_audit: "Legal compliance validation completed"
+
+- id: R204_evidence_audit_trail
+  priority: MUST
+  description: "Generate comprehensive audit trail linking requirements to evidence sources"
+  section: "audit_trail"
+  when:
+    - validation.complete: true
+  then:
+    - generate_evidence_map:
+        field_to_source_mapping: true
+        confidence_score_tracking: true
+        validation_decision_log: true
+    - document_calculation_provenance:
+        ama_table_sources: true
+        measurement_sources: true
+        calculation_methodology: true
+    - create_compliance_audit:
+        requirement_to_evidence_links: true
+        validation_timestamps: true
+        reviewer_actions: true
+    - generate_audit_report:
+        evidence_completeness: true
+        validation_results: true
+        compliance_status: true
+        remediation_tracking: true
+    - add_audit: "Evidence audit trail generated"
+
 # HEADER AND IDENTIFICATION RULES
 - id: R080_require_header
   priority: MUST

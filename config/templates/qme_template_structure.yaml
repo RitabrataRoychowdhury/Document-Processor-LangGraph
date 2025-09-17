@@ -1,0 +1,543 @@
+# QME Template Structure Definition
+# Defines the standard structure and content requirements for QME reports
+
+# Document Metadata
+document_metadata:
+  title: "QUALIFIED MEDICAL EVALUATOR REPORT"
+  document_type: "QME_REPORT"
+  version: "1.0"
+  compliance_standards:
+    - "AMA_GUIDES_5TH_EDITION"
+    - "CALIFORNIA_QME_REGULATIONS"
+    - "WCAB_REQUIREMENTS"
+
+# Document Structure
+document_structure:
+  # Header section
+  header:
+    required: true
+    content:
+      - doctor_name
+      - specialty
+      - license_number
+      - contact_information
+    formatting:
+      alignment: "center"
+      font_size: 12
+      font_weight: "bold"
+  
+  # Title section
+  title:
+    required: true
+    content: "QUALIFIED MEDICAL EVALUATOR REPORT"
+    formatting:
+      alignment: "center"
+      font_size: 16
+      font_weight: "bold"
+      spacing_after: 12
+  
+  # Main content sections
+  sections:
+    - section_id: "patient_identification"
+      title: "PATIENT IDENTIFICATION"
+      required: true
+      order: 1
+      fields:
+        - name: "patient_name"
+          label: "Patient Name"
+          required: true
+          data_type: "string"
+          validation: "non_empty"
+        
+        - name: "date_of_birth"
+          label: "Date of Birth"
+          required: true
+          data_type: "date"
+          format: "MM/DD/YYYY"
+        
+        - name: "age"
+          label: "Age"
+          required: true
+          data_type: "integer"
+          validation: "positive_integer"
+        
+        - name: "gender"
+          label: "Gender"
+          required: true
+          data_type: "string"
+          allowed_values: ["Male", "Female", "Other"]
+        
+        - name: "case_number"
+          label: "Case Number"
+          required: true
+          data_type: "string"
+          validation: "non_empty"
+        
+        - name: "wcab_number"
+          label: "WCAB No."
+          required: false
+          data_type: "string"
+        
+        - name: "injury_date"
+          label: "Date of Injury"
+          required: true
+          data_type: "date"
+          format: "MM/DD/YYYY"
+        
+        - name: "employer"
+          label: "Employer"
+          required: true
+          data_type: "string"
+        
+        - name: "occupation"
+          label: "Occupation"
+          required: true
+          data_type: "string"
+        
+        - name: "evaluation_date"
+          label: "Date of Evaluation"
+          required: true
+          data_type: "date"
+          format: "MM/DD/YYYY"
+        
+        - name: "evaluation_location"
+          label: "Place of Evaluation"
+          required: true
+          data_type: "string"
+    
+    - section_id: "history_of_present_illness"
+      title: "HISTORY OF PRESENT ILLNESS"
+      required: true
+      order: 2
+      content_type: "narrative"
+      subsections:
+        - title: "Chief Complaint"
+          required: true
+          content_type: "text"
+        
+        - title: "History of Present Illness"
+          required: true
+          content_type: "text"
+        
+        - title: "Past Medical History"
+          required: true
+          content_type: "text"
+        
+        - title: "Medications"
+          required: false
+          content_type: "list"
+        
+        - title: "Social History"
+          required: false
+          content_type: "text"
+        
+        - title: "Review of Systems"
+          required: false
+          content_type: "text"
+    
+    - section_id: "physical_examination"
+      title: "PHYSICAL EXAMINATION"
+      required: true
+      order: 3
+      content_type: "structured"
+      subsections:
+        - title: "General Appearance"
+          required: true
+          content_type: "text"
+        
+        - title: "Vital Signs"
+          required: false
+          content_type: "structured"
+          fields:
+            - "blood_pressure"
+            - "heart_rate"
+            - "temperature"
+            - "respiratory_rate"
+        
+        - title: "Musculoskeletal Examination"
+          required: true
+          content_type: "structured"
+          fields:
+            - "inspection"
+            - "palpation"
+            - "range_of_motion"
+            - "strength_testing"
+            - "special_tests"
+        
+        - title: "Neurological Examination"
+          required: true
+          content_type: "structured"
+          fields:
+            - "mental_status"
+            - "cranial_nerves"
+            - "motor_function"
+            - "sensory_function"
+            - "reflexes"
+            - "coordination"
+    
+    - section_id: "diagnostic_studies"
+      title: "DIAGNOSTIC STUDIES"
+      required: false
+      order: 4
+      content_type: "list"
+      subsections:
+        - title: "Imaging Studies"
+          content_type: "list"
+          fields:
+            - "study_type"
+            - "study_date"
+            - "findings"
+            - "interpretation"
+        
+        - title: "Laboratory Studies"
+          content_type: "list"
+          fields:
+            - "test_name"
+            - "test_date"
+            - "results"
+            - "reference_range"
+        
+        - title: "Special Studies"
+          content_type: "list"
+          fields:
+            - "study_type"
+            - "study_date"
+            - "findings"
+    
+    - section_id: "diagnosis"
+      title: "DIAGNOSIS"
+      required: true
+      order: 5
+      content_type: "list"
+      fields:
+        - name: "primary_diagnosis"
+          label: "Primary Diagnosis"
+          required: true
+          data_type: "diagnosis"
+          fields:
+            - "description"
+            - "icd_code"
+            - "severity"
+        
+        - name: "secondary_diagnoses"
+          label: "Secondary Diagnoses"
+          required: false
+          data_type: "diagnosis_list"
+          fields:
+            - "description"
+            - "icd_code"
+            - "severity"
+    
+    - section_id: "causation_analysis"
+      title: "CAUSATION ANALYSIS"
+      required: true
+      order: 6
+      content_type: "narrative"
+      subsections:
+        - title: "Medical Causation"
+          required: true
+          content_type: "text"
+        
+        - title: "Apportionment"
+          required: true
+          content_type: "structured"
+          fields:
+            - "industrial_factors"
+            - "non_industrial_factors"
+            - "percentage_breakdown"
+    
+    - section_id: "impairment_rating"
+      title: "IMPAIRMENT RATING"
+      required: true
+      order: 7
+      content_type: "structured"
+      fields:
+        - name: "whole_person_impairment"
+          label: "Whole Person Impairment"
+          required: true
+          data_type: "percentage"
+          validation: "0_to_100_percent"
+        
+        - name: "body_part_impairments"
+          label: "Body Part Impairments"
+          required: true
+          data_type: "impairment_list"
+          fields:
+            - "body_part"
+            - "percentage"
+            - "ama_table_reference"
+            - "calculation_method"
+        
+        - name: "ama_guidelines_reference"
+          label: "AMA Guidelines Reference"
+          required: true
+          data_type: "string"
+        
+        - name: "calculation_details"
+          label: "Calculation Details"
+          required: true
+          content_type: "text"
+    
+    - section_id: "work_restrictions"
+      title: "WORK RESTRICTIONS"
+      required: true
+      order: 8
+      content_type: "structured"
+      fields:
+        - name: "current_work_status"
+          label: "Current Work Status"
+          required: true
+          data_type: "string"
+          allowed_values: ["Able to work without restrictions", "Able to work with restrictions", "Unable to work"]
+        
+        - name: "specific_restrictions"
+          label: "Specific Restrictions"
+          required: false
+          data_type: "list"
+          fields:
+            - "restriction_type"
+            - "description"
+            - "duration"
+        
+        - name: "return_to_work_prognosis"
+          label: "Return to Work Prognosis"
+          required: true
+          data_type: "string"
+    
+    - section_id: "future_medical_care"
+      title: "FUTURE MEDICAL CARE"
+      required: true
+      order: 9
+      content_type: "structured"
+      fields:
+        - name: "recommended_treatment"
+          label: "Recommended Treatment"
+          required: true
+          data_type: "list"
+          fields:
+            - "treatment_type"
+            - "frequency"
+            - "duration"
+            - "medical_necessity"
+        
+        - name: "estimated_costs"
+          label: "Estimated Costs"
+          required: false
+          data_type: "currency"
+        
+        - name: "prognosis"
+          label: "Prognosis"
+          required: true
+          data_type: "string"
+    
+    - section_id: "conclusions"
+      title: "CONCLUSIONS AND RECOMMENDATIONS"
+      required: true
+      order: 10
+      content_type: "narrative"
+      subsections:
+        - title: "Summary of Findings"
+          required: true
+          content_type: "text"
+        
+        - title: "Medical Opinions"
+          required: true
+          content_type: "text"
+        
+        - title: "Recommendations"
+          required: true
+          content_type: "text"
+  
+  # Footer section
+  footer:
+    required: true
+    content:
+      - confidentiality_notice
+      - page_numbers
+      - doctor_signature_block
+    formatting:
+      alignment: "center"
+      font_size: 10
+
+# Formatting Standards
+formatting_standards:
+  # Document formatting
+  document:
+    page_size: "Letter"
+    orientation: "Portrait"
+    margins:
+      top: 1.0
+      bottom: 1.0
+      left: 1.0
+      right: 1.0
+    
+    font:
+      family: "Times New Roman"
+      size: 12
+      color: "black"
+    
+    line_spacing: 1.15
+    paragraph_spacing: 6
+  
+  # Section formatting
+  section_headers:
+    font_size: 14
+    font_weight: "bold"
+    alignment: "left"
+    spacing_before: 12
+    spacing_after: 6
+    text_transform: "uppercase"
+  
+  # Subsection formatting
+  subsection_headers:
+    font_size: 12
+    font_weight: "bold"
+    alignment: "left"
+    spacing_before: 6
+    spacing_after: 3
+  
+  # List formatting
+  lists:
+    bullet_style: "bullet"
+    indent: 0.5
+    spacing: 3
+  
+  # Table formatting
+  tables:
+    border_style: "single"
+    border_width: 1
+    cell_padding: 3
+    header_background: "light_gray"
+
+# Content Requirements
+content_requirements:
+  # Minimum content lengths
+  minimum_lengths:
+    history_of_present_illness: 200
+    physical_examination: 150
+    causation_analysis: 100
+    conclusions: 100
+  
+  # Required elements
+  required_elements:
+    - patient_identification_complete
+    - injury_mechanism_described
+    - examination_findings_documented
+    - diagnosis_with_icd_codes
+    - impairment_rating_calculated
+    - causation_opinion_provided
+    - work_restrictions_specified
+    - future_care_addressed
+  
+  # Quality indicators
+  quality_indicators:
+    - consistent_terminology
+    - proper_medical_language
+    - ama_guidelines_referenced
+    - logical_flow_maintained
+    - professional_tone
+
+# Validation Rules
+validation_rules:
+  # Field validation
+  field_validation:
+    - field: "patient_name"
+      rules: ["not_empty", "valid_name_format"]
+    
+    - field: "date_of_birth"
+      rules: ["valid_date", "reasonable_age"]
+    
+    - field: "injury_date"
+      rules: ["valid_date", "not_future_date"]
+    
+    - field: "impairment_percentage"
+      rules: ["numeric", "range_0_to_100"]
+  
+  # Section validation
+  section_validation:
+    - section: "diagnosis"
+      rules: ["at_least_one_diagnosis", "valid_icd_codes"]
+    
+    - section: "impairment_rating"
+      rules: ["percentage_provided", "ama_table_referenced"]
+  
+  # Document validation
+  document_validation:
+    - rule: "all_required_sections_present"
+    - rule: "consistent_patient_information"
+    - rule: "logical_section_order"
+    - rule: "professional_formatting"
+
+# Placeholder Definitions
+placeholders:
+  # Patient information placeholders
+  patient_placeholders:
+    - placeholder: "+Patient Name+"
+      field: "patient_name"
+      fallback: "[PATIENT NAME REQUIRED]"
+    
+    - placeholder: "+Date of Birth+"
+      field: "date_of_birth"
+      fallback: "[DATE OF BIRTH REQUIRED]"
+    
+    - placeholder: "+Case Number+"
+      field: "case_number"
+      fallback: "[CASE NUMBER REQUIRED]"
+  
+  # Medical placeholders
+  medical_placeholders:
+    - placeholder: "+Primary Diagnosis+"
+      field: "primary_diagnosis"
+      fallback: "[DIAGNOSIS REQUIRED]"
+    
+    - placeholder: "+Impairment Rating+"
+      field: "impairment_percentage"
+      fallback: "[IMPAIRMENT RATING REQUIRED]"
+  
+  # Date placeholders
+  date_placeholders:
+    - placeholder: "+Today's Date+"
+      field: "evaluation_date"
+      fallback: "[EVALUATION DATE REQUIRED]"
+    
+    - placeholder: "+Injury Date+"
+      field: "injury_date"
+      fallback: "[INJURY DATE REQUIRED]"
+
+# Error Messages
+error_messages:
+  validation_errors:
+    missing_required_field: "Required field '{field_name}' is missing"
+    invalid_date_format: "Date field '{field_name}' has invalid format"
+    invalid_percentage: "Percentage field '{field_name}' must be between 0 and 100"
+    missing_required_section: "Required section '{section_name}' is missing"
+  
+  assembly_errors:
+    template_not_found: "Template file not found: {template_path}"
+    formatting_failed: "Failed to apply professional formatting"
+    validation_failed: "Document validation failed with {error_count} errors"
+    save_failed: "Failed to save document to {output_path}"
+
+# Success Criteria
+success_criteria:
+  # Quality thresholds
+  quality_thresholds:
+    overall_score: 80.0
+    completeness_score: 85.0
+    accuracy_score: 90.0
+    compliance_score: 95.0
+    formatting_score: 98.0
+  
+  # Compliance requirements
+  compliance_requirements:
+    - all_required_sections_present
+    - patient_information_complete
+    - medical_opinions_supported
+    - ama_guidelines_followed
+    - professional_formatting_applied
+  
+  # Performance targets
+  performance_targets:
+    assembly_time_seconds: 30
+    file_size_mb: 5
+    error_rate_percent: 5

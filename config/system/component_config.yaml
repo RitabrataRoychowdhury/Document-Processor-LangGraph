@@ -1,0 +1,117 @@
+# QME System Component Configuration
+# Defines system-wide component settings and dependencies
+
+system:
+  name: "QME Document Processing System"
+  version: "2.0.0"
+  environment: "production"
+  
+components:
+  results_storage:
+    type: "storage"
+    class: "ResultsStorageService"
+    config:
+      base_path: "results"
+      auto_cleanup_days: 30
+      max_archive_size_mb: 1000
+    dependencies: []
+    
+  comprehensive_logging:
+    type: "logging"
+    class: "ComprehensiveLoggingService"
+    config:
+      log_directory: "logs"
+      max_memory_logs: 1000
+      log_level: "INFO"
+      enable_performance_tracking: true
+    dependencies: ["results_storage"]
+    
+  openrouter_extraction:
+    type: "extraction"
+    class: "OpenRouterExtractionService"
+    config:
+      model: "sonoma_sky_alpha"
+      max_retries: 3
+      timeout_seconds: 30
+      confidence_threshold: 0.8
+    dependencies: ["comprehensive_logging"]
+    
+  professional_template_assembly:
+    type: "template_assembly"
+    class: "ProfessionalTemplateAssemblyEngine"
+    config:
+      template_directory: "config/templates"
+      output_format: "docx"
+      enable_quality_checks: true
+      formatting_strict_mode: true
+    dependencies: ["openrouter_extraction", "comprehensive_logging"]
+    
+  quality_validation:
+    type: "quality_validation"
+    class: "QualityValidationService"
+    config:
+      validation_rules_path: "config/prompts/validation"
+      minimum_quality_score: 80.0
+      enable_compliance_checks: true
+      generate_detailed_reports: true
+    dependencies: ["comprehensive_logging", "results_storage"]
+
+pipelines:
+  qme_document_processing:
+    description: "Complete QME document processing pipeline"
+    stages:
+      - "document_ingestion"
+      - "information_extraction"
+      - "template_assembly"
+      - "quality_validation"
+      - "document_output"
+    components:
+      information_extraction: "openrouter_extraction"
+      template_assembly: "professional_template_assembly"
+      quality_validation: "quality_validation"
+    configuration:
+      extraction:
+        model: "sonoma_sky_alpha"
+        enable_vision: true
+        prompt_template_path: "config/prompts/extraction"
+      assembly:
+        format: "professional"
+        template_path: "config/templates/qme_template_structure.yaml"
+        enable_evidence_integration: true
+      validation:
+        strict_mode: true
+        compliance_rules_path: "config/prompts/validation/compliance_rules.yaml"
+        quality_threshold: 85.0
+
+monitoring:
+  health_check_interval_seconds: 60
+  performance_metrics_retention_days: 7
+  error_reporting:
+    enable_email_alerts: false
+    enable_log_aggregation: true
+    critical_error_threshold: 5
+  quality_tracking:
+    enable_trend_analysis: true
+    quality_degradation_threshold: 10.0
+    
+storage:
+  results:
+    base_directory: "results"
+    organization_strategy: "date_based"
+    archive_policy:
+      enable_auto_archive: true
+      archive_after_days: 90
+      compress_archives: true
+  logs:
+    retention_days: 30
+    max_file_size_mb: 100
+    rotation_policy: "daily"
+    
+security:
+  api_keys:
+    storage_method: "environment_variables"
+    encryption_enabled: true
+  data_protection:
+    enable_pii_detection: true
+    anonymize_logs: true
+    secure_temp_files: true

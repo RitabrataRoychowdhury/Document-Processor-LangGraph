@@ -1,0 +1,80 @@
+{
+  "report_timestamp": "2025-09-17T09:29:35.209637",
+  "monitoring_status": false,
+  "performance_summary_24h": {
+    "time_window_hours": 24,
+    "summary_timestamp": "2025-09-17T09:29:35.209654",
+    "processing_metrics": {
+      "total_documents": 3,
+      "avg_processing_time": 0.10332171122233073,
+      "min_processing_time": 0.10084319114685059,
+      "max_processing_time": 0.1053779125213623,
+      "documents_over_threshold": 0
+    },
+    "resource_metrics": {
+      "avg_cpu_usage": 0.0,
+      "max_cpu_usage": 0.0,
+      "avg_memory_usage": 55.8,
+      "max_memory_usage": 55.8,
+      "resource_alerts": 0
+    },
+    "error_metrics": {
+      "total_errors": 0,
+      "errors_by_type": {},
+      "errors_by_severity": {},
+      "errors_by_component": {},
+      "error_rate": 0.0
+    },
+    "session_metrics": {
+      "active_sessions": 0,
+      "completed_sessions": 1
+    }
+  },
+  "performance_summary_1h": {
+    "time_window_hours": 1,
+    "summary_timestamp": "2025-09-17T09:29:35.209678",
+    "processing_metrics": {
+      "total_documents": 3,
+      "avg_processing_time": 0.10332171122233073,
+      "min_processing_time": 0.10084319114685059,
+      "max_processing_time": 0.1053779125213623,
+      "documents_over_threshold": 0
+    },
+    "resource_metrics": {
+      "avg_cpu_usage": 0.0,
+      "max_cpu_usage": 0.0,
+      "avg_memory_usage": 55.8,
+      "max_memory_usage": 55.8,
+      "resource_alerts": 0
+    },
+    "error_metrics": {
+      "total_errors": 0,
+      "errors_by_type": {},
+      "errors_by_severity": {},
+      "errors_by_component": {},
+      "error_rate": 0.0
+    },
+    "session_metrics": {
+      "active_sessions": 0,
+      "completed_sessions": 1
+    }
+  },
+  "error_analysis_24h": {
+    "message": "No errors in specified time window"
+  },
+  "system_configuration": {
+    "performance_thresholds": {
+      "max_processing_time": 30.0,
+      "max_cpu_percent": 80.0,
+      "max_memory_percent": 85.0,
+      "min_success_rate": 0.9
+    },
+    "monitoring_interval": 1.0
+  },
+  "baseline_metrics": {
+    "cpu_usage": 18.9,
+    "memory_usage": 55.8,
+    "disk_usage": 4.7
+  },
+  "active_sessions": {}
+}

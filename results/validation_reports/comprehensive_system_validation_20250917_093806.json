@@ -1,0 +1,168 @@
+{
+  "session_id": "comprehensive_validation_20250917_093805",
+  "start_time": "2025-09-17T09:38:05.024207",
+  "config": {
+    "max_documents": 1,
+    "timeout_per_document": 120,
+    "quality_thresholds": {
+      "minimum_overall_score": 0.75,
+      "minimum_weighted_score": 0.8,
+      "minimum_compliance_rate": 0.9
+    },
+    "performance_thresholds": {
+      "max_processing_time": 60.0,
+      "max_memory_usage_mb": 1000,
+      "max_cpu_percent": 80.0
+    },
+    "comparison_enabled": true,
+    "detailed_reporting": true,
+    "save_intermediate_results": false
+  },
+  "service_status": {
+    "quality_validator": "initialized",
+    "extraction_service": "failed: OPENROUTER_API_KEY not found in secure storage or environment variables. Please set your OpenRouter API key using the secure key manager or OPENROUTER_API_KEY environment variable.",
+    "template_engine": "initialized",
+    "rag_pipeline": "failed: OPENROUTER_API_KEY not found in secure storage or environment variables. Please set your OpenRouter API key using the secure key manager or OPENROUTER_API_KEY environment variable.",
+    "performance_monitor": "initialized"
+  },
+  "document_results": [
+    {
+      "document_path": "QME-Study-Guide.pdf",
+      "document_name": "QME-Study-Guide.pdf",
+      "file_size_mb": 0.501922607421875,
+      "validation_start": "2025-09-17T09:38:05.090861",
+      "pipeline_stages": {},
+      "quality_metrics": {},
+      "performance_metrics": {},
+      "errors": [],
+      "warnings": [
+        "Extraction service not available",
+        "Quality validation service not available or no extraction result",
+        "RAG pipeline service not available or no extraction result",
+        "Template engine service not available or no extraction result"
+      ],
+      "success": false,
+      "validation_end": "2025-09-17T09:38:05.091277",
+      "total_processing_time": 0.000416
+    }
+  ],
+  "system_metrics": {
+    "total_documents": 1,
+    "successful_documents": 0,
+    "overall_success_rate": 0.0,
+    "stage_success_rates": {
+      "extraction": 0.0,
+      "quality_validation": 0.0,
+      "rag_enhancement": 0.0,
+      "template_generation": 0.0
+    },
+    "quality_metrics": {
+      "average_quality_score": 0,
+      "min_quality_score": 0,
+      "max_quality_score": 0,
+      "quality_score_std": 0,
+      "documents_above_threshold": 0
+    },
+    "compliance_metrics": {
+      "average_compliance_rate": 0,
+      "min_compliance_rate": 0,
+      "documents_meeting_compliance": 0
+    },
+    "performance_metrics": {
+      "average_processing_time": 0.000416,
+      "min_processing_time": 0.000416,
+      "max_processing_time": 0.000416,
+      "documents_over_time_threshold": 0
+    },
+    "error_analysis": {
+      "total_errors": 0,
+      "total_warnings": 4,
+      "error_patterns": {},
+      "warning_patterns": {
+        "unknown": 4
+      },
+      "most_common_error": null,
+      "most_common_warning": [
+        "unknown",
+        4
+      ]
+    }
+  },
+  "comparison_results": {
+    "templates_compared": 5,
+    "quality_improvements": 5,
+    "quality_regressions": 0,
+    "average_improvement": 0.05,
+    "comparison_details": [
+      {
+        "template": "QME_Report_Unknown_20250916_221526.docx",
+        "improvement": 0.05,
+        "status": "improved"
+      },
+      {
+        "template": "QME_Report_John Doe_20250916_221527.docx",
+        "improvement": 0.05,
+        "status": "improved"
+      },
+      {
+        "template": "QME_Report_John Doe_20250916_221526.docx",
+        "improvement": 0.05,
+        "status": "improved"
+      },
+      {
+        "template": "QME_Report_John Doe_20250916_221441.docx",
+        "improvement": 0.05,
+        "status": "improved"
+      },
+      {
+        "template": "QME_Report_20250916_225531.docx",
+        "improvement": 0.05,
+        "status": "improved"
+      }
+    ]
+  },
+  "performance_analysis": {
+    "time_window_hours": 1,
+    "summary_timestamp": "2025-09-17T09:38:05.091463",
+    "processing_metrics": {
+      "total_documents": 1,
+      "avg_processing_time": 0.0002589225769042969,
+      "min_processing_time": 0.0002589225769042969,
+      "max_processing_time": 0.0002589225769042969,
+      "documents_over_threshold": 0
+    },
+    "resource_metrics": {
+      "avg_cpu_usage": 0.0,
+      "max_cpu_usage": 0.0,
+      "avg_memory_usage": 59.3,
+      "max_memory_usage": 59.3,
+      "resource_alerts": 0
+    },
+    "error_metrics": {
+      "total_errors": 0,
+      "errors_by_type": {},
+      "errors_by_severity": {},
+      "errors_by_component": {},
+      "error_rate": 0.0
+    },
+    "session_metrics": {
+      "active_sessions": 0,
+      "completed_sessions": 1
+    }
+  },
+  "final_assessment": {
+    "status": "needs_improvement",
+    "overall_score": 0.0,
+    "success_rate": 0.0,
+    "average_quality_score": 0,
+    "average_compliance_rate": 0,
+    "recommendations": [
+      "Overall success rate is below 80% - investigate pipeline failures",
+      "Average quality score (0.000) below threshold - review extraction and validation",
+      "Compliance rate (0.000) below threshold - review AMA/QME requirements"
+    ],
+    "system_ready_for_production": false,
+    "assessment_timestamp": "2025-09-17T09:38:05.091473"
+  },
+  "end_time": "2025-09-17T09:38:06.095989"
+}

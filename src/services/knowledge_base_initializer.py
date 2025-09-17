@@ -195,6 +195,23 @@ class KnowledgeBaseInitializer:
                 system_ready=False
             )
 
+    async def _is_document_already_processed(self, doc_path: str) -> bool:
+        """Check if document is already processed."""
+        try:
+            # Simple check based on document existence in repository
+            documents = self.doc_repository.get_all_documents()
+            doc_name = Path(doc_path).name
+            
+            for doc in documents:
+                if doc.filename == doc_name:
+                    return True
+            
+            return False
+            
+        except Exception as e:
+            logger.error(f"Error checking if document is processed: {e}")
+            return False
+
     async def _process_canonical_documents(self) -> Dict[str, Any]:
         """Process canonical documents."""
         processed = []
@@ -1024,6 +1041,475 @@ class KnowledgeBaseInitializer:
             logger.warning(f"Error checking if document is processed: {e}")
             return False
     
+    async def run_pre_initialization_checks(self) -> Dict[str, Any]:
+        """Run comprehensive pre-initialization checks for canonical document availability and system readiness."""
+        logger.info("Running pre-initialization checks...")
+        
+        errors = []
+        warnings = []
+        recommendations = []
+        
+        # Check 1: Canonical document availability
+        print("   📚 Checking canonical document availability...")
+        missing_docs = []
+        for doc_path in self.canonical_documents:
+            if not Path(doc_path).exists():
+                missing_docs.append(doc_path)
+        
+        if missing_docs:
+            errors.append(f"Missing canonical documents: {', '.join(missing_docs)}")
+            recommendations.append("Place missing canonical documents in the project root directory")
+        else:
+            print("   ✅ All canonical documents found")
+        
+        # Check 2: QME reference files availability
+        print("   ⚖️  Checking QME reference files...")
+        missing_refs = []
+        for ref_file in self.qme_reference_files:
+            if not Path(ref_file).exists():
+                missing_refs.append(ref_file)
+        
+        if missing_refs:
+            warnings.append(f"Missing QME reference files: {', '.join(missing_refs)}")
+            recommendations.append("Ensure QME reference pattern files exist in data/qme_references/")
+        else:
+            print("   ✅ All QME reference files found")
+        
+        # Check 3: AMA Guidelines files availability
+        print("   📊 Checking AMA Guidelines files...")
+        missing_ama = []
+        for ama_file in self.ama_guideline_files:
+            if not Path(ama_file).exists():
+                missing_ama.append(ama_file)
+        
+        if missing_ama:
+            warnings.append(f"Missing AMA Guidelines files: {', '.join(missing_ama)}")
+            recommendations.append("Ensure AMA Guidelines files exist in data/ama_guidelines/")
+        else:
+            print("   ✅ All AMA Guidelines files found")
+        
+        # Check 4: Database connectivity
+        print("   🗄️  Checking database connectivity...")
+        try:
+            # Test database connection
+            self.db_manager.get_connection()
+            print("   ✅ Database connection successful")
+        except Exception as e:
+            errors.append(f"Database connection failed: {e}")
+            recommendations.append("Check database configuration and permissions")
+        
+        # Check 5: Required directories
+        print("   📁 Checking required directories...")
+        required_dirs = ['data', 'data/database', 'data/qme_references', 'data/ama_guidelines', 'logs']
+        for dir_path in required_dirs:
+            if not Path(dir_path).exists():
+                warnings.append(f"Missing directory: {dir_path}")
+                recommendations.append(f"Create directory: {dir_path}")
+                # Create the directory
+                Path(dir_path).mkdir(parents=True, exist_ok=True)
+                print(f"   📁 Created directory: {dir_path}")
+        
+        print("   ✅ Directory structure verified")
+        
+        # Check 6: System resources
+        print("   💾 Checking system resources...")
+        try:
+            import psutil
+            
+            # Check available memory
+            memory = psutil.virtual_memory()
+            if memory.available < 1024 * 1024 * 1024:  # Less than 1GB
+                warnings.append("Low available memory (< 1GB)")
+                recommendations.append("Close other applications to free up memory")
+            
+            # Check available disk space
+            disk = psutil.disk_usage('.')
+            if disk.free < 5 * 1024 * 1024 * 1024:  # Less than 5GB
+                warnings.append("Low disk space (< 5GB)")
+                recommendations.append("Free up disk space before initialization")
+            
+            print("   ✅ System resources checked")
+        except ImportError:
+            warnings.append("psutil not available for system resource checking")
+            recommendations.append("Install psutil for better system monitoring")
+        
+        success = len(errors) == 0
+        
+        return {
+            'success': success,
+            'errors': errors,
+            'warnings': warnings,
+            'recommendations': recommendations
+        }
+
+    async def initialize_complete_knowledge_base_with_progress(self) -> InitializationResult:
+        """Complete knowledge base initialization with real-time progress tracking."""
+        logger.info("Starting complete knowledge base initialization with progress tracking...")
+        
+        start_time = asyncio.get_event_loop().time()
+        processed_docs = []
+        failed_docs = []
+        error_messages = []
+        
+        # Define progress stages
+        total_stages = 6
+        current_stage = 0
+        
+        def update_progress(stage_name: str, percentage: float = None):
+            nonlocal current_stage
+            current_stage += 1
+            if percentage is not None:
+                print(f"   [{current_stage}/{total_stages}] {stage_name} - {percentage:.1f}% complete")
+            else:
+                print(f"   [{current_stage}/{total_stages}] {stage_name}...")
+        
+        try:
+            # Stage 1: Process canonical documents
+            update_progress("Processing canonical documents")
+            doc_result = await self._process_canonical_documents_with_progress()
+            processed_docs.extend(doc_result['processed'])
+            failed_docs.extend(doc_result['failed'])
+            error_messages.extend(doc_result['errors'])
+            
+            # Stage 2: Load AMA Guidelines
+            update_progress("Loading AMA Guidelines tables and chapters")
+            ama_result = await self._load_ama_guidelines()
+            if not ama_result['success']:
+                error_messages.extend(ama_result['errors'])
+            
+            # Stage 3: Load QME reference patterns
+            update_progress("Loading QME reference patterns")
+            qme_result = await self._load_qme_reference_patterns()
+            if not qme_result['success']:
+                error_messages.extend(qme_result['errors'])
+            
+            # Stage 4: Create structured entities
+            update_progress("Creating structured entities")
+            entity_result = await self._create_structured_entities()
+            if not entity_result['success']:
+                error_messages.extend(entity_result['errors'])
+            
+            # Stage 5: Create mock entities for validation
+            update_progress("Creating validation entities")
+            mock_result = await self._create_mock_medical_entities()
+            if not mock_result['success']:
+                error_messages.extend(mock_result['errors'])
+            
+            # Stage 6: Final validation
+            update_progress("Running validation checks")
+            validation_result = await self._validate_complete_initialization()
+            
+            total_time = asyncio.get_event_loop().time() - start_time
+            
+            # Get final statistics
+            node_count = self.kg_repository.get_node_count()
+            relationship_count = self.kg_repository.get_relationship_count()
+            entity_types = set(self.kg_repository.get_node_types_count().keys())
+            
+            success = (len(failed_docs) == 0 and 
+                      validation_result.overall_valid and
+                      node_count >= self.min_node_count and
+                      relationship_count >= self.min_relationship_count)
+            
+            print(f"   ✅ Initialization completed in {total_time:.2f} seconds")
+            print(f"   📊 Created {node_count} nodes and {relationship_count} relationships")
+            
+            return InitializationResult(
+                success=success,
+                processed_documents=processed_docs,
+                failed_documents=failed_docs,
+                total_processing_time=total_time,
+                error_messages=error_messages,
+                node_count=node_count,
+                relationship_count=relationship_count,
+                entity_types=entity_types,
+                ama_tables_loaded=ama_result.get('tables_loaded', 0),
+                legal_patterns_loaded=qme_result.get('patterns_loaded', 0),
+                validation_passed=validation_result.overall_valid,
+                system_ready=success
+            )
+            
+        except Exception as e:
+            total_time = asyncio.get_event_loop().time() - start_time
+            error_msg = f"Critical error during initialization: {str(e)}"
+            error_messages.append(error_msg)
+            logger.error(error_msg, exc_info=True)
+            
+            return InitializationResult(
+                success=False,
+                processed_documents=processed_docs,
+                failed_documents=failed_docs,
+                total_processing_time=total_time,
+                error_messages=error_messages,
+                system_ready=False
+            )
+
+    async def _process_canonical_documents_with_progress(self) -> Dict[str, Any]:
+        """Process canonical documents with progress reporting."""
+        processed = []
+        failed = []
+        errors = []
+        
+        total_docs = len(self.canonical_documents)
+        
+        for i, doc_path in enumerate(self.canonical_documents):
+            progress = ((i + 1) / total_docs) * 100
+            print(f"      📄 Processing {doc_path} ({i+1}/{total_docs}) - {progress:.1f}%")
+            
+            try:
+                # Check if document exists
+                if not Path(doc_path).exists():
+                    logger.warning(f"Canonical document not found: {doc_path}")
+                    failed.append(doc_path)
+                    errors.append(f"File not found: {doc_path}")
+                    continue
+                
+                # Check if document is already processed
+                if await self._is_document_already_processed(doc_path):
+                    logger.info(f"Document already processed, skipping: {doc_path}")
+                    processed.append(doc_path)
+                    continue
+                
+                # Process the document
+                result = await self.pipeline.process_document(doc_path)
+                
+                if result.success:
+                    processed.append(doc_path)
+                    print(f"      ✅ Successfully processed: {doc_path}")
+                else:
+                    failed.append(doc_path)
+                    error_msg = f"Failed to process {doc_path}: {result.error_message}"
+                    errors.append(error_msg)
+                    print(f"      ❌ Failed: {doc_path}")
+                    
+            except Exception as e:
+                failed.append(doc_path)
+                error_msg = f"Exception processing {doc_path}: {str(e)}"
+                errors.append(error_msg)
+                print(f"      ❌ Exception: {doc_path}")
+                logger.error(error_msg, exc_info=True)
+        
+        return {
+            'processed': processed,
+            'failed': failed,
+            'errors': errors
+        }
+
+    async def run_post_initialization_validation_tests(self) -> Dict[str, Any]:
+        """Run comprehensive post-initialization validation tests."""
+        logger.info("Running post-initialization validation tests...")
+        
+        errors = []
+        warnings = []
+        tests_passed = 0
+        total_tests = 6
+        
+        # Test 1: Extraction patterns accessibility
+        print("   🔍 Testing extraction patterns accessibility...")
+        try:
+            # Check if legal patterns are accessible
+            legal_patterns = self.kg_repository.get_nodes_by_type('legal_pattern')
+            if len(legal_patterns) > 0:
+                print(f"      ✅ Found {len(legal_patterns)} legal extraction patterns")
+                tests_passed += 1
+            else:
+                errors.append("No legal extraction patterns found in knowledge graph")
+        except Exception as e:
+            errors.append(f"Failed to access legal extraction patterns: {e}")
+        
+        # Test 2: AMA calculation tables accessibility
+        print("   📊 Testing AMA calculation tables accessibility...")
+        try:
+            ama_tables = self.kg_repository.get_nodes_by_type('ama_table')
+            if len(ama_tables) > 0:
+                print(f"      ✅ Found {len(ama_tables)} AMA calculation tables")
+                tests_passed += 1
+            else:
+                errors.append("No AMA calculation tables found in knowledge graph")
+        except Exception as e:
+            errors.append(f"Failed to access AMA calculation tables: {e}")
+        
+        # Test 3: Legal templates accessibility
+        print("   ⚖️  Testing legal templates accessibility...")
+        try:
+            legal_requirements = self.kg_repository.get_nodes_by_type('legal_requirement')
+            if len(legal_requirements) > 0:
+                print(f"      ✅ Found {len(legal_requirements)} legal requirements")
+                tests_passed += 1
+            else:
+                warnings.append("No legal requirements found in knowledge graph")
+        except Exception as e:
+            errors.append(f"Failed to access legal requirements: {e}")
+        
+        # Test 4: Knowledge graph query performance
+        print("   ⚡ Testing knowledge graph query performance...")
+        try:
+            import time
+            start_time = time.time()
+            
+            # Test basic queries
+            node_count = self.kg_repository.get_node_count()
+            relationship_count = self.kg_repository.get_relationship_count()
+            node_types = self.kg_repository.get_node_types_count()
+            
+            query_time = (time.time() - start_time) * 1000  # Convert to milliseconds
+            
+            if query_time < 500:  # Less than 500ms
+                print(f"      ✅ Query performance: {query_time:.2f}ms (target: <500ms)")
+                tests_passed += 1
+            else:
+                warnings.append(f"Slow query performance: {query_time:.2f}ms (target: <500ms)")
+        except Exception as e:
+            errors.append(f"Failed to test query performance: {e}")
+        
+        # Test 5: Entity relationship integrity
+        print("   🔗 Testing entity relationship integrity...")
+        try:
+            # Check for orphaned nodes (nodes without relationships)
+            all_nodes = self.kg_repository.get_all_nodes()
+            nodes_with_relationships = set()
+            
+            # Get all relationships and track connected nodes
+            all_relationships = self.kg_repository.get_all_relationships()
+            for rel in all_relationships:
+                nodes_with_relationships.add(rel.source_node_id)
+                nodes_with_relationships.add(rel.target_node_id)
+            
+            orphaned_nodes = len(all_nodes) - len(nodes_with_relationships)
+            orphan_percentage = (orphaned_nodes / len(all_nodes)) * 100 if all_nodes else 0
+            
+            if orphan_percentage < 50:  # Less than 50% orphaned nodes
+                print(f"      ✅ Entity integrity: {orphan_percentage:.1f}% orphaned nodes (target: <50%)")
+                tests_passed += 1
+            else:
+                warnings.append(f"High orphaned node percentage: {orphan_percentage:.1f}% (target: <50%)")
+        except Exception as e:
+            errors.append(f"Failed to test entity relationship integrity: {e}")
+        
+        # Test 6: Required entity types presence
+        print("   📋 Testing required entity types presence...")
+        try:
+            node_types = set(self.kg_repository.get_node_types_count().keys())
+            missing_types = self.required_entity_types - node_types
+            
+            if len(missing_types) == 0:
+                print(f"      ✅ All required entity types present: {len(node_types)} types")
+                tests_passed += 1
+            else:
+                errors.append(f"Missing required entity types: {', '.join(missing_types)}")
+        except Exception as e:
+            errors.append(f"Failed to test required entity types: {e}")
+        
+        success = len(errors) == 0 and tests_passed >= (total_tests - 1)  # Allow 1 test to fail
+        
+        print(f"   📊 Validation Results: {tests_passed}/{total_tests} tests passed")
+        
+        return {
+            'success': success,
+            'tests_passed': tests_passed,
+            'total_tests': total_tests,
+            'errors': errors,
+            'warnings': warnings
+        }
+
+    async def verify_system_readiness(self) -> Dict[str, Any]:
+        """Verify complete system readiness for evidence-first QME processing."""
+        logger.info("Verifying system readiness...")
+        
+        issues = []
+        recommendations = []
+        readiness_checks = 0
+        total_checks = 5
+        
+        # Check 1: Knowledge graph completeness
+        print("   📊 Checking knowledge graph completeness...")
+        try:
+            node_count = self.kg_repository.get_node_count()
+            relationship_count = self.kg_repository.get_relationship_count()
+            
+            if node_count >= self.min_node_count and relationship_count >= self.min_relationship_count:
+                print(f"      ✅ Knowledge graph: {node_count} nodes, {relationship_count} relationships")
+                readiness_checks += 1
+            else:
+                issues.append(f"Insufficient knowledge graph size: {node_count} nodes (min: {self.min_node_count}), {relationship_count} relationships (min: {self.min_relationship_count})")
+                recommendations.append("Process more canonical documents or run initialization again")
+        except Exception as e:
+            issues.append(f"Failed to check knowledge graph completeness: {e}")
+        
+        # Check 2: AMA Guidelines availability
+        print("   📋 Checking AMA Guidelines availability...")
+        try:
+            ama_tables = self.kg_repository.get_nodes_by_type('ama_table')
+            if len(ama_tables) > 0:
+                print(f"      ✅ AMA Guidelines: {len(ama_tables)} tables available")
+                readiness_checks += 1
+            else:
+                issues.append("No AMA Guidelines tables available for programmatic calculations")
+                recommendations.append("Ensure AMA Guidelines files are processed correctly")
+        except Exception as e:
+            issues.append(f"Failed to check AMA Guidelines: {e}")
+        
+        # Check 3: Legal patterns availability
+        print("   ⚖️  Checking legal patterns availability...")
+        try:
+            legal_patterns = self.kg_repository.get_nodes_by_type('legal_pattern')
+            legal_requirements = self.kg_repository.get_nodes_by_type('legal_requirement')
+            
+            if len(legal_patterns) > 0 or len(legal_requirements) > 0:
+                print(f"      ✅ Legal patterns: {len(legal_patterns)} patterns, {len(legal_requirements)} requirements")
+                readiness_checks += 1
+            else:
+                issues.append("No legal patterns or requirements available for compliance validation")
+                recommendations.append("Ensure QME reference pattern files are loaded correctly")
+        except Exception as e:
+            issues.append(f"Failed to check legal patterns: {e}")
+        
+        # Check 4: Document processing capability
+        print("   📄 Checking document processing capability...")
+        try:
+            # Test if ingestion pipeline is functional
+            if self.pipeline:
+                print("      ✅ Document processing pipeline is ready")
+                readiness_checks += 1
+            else:
+                issues.append("Document processing pipeline is not available")
+                recommendations.append("Restart the system to reinitialize the processing pipeline")
+        except Exception as e:
+            issues.append(f"Failed to check document processing capability: {e}")
+        
+        # Check 5: Database performance
+        print("   🗄️  Checking database performance...")
+        try:
+            import time
+            start_time = time.time()
+            
+            # Test database operations
+            self.kg_repository.get_node_count()
+            self.doc_repository.get_all_documents()
+            
+            db_time = (time.time() - start_time) * 1000
+            
+            if db_time < 1000:  # Less than 1 second
+                print(f"      ✅ Database performance: {db_time:.2f}ms")
+                readiness_checks += 1
+            else:
+                issues.append(f"Slow database performance: {db_time:.2f}ms")
+                recommendations.append("Consider database optimization or system resources")
+        except Exception as e:
+            issues.append(f"Failed to check database performance: {e}")
+        
+        ready = len(issues) == 0 and readiness_checks >= (total_checks - 1)  # Allow 1 check to fail
+        
+        print(f"   🎯 System Readiness: {readiness_checks}/{total_checks} checks passed")
+        
+        return {
+            'ready': ready,
+            'checks_passed': readiness_checks,
+            'total_checks': total_checks,
+            'issues': issues,
+            'recommendations': recommendations
+        }
+
     async def initialize_directory_monitoring(self, directory: str = "data/documents") -> None:
         """Initialize monitoring of documents directory for new files."""
         logger.info(f"Starting directory monitoring for: {directory}")
@@ -1229,15 +1715,73 @@ async def initialize_system_startup(config: AppConfig, ingestion_pipeline: Inges
     )
 
 async def initialize_complete_system_for_option_2(config: AppConfig, ingestion_pipeline: IngestionPipeline) -> InitializationResult:
-    """Complete system initialization for run script option 2."""
-    logger.info("Starting complete system initialization for option 2...")
+    """Complete system initialization for run script option 2 with enhanced validation and progress tracking."""
+    logger.info("Starting enhanced complete system initialization for option 2...")
     
     initializer = KnowledgeBaseInitializer(config, ingestion_pipeline)
     
-    # Run complete initialization
-    result = await initializer.initialize_complete_knowledge_base()
+    # Step 1: Pre-initialization checks
+    print("🔍 Step 1/5: Running pre-initialization checks...")
+    pre_check_result = await initializer.run_pre_initialization_checks()
+    if not pre_check_result['success']:
+        print("❌ Pre-initialization checks failed!")
+        for error in pre_check_result['errors']:
+            print(f"   • {error}")
+        print("\n💡 Remediation recommendations:")
+        for rec in pre_check_result['recommendations']:
+            print(f"   • {rec}")
+        
+        return InitializationResult(
+            success=False,
+            processed_documents=[],
+            failed_documents=[],
+            total_processing_time=0.0,
+            error_messages=pre_check_result['errors'],
+            system_ready=False
+        )
     
-    # Initialize directory monitoring
-    await initializer.initialize_directory_monitoring()
+    print("✅ Pre-initialization checks passed!")
+    
+    # Step 2: Run complete initialization with progress tracking
+    print("\n🚀 Step 2/5: Running complete knowledge base initialization...")
+    result = await initializer.initialize_complete_knowledge_base_with_progress()
+    
+    # Step 3: Post-initialization validation tests
+    print("\n🧪 Step 3/5: Running post-initialization validation tests...")
+    validation_result = await initializer.run_post_initialization_validation_tests()
+    
+    # Update result with validation information
+    result.validation_passed = validation_result['success']
+    if not validation_result['success']:
+        result.error_messages.extend(validation_result['errors'])
+        print("⚠️  Some validation tests failed:")
+        for error in validation_result['errors']:
+            print(f"   • {error}")
+    else:
+        print("✅ All validation tests passed!")
+    
+    # Step 4: Initialize directory monitoring
+    print("\n📁 Step 4/5: Initializing directory monitoring...")
+    try:
+        await initializer.initialize_directory_monitoring()
+        print("✅ Directory monitoring initialized!")
+    except Exception as e:
+        print(f"⚠️  Directory monitoring setup failed: {e}")
+        result.error_messages.append(f"Directory monitoring failed: {e}")
+    
+    # Step 5: Final system readiness check
+    print("\n🎯 Step 5/5: Final system readiness verification...")
+    readiness_result = await initializer.verify_system_readiness()
+    result.system_ready = readiness_result['ready']
+    
+    if readiness_result['ready']:
+        print("🎉 System is fully ready for evidence-first QME processing!")
+    else:
+        print("⚠️  System has some limitations:")
+        for issue in readiness_result['issues']:
+            print(f"   • {issue}")
+        print("\n💡 Recommendations:")
+        for rec in readiness_result['recommendations']:
+            print(f"   • {rec}")
     
     return result

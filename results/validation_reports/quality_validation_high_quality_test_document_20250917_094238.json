@@ -1,0 +1,66 @@
+{
+  "document_id": "high_quality_test_document",
+  "overall_score": 0.9746875,
+  "weighted_score": 0.969625,
+  "metrics": [
+    {
+      "name": "completeness",
+      "score": 1.0,
+      "weight": 0.25,
+      "details": "Completed 8/8 required fields",
+      "issues": [],
+      "suggestions": []
+    },
+    {
+      "name": "accuracy",
+      "score": 0.89875,
+      "weight": 0.3,
+      "details": "Average confidence: 0.90, 0 low-confidence fields",
+      "issues": [],
+      "suggestions": []
+    },
+    {
+      "name": "consistency",
+      "score": 1.0,
+      "weight": 0.2,
+      "details": "Passed 3/3 consistency checks",
+      "issues": [],
+      "suggestions": []
+    },
+    {
+      "name": "compliance",
+      "score": 1.0,
+      "weight": 0.25,
+      "details": "Passed 3/3 compliance checks",
+      "issues": [],
+      "suggestions": []
+    }
+  ],
+  "compliance_checks": [
+    {
+      "rule_name": "ama_guidelines",
+      "passed": true,
+      "severity": "critical",
+      "message": "AMA Guidelines compliance check passed",
+      "reference": "AMA Guides 5th Edition"
+    },
+    {
+      "rule_name": "qme_standards",
+      "passed": true,
+      "severity": "critical",
+      "message": "QME Standards compliance check passed",
+      "reference": "California QME Regulations"
+    },
+    {
+      "rule_name": "data_completeness",
+      "passed": true,
+      "severity": "critical",
+      "message": "Data completeness: 100.0% (8/8 fields)",
+      "reference": null
+    }
+  ],
+  "processing_time": 0.000111,
+  "timestamp": "2025-09-17T09:42:38.990979",
+  "validation_version": "1.0.0",
+  "recommendations": []
+}

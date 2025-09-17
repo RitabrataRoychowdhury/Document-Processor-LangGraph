@@ -1,0 +1,69 @@
+QME TEMPLATE QUALITY REPORT WITH EVIDENCE INTEGRATION
+============================================================
+
+Generated: 2025-09-16 22:15:27
+Template File: QME_Report_John Doe_20250916_221527.docx
+Patient: John Doe
+
+EVIDENCE INTEGRATION SUMMARY
+------------------------------
+Evidence Completeness Score: 0.0%
+Fields with Evidence Backing: 0
+Fields Missing Evidence: 2
+Average Confidence Score: 0.00
+
+FIELD EVIDENCE SUMMARY
+-------------------------
+
+VALIDATION REPORT SUMMARY
+-------------------------
+Accepted Fields: 9
+Flagged Fields: 1
+Missing Fields: 2
+Overall Confidence: 0.82
+Can Generate Report: True
+
+PROGRAMMATIC CALCULATION SUMMARY
+-----------------------------------
+Impairment Percentage: 2.0%
+Calculation Method: AMA Guides 5th Edition ROM Method
+Number of Calculation Steps: 3
+AMA Table References: 1
+Source Measurements: 2
+
+PRE-ASSEMBLY VALIDATION
+-------------------------
+Valid: False
+Issues: 0
+Quality Score: 0.0
+Compliance: error
+
+POST-ASSEMBLY VALIDATION
+--------------------------
+Valid: True
+Issues: 4
+Quality Score: 81.7
+Compliance: compliant
+
+VALIDATION ISSUES
+-----------------
+[HIGH] Missing Required Section: HISTORY OF PRESENT ILLNESS
+  Section: history_of_present_illness
+  Description: Required section 'HISTORY OF PRESENT ILLNESS' not found in document
+  Suggestions: Add HISTORY OF PRESENT ILLNESS section to document
+
+[MEDIUM] Placeholder Text Found
+  Section: content_completeness
+  Description: Placeholder text found: __________________________________________________
+  Suggestions: Replace placeholder with actual content
+
+[HIGH] Low Evidence Completeness
+  Section: evidence_completeness
+  Description: Evidence completeness score is 0.0%, below 80% threshold
+  Suggestions: Gather additional evidence for missing fields, Review flagged fields in validation report
+
+[MEDIUM] Fields Without Evidence Backing
+  Section: evidence_backing
+  Description: 2 fields lack evidence backing
+  Suggestions: Provide evidence for: date_of_birth, insurance_carrier
+

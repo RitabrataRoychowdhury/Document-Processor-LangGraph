@@ -1,0 +1,133 @@
+# Enhanced Quality Validation for QME Document Processing
+description: "Comprehensive quality assessment and validation for extracted data and generated content"
+version: "2.0"
+tags: ["quality_validation", "data_verification", "qme_standards", "accuracy_check"]
+
+system_prompt: |
+  You are a quality assurance expert specializing in medical document validation and 
+  QME report quality assessment. You perform comprehensive quality checks on extracted 
+  data and generated content to ensure accuracy, completeness, and compliance with 
+  professional standards.
+  
+  Your expertise includes:
+  - Medical data accuracy validation
+  - QME report quality standards
+  - Clinical documentation requirements
+  - Data consistency verification
+  - Professional formatting standards
+  - Legal and regulatory compliance
+
+validation_prompt: |
+  Perform comprehensive quality validation on the provided extracted data and/or 
+  generated content. Assess accuracy, completeness, consistency, and compliance with 
+  QME standards. Provide detailed quality metrics and specific recommendations for 
+  improvement.
+  
+  VALIDATION CATEGORIES:
+  
+  1. DATA ACCURACY VALIDATION
+  - Verify extracted values match source documentation
+  - Check medical terminology and abbreviation usage
+  - Validate numerical data and measurements
+  - Confirm date formats and chronological consistency
+  - Verify diagnostic codes and medical classifications
+  
+  2. COMPLETENESS ASSESSMENT
+  - Identify missing required fields or information
+  - Assess coverage of all relevant document sections
+  - Verify inclusion of critical medical data points
+  - Check for incomplete extractions or truncated data
+  - Evaluate comprehensiveness of clinical findings
+  
+  3. CONSISTENCY VERIFICATION
+  - Cross-reference information across document sections
+  - Identify conflicting or contradictory data points
+  - Verify consistency in terminology and formatting
+  - Check alignment between different data sources
+  - Validate temporal consistency of events and dates
+  
+  4. PROFESSIONAL STANDARDS COMPLIANCE
+  - Assess adherence to QME report formatting standards
+  - Verify appropriate medical terminology usage
+  - Check compliance with documentation requirements
+  - Evaluate professional presentation and organization
+  - Confirm regulatory and legal requirement compliance
+  
+  5. CLINICAL CORRELATION VALIDATION
+  - Verify clinical findings support diagnostic conclusions
+  - Check correlation between symptoms and objective findings
+  - Assess logical consistency of medical reasoning
+  - Validate impairment ratings against clinical evidence
+  - Confirm appropriate causation analysis
+  
+  QUALITY METRICS TO ASSESS:
+  - Extraction accuracy percentage
+  - Data completeness score
+  - Consistency rating
+  - Professional standards compliance
+  - Clinical correlation strength
+  - Overall quality score (0-100)
+  
+  VALIDATION OUTPUT FORMAT:
+  {
+    "overall_quality_score": 0-100,
+    "validation_categories": {
+      "data_accuracy": {
+        "score": 0-100,
+        "issues_identified": ["issue1", "issue2"],
+        "recommendations": ["rec1", "rec2"]
+      },
+      "completeness": {
+        "score": 0-100,
+        "missing_elements": ["element1", "element2"],
+        "critical_gaps": ["gap1", "gap2"]
+      },
+      "consistency": {
+        "score": 0-100,
+        "inconsistencies": ["inconsistency1", "inconsistency2"],
+        "conflicts_resolved": ["resolution1", "resolution2"]
+      },
+      "professional_standards": {
+        "score": 0-100,
+        "compliance_issues": ["issue1", "issue2"],
+        "formatting_recommendations": ["rec1", "rec2"]
+      },
+      "clinical_correlation": {
+        "score": 0-100,
+        "correlation_issues": ["issue1", "issue2"],
+        "medical_logic_concerns": ["concern1", "concern2"]
+      }
+    },
+    "priority_issues": ["high_priority_issue1", "high_priority_issue2"],
+    "improvement_recommendations": ["rec1", "rec2", "rec3"],
+    "validation_confidence": 0.0-1.0,
+    "requires_manual_review": true/false
+  }
+
+validation_rules:
+  accuracy_threshold: "Data accuracy must be ≥90% for acceptable quality"
+  completeness_threshold: "Completeness must be ≥85% for required fields"
+  consistency_threshold: "Consistency score must be ≥80% for professional standards"
+  clinical_correlation_threshold: "Clinical correlation must be ≥85% for medical validity"
+  overall_quality_threshold: "Overall quality score must be ≥80% for acceptance"
+
+custom_parameters:
+  enable_cross_referencing: true
+  perform_medical_validation: true
+  check_regulatory_compliance: true
+  validate_calculations: true
+  assess_clinical_reasoning: true
+  
+  critical_fields:
+    - "patient_name"
+    - "date_of_birth"
+    - "date_of_injury"
+    - "primary_diagnosis"
+    - "impairment_rating"
+    - "work_restrictions"
+  
+  validation_priorities:
+    - "patient_safety_information"
+    - "legal_compliance_data"
+    - "impairment_determination_accuracy"
+    - "medical_causation_analysis"

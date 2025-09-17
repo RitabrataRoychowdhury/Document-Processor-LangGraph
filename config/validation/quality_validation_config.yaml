@@ -1,0 +1,32 @@
+quality_metrics:
+  completeness:
+    weight: 0.25
+    threshold: 0.8
+  accuracy:
+    weight: 0.30
+    threshold: 0.85
+  consistency:
+    weight: 0.20
+    threshold: 0.75
+  compliance:
+    weight: 0.25
+    threshold: 0.90
+
+compliance_rules:
+  ama_guidelines:
+    severity: "critical"
+    enabled: true
+  qme_standards:
+    severity: "critical"
+    enabled: true
+  formatting_rules:
+    severity: "warning"
+    enabled: true
+  data_completeness:
+    severity: "critical"
+    enabled: true
+
+thresholds:
+  minimum_overall_score: 0.75
+  critical_compliance_required: true
+  warning_threshold: 0.65
