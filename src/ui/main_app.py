@@ -1117,9 +1117,9 @@ def render_knowledge_base_setup_page():
     
     # Check status of canonical documents
     try:
-        from src.core.extraction.document_processor import get_document_status, list_processed_documents
+        from src.core.extraction.document_processor import get_document_status_sync, list_processed_documents_sync
         
-        processed_docs = list_processed_documents()
+        processed_docs = list_processed_documents_sync()
         processed_names = [doc['title'] for doc in processed_docs]
         
         st.subheader("📊 Document Status")

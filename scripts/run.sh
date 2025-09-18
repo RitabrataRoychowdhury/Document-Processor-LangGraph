@@ -298,8 +298,8 @@ except Exception as e:
 import sys
 import asyncio
 sys.path.append('.')
-from src.services.knowledge_base_initializer import initialize_complete_system_for_option_2
-from src.services.ingestion_pipeline import IngestionPipeline
+from src.infrastructure.knowledge.knowledge_base_initializer import initialize_complete_system_for_option_2
+from src.core.extraction.ingestion_pipeline import IngestionPipeline
 from src.config.app_config import AppConfig
 
 async def main():
@@ -308,7 +308,7 @@ async def main():
         config = AppConfig.from_env()
         
         print('🔧 Setting up ingestion pipeline...')
-        from src.services.ingestion_pipeline_factory import IngestionPipelineFactory
+        from src.core.extraction.ingestion_pipeline_factory import IngestionPipelineFactory
         pipeline = IngestionPipelineFactory.create_default_pipeline()
         
         print('\\n🚀 Starting enhanced complete knowledge base initialization...')

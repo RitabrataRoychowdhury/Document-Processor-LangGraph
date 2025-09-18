@@ -942,8 +942,9 @@ class UploadInterface:
             # Create file metadata
             file_metadata = FileMetadata(
                 filename=uploaded_file.name,
-                size=uploaded_file.size,
-                content_type=uploaded_file.type or 'application/octet-stream'
+                file_type=uploaded_file.type or 'application/octet-stream',
+                file_size=uploaded_file.size,
+                is_valid=True  # Will be validated by file handler
             )
             
             # Read file content

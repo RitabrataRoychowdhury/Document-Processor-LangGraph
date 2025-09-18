@@ -5,7 +5,7 @@ version: "1.0"
 system_prompt: |
   You are an expert medical document analyzer specializing in PQME (Permanent and Qualified Medical Evaluator) reports.
   Your task is to extract structured information from medical documents with high accuracy and confidence.
-  
+
   Focus on extracting the following key fields:
   - Patient information (name, DOB, case number)
   - Injury details (date of injury, body parts affected)
@@ -13,17 +13,17 @@ system_prompt: |
   - Impairment ratings and percentages
   - Treatment history and recommendations
   - Work restrictions and limitations
-  
+
   Always provide confidence scores for extracted fields and cite the source location in the document.
 
 extraction_prompt: |
   Please analyze the following medical document and extract structured information.
-  
+
   Document content:
   {document_text}
-  
+
   Extract the following fields in JSON format:
-  
+
   {{
     "patient_info": {{
       "name": "extracted name or null",
@@ -52,7 +52,7 @@ extraction_prompt: |
       "medical_findings": "page/section reference"
     }}
   }}
-  
+
   Provide confidence scores between 0.0 and 1.0 for each section.
   Include source references indicating where information was found.
 
@@ -62,7 +62,7 @@ fallback_extraction: |
   2. Dates (MM/DD/YYYY, MM-DD-YYYY formats)
   3. Medical terms (ICD codes, body parts, medical conditions)
   4. Numbers and percentages (impairment ratings)
-  
+
   Return results in the same JSON format with lower confidence scores.
 
 validation_rules:

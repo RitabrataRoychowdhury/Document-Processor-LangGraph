@@ -16,12 +16,12 @@ from pathlib import Path
 from dataclasses import dataclass
 from datetime import datetime
 
-from ...core.extraction.ingestion_pipeline import IngestionPipeline
-from ...config.app_config import AppConfig
-from ...storage.database import DatabaseManager
-from ...repositories.document_repository import SQLiteDocumentRepository
-from ...repositories.knowledge_graph_repository import SQLiteKnowledgeGraphRepository
-from ...models.knowledge_graph import KnowledgeNode, KnowledgeRelationship
+from src.core.extraction.ingestion_pipeline import IngestionPipeline
+from src.config.app_config import AppConfig
+from src.storage.database import DatabaseManager
+from src.repositories.document_repository import SQLiteDocumentRepository
+from src.repositories.knowledge_graph_repository import SQLiteKnowledgeGraphRepository
+from src.models.knowledge_graph import KnowledgeNode, KnowledgeRelationship
 
 logger = logging.getLogger(__name__)
 
@@ -70,11 +70,34 @@ class KnowledgeBaseInitializer:
         self.kg_repository = SQLiteKnowledgeGraphRepository(self.db_manager)
         
         # Canonical documents for evidence-first system
-        self.canonical_documents = [
+        # Check multiple locations for documents
+        self.canonical_documents = []
+        
+        # Primary canonical documents
+        canonical_docs = [
             "AMAGuides 5th Edition.pdf",
             "QME-Study-Guide.pdf", 
             "Sample3.pdf"
         ]
+        
+        # Check in data/canonical/documents first, then data/sample_documents, then root
+        for doc in canonical_docs:
+            if Path(f"data/canonical/documents/{doc}").exists():
+                self.canonical_documents.append(f"data/canonical/documents/{doc}")
+            elif Path(f"data/sample_documents/{doc}").exists():
+                self.canonical_documents.append(f"data/sample_documents/{doc}")
+            elif Path(doc).exists():
+                self.canonical_documents.append(doc)
+            else:
+                # Add the preferred path even if it doesn't exist (for error reporting)
+                self.canonical_documents.append(f"data/canonical/documents/{doc}")
+        
+        # Also include any PDF files found in data/sample_documents
+        sample_docs_dir = Path("data/sample_documents")
+        if sample_docs_dir.exists():
+            for pdf_file in sample_docs_dir.glob("*.pdf"):
+                if str(pdf_file) not in self.canonical_documents:
+                    self.canonical_documents.append(str(pdf_file))
         
         # QME reference pattern files
         self.qme_reference_files = [

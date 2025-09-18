@@ -483,3 +483,129 @@ def create_document_processor(
 ) -> DocumentProcessor:
     """Factory function to create document processor with dependencies."""
     return DocumentProcessor(config=config, **dependencies)
+
+
+# Standalone utility functions for backward compatibility
+async def get_document_status(file_path: str) -> Optional[Dict[str, Any]]:
+    """Get processing status of a document (standalone function)."""
+    try:
+        from src.config.app_config import AppConfig
+        from src.storage.database import DatabaseManager
+        
+        config = AppConfig.from_env()
+        db_manager = DatabaseManager(config.database_path)
+        
+        processor = DocumentProcessor(database_manager=db_manager)
+        return await processor.get_document_status(file_path)
+        
+    except Exception as e:
+        extraction_logger.error(
+            f"Error in standalone get_document_status: {file_path}",
+            error=e,
+            extra_data={"file_path": file_path}
+        )
+        return None
+
+
+async def list_processed_documents() -> List[Dict[str, Any]]:
+    """List all processed documents (standalone function)."""
+    try:
+        from src.config.app_config import AppConfig
+        from src.storage.database import DatabaseManager
+        
+        config = AppConfig.from_env()
+        db_manager = DatabaseManager(config.database_path)
+        
+        with db_manager.get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                SELECT id, title, file_type, file_size, processing_status, 
+                       upload_timestamp, updated_at, extracted_info
+                FROM documents 
+                ORDER BY updated_at DESC
+            """)
+            
+            rows = cursor.fetchall()
+            documents = []
+            
+            for row in rows:
+                doc_info = {
+                    'id': row[0],
+                    'title': row[1],
+                    'file_type': row[2],
+                    'file_size': row[3],
+                    'status': row[4],
+                    'uploaded': row[5],
+                    'updated': row[6]
+                }
+                
+                # Try to parse extracted info for additional details
+                if row[7]:
+                    try:
+                        extracted_info = json.loads(row[7])
+                        doc_info['file_path'] = extracted_info.get('file_path')
+                        doc_info['quality_score'] = extracted_info.get('quality_score')
+                        doc_info['extracted_fields_count'] = len(extracted_info.get('extracted_data', {}))
+                    except json.JSONDecodeError:
+                        pass
+                
+                documents.append(doc_info)
+            
+            return documents
+            
+    except Exception as e:
+        extraction_logger.error(
+            "Error listing processed documents",
+            error=e
+        )
+        return []
+
+
+def process_document_simple(file_path: str) -> bool:
+    """Simple synchronous document processing function for backward compatibility."""
+    try:
+        import asyncio
+        
+        # Create a simple processor
+        processor = DocumentProcessor()
+        
+        # Run the async processing
+        result = asyncio.run(processor.process_document(file_path))
+        
+        return result.success
+        
+    except Exception as e:
+        extraction_logger.error(
+            f"Error in simple document processing: {file_path}",
+            error=e,
+            extra_data={"file_path": file_path}
+        )
+        return False
+
+
+# Synchronous wrapper functions for Streamlit compatibility
+def get_document_status_sync(file_path: str) -> Optional[Dict[str, Any]]:
+    """Synchronous wrapper for get_document_status."""
+    try:
+        import asyncio
+        return asyncio.run(get_document_status(file_path))
+    except Exception as e:
+        extraction_logger.error(
+            f"Error in sync get_document_status: {file_path}",
+            error=e,
+            extra_data={"file_path": file_path}
+        )
+        return None
+
+
+def list_processed_documents_sync() -> List[Dict[str, Any]]:
+    """Synchronous wrapper for list_processed_documents."""
+    try:
+        import asyncio
+        return asyncio.run(list_processed_documents())
+    except Exception as e:
+        extraction_logger.error(
+            "Error in sync list_processed_documents",
+            error=e
+        )
+        return []
