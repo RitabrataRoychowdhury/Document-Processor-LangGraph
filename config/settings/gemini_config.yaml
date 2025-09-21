@@ -1,0 +1,30 @@
+# Gemini API Configuration for QME Document Extraction
+
+api:
+  model: "gemini-2.0-flash"
+  timeout: 30
+  max_retries: 3
+  retry_delay: 2
+
+extraction:
+  max_tokens: 2000
+  temperature: 0.1
+  top_p: 0.9
+  structured_output: true
+  confidence_scoring: true
+
+quality_thresholds:
+  minimum_confidence: 0.6
+  extraction_completeness: 0.7
+  field_accuracy: 0.8
+
+error_handling:
+  enable_fallback_extraction: true
+  fallback_methods:
+    - "rule_based"
+    - "pattern_matching"
+
+performance:
+  enable_monitoring: true
+  track_response_times: true
+  log_api_usage: true

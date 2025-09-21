@@ -222,3 +222,43 @@ class FileUploadHandler:
             'error_message': metadata.error_message,
             'supported_formats': self.supported_extensions
         }
+    
+    def process_file(self, uploaded_file) -> Tuple[str, Dict[str, Any], Optional[str]]:
+        """
+        Process uploaded file - extract text and metadata
+        
+        Args:
+            uploaded_file: Streamlit UploadedFile object
+            
+        Returns:
+            Tuple[str, Dict[str, Any], Optional[str]]: (extracted_text, metadata, error_message)
+        """
+        try:
+            # Get file metadata
+            metadata = self.get_file_metadata(uploaded_file)
+            
+            if not metadata['is_valid']:
+                return "", metadata, metadata.get('error_message', 'File validation failed')
+            
+            # Extract text content
+            extracted_text, error_message = self.extract_text(uploaded_file)
+            
+            if error_message:
+                return "", metadata, error_message
+            
+            # Add processing status to metadata
+            metadata['processing_complete'] = True
+            metadata['text_length'] = len(extracted_text)
+            metadata['has_content'] = bool(extracted_text.strip())
+            
+            return extracted_text, metadata, None
+            
+        except Exception as e:
+            logger.error(f"Error processing file: {str(e)}")
+            error_metadata = {
+                'filename': getattr(uploaded_file, 'name', 'unknown'),
+                'processing_complete': False,
+                'error': str(e),
+                'is_valid': False
+            }
+            return "", error_metadata, f"File processing failed: {str(e)}"

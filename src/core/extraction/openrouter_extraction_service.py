@@ -627,23 +627,55 @@ class OpenRouterExtractionService:
     ) -> Dict[str, ExtractedField]:
         """Process API response and convert to ExtractedField objects"""
         try:
-            content = response_data['choices'][0]['message']['content']
+            # Safely extract content from response
+            if not isinstance(response_data, dict):
+                logger.error(f"Invalid response_data type: {type(response_data)}")
+                raise ValueError(f"Expected dict, got {type(response_data)}")
+            
+            if 'choices' not in response_data:
+                logger.error("Missing 'choices' in response_data")
+                raise ValueError("Missing 'choices' in API response")
+            
+            if not response_data['choices'] or len(response_data['choices']) == 0:
+                logger.error("Empty choices array in response_data")
+                raise ValueError("Empty choices array in API response")
+            
+            choice = response_data['choices'][0]
+            if not isinstance(choice, dict) or 'message' not in choice:
+                logger.error(f"Invalid choice structure: {choice}")
+                raise ValueError("Invalid choice structure in API response")
+            
+            message = choice['message']
+            if not isinstance(message, dict) or 'content' not in message:
+                logger.error(f"Invalid message structure: {message}")
+                raise ValueError("Invalid message structure in API response")
+            
+            content = message['content']
+            if not isinstance(content, str):
+                logger.error(f"Invalid content type: {type(content)}")
+                content = str(content)  # Convert to string as fallback
             
             # Try to parse as JSON first
             try:
                 extracted_json = json.loads(content)
+                logger.debug(f"Parsed JSON response type: {type(extracted_json)}")
+                
                 # Ensure we have a dictionary, not a list or other type
                 if not isinstance(extracted_json, dict):
                     logger.warning(f"API returned non-dict response: {type(extracted_json)}")
-                    if isinstance(extracted_json, list) and len(extracted_json) > 0:
-                        # If it's a list, try to use the first item if it's a dict
-                        if isinstance(extracted_json[0], dict):
+                    if isinstance(extracted_json, list):
+                        if len(extracted_json) > 0 and isinstance(extracted_json[0], dict):
+                            # If it's a list with dict items, use the first dict
                             extracted_json = extracted_json[0]
                             logger.info("Using first dictionary item from list response")
-                        else:
+                        elif len(extracted_json) > 0:
                             # Convert list to dict with indexed keys
-                            extracted_json = {f"item_{i}": item for i, item in enumerate(extracted_json)}
+                            extracted_json = {f"item_{i}": str(item) for i, item in enumerate(extracted_json)}
                             logger.info("Converted list response to indexed dictionary")
+                        else:
+                            # Empty list
+                            extracted_json = {"error": "Empty list response"}
+                            logger.warning("Received empty list response")
                     else:
                         # Convert other types to a simple structure
                         extracted_json = {"raw_content": str(extracted_json)}
@@ -655,35 +687,58 @@ class OpenRouterExtractionService:
                 
             extracted_fields = {}
             
-            # Add additional safety check
+            # Final safety check - this should never fail now
             if not isinstance(extracted_json, dict):
-                logger.error(f"extracted_json is still not a dict: {type(extracted_json)}")
+                logger.error(f"extracted_json is still not a dict after conversion: {type(extracted_json)}")
+                logger.error(f"extracted_json content: {extracted_json}")
                 extracted_json = {"error": "Invalid response format", "raw_content": str(extracted_json)}
             
             try:
-                for field_name, field_value in extracted_json.items():
-                    if isinstance(field_value, dict):
-                        # Structured field with metadata
-                        extracted_fields[field_name] = ExtractedField(
-                            name=field_name,
-                            value=field_value.get('value', ''),
-                            confidence=field_value.get('confidence', 0.5),
-                            source_location=field_value.get('source_location', ''),
-                            validation_status='pending',
-                            notes=field_value.get('notes', '')
-                        )
-                    else:
-                        # Simple field value
-                        extracted_fields[field_name] = ExtractedField(
-                            name=field_name,
-                            value=str(field_value),
-                            confidence=0.8,  # Default confidence
+                # Additional safety check before iterating
+                if not isinstance(extracted_json, dict):
+                    logger.error(f"extracted_json is not a dict before iteration: {type(extracted_json)}")
+                    logger.error(f"extracted_json value: {extracted_json}")
+                    raise AttributeError(f"Cannot iterate over {type(extracted_json)}")
+                
+                # Safe iteration with proper error handling
+                if hasattr(extracted_json, 'items') and callable(getattr(extracted_json, 'items')):
+                    for field_name, field_value in extracted_json.items():
+                        if isinstance(field_value, dict):
+                            # Structured field with metadata
+                            extracted_fields[field_name] = ExtractedField(
+                                name=field_name,
+                                value=field_value.get('value', ''),
+                                confidence=field_value.get('confidence', 0.5),
+                                source_location=field_value.get('source_location', ''),
+                                validation_status='pending',
+                                notes=field_value.get('notes', '')
+                            )
+                        else:
+                            # Simple field value
+                            extracted_fields[field_name] = ExtractedField(
+                                name=field_name,
+                                value=str(field_value),
+                                confidence=0.8,  # Default confidence
+                                source_location='',
+                                validation_status='pending',
+                                notes=''
+                            )
+                else:
+                    # Handle case where items() is not available (e.g., list or other type)
+                    logger.warning(f"extracted_json does not have items() method: {type(extracted_json)}")
+                    extracted_fields = {
+                        "raw_extraction": ExtractedField(
+                            name="raw_extraction",
+                            value=str(extracted_json),
+                            confidence=0.5,
                             source_location='',
                             validation_status='pending',
-                            notes=''
+                            notes=f'Non-dict response converted to string: {type(extracted_json)}'
                         )
-            except AttributeError as e:
+                    }
+            except (AttributeError, TypeError) as e:
                 logger.error(f"Error iterating over extracted_json: {e}, type: {type(extracted_json)}")
+                logger.error(f"extracted_json content: {extracted_json}")
                 # Create a fallback field with the raw content
                 extracted_fields = {
                     "raw_extraction": ExtractedField(
@@ -695,12 +750,51 @@ class OpenRouterExtractionService:
                         notes=f'Failed to parse response: {str(e)}'
                     )
                 }
+            
+            # Final validation that we're returning a dict of ExtractedField objects
+            if not isinstance(extracted_fields, dict):
+                logger.error(f"extracted_fields is not a dict: {type(extracted_fields)}")
+                extracted_fields = {
+                    'error': ExtractedField(
+                        name='error',
+                        value='Invalid extraction result type',
+                        confidence=0.0,
+                        source_location='',
+                        validation_status='error',
+                        notes=f'Expected dict, got {type(extracted_fields)}'
+                    )
+                }
                     
             return extracted_fields
             
-        except (KeyError, IndexError) as e:
+        except (KeyError, IndexError, ValueError) as e:
             logger.error(f"Unexpected API response format: {str(e)}")
-            raise OpenRouterAPIError(f"Invalid API response format: {str(e)}")
+            logger.error(f"Response data: {response_data}")
+            # Return a safe fallback instead of raising an exception
+            return {
+                'error': ExtractedField(
+                    name='error',
+                    value=f'API response format error: {str(e)}',
+                    confidence=0.0,
+                    source_location='',
+                    validation_status='error',
+                    notes=f'Failed to parse API response: {str(e)}'
+                )
+            }
+        except Exception as e:
+            logger.error(f"Unexpected error in response processing: {str(e)}")
+            logger.error(f"Response data: {response_data}")
+            # Return a safe fallback for any other unexpected errors
+            return {
+                'error': ExtractedField(
+                    name='error',
+                    value=f'Unexpected processing error: {str(e)}',
+                    confidence=0.0,
+                    source_location='',
+                    validation_status='error',
+                    notes=f'Unexpected error during response processing: {str(e)}'
+                )
+            }
             
     def _process_vision_response(self, response_data: Dict[str, Any]) -> Dict[str, Any]:
         """Process vision API response"""

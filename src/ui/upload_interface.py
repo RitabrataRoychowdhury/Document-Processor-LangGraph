@@ -953,7 +953,17 @@ class UploadInterface:
             
             # Process with file handler
             if self.file_handler:
-                result = self.file_handler.process_file(file_content, file_metadata)
+                extracted_text, metadata, error_message = self.file_handler.process_file(uploaded_file)
+                
+                if error_message:
+                    st.error(f"❌ Processing failed: {error_message}")
+                    return None
+                
+                result = {
+                    'extracted_text': extracted_text,
+                    'metadata': metadata,
+                    'success': True
+                }
                 
                 if result:
                     # Store in session state

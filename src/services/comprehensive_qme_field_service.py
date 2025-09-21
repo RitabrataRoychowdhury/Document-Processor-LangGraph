@@ -25,6 +25,7 @@ from src.models.extraction_models import (
 )
 from src.core.extraction.field_extraction_service import FieldExtractionService, FieldExtractionConfig
 from src.core.extraction.openrouter_extraction_service import OpenRouterExtractionService
+from src.core.extraction.gemini_extraction_service import GeminiExtractionService
 
 # Optional dependencies with graceful degradation
 try:
@@ -303,21 +304,26 @@ class ComprehensiveQMEFieldService(IExtractionService):
                 original_error=e
             )
         
-        # AI-enhanced extraction service (OpenRouter)
+        # AI-enhanced extraction services (OpenRouter and Gemini)
         self.openrouter_service = None
+        self.gemini_service = None
+        
+        # Initialize OpenRouter service
         if self.config.enable_openrouter:
             try:
                 self.openrouter_service = OpenRouterExtractionService()
                 extraction_logger.info("Initialized OpenRouter extraction service")
             except Exception as e:
                 extraction_logger.warning(f"Failed to initialize OpenRouter service: {e}")
-                # This is not critical, continue without OpenRouter
                 self.config.enable_openrouter = False
-                extraction_logger.info("OpenRouter service initialized successfully")
-            except Exception as e:
-                extraction_logger.warning(f"Failed to initialize OpenRouter service: {str(e)}")
-                if not self.config.fallback_to_rule_based:
-                    raise
+        
+        # Initialize Gemini service as fallback
+        try:
+            self.gemini_service = GeminiExtractionService()
+            extraction_logger.info("Initialized Gemini extraction service")
+        except Exception as e:
+            extraction_logger.warning(f"Failed to initialize Gemini service: {e}")
+            # Gemini is optional, continue without it
     
     def _initialize_document_type_patterns(self) -> None:
         """Initialize patterns for document type detection."""
@@ -538,65 +544,118 @@ class ComprehensiveQMEFieldService(IExtractionService):
         doc_config: Dict[str, Any],
         document_id: str
     ) -> ComprehensiveExtractionResult:
-        """Extract fields using AI-enhanced methods (OpenRouter)."""
+        """Extract fields using multi-layer AI fallback: OpenRouter → Gemini → Rule-based."""
         start_time = time.time()
         
-        if not self.openrouter_service:
-            if self.config.fallback_to_rule_based:
-                extraction_logger.warning("OpenRouter not available, falling back to rule-based extraction")
-                return await self._extract_rule_based(document_path, document_type, doc_config, document_id)
-            else:
-                raise RuntimeError("OpenRouter service not available and fallback disabled")
+        # Create extraction configuration
+        extraction_config = ExtractionConfig(
+            prompt_template=doc_config.get("extraction_prompts", "default_extraction"),
+            extraction_method=ExtractionMethod.OPENROUTER_CLAUDE,
+            quality_threshold=self.config.confidence_threshold
+        )
         
-        try:
-            # Create extraction configuration
-            extraction_config = ExtractionConfig(
-                prompt_template=doc_config.get("extraction_prompts", "default_extraction"),
-                extraction_method=ExtractionMethod.OPENROUTER_CLAUDE,
-                quality_threshold=self.config.confidence_threshold
-            )
-            
-            # Perform OpenRouter extraction
-            openrouter_result = self.openrouter_service.extract_from_document(
-                document_path, extraction_config
-            )
-            
-            # Convert to comprehensive result format
-            confidence_scores = {
-                name: field.confidence for name, field in openrouter_result.extracted_fields.items()
-            }
-            
-            evidence_snippets = {}
-            for name, field in openrouter_result.extracted_fields.items():
-                evidence_snippets[name] = [field.source_location] if field.source_location else []
-            
-            processing_time = time.time() - start_time
-            
-            return ComprehensiveExtractionResult(
-                document_id=document_id,
-                document_type=document_type,
-                extraction_strategy=ExtractionStrategy.AI_ENHANCED,
-                success=True,
-                extracted_fields=openrouter_result.extracted_fields,
-                field_confidence_scores=confidence_scores,
-                evidence_snippets=evidence_snippets,
-                source_references=openrouter_result.source_references,
-                quality_assessment=openrouter_result.quality_assessment,
-                validation_results=openrouter_result.validation_results,
-                processing_metadata=openrouter_result.processing_metadata,
-                extraction_errors=[],
-                warnings=[],
-                processing_time=processing_time,
-                api_calls_made=1
-            )
-            
-        except Exception as e:
-            extraction_logger.error(f"AI-enhanced extraction failed: {str(e)}")
-            if self.config.fallback_to_rule_based:
-                extraction_logger.info("Falling back to rule-based extraction")
-                return await self._extract_rule_based(document_path, document_type, doc_config, document_id)
-            else:
-                raise
+        # Layer 1: Try OpenRouter first
+        if self.openrouter_service:
+            try:
+                extraction_logger.info("Attempting extraction with OpenRouter (Layer 1)")
+                openrouter_result = self.openrouter_service.extract_from_document(
+                    document_path, extraction_config
+                )
+                
+                # Check if result is good quality
+                if self._is_extraction_result_acceptable(openrouter_result):
+                    extraction_logger.info("OpenRouter extraction successful")
+                    return self._convert_to_comprehensive_result(
+                        openrouter_result, document_id, document_type, 
+                        ExtractionStrategy.AI_ENHANCED, "openrouter", start_time
+                    )
+                else:
+                    extraction_logger.warning("OpenRouter extraction quality too low, trying fallback")
+                    
+            except Exception as e:
+                extraction_logger.warning(f"OpenRouter extraction failed: {str(e)}, trying fallback")
+        
+        # Layer 2: Try Gemini as fallback
+        if self.gemini_service:
+            try:
+                extraction_logger.info("Attempting extraction with Gemini (Layer 2)")
+                gemini_result = self.gemini_service.extract_from_document(
+                    document_path, extraction_config
+                )
+                
+                # Check if result is acceptable
+                if self._is_extraction_result_acceptable(gemini_result):
+                    extraction_logger.info("Gemini extraction successful")
+                    return self._convert_to_comprehensive_result(
+                        gemini_result, document_id, document_type, 
+                        ExtractionStrategy.AI_ENHANCED, "gemini", start_time
+                    )
+                else:
+                    extraction_logger.warning("Gemini extraction quality too low, trying rule-based fallback")
+                    
+            except Exception as e:
+                extraction_logger.warning(f"Gemini extraction failed: {str(e)}, trying rule-based fallback")
+        
+        # Layer 3: Fall back to rule-based extraction
+        if self.config.fallback_to_rule_based:
+            extraction_logger.info("Attempting rule-based extraction (Layer 3)")
+            return await self._extract_rule_based(document_path, document_type, doc_config, document_id)
+        else:
+            raise RuntimeError("All AI extraction methods failed and rule-based fallback is disabled")
+    
+    def _is_extraction_result_acceptable(self, result: ExtractionResult) -> bool:
+        """Check if extraction result meets quality thresholds."""
+        if not result or not result.extracted_fields:
+            return False
+        
+        # Check if there are any actual extracted fields (not just error fields)
+        valid_fields = {k: v for k, v in result.extracted_fields.items() if k != 'error' and v.value}
+        if not valid_fields:
+            return False
+        
+        # Check overall confidence score
+        if result.confidence_score < self.config.confidence_threshold:
+            return False
+        
+        return True
+    
+    def _convert_to_comprehensive_result(
+        self, 
+        extraction_result: ExtractionResult, 
+        document_id: str, 
+        document_type: DocumentType,
+        strategy: ExtractionStrategy,
+        method: str,
+        start_time: float
+    ) -> ComprehensiveExtractionResult:
+        """Convert ExtractionResult to ComprehensiveExtractionResult."""
+        confidence_scores = {
+            name: field.confidence for name, field in extraction_result.extracted_fields.items()
+        }
+        
+        evidence_snippets = {}
+        for name, field in extraction_result.extracted_fields.items():
+            evidence_snippets[name] = [field.source_location] if field.source_location else []
+        
+        processing_time = time.time() - start_time
+        
+        return ComprehensiveExtractionResult(
+            document_id=document_id,
+            document_type=document_type,
+            extraction_strategy=strategy,
+            success=True,
+            extracted_fields=extraction_result.extracted_fields,
+            field_confidence_scores=confidence_scores,
+            evidence_snippets=evidence_snippets,
+            source_references=extraction_result.source_references,
+            quality_assessment=extraction_result.quality_assessment,
+            validation_results=extraction_result.validation_results,
+            processing_metadata=extraction_result.processing_metadata,
+            extraction_errors=[],
+            warnings=[],
+            processing_time=processing_time,
+            fallback_used=method != "openrouter"
+        )
     
     async def _extract_hybrid(
         self, 

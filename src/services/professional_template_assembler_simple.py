@@ -83,8 +83,12 @@ class TemplateAssemblyConfig:
     validate_before_assembly: bool = True
     validate_after_assembly: bool = True
     enable_error_recovery: bool = True
+    generate_quality_report: bool = True
+    include_quality_indicators: bool = False
+    include_missing_placeholders: bool = True
     quality_threshold: float = 70.0
     max_retry_attempts: int = 3
+    template_version: str = "1.0"
     
     # Formatting settings
     font_family: str = "Times New Roman"
@@ -304,6 +308,26 @@ class ProfessionalTemplateAssembler(IGenerationService):
             status="completed",
             template_data=template_data
         )
+    
+    def assemble_professional_template(self, template_data: Dict[str, Any], output_path: str = None, **kwargs) -> ProfessionalTemplateResult:
+        """
+        Assemble a professional template with comprehensive validation and formatting.
+        This is the main public interface method.
+        
+        Args:
+            template_data: Dictionary containing template data
+            output_path: Optional output path for the template
+            **kwargs: Additional configuration options
+            
+        Returns:
+            ProfessionalTemplateResult with assembly results
+        """
+        # Store output path if provided
+        if output_path:
+            self.config.output_path = output_path
+            
+        # Call the main assembly method
+        return self.assemble_template(template_data)
     
     def assemble_template(self, template_data: Dict[str, Any]) -> ProfessionalTemplateResult:
         """

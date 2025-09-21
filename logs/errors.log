@@ -1,229 +1,35 @@
-2025-09-18 11:56:21,352 - src.infrastructure.knowledge.knowledge_base_initializer - ERROR - _process_canonical_documents_with_progress:1313 - Exception processing data/canonical/documents/AMAGuides 5th Edition.pdf: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-Traceback (most recent call last):
-  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/infrastructure/knowledge/knowledge_base_initializer.py", line 1297, in _process_canonical_documents_with_progress
-    result = await self.pipeline.process_document(doc_path)
-                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
-TypeError: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-2025-09-18 11:56:21,353 - src.infrastructure.knowledge.knowledge_base_initializer - ERROR - _process_canonical_documents_with_progress:1313 - Exception processing data/canonical/documents/QME-Study-Guide.pdf: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-Traceback (most recent call last):
-  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/infrastructure/knowledge/knowledge_base_initializer.py", line 1297, in _process_canonical_documents_with_progress
-    result = await self.pipeline.process_document(doc_path)
-                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
-TypeError: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-2025-09-18 11:56:21,353 - src.infrastructure.knowledge.knowledge_base_initializer - ERROR - _process_canonical_documents_with_progress:1313 - Exception processing data/sample_documents/Sample3.pdf: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-Traceback (most recent call last):
-  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/infrastructure/knowledge/knowledge_base_initializer.py", line 1297, in _process_canonical_documents_with_progress
-    result = await self.pipeline.process_document(doc_path)
-                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
-TypeError: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-2025-09-18 11:56:21,353 - src.infrastructure.knowledge.knowledge_base_initializer - ERROR - _process_canonical_documents_with_progress:1313 - Exception processing data/sample_documents/Injured worker-PQME-(09.08.2025)-DA CL-09.09.2025.p4.pdf: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-Traceback (most recent call last):
-  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/infrastructure/knowledge/knowledge_base_initializer.py", line 1297, in _process_canonical_documents_with_progress
-    result = await self.pipeline.process_document(doc_path)
-                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
-TypeError: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-2025-09-18 11:56:21,354 - src.infrastructure.knowledge.knowledge_base_initializer - ERROR - _process_canonical_documents_with_progress:1313 - Exception processing data/sample_documents/Injured worker-PQME-(09.05.2025)-AA CL-09.09.2025.p5.pdf: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-Traceback (most recent call last):
-  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/infrastructure/knowledge/knowledge_base_initializer.py", line 1297, in _process_canonical_documents_with_progress
-    result = await self.pipeline.process_document(doc_path)
-                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
-TypeError: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-2025-09-18 12:03:46,612 - src.config.dependency_injection - ERROR - get_embedding_strategy:132 - Failed to create embedding strategy: 'AppConfig' object has no attribute 'embedding_model'
-2025-09-18 12:03:46,613 - src.infrastructure.knowledge.knowledge_base_initializer - ERROR - _process_canonical_documents:276 - Exception processing data/canonical/documents/AMAGuides 5th Edition.pdf: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
+2025-09-20 18:52:00,102 - src.config.dependency_injection - ERROR - get_embedding_strategy:132 - Failed to create embedding strategy: 'AppConfig' object has no attribute 'embedding_model'
+2025-09-20 18:52:00,103 - src.infrastructure.knowledge.knowledge_base_initializer - ERROR - _process_canonical_documents:276 - Exception processing data/canonical/documents/AMAGuides 5th Edition.pdf: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
 Traceback (most recent call last):
   File "/Users/ritabrataroychowdhury/Downloads/Dms/src/infrastructure/knowledge/knowledge_base_initializer.py", line 261, in _process_canonical_documents
     result = await self.pipeline.process_document(doc_path)
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
 TypeError: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-2025-09-18 12:03:46,614 - src.infrastructure.knowledge.knowledge_base_initializer - ERROR - _process_canonical_documents:276 - Exception processing data/canonical/documents/QME-Study-Guide.pdf: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
+2025-09-20 18:52:00,104 - src.infrastructure.knowledge.knowledge_base_initializer - ERROR - _process_canonical_documents:276 - Exception processing data/canonical/documents/QME-Study-Guide.pdf: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
 Traceback (most recent call last):
   File "/Users/ritabrataroychowdhury/Downloads/Dms/src/infrastructure/knowledge/knowledge_base_initializer.py", line 261, in _process_canonical_documents
     result = await self.pipeline.process_document(doc_path)
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
 TypeError: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-2025-09-18 12:03:46,614 - src.infrastructure.knowledge.knowledge_base_initializer - ERROR - _process_canonical_documents:276 - Exception processing data/sample_documents/Sample3.pdf: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
+2025-09-20 18:52:00,105 - src.infrastructure.knowledge.knowledge_base_initializer - ERROR - _process_canonical_documents:276 - Exception processing data/sample_documents/Sample3.pdf: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
 Traceback (most recent call last):
   File "/Users/ritabrataroychowdhury/Downloads/Dms/src/infrastructure/knowledge/knowledge_base_initializer.py", line 261, in _process_canonical_documents
     result = await self.pipeline.process_document(doc_path)
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
 TypeError: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-2025-09-18 12:03:46,615 - src.infrastructure.knowledge.knowledge_base_initializer - ERROR - _process_canonical_documents:276 - Exception processing data/sample_documents/Injured worker-PQME-(09.08.2025)-DA CL-09.09.2025.p4.pdf: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
+2025-09-20 18:52:00,105 - src.infrastructure.knowledge.knowledge_base_initializer - ERROR - _process_canonical_documents:276 - Exception processing data/sample_documents/Injured worker-PQME-(09.08.2025)-DA CL-09.09.2025.p4.pdf: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
 Traceback (most recent call last):
   File "/Users/ritabrataroychowdhury/Downloads/Dms/src/infrastructure/knowledge/knowledge_base_initializer.py", line 261, in _process_canonical_documents
     result = await self.pipeline.process_document(doc_path)
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
 TypeError: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-2025-09-18 12:03:46,615 - src.infrastructure.knowledge.knowledge_base_initializer - ERROR - _process_canonical_documents:276 - Exception processing data/sample_documents/Injured worker-PQME-(09.05.2025)-AA CL-09.09.2025.p5.pdf: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
+2025-09-20 18:52:00,106 - src.infrastructure.knowledge.knowledge_base_initializer - ERROR - _process_canonical_documents:276 - Exception processing data/sample_documents/Injured worker-PQME-(09.05.2025)-AA CL-09.09.2025.p5.pdf: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
 Traceback (most recent call last):
   File "/Users/ritabrataroychowdhury/Downloads/Dms/src/infrastructure/knowledge/knowledge_base_initializer.py", line 261, in _process_canonical_documents
     result = await self.pipeline.process_document(doc_path)
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
 TypeError: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-2025-09-18 12:04:49,344 - __main__ - ERROR - render_knowledge_base_setup_page:1309 - Knowledge base setup page error: cannot import name 'get_document_status' from 'src.core.extraction.document_processor' (/Users/ritabrataroychowdhury/Downloads/Dms/src/core/extraction/document_processor.py)
-Traceback (most recent call last):
-  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/ui/main_app.py", line 1120, in render_knowledge_base_setup_page
-    from src.core.extraction.document_processor import get_document_status, list_processed_documents
-ImportError: cannot import name 'get_document_status' from 'src.core.extraction.document_processor' (/Users/ritabrataroychowdhury/Downloads/Dms/src/core/extraction/document_processor.py)
-2025-09-18 12:10:00,646 - src.config.dependency_injection - ERROR - get_embedding_strategy:132 - Failed to create embedding strategy: 'AppConfig' object has no attribute 'embedding_model'
-2025-09-18 12:10:00,647 - src.infrastructure.knowledge.knowledge_base_initializer - ERROR - _process_canonical_documents:276 - Exception processing data/canonical/documents/AMAGuides 5th Edition.pdf: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-Traceback (most recent call last):
-  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/infrastructure/knowledge/knowledge_base_initializer.py", line 261, in _process_canonical_documents
-    result = await self.pipeline.process_document(doc_path)
-                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
-TypeError: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-2025-09-18 12:10:00,647 - src.infrastructure.knowledge.knowledge_base_initializer - ERROR - _process_canonical_documents:276 - Exception processing data/canonical/documents/QME-Study-Guide.pdf: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-Traceback (most recent call last):
-  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/infrastructure/knowledge/knowledge_base_initializer.py", line 261, in _process_canonical_documents
-    result = await self.pipeline.process_document(doc_path)
-                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
-TypeError: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-2025-09-18 12:10:00,648 - src.infrastructure.knowledge.knowledge_base_initializer - ERROR - _process_canonical_documents:276 - Exception processing data/sample_documents/Sample3.pdf: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-Traceback (most recent call last):
-  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/infrastructure/knowledge/knowledge_base_initializer.py", line 261, in _process_canonical_documents
-    result = await self.pipeline.process_document(doc_path)
-                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
-TypeError: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-2025-09-18 12:10:00,648 - src.infrastructure.knowledge.knowledge_base_initializer - ERROR - _process_canonical_documents:276 - Exception processing data/sample_documents/Injured worker-PQME-(09.08.2025)-DA CL-09.09.2025.p4.pdf: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-Traceback (most recent call last):
-  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/infrastructure/knowledge/knowledge_base_initializer.py", line 261, in _process_canonical_documents
-    result = await self.pipeline.process_document(doc_path)
-                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
-TypeError: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-2025-09-18 12:10:00,648 - src.infrastructure.knowledge.knowledge_base_initializer - ERROR - _process_canonical_documents:276 - Exception processing data/sample_documents/Injured worker-PQME-(09.05.2025)-AA CL-09.09.2025.p5.pdf: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-Traceback (most recent call last):
-  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/infrastructure/knowledge/knowledge_base_initializer.py", line 261, in _process_canonical_documents
-    result = await self.pipeline.process_document(doc_path)
-                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
-TypeError: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-2025-09-18 12:10:49,633 - __main__ - ERROR - render_knowledge_base_setup_page:1309 - Knowledge base setup page error: 'coroutine' object is not iterable
-Traceback (most recent call last):
-  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/ui/main_app.py", line 1123, in render_knowledge_base_setup_page
-    processed_names = [doc['title'] for doc in processed_docs]
-                                               ^^^^^^^^^^^^^^
-TypeError: 'coroutine' object is not iterable
-2025-09-18 12:15:22,521 - src.infrastructure.knowledge.knowledge_base_initializer - ERROR - _process_canonical_documents_with_progress:1313 - Exception processing data/canonical/documents/AMAGuides 5th Edition.pdf: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-Traceback (most recent call last):
-  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/infrastructure/knowledge/knowledge_base_initializer.py", line 1297, in _process_canonical_documents_with_progress
-    result = await self.pipeline.process_document(doc_path)
-                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
-TypeError: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-2025-09-18 12:15:22,523 - src.infrastructure.knowledge.knowledge_base_initializer - ERROR - _process_canonical_documents_with_progress:1313 - Exception processing data/canonical/documents/QME-Study-Guide.pdf: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-Traceback (most recent call last):
-  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/infrastructure/knowledge/knowledge_base_initializer.py", line 1297, in _process_canonical_documents_with_progress
-    result = await self.pipeline.process_document(doc_path)
-                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
-TypeError: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-2025-09-18 12:15:22,523 - src.infrastructure.knowledge.knowledge_base_initializer - ERROR - _process_canonical_documents_with_progress:1313 - Exception processing data/sample_documents/Sample3.pdf: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-Traceback (most recent call last):
-  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/infrastructure/knowledge/knowledge_base_initializer.py", line 1297, in _process_canonical_documents_with_progress
-    result = await self.pipeline.process_document(doc_path)
-                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
-TypeError: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-2025-09-18 12:15:22,523 - src.infrastructure.knowledge.knowledge_base_initializer - ERROR - _process_canonical_documents_with_progress:1313 - Exception processing data/sample_documents/Injured worker-PQME-(09.08.2025)-DA CL-09.09.2025.p4.pdf: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-Traceback (most recent call last):
-  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/infrastructure/knowledge/knowledge_base_initializer.py", line 1297, in _process_canonical_documents_with_progress
-    result = await self.pipeline.process_document(doc_path)
-                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
-TypeError: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-2025-09-18 12:15:22,524 - src.infrastructure.knowledge.knowledge_base_initializer - ERROR - _process_canonical_documents_with_progress:1313 - Exception processing data/sample_documents/Injured worker-PQME-(09.05.2025)-AA CL-09.09.2025.p5.pdf: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-Traceback (most recent call last):
-  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/infrastructure/knowledge/knowledge_base_initializer.py", line 1297, in _process_canonical_documents_with_progress
-    result = await self.pipeline.process_document(doc_path)
-                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
-TypeError: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-2025-09-18 12:15:27,748 - src.config.dependency_injection - ERROR - get_embedding_strategy:132 - Failed to create embedding strategy: 'AppConfig' object has no attribute 'embedding_model'
-2025-09-18 12:15:27,749 - src.infrastructure.knowledge.knowledge_base_initializer - ERROR - _process_canonical_documents:276 - Exception processing data/canonical/documents/AMAGuides 5th Edition.pdf: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-Traceback (most recent call last):
-  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/infrastructure/knowledge/knowledge_base_initializer.py", line 261, in _process_canonical_documents
-    result = await self.pipeline.process_document(doc_path)
-                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
-TypeError: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-2025-09-18 12:15:27,750 - src.infrastructure.knowledge.knowledge_base_initializer - ERROR - _process_canonical_documents:276 - Exception processing data/canonical/documents/QME-Study-Guide.pdf: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-Traceback (most recent call last):
-  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/infrastructure/knowledge/knowledge_base_initializer.py", line 261, in _process_canonical_documents
-    result = await self.pipeline.process_document(doc_path)
-                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
-TypeError: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-2025-09-18 12:15:27,750 - src.infrastructure.knowledge.knowledge_base_initializer - ERROR - _process_canonical_documents:276 - Exception processing data/sample_documents/Sample3.pdf: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-Traceback (most recent call last):
-  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/infrastructure/knowledge/knowledge_base_initializer.py", line 261, in _process_canonical_documents
-    result = await self.pipeline.process_document(doc_path)
-                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
-TypeError: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-2025-09-18 12:15:27,750 - src.infrastructure.knowledge.knowledge_base_initializer - ERROR - _process_canonical_documents:276 - Exception processing data/sample_documents/Injured worker-PQME-(09.08.2025)-DA CL-09.09.2025.p4.pdf: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-Traceback (most recent call last):
-  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/infrastructure/knowledge/knowledge_base_initializer.py", line 261, in _process_canonical_documents
-    result = await self.pipeline.process_document(doc_path)
-                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
-TypeError: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-2025-09-18 12:15:27,751 - src.infrastructure.knowledge.knowledge_base_initializer - ERROR - _process_canonical_documents:276 - Exception processing data/sample_documents/Injured worker-PQME-(09.05.2025)-AA CL-09.09.2025.p5.pdf: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-Traceback (most recent call last):
-  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/infrastructure/knowledge/knowledge_base_initializer.py", line 261, in _process_canonical_documents
-    result = await self.pipeline.process_document(doc_path)
-                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
-TypeError: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-2025-09-18 12:16:48,788 - src.core.extraction.openrouter_extraction_service - ERROR - extract_from_document:314 - Primary extraction failed for /var/folders/tf/v4z6mt_s343b3c611hlfc_jh0000gn/T/qme_temp_dc0debebffba45f38b43a23bfd58c89e.txt: 'list' object has no attribute 'items'
-2025-09-18 12:16:56,356 - src.core.extraction.openrouter_extraction_service - ERROR - extract_from_document:314 - Primary extraction failed for /var/folders/tf/v4z6mt_s343b3c611hlfc_jh0000gn/T/qme_temp_a9698a845ec44de4b63e00fd1fd8d6f9.txt: 'list' object has no attribute 'items'
-2025-09-18 12:26:28,558 - src.infrastructure.knowledge.knowledge_base_initializer - ERROR - _process_canonical_documents_with_progress:1313 - Exception processing data/canonical/documents/AMAGuides 5th Edition.pdf: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-Traceback (most recent call last):
-  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/infrastructure/knowledge/knowledge_base_initializer.py", line 1297, in _process_canonical_documents_with_progress
-    result = await self.pipeline.process_document(doc_path)
-                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
-TypeError: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-2025-09-18 12:26:28,560 - src.infrastructure.knowledge.knowledge_base_initializer - ERROR - _process_canonical_documents_with_progress:1313 - Exception processing data/canonical/documents/QME-Study-Guide.pdf: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-Traceback (most recent call last):
-  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/infrastructure/knowledge/knowledge_base_initializer.py", line 1297, in _process_canonical_documents_with_progress
-    result = await self.pipeline.process_document(doc_path)
-                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
-TypeError: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-2025-09-18 12:26:28,560 - src.infrastructure.knowledge.knowledge_base_initializer - ERROR - _process_canonical_documents_with_progress:1313 - Exception processing data/sample_documents/Sample3.pdf: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-Traceback (most recent call last):
-  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/infrastructure/knowledge/knowledge_base_initializer.py", line 1297, in _process_canonical_documents_with_progress
-    result = await self.pipeline.process_document(doc_path)
-                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
-TypeError: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-2025-09-18 12:26:28,561 - src.infrastructure.knowledge.knowledge_base_initializer - ERROR - _process_canonical_documents_with_progress:1313 - Exception processing data/sample_documents/Injured worker-PQME-(09.08.2025)-DA CL-09.09.2025.p4.pdf: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-Traceback (most recent call last):
-  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/infrastructure/knowledge/knowledge_base_initializer.py", line 1297, in _process_canonical_documents_with_progress
-    result = await self.pipeline.process_document(doc_path)
-                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
-TypeError: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-2025-09-18 12:26:28,561 - src.infrastructure.knowledge.knowledge_base_initializer - ERROR - _process_canonical_documents_with_progress:1313 - Exception processing data/sample_documents/Injured worker-PQME-(09.05.2025)-AA CL-09.09.2025.p5.pdf: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-Traceback (most recent call last):
-  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/infrastructure/knowledge/knowledge_base_initializer.py", line 1297, in _process_canonical_documents_with_progress
-    result = await self.pipeline.process_document(doc_path)
-                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
-TypeError: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-2025-09-18 12:26:33,390 - src.config.dependency_injection - ERROR - get_embedding_strategy:132 - Failed to create embedding strategy: 'AppConfig' object has no attribute 'embedding_model'
-2025-09-18 12:26:33,391 - src.infrastructure.knowledge.knowledge_base_initializer - ERROR - _process_canonical_documents:276 - Exception processing data/canonical/documents/AMAGuides 5th Edition.pdf: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-Traceback (most recent call last):
-  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/infrastructure/knowledge/knowledge_base_initializer.py", line 261, in _process_canonical_documents
-    result = await self.pipeline.process_document(doc_path)
-                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
-TypeError: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-2025-09-18 12:26:33,391 - src.infrastructure.knowledge.knowledge_base_initializer - ERROR - _process_canonical_documents:276 - Exception processing data/canonical/documents/QME-Study-Guide.pdf: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-Traceback (most recent call last):
-  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/infrastructure/knowledge/knowledge_base_initializer.py", line 261, in _process_canonical_documents
-    result = await self.pipeline.process_document(doc_path)
-                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
-TypeError: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-2025-09-18 12:26:33,392 - src.infrastructure.knowledge.knowledge_base_initializer - ERROR - _process_canonical_documents:276 - Exception processing data/sample_documents/Sample3.pdf: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-Traceback (most recent call last):
-  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/infrastructure/knowledge/knowledge_base_initializer.py", line 261, in _process_canonical_documents
-    result = await self.pipeline.process_document(doc_path)
-                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
-TypeError: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-2025-09-18 12:26:33,392 - src.infrastructure.knowledge.knowledge_base_initializer - ERROR - _process_canonical_documents:276 - Exception processing data/sample_documents/Injured worker-PQME-(09.08.2025)-DA CL-09.09.2025.p4.pdf: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-Traceback (most recent call last):
-  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/infrastructure/knowledge/knowledge_base_initializer.py", line 261, in _process_canonical_documents
-    result = await self.pipeline.process_document(doc_path)
-                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
-TypeError: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-2025-09-18 12:26:33,392 - src.infrastructure.knowledge.knowledge_base_initializer - ERROR - _process_canonical_documents:276 - Exception processing data/sample_documents/Injured worker-PQME-(09.05.2025)-AA CL-09.09.2025.p5.pdf: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-Traceback (most recent call last):
-  File "/Users/ritabrataroychowdhury/Downloads/Dms/src/infrastructure/knowledge/knowledge_base_initializer.py", line 261, in _process_canonical_documents
-    result = await self.pipeline.process_document(doc_path)
-                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
-TypeError: IngestionPipeline.process_document() missing 1 required positional argument: 'document_id'
-2025-09-18 12:27:54,171 - src.core.extraction.openrouter_extraction_service - ERROR - extract_from_document:314 - Primary extraction failed for /var/folders/tf/v4z6mt_s343b3c611hlfc_jh0000gn/T/qme_temp_8dc4dda38f2d4d5abb1e63f89304ef35.txt: 'list' object has no attribute 'items'
-2025-09-18 12:28:00,042 - src.core.extraction.openrouter_extraction_service - ERROR - extract_from_document:314 - Primary extraction failed for /var/folders/tf/v4z6mt_s343b3c611hlfc_jh0000gn/T/qme_temp_8aaab1a818424078b4d02d3647d7d9d1.txt: 'list' object has no attribute 'items'
+2025-09-20 18:55:31,129 - src.core.extraction.openrouter_extraction_service - ERROR - _make_api_call:592 - Sonoma Sky Alpha API call failed: Error code: 404 - {'error': {'message': 'No endpoints found for openrouter/sonoma-sky-alpha.', 'code': 404}, 'user_id': 'user_32myoHPbmci6j0HbZByDCreP2B8'}
+2025-09-20 18:55:31,130 - src.core.extraction.openrouter_extraction_service - ERROR - extract_from_document:314 - Primary extraction failed for /var/folders/tf/v4z6mt_s343b3c611hlfc_jh0000gn/T/qme_temp_dbc816bd99f94183b9d8e20f185d5edc.txt: API call failed: Error code: 404 - {'error': {'message': 'No endpoints found for openrouter/sonoma-sky-alpha.', 'code': 404}, 'user_id': 'user_32myoHPbmci6j0HbZByDCreP2B8'}
+2025-09-20 18:55:36,505 - src.core.extraction.openrouter_extraction_service - ERROR - _make_api_call:592 - Sonoma Sky Alpha API call failed: Error code: 404 - {'error': {'message': 'No endpoints found for openrouter/sonoma-sky-alpha.', 'code': 404}, 'user_id': 'user_32myoHPbmci6j0HbZByDCreP2B8'}
+2025-09-20 18:55:36,505 - src.core.extraction.openrouter_extraction_service - ERROR - extract_from_document:314 - Primary extraction failed for /var/folders/tf/v4z6mt_s343b3c611hlfc_jh0000gn/T/qme_temp_e7fa720db523467396cf95ffaaa57f86.txt: API call failed: Error code: 404 - {'error': {'message': 'No endpoints found for openrouter/sonoma-sky-alpha.', 'code': 404}, 'user_id': 'user_32myoHPbmci6j0HbZByDCreP2B8'}
